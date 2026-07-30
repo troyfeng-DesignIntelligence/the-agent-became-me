@@ -15,6 +15,7 @@ import {
   formatRate,
   humanizeCondition,
   orderedUnique,
+  readableTextColor,
   useChartIds,
   type ChartCopy
 } from "./shared";
@@ -31,9 +32,17 @@ export interface SensitivityDatum {
   learningRate: number;
   runCount?: number;
   profileContamination: number;
+  profileContaminationP10?: number;
+  profileContaminationP90?: number;
   futureRecommendationRegret: number;
+  futureRecommendationRegretP10?: number;
+  futureRecommendationRegretP90?: number;
   taskUtility: number;
+  taskUtilityP10?: number;
+  taskUtilityP90?: number;
   attributionErrorRate: number;
+  attributionErrorRateP10?: number;
+  attributionErrorRateP90?: number;
 }
 
 export interface SensitivityHeatmapProps extends ChartCopy {
@@ -47,11 +56,28 @@ export interface SensitivityHeatmapProps extends ChartCopy {
 }
 
 const METRIC_LABELS: Record<SensitivityMetric, string> = {
-  profileContamination: "Profile contamination",
-  futureRecommendationRegret: "Future recommendation regret",
+  profileContamination: "Reference-profile divergence",
+  futureRecommendationRegret: "Simulated top-6 ranking loss",
   taskUtility: "Task utility",
   attributionErrorRate: "Attribution error rate"
 };
+
+function metricQuantile(
+  datum: SensitivityDatum,
+  metric: SensitivityMetric,
+  quantile: "P10" | "P90"
+): number | undefined {
+  const field = `${metric}${quantile}` as
+    | "profileContaminationP10"
+    | "profileContaminationP90"
+    | "futureRecommendationRegretP10"
+    | "futureRecommendationRegretP90"
+    | "taskUtilityP10"
+    | "taskUtilityP90"
+    | "attributionErrorRateP10"
+    | "attributionErrorRateP90";
+  return datum[field];
+}
 
 export function SensitivityHeatmap({
   data,
@@ -141,7 +167,12 @@ export function SensitivityHeatmap({
     <figure className={cx("vis", "vis--sensitivity-heatmap", className)}>
       <ChartHeader title={resolvedTitle} subtitle={resolvedSubtitle} />
       <p className="vis__semantic-summary">{semanticSummary}</p>
-      <div className="vis__scroll-region" style={{ overflowX: "auto" }}>
+      <div
+        aria-label="Scrollable sensitivity heatmap"
+        className="vis__scroll-region"
+        style={{ overflowX: "auto" }}
+        tabIndex={0}
+      >
         <svg
           className="vis__svg sensitivity-heatmap__svg"
           viewBox={`0 0 ${width} ${resolvedHeight}`}
@@ -239,11 +270,10 @@ export function SensitivityHeatmap({
                         `${condition}\u0000${noise}\u0000${rate}`
                       );
                       const value = datum?.[metric];
-                      const normalized =
+                      const background =
                         value === undefined
-                          ? 0
-                          : (value - domainMin) /
-                            Math.max(0.0001, domainMax - domainMin);
+                          ? VIS_COLORS.paper
+                          : color(value);
                       return (
                         <g
                           className="sensitivity-heatmap__cell"
@@ -259,7 +289,7 @@ export function SensitivityHeatmap({
                             fill={
                               value === undefined
                                 ? `url(#${ids.missingPatternId})`
-                                : color(value)
+                                : background
                             }
                             stroke={VIS_COLORS.paper}
                             strokeWidth={1}
@@ -286,11 +316,7 @@ export function SensitivityHeatmap({
                             x={(x(noise) ?? 0) + x.bandwidth() / 2}
                             y={(y(rate) ?? 0) + y.bandwidth() / 2 + 4}
                             textAnchor="middle"
-                            fill={
-                              normalized > 0.6
-                                ? "#ffffff"
-                                : VIS_COLORS.ink
-                            }
+                            fill={readableTextColor(background)}
                             fontFamily="'IBM Plex Mono', monospace"
                             fontSize={11}
                             pointerEvents="none"
@@ -398,6 +424,22 @@ export function SensitivityHeatmap({
               render: (row) => formatter(row[metric])
             },
             {
+              key: "p10",
+              header: `${metricLabel} P10`,
+              render: (row) => {
+                const value = metricQuantile(row, metric, "P10");
+                return value === undefined ? "—" : formatter(value);
+              }
+            },
+            {
+              key: "p90",
+              header: `${metricLabel} P90`,
+              render: (row) => {
+                const value = metricQuantile(row, metric, "P90");
+                return value === undefined ? "—" : formatter(value);
+              }
+            },
+            {
               key: "runs",
               header: "Runs",
               render: (row) => row.runCount ?? "—"
@@ -408,4 +450,3 @@ export function SensitivityHeatmap({
     </figure>
   );
 }
-

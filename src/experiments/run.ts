@@ -13,7 +13,7 @@ import { generateBehaviorTrace } from "../sim/trace";
 import { replayTrace, type ReplayResult } from "./replay";
 
 export interface ExperimentRow {
-  study: "A" | "B";
+  study: "A" | "B" | "C";
   condition: StudyACondition | StudyBCondition;
   scenarioId: string;
   scenarioLabel: string;
@@ -26,6 +26,10 @@ export interface ExperimentRow {
   futureRecommendationRegret: number;
   taskUtility: number;
   attributionErrorRate: number;
+  actorRecordingErrorRate: number;
+  intentLabelErrorRate: number;
+  provenanceUseRate: number;
+  persistentUpdateRate: number;
   interactionCost: number;
   constraintViolations: number;
 }
@@ -36,7 +40,12 @@ export interface RepresentativeReplay {
   seed: number;
   trace: ReturnType<typeof generateBehaviorTrace>;
   worlds: Record<
-    "actor-blind" | "provenance-aware" | "approval-gated",
+    | "actor-blind"
+    | "logged-only"
+    | "matched-attenuation"
+    | "provenance-aware"
+    | "scope-gated"
+    | "no-update",
     ReplayResult
   >;
 }
@@ -57,17 +66,20 @@ export interface ExperimentOutput {
     seedsPerCell: number;
     studyAConditions: readonly StudyACondition[];
     studyBConditions: readonly StudyBCondition[];
+    studyCScenarioId: string;
+    studyCInitialProfile: "disclosed-reference";
     baselineLabelNoise: number;
     baselineLearningRate: number;
   };
   studyA: ExperimentRow[];
   studyB: ExperimentRow[];
+  studyC: ExperimentRow[];
   sensitivity: ExperimentRow[];
   representative: RepresentativeReplay;
 }
 
 const toRow = (
-  study: "A" | "B",
+  study: "A" | "B" | "C",
   condition: StudyACondition | StudyBCondition,
   scenario: Scenario,
   policy: Policy,
@@ -97,6 +109,7 @@ export function runExperiment(
   const baselineLearningRate = 0.22;
   const studyA: ExperimentRow[] = [];
   const studyB: ExperimentRow[] = [];
+  const studyC: ExperimentRow[] = [];
   const sensitivity: ExperimentRow[] = [];
 
   for (const scenario of SCENARIOS) {
@@ -156,6 +169,48 @@ export function runExperiment(
             )
           );
         }
+      }
+    }
+  }
+
+  const learningNeededScenario = SCENARIOS.find(
+    (scenario) => scenario.id === "weekly-breakfast"
+  );
+  if (!learningNeededScenario) {
+    throw new Error("Missing registered weekly-breakfast stress scenario.");
+  }
+  for (const policy of POLICIES) {
+    for (let seed = 1; seed <= seedsPerCell; seed += 1) {
+      const trace = generateBehaviorTrace(
+        products,
+        learningNeededScenario,
+        policy,
+        seed,
+        { labelNoise: baselineLabelNoise }
+      );
+      for (const condition of STUDY_A_CONDITIONS) {
+        const replay = replayTrace(
+          products,
+          learningNeededScenario,
+          trace,
+          {
+            studyACondition: condition,
+            learningRate: baselineLearningRate,
+            initialProfile: learningNeededScenario.disclosedReference
+          }
+        );
+        studyC.push(
+          toRow(
+            "C",
+            condition,
+            learningNeededScenario,
+            policy,
+            seed,
+            baselineLabelNoise,
+            baselineLearningRate,
+            replay
+          )
+        );
       }
     }
   }
@@ -226,11 +281,14 @@ export function runExperiment(
       seedsPerCell,
       studyAConditions: STUDY_A_CONDITIONS,
       studyBConditions: STUDY_B_CONDITIONS,
+      studyCScenarioId: learningNeededScenario.id,
+      studyCInitialProfile: "disclosed-reference",
       baselineLabelNoise,
       baselineLearningRate
     },
     studyA,
     studyB,
+    studyC,
     sensitivity,
     representative: {
       scenario: representativeScenario,
@@ -247,6 +305,15 @@ export function runExperiment(
             learningRate: baselineLearningRate
           }
         ),
+        "logged-only": replayTrace(
+          products,
+          representativeScenario,
+          representativeTrace,
+          {
+            studyACondition: "logged-only",
+            learningRate: baselineLearningRate
+          }
+        ),
         "provenance-aware": replayTrace(
           products,
           representativeScenario,
@@ -256,12 +323,30 @@ export function runExperiment(
             learningRate: baselineLearningRate
           }
         ),
-        "approval-gated": replayTrace(
+        "scope-gated": replayTrace(
           products,
           representativeScenario,
           representativeTrace,
           {
-            studyACondition: "approval-gated",
+            studyACondition: "scope-gated",
+            learningRate: baselineLearningRate
+          }
+        ),
+        "matched-attenuation": replayTrace(
+          products,
+          representativeScenario,
+          representativeTrace,
+          {
+            studyACondition: "matched-attenuation",
+            learningRate: baselineLearningRate
+          }
+        ),
+        "no-update": replayTrace(
+          products,
+          representativeScenario,
+          representativeTrace,
+          {
+            studyACondition: "no-update",
             learningRate: baselineLearningRate
           }
         )

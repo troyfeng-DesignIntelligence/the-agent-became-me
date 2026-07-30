@@ -8,11 +8,40 @@ const outputDirectory = path.resolve(
   process.env.QA_OUTPUT ?? "artifacts/qa"
 );
 const browserChannel = process.env.PLAYWRIGHT_CHANNEL ?? "msedge";
+const maximumReadyAttempts = 30;
+const readyRetryDelayMs = 500;
+const readyRequestTimeoutMs = 1500;
 const failures = [];
 const observations = [];
 
 function check(condition, message) {
   if (!condition) failures.push(message);
+}
+
+async function waitForSite() {
+  let lastFailure = "no response";
+  for (let attempt = 1; attempt <= maximumReadyAttempts; attempt += 1) {
+    try {
+      const response = await fetch(siteUrl, {
+        signal: AbortSignal.timeout(readyRequestTimeoutMs)
+      });
+      await response.body?.cancel();
+      if (response.ok) return;
+      lastFailure = `HTTP ${response.status}`;
+    } catch (error) {
+      lastFailure = error instanceof Error ? error.message : String(error);
+    }
+
+    if (attempt < maximumReadyAttempts) {
+      await new Promise((resolveDelay) =>
+        setTimeout(resolveDelay, readyRetryDelayMs)
+      );
+    }
+  }
+
+  throw new Error(
+    `Site did not become ready at ${siteUrl} after ${maximumReadyAttempts} attempts (${lastFailure}).`
+  );
 }
 
 async function pageOverflow(page) {
@@ -77,8 +106,22 @@ async function desktopPass(browser) {
     "Desktop: the project title is missing."
   );
   check(
-    (await page.locator(".headline-findings").innerText()).includes("−40%"),
-    "Desktop: the generated headline metrics did not load."
+    (await page.locator(".evidence-intro").innerText()).includes(
+      "Selective provenance did not beat"
+    ),
+    "Desktop: the falsification headline did not load."
+  );
+  check(
+    (await page.getByRole("tab").count()) === 6,
+    "Desktop: the interface lab does not expose all six Study A contracts."
+  );
+  check(
+    (await page.locator(".vis--condition-outcomes").count()) === 3,
+    "Desktop: the three separated outcome panels did not render."
+  );
+  check(
+    (await page.locator(".plate-meta").count()) === 8,
+    "Desktop: evidence plates are missing grain/protocol metadata."
   );
 
   await page.screenshot({
@@ -94,6 +137,21 @@ async function desktopPass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-evidence.png")
   });
+  await page.locator(".plate").nth(1).screenshot({
+    path: path.join(outputDirectory, "desktop-contracts.png")
+  });
+  await page.locator(".plate").nth(2).screenshot({
+    path: path.join(outputDirectory, "desktop-profile-strata.png")
+  });
+  await page.locator(".plate").nth(3).screenshot({
+    path: path.join(outputDirectory, "desktop-provenance-braid.png")
+  });
+  await page.locator(".plate").nth(6).screenshot({
+    path: path.join(outputDirectory, "desktop-outcomes.png")
+  });
+  await page.locator(".plate").nth(7).screenshot({
+    path: path.join(outputDirectory, "desktop-counterexample.png")
+  });
   await page.locator("#methods").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
   await page.screenshot({
@@ -102,13 +160,13 @@ async function desktopPass(browser) {
 
   await page.locator("#lab").scrollIntoViewIfNeeded();
   await page
-    .getByRole("tab", { name: /approval-gated/i })
+    .getByRole("tab", { name: /scope-gated/i })
     .click();
   check(
     (await page.locator(".profile-inspector .status-pill").innerText())
       .toLowerCase()
       .includes("excluded"),
-    "Desktop: approval-gated replay did not expose the excluded update state."
+    "Desktop: scope-gated replay did not expose the excluded update state."
   );
   await page.locator('input[aria-label="Trace step"]').fill("16");
   check(
@@ -154,6 +212,21 @@ async function mobilePass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "mobile-lab.png")
   });
+  await page.locator(".lab-toolbar").screenshot({
+    path: path.join(outputDirectory, "mobile-contract-tabs.png")
+  });
+  await page.locator("#evidence").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(250);
+  await page.screenshot({
+    path: path.join(outputDirectory, "mobile-evidence.png"),
+    fullPage: false
+  });
+  await page.locator("#methods").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(250);
+  await page.screenshot({
+    path: path.join(outputDirectory, "mobile-methods.png"),
+    fullPage: false
+  });
 
   const overflow = await pageOverflow(page);
   check(
@@ -192,10 +265,12 @@ async function reducedMotionPass(browser) {
 }
 
 await mkdir(outputDirectory, { recursive: true });
-const browser = await chromium.launch({
-  channel: browserChannel,
-  headless: true
-});
+await waitForSite();
+const browser = await chromium.launch(
+  browserChannel === "bundled"
+    ? { headless: true }
+    : { channel: browserChannel, headless: true }
+);
 
 try {
   await desktopPass(browser);

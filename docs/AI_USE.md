@@ -4,7 +4,7 @@
 
 OpenAI Codex was used as an interactive development assistant during the
 planning and implementation of this repository. Generative AI is not required
-to run the site, generate the registered baseline, or compute any metric.
+to run the site, generate the committed baseline, or compute any metric.
 
 This disclosure concerns the production process. It does not imply that an AI
 model is an experimental participant or evaluator.
@@ -27,7 +27,7 @@ and licenses, and accepting the final research and design decisions.
 
 ## Where AI is not used
 
-The registered `protocol.v1` evidence does not use an LLM:
+The committed `protocol.v1` evidence does not use an LLM:
 
 - the three agent policies are transparent deterministic functions;
 - the evaluator is deterministic TypeScript;
@@ -52,13 +52,13 @@ Generated outputs concern a simulated preference representation only.
 
 ## Reproducibility
 
-Codex is not a runtime dependency. A reviewer can reproduce the registered
+Codex is not a runtime dependency. A reviewer can reproduce the committed
 experiment from the committed catalog without an OpenAI account or API key:
 
 ```bash
 pnpm install --frozen-lockfile
-pnpm test
 pnpm experiment
+pnpm check
 ```
 
 The generated metrics come from repository code and pinned inputs. The
@@ -72,6 +72,7 @@ Material changes should be accepted only after the relevant checks pass:
 ```bash
 pnpm typecheck
 pnpm test
+pnpm verify:artifacts
 pnpm build
 ```
 
@@ -79,7 +80,11 @@ Additional review should confirm:
 
 - no hidden principal state is exposed to agent-facing logic;
 - Study A reuses the same behavior trace across attribution conditions;
-- Study B is not interpreted as a logging-only comparison;
+- matched shrinkage is treated as the decisive control for a
+  provenance-specific explanation;
+- Study B's proxy and quarantine probes are not described as a human-tested
+  preview, approval, repair, or logging-only comparison;
+- Study C is described as one constructed stale-profile counterexample;
 - visible claims remain within `docs/CLAIM_BOUNDARIES.md`;
 - external data and reused work remain attributed in
   `docs/DATA_AND_REUSE.md`.

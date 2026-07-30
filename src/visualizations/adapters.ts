@@ -10,14 +10,15 @@ import type {
   ProfileDivergenceSeries
 } from "./ProfileDivergenceChart";
 import type { SensitivityDatum } from "./SensitivityHeatmap";
-import type { UtilityIntegrityDatum } from "./UtilityIntegrityTradeoff";
 
 export function profileDivergenceFromReplay(
   replay: RepresentativeReplay,
   conditions: Array<keyof RepresentativeReplay["worlds"]> = [
     "actor-blind",
+    "matched-attenuation",
     "provenance-aware",
-    "approval-gated"
+    "scope-gated",
+    "no-update"
   ]
 ): ProfileDivergenceSeries[] {
   return conditions.map((condition) => ({
@@ -30,6 +31,33 @@ export function profileDivergenceFromReplay(
       )
     }))
   }));
+}
+
+export function traceHandlingMatrix(
+  rows: readonly MetricSummary[]
+): AttributionMatrixCell[] {
+  const diagnostics: Array<{
+    row: string;
+    field:
+      | "actorRecordingErrorRate"
+      | "intentLabelErrorRate"
+      | "provenanceUseRate"
+      | "persistentUpdateRate";
+  }> = [
+    { row: "Actor-recording error", field: "actorRecordingErrorRate" },
+    { row: "Intent-label error", field: "intentLabelErrorRate" },
+    { row: "Event provenance used", field: "provenanceUseRate" },
+    { row: "Events persisted", field: "persistentUpdateRate" }
+  ];
+
+  return diagnostics.flatMap(({ row, field }) =>
+    rows.map((summary) => ({
+      row,
+      column: summary.condition,
+      value: summary[field],
+      runCount: summary.runCount
+    }))
+  );
 }
 
 export function attributionMatrixFromCells(
@@ -82,41 +110,16 @@ export function sensitivityData(
     learningRate: row.learningRate,
     runCount: row.runCount,
     profileContamination: row.profileContamination,
+    profileContaminationP10: row.profileContaminationP10,
+    profileContaminationP90: row.profileContaminationP90,
     futureRecommendationRegret: row.futureRecommendationRegret,
+    futureRecommendationRegretP10: row.futureRecommendationRegretP10,
+    futureRecommendationRegretP90: row.futureRecommendationRegretP90,
     taskUtility: row.taskUtility,
-    attributionErrorRate: row.attributionErrorRate
+    taskUtilityP10: row.taskUtilityP10,
+    taskUtilityP90: row.taskUtilityP90,
+    attributionErrorRate: row.attributionErrorRate,
+    attributionErrorRateP10: row.attributionErrorRateP10,
+    attributionErrorRateP90: row.attributionErrorRateP90
   }));
 }
-
-export function utilityIntegrityFromMetrics(
-  rows: readonly MetricSummary[],
-  studyLabel = "Study"
-): UtilityIntegrityDatum[] {
-  return rows.map((row) => ({
-    id: `${studyLabel}-${row.condition}`,
-    label: row.condition,
-    condition: row.condition,
-    taskUtility: row.taskUtility,
-    profileContamination: row.profileContamination,
-    interactionCost: row.interactionCost,
-    runCount: row.runCount,
-    group: studyLabel
-  }));
-}
-
-export function utilityIntegrityFromCells(
-  rows: readonly CellSummary[],
-  studyLabel = "Study"
-): UtilityIntegrityDatum[] {
-  return rows.map((row) => ({
-    id: `${studyLabel}-${row.condition}-${row.scenarioId}-${row.policy}`,
-    label: `${row.scenarioLabel} · ${row.policy}`,
-    condition: row.condition,
-    taskUtility: row.taskUtility,
-    profileContamination: row.profileContamination,
-    interactionCost: row.interactionCost,
-    runCount: row.runCount,
-    group: studyLabel
-  }));
-}
-

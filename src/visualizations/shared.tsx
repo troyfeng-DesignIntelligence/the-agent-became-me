@@ -6,30 +6,46 @@ export const VIS_COLORS = {
   ink: "#151518",
   muted: "#69676d",
   rule: "#d4cec3",
-  error: "#d94f36",
-  provenance: "#315bd6",
-  negotiated: "#16836f",
-  intermediary: "#7656d8"
+  error: "#b33b28",
+  provenance: "#2452bd",
+  negotiated: "#0f6b5a",
+  intermediary: "#6548b8"
 } as const;
 
 const CONDITION_COLORS: Record<string, string> = {
   "actor-blind": VIS_COLORS.error,
   "action-only": VIS_COLORS.error,
   "logged-only": VIS_COLORS.intermediary,
-  "impact-preview": VIS_COLORS.provenance,
+  "matched-attenuation": "#725116",
+  "impact-proxy": VIS_COLORS.provenance,
   "provenance-aware": VIS_COLORS.provenance,
-  "approval-gated": VIS_COLORS.negotiated,
-  "preview-and-repair": VIS_COLORS.negotiated
+  "scope-gated": VIS_COLORS.negotiated,
+  "impact-proxy-with-quarantine": VIS_COLORS.negotiated,
+  "no-update": "#4d4c52"
 };
 
 const CONDITION_DASHES: Record<string, string | undefined> = {
   "actor-blind": undefined,
   "action-only": undefined,
   "logged-only": "8 4",
-  "impact-preview": "8 4",
+  "matched-attenuation": "2 4",
+  "impact-proxy": "8 4",
   "provenance-aware": "3 3",
-  "approval-gated": "10 3 2 3",
-  "preview-and-repair": "10 3 2 3"
+  "scope-gated": "10 3 2 3",
+  "impact-proxy-with-quarantine": "10 3 2 3",
+  "no-update": "1 4"
+};
+
+const CONDITION_LABELS: Record<string, string> = {
+  "actor-blind": "Actor-blind",
+  "action-only": "Action only",
+  "logged-only": "Logged only",
+  "matched-attenuation": "Matched shrinkage",
+  "impact-proxy": "Impact proxy",
+  "provenance-aware": "Provenance-aware",
+  "scope-gated": "Scope-gated",
+  "impact-proxy-with-quarantine": "Proxy + quarantine",
+  "no-update": "No update"
 };
 
 const FALLBACK_COLORS = [
@@ -59,6 +75,8 @@ export function cx(...values: Array<string | false | null | undefined>) {
 }
 
 export function humanizeCondition(value: string): string {
+  const knownLabel = CONDITION_LABELS[value];
+  if (knownLabel) return knownLabel;
   return value
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
@@ -89,6 +107,39 @@ export function orderedUnique<T>(values: readonly T[]): T[] {
 
 export function clamp(value: number, low = 0, high = 1) {
   return Math.max(low, Math.min(high, value));
+}
+
+function relativeLuminance(color: string): number {
+  const hex = color.startsWith("#") ? color.slice(1) : "";
+  const rgbMatch = color.match(
+    /rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/
+  );
+  const channels =
+    hex.length === 6
+      ? [hex.slice(0, 2), hex.slice(2, 4), hex.slice(4, 6)].map((part) =>
+          Number.parseInt(part, 16)
+        )
+      : rgbMatch
+        ? rgbMatch.slice(1, 4).map(Number)
+        : [255, 255, 255];
+  const linear = channels.map((channel) => {
+    const value = channel / 255;
+    return value <= 0.04045
+      ? value / 12.92
+      : ((value + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+}
+
+export function readableTextColor(background: string): string {
+  const backgroundLuminance = relativeLuminance(background);
+  const inkLuminance = relativeLuminance(VIS_COLORS.ink);
+  const whiteLuminance = 1;
+  const inkContrast =
+    (Math.max(backgroundLuminance, inkLuminance) + 0.05) /
+    (Math.min(backgroundLuminance, inkLuminance) + 0.05);
+  const whiteContrast = (whiteLuminance + 0.05) / (backgroundLuminance + 0.05);
+  return whiteContrast > inkContrast ? "#ffffff" : VIS_COLORS.ink;
 }
 
 export function formatRate(value: number, digits = 0) {
@@ -125,7 +176,12 @@ export function ChartHeader({
   return (
     <header className="vis__header">
       <h3 className="vis__title">{title}</h3>
-      {subtitle ? <p className="vis__subtitle">{subtitle}</p> : null}
+      <div>
+        {subtitle ? <p className="vis__subtitle">{subtitle}</p> : null}
+        <span className="vis__mobile-hint">
+          Swipe wide charts or open the exact values below.
+        </span>
+      </div>
     </header>
   );
 }

@@ -25,11 +25,11 @@ The trace model borrows the stable primitives `Entity`, `Activity`, `Agent`,
 `wasGeneratedBy`, `wasAssociatedWith`, and `wasAttributedTo` from W3C PROV-O:
 <https://www.w3.org/TR/prov-o/>.
 
-Purpose, processing, duration, and consent-related fields are informed by the W3C
-Data Privacy Vocabulary:
-<https://www.w3.org/community/dpvcg/wiki/Main_Page>.
+PROV-O also defines software agents, `actedOnBehalfOf`, and qualified delegation.
+Those established terms bound the project's claims: this is a domain-specific
+trace and profile-update contract, not a new delegation or provenance vocabulary.
 
-This is a compact application profile, not a claim of complete PROV-O or DPV
+This is a compact application profile, not a claim of complete PROV-O
 conformance.
 
 ## Research simulators consulted
@@ -42,6 +42,23 @@ conformance.
 The browser testbed does not embed either Python framework. It reuses their
 separation between environment, user/agent response, recommendation policy, and
 metrics while remaining small enough to inspect in a portfolio review.
+
+## Literature used only as collision or method context
+
+- [Top-N Recommendation for Shared Accounts](https://doi.org/10.1145/2792838.2800170)
+  and [Identifying Users behind Shared Accounts in Online Streaming Services](https://doi.org/10.1145/3209978.3210054)
+  establish shared-account recommendation and latent session-to-user
+  identification. This project does not implement their algorithms, graph or
+  embedding methods, datasets, code, or inferred-user task. Its actor is known.
+- [Learning to Personalize Recommendation based on Customers' Shopping Intents](https://arxiv.org/abs/2305.05279)
+  is collision context for inferring high-level shopping goals and using them in
+  ranking. Its arXiv record is withdrawn and supplies no accessible PDF or reuse
+  license. The project copies no model, training data, ranking logic, text, or
+  evaluation claim from it; its task vectors and policies are independently
+  specified, transparent, and synthetic.
+
+These publications are cited to delimit the contribution, not as software or
+data dependencies.
 
 ## Interface and analysis libraries
 
@@ -56,9 +73,11 @@ The following are short, project-specific mechanisms whose inspectability is par
 of the artifact:
 
 - named deterministic random streams;
-- the provenance-aware profile-update contracts;
-- trace replay and rollback;
-- the three registered metrics;
+- the six profile-update contracts and matched-weight calculation;
+- trace replay, receipts, and pre-persistence quarantine;
+- the three declared outcome calculations;
 - the synthetic delegation-scenario generator.
 
-None of these should be interpreted as a production recommender implementation.
+None of these should be interpreted as a production recommender implementation,
+a shared-account user-identification method, a shopping-intent model, or a new
+provenance standard.

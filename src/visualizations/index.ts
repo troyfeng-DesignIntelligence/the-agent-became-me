@@ -16,16 +16,14 @@ export {
   type SensitivityMetric
 } from "./SensitivityHeatmap";
 export {
-  UtilityIntegrityTradeoff,
-  type UtilityIntegrityDatum,
-  type UtilityIntegrityTradeoffProps
-} from "./UtilityIntegrityTradeoff";
+  ConditionOutcomePanel,
+  type ConditionOutcomePanelProps
+} from "./ConditionOutcomePanel";
 export {
   attributionMatrixFromCells,
   profileDivergenceFromReplay,
   sensitivityData,
-  utilityIntegrityFromCells,
-  utilityIntegrityFromMetrics
+  traceHandlingMatrix
 } from "./adapters";
 export {
   VIS_COLORS,

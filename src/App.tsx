@@ -7,7 +7,8 @@ import {
   references,
   researchQuestion,
   studyA,
-  studyB
+  studyB,
+  studyC
 } from "./content";
 import {
   CausalRibbon,
@@ -18,13 +19,12 @@ import { InterfaceLab } from "./components/InterfaceLab";
 import { useProjectData, type MetricSummary } from "./data";
 import {
   AttributionMatrix,
+  ConditionOutcomePanel,
   ProfileDivergenceChart,
   SensitivityHeatmap,
-  UtilityIntegrityTradeoff,
-  attributionMatrixFromCells,
   profileDivergenceFromReplay,
   sensitivityData,
-  utilityIntegrityFromMetrics
+  traceHandlingMatrix
 } from "./visualizations";
 
 function useScrollProgress() {
@@ -64,6 +64,7 @@ interface PlateProps {
   children: React.ReactNode;
   index: string;
   label: string;
+  meta?: string;
   note: string;
   title: string;
   variant?: "paper" | "ink" | "plain";
@@ -73,6 +74,7 @@ function Plate({
   children,
   index,
   label,
+  meta,
   note,
   title,
   variant = "plain"
@@ -86,6 +88,7 @@ function Plate({
         </div>
         <h3>{title}</h3>
         <p>{note}</p>
+        {meta ? <span className="plate-meta">{meta}</span> : null}
       </header>
       <div className="plate-body">{children}</div>
     </article>
@@ -130,7 +133,7 @@ function Hero() {
 
       <div className="hero-artifact">
         <div className="artifact-meta">
-          <span>DETERMINISTIC REPLAY</span>
+          <span>ACTOR-BLIND REPLAY</span>
           <span>PARTY-SNACKS / SEED 17</span>
         </div>
         <div className="hero-system" key={replayKey}>
@@ -247,26 +250,37 @@ export function App() {
     if (!summary) return null;
     const actorBlind = condition(summary.overallA, "actor-blind");
     const loggedOnly = condition(summary.overallA, "logged-only");
+    const matched = condition(summary.overallA, "matched-attenuation");
     const provenance = condition(summary.overallA, "provenance-aware");
-    const approval = condition(summary.overallA, "approval-gated");
+    const scope = condition(summary.overallA, "scope-gated");
+    const noUpdate = condition(summary.overallA, "no-update");
     const actionOnly = condition(summary.overallB, "action-only");
-    const preview = condition(summary.overallB, "impact-preview");
-    const repair = condition(summary.overallB, "preview-and-repair");
+    const impactProxy = condition(summary.overallB, "impact-proxy");
+    const quarantine = condition(
+      summary.overallB,
+      "impact-proxy-with-quarantine"
+    );
+    const stressNoUpdate = condition(summary.overallC, "no-update");
+    const stressScope = condition(summary.overallC, "scope-gated");
     return {
       actorBlind,
       loggedOnly,
+      matched,
       provenance,
-      approval,
+      scope,
+      noUpdate,
       actionOnly,
-      preview,
-      repair,
-      provenanceReduction:
+      impactProxy,
+      quarantine,
+      stressNoUpdate,
+      stressScope,
+      provenancePenaltyVsMatched:
+        provenance.profileContamination / matched.profileContamination - 1,
+      scopeReduction:
+        1 - scope.profileContamination / actorBlind.profileContamination,
+      quarantineReduction:
         1 -
-        provenance.profileContamination / actorBlind.profileContamination,
-      approvalReduction:
-        1 - approval.profileContamination / actorBlind.profileContamination,
-      repairReduction:
-        1 - repair.profileContamination / actionOnly.profileContamination
+        quarantine.profileContamination / impactProxy.profileContamination
     };
   }, [summary]);
 
@@ -343,11 +357,11 @@ export function App() {
           <div className="section-number">02</div>
           <header className="section-header lab-header">
             <div>
-              <span className="section-kicker">One trace, three interfaces</span>
+              <span className="section-kicker">One trace, six contracts</span>
               <h2>Change the rule. Keep the evidence locked.</h2>
             </div>
             <p>
-              Scrub one frozen shopping trace through three update contracts.
+              Scrub one frozen shopping trace through six update contracts.
               Scenario, policy, products, seed, and event order remain fixed.
             </p>
           </header>
@@ -373,26 +387,27 @@ export function App() {
               <header className="evidence-intro">
                 <span className="section-kicker">Generated evidence</span>
                 <h2>
-                  Provenance mattered only when it changed what the updater
-                  was allowed to learn.
+                  Selective provenance did not beat a matched shrinkage
+                  control.
                 </h2>
                 <p>
-                  These numbers describe a registered synthetic testbed—not
+                  The added falsification control changed the conclusion.
+                  These numbers describe an implemented synthetic protocol—not
                   people, platforms, or experienced consent.
                 </p>
               </header>
               <div className="headline-findings">
                 <div className="headline-stat">
-                  <span>Operational provenance</span>
+                  <span>Provenance-specific penalty</span>
                   <strong>
-                    −{percent(evidence.provenanceReduction, 0)}
+                    +{percent(evidence.provenancePenaltyVsMatched, 0)}
                   </strong>
-                  <p>mean profile contamination vs. actor-blind</p>
+                  <p>mean divergence vs. matched update mass</p>
                 </div>
                 <div className="headline-stat">
-                  <span>Approval-gated scope</span>
-                  <strong>−{percent(evidence.approvalReduction, 0)}</strong>
-                  <p>mean profile contamination vs. actor-blind</p>
+                  <span>Idealized scope gate</span>
+                  <strong>−{percent(evidence.scopeReduction, 0)}</strong>
+                  <p>mean reference divergence vs. actor-blind</p>
                 </div>
                 <div className="headline-stat">
                   <span>Frozen task utility</span>
@@ -406,6 +421,7 @@ export function App() {
               <Plate
                 index="01"
                 label="CAUSAL MECHANISM"
+                meta="CONCEPTUAL SCHEMATIC · NOT AN OBSERVED TRACE"
                 note="Interpretive distance grows between a human request and a persistent profile update."
                 title="The delegation gap"
               >
@@ -414,9 +430,10 @@ export function App() {
 
               <Plate
                 index="02"
-                label="COUNTERFACTUAL WORLDS"
-                note="The same representative trace is replayed; only the attribution contract changes."
-                title="Three interfaces, one trace"
+                label="CONDITION DISTRIBUTIONS"
+                meta={`GENERATED · 4 SCENARIOS · 480 RUNS/CONDITION · ${summary.protocolVersion.toUpperCase()}`}
+                note="Each card pools four synthetic scenarios, three policies, and 40 paired seeds. Whiskers are descriptive P10–P90 ranges."
+                title="Six contracts over paired traces"
                 variant="paper"
               >
                 <div className="counterfactual-cards">
@@ -424,9 +441,23 @@ export function App() {
                     {
                       id: "actor-blind",
                       letter: "U",
-                      label: "Unmarked",
+                      label: "Actor-blind",
                       tone: "error",
                       data: evidence.actorBlind
+                    },
+                    {
+                      id: "logged-only",
+                      letter: "L",
+                      label: "Logged only",
+                      tone: "neutral",
+                      data: evidence.loggedOnly
+                    },
+                    {
+                      id: "matched-attenuation",
+                      letter: "M",
+                      label: "Matched shrinkage",
+                      tone: "neutral",
+                      data: evidence.matched
                     },
                     {
                       id: "provenance-aware",
@@ -436,11 +467,18 @@ export function App() {
                       data: evidence.provenance
                     },
                     {
-                      id: "approval-gated",
-                      letter: "N",
-                      label: "Approval-gated",
+                      id: "scope-gated",
+                      letter: "S",
+                      label: "Scope-gated",
                       tone: "negotiated",
-                      data: evidence.approval
+                      data: evidence.scope
+                    },
+                    {
+                      id: "no-update",
+                      letter: "0",
+                      label: "No update",
+                      tone: "neutral",
+                      data: evidence.noUpdate
                     }
                   ].map((item) => (
                     <article className="counterfactual-card" key={item.id}>
@@ -452,17 +490,17 @@ export function App() {
                         <strong>
                           {item.data.profileContamination.toFixed(3)}
                         </strong>
-                        <span>mean contamination</span>
+                        <span>mean reference divergence</span>
                       </div>
                       <div className="mini-range">
                         <span
                           className={`tone-${item.tone}`}
                           style={{
-                            left: `${item.data.profileContaminationP10 * 100}%`,
+                            left: `${item.data.profileContaminationP10 * 200}%`,
                             width: `${
                               (item.data.profileContaminationP90 -
                                 item.data.profileContaminationP10) *
-                              100
+                              200
                             }%`
                           }}
                         />
@@ -479,18 +517,27 @@ export function App() {
               <Plate
                 index="03"
                 label="PROFILE STRATA"
-                note="Final trait weights retain a visible reference marker. Bars show the learned profile after 17 events."
-                title="How the profile was rewritten"
+                meta={`REPRESENTATIVE · 1 TRACE · 17 EVENTS · ${summary.protocolVersion.toUpperCase()}`}
+                note="Final trait weights retain a visible reference marker. Bars show the profile representation after 17 events."
+                title="How one profile representation moved"
               >
                 <ProfileStrata
                   profiles={[
                     {
                       id: "actor-blind",
-                      label: "Unmarked",
+                      label: "Actor-blind",
                       profile:
                         summary.representative.worlds["actor-blind"]
                           .finalProfile,
                       tone: "error"
+                    },
+                    {
+                      id: "matched-attenuation",
+                      label: "Matched shrinkage",
+                      profile:
+                        summary.representative.worlds["matched-attenuation"]
+                          .finalProfile,
+                      tone: "neutral"
                     },
                     {
                       id: "provenance-aware",
@@ -501,12 +548,19 @@ export function App() {
                       tone: "provenance"
                     },
                     {
-                      id: "approval-gated",
-                      label: "Approval-gated",
+                      id: "scope-gated",
+                      label: "Scope-gated",
                       profile:
-                        summary.representative.worlds["approval-gated"]
+                        summary.representative.worlds["scope-gated"]
                           .finalProfile,
                       tone: "negotiated"
+                    },
+                    {
+                      id: "no-update",
+                      label: "No update",
+                      profile:
+                        summary.representative.worlds["no-update"].finalProfile,
+                      tone: "neutral"
                     }
                   ]}
                   reference={summary.representative.scenario.principalReference}
@@ -516,8 +570,9 @@ export function App() {
               <Plate
                 index="04"
                 label="PROVENANCE BRAID"
-                note="This representative braid follows seven exploration events into five profile traits."
-                title="Where the actor label breaks"
+                meta={`REPRESENTATIVE · 17 RECEIPT-DERIVED LINKS · ${summary.protocolVersion.toUpperCase()}`}
+                note="Each path follows the largest absolute signed trait delta for one event in the actor-blind replay; the exact ledger is available below."
+                title="Where delegated evidence entered the profile"
                 variant="paper"
               >
                 <ProvenanceBraid replay={summary.representative} />
@@ -526,60 +581,87 @@ export function App() {
               <Plate
                 index="05"
                 label="PROFILE DIVERGENCE"
+                meta={`REPRESENTATIVE · 1 TRACE · 5 CONTRACTS · ${summary.protocolVersion.toUpperCase()}`}
                 note="Normalized Euclidean distance from the fixed principal reference. The representative trace is identical across lines."
                 title="How quickly the profile moved"
               >
                 <ProfileDivergenceChart
-                  note="Representative synthetic replay: Party snacks · exploratory policy · seed 17. Lines show deterministic paths, not inferential confidence intervals."
-                  series={profileDivergenceFromReplay(
-                    summary.representative
-                  )}
-                  subtitle="Distance from the reference profile after each delegated interaction."
+                  note="Representative synthetic replay: Party snacks · exploratory policy · seed 17. Lines show deterministic state transitions, not inferential confidence intervals."
+                  series={profileDivergenceFromReplay(summary.representative)}
+                  subtitle="Distance from the reference profile before and after each delegated event."
                   title="Profile divergence across the representative trace"
                 />
               </Plate>
 
               <Plate
                 index="06"
-                label="ATTRIBUTION OUTCOMES"
-                note="Each cell aggregates 120 runs across three transparent agent policies. Exact rates remain available below the figure."
-                title="Errors by scenario and contract"
+                label="TRACE-HANDLING DIAGNOSTICS"
+                meta={`GENERATED · 4 SCENARIOS · 480 RUNS/CONTRACT · ${summary.protocolVersion.toUpperCase()}`}
+                note="All cells use one definition across contracts: recording errors, label errors, provenance use, or persistence rate."
+                title="What each contract recorded and used"
                 variant="paper"
               >
                 <AttributionMatrix
                   columns={[
                     "actor-blind",
                     "logged-only",
+                    "matched-attenuation",
                     "provenance-aware",
-                    "approval-gated"
+                    "scope-gated",
+                    "no-update"
                   ]}
-                  data={attributionMatrixFromCells(summary.cellsA)}
-                  note="Attribution error compares the recorded actor and, when operationalized, the observed intent with the generated event source. It does not measure a human judgment."
-                  subtitle="Mean event-level attribution error across 40 paired seeds per scenario–policy cell."
-                  title="Attribution error by synthetic scenario"
+                  data={traceHandlingMatrix(summary.overallA)}
+                  note="Actor and intent errors compare generated source fields with recorded fields. Provenance use is event-level: matched shrinkage uses an oracle-calibrated trace scalar but no selective event multiplier. None is a human judgment."
+                  rowAxisLabel="Common diagnostic"
+                  rows={[
+                    "Actor-recording error",
+                    "Intent-label error",
+                    "Event provenance used",
+                    "Events persisted"
+                  ]}
+                  subtitle="Mean event-level rates across four scenarios, three policies, and 40 paired seeds."
+                  title="Trace handling by synthetic contract"
+                  valueLabel="Event rate"
                 />
               </Plate>
 
               <Plate
                 index="07"
-                label="DESIGN TRADE-OFF FIELD"
-                note="Higher is better on both axes. Point area represents modeled interaction cost; it is not human effort."
-                title="Task utility versus profile integrity"
+                label="SEPARATED OUTCOME DISTRIBUTIONS"
+                meta={`GENERATED · STUDY A 2,880 RUNS · STUDY B 1,440 RUNS · ${summary.protocolVersion.toUpperCase()}`}
+                note="The studies stay in separate panels because Study A freezes traces while Study B changes a behavior-side signal and a persistence-side contract."
+                title="Reference divergence, utility, and modeled cost"
               >
-                <UtilityIntegrityTradeoff
-                  data={[
-                    ...utilityIntegrityFromMetrics(
-                      summary.overallA,
-                      "Study A"
-                    ),
-                    ...utilityIntegrityFromMetrics(
-                      summary.overallB,
-                      "Study B"
-                    )
-                  ]}
-                  note="Study A freezes behavior; Study B permits interface affordances to alter it. Their points share a descriptive field but are not one pooled causal comparison."
-                  subtitle="Generated condition means; profile integrity is one minus normalized contamination."
-                  title="Task utility and profile integrity by condition"
+                <div className="outcome-panels">
+                  <ConditionOutcomePanel
+                    note="No update is an explicit optimization floor for an initially aligned profile. Matched shrinkage controls for total update mass without using intent selectively."
+                    rows={summary.overallA}
+                    studyLabel="STUDY A · FROZEN TRACE"
+                    title="Attribution-contract outcomes"
+                  />
+                  <ConditionOutcomePanel
+                    note="The impact-proxy conditions share the same behavior traces. Their difference isolates the non-commit quarantine rule; cost is a modeled index, not measured burden."
+                    rows={summary.overallB}
+                    showCost
+                    studyLabel="STUDY B · BUNDLED PROBES"
+                    title="Signal and persistence outcomes"
+                  />
+                </div>
+              </Plate>
+
+              <Plate
+                index="08"
+                label="LEARNING-NEEDED COUNTEREXAMPLE"
+                meta={`GENERATED · WEEKLY BREAKFAST · 720 RUNS · ${summary.protocolVersion.toUpperCase()}`}
+                note="This stress test starts from the scenario’s disclosed, stale profile rather than the evaluator reference. It asks when preserving state can itself be wrong."
+                title="No update is not a universal integrity strategy"
+                variant="paper"
+              >
+                <ConditionOutcomePanel
+                  note="One deliberately aligned task cannot establish external validity. It is included to falsify the simpler rule that less learning must always be better."
+                  rows={summary.overallC}
+                  studyLabel="STUDY C · STALE INITIAL PROFILE"
+                  title="Learning-needed stress test"
                 />
               </Plate>
             </div>
@@ -634,12 +716,12 @@ export function App() {
                   total runs
                 </span>
                 <span>
-                  <strong>−{percent(evidence.repairReduction, 0)}</strong>
-                  contamination with repair
+                  <strong>−{percent(evidence.quarantineReduction, 0)}</strong>
+                  divergence with quarantine
                 </span>
                 <span>
                   <strong>+8</strong>
-                  simulator cost units
+                  modeled cost index
                 </span>
               </div>
               <div className="condition-list">
@@ -654,6 +736,33 @@ export function App() {
                 ))}
               </div>
               <p className="study-caution">{studyB.caution}</p>
+            </div>
+
+            <div className="study-block is-tertiary">
+              <header>
+                <span className="study-label">{studyC.label}</span>
+                <h2>{studyC.title}</h2>
+                <p>{studyC.explanation}</p>
+              </header>
+              <div className="study-metrics">
+                <span>
+                  <strong>{studyC.runCount.toLocaleString()}</strong>
+                  total runs
+                </span>
+                <span>
+                  <strong>
+                    {evidence.stressNoUpdate.profileContamination.toFixed(3)}
+                  </strong>
+                  no-update divergence
+                </span>
+                <span>
+                  <strong>
+                    {evidence.stressScope.profileContamination.toFixed(3)}
+                  </strong>
+                  scope-gated divergence
+                </span>
+              </div>
+              <p className="study-caution">{studyC.caution}</p>
             </div>
           </section>
         )}
@@ -696,9 +805,9 @@ export function App() {
           <div className="section-shell">
             <div className="section-number light">05</div>
             <header className="implications-intro">
-              <span className="section-kicker">Design implications</span>
+              <span className="section-kicker">Testable design hypotheses</span>
               <h2>
-                Provenance and revision should become interaction primitives.
+                The failed claim points to better experiments.
               </h2>
             </header>
             <div className="implication-grid">
@@ -752,7 +861,7 @@ export function App() {
                     η {summary.design.baselineLearningRate.toFixed(2)} · noise{" "}
                     {percent(summary.design.baselineLabelNoise)}
                   </strong>
-                  <small>registered in protocol.v1</small>
+                  <small>declared in protocol.v1</small>
                 </div>
                 <div>
                   <span>GENERATED</span>
@@ -768,23 +877,23 @@ export function App() {
               </div>
               <div className="sensitivity-panel">
                 <header>
-                  <span className="mono-label">ROBUSTNESS SURFACE</span>
+                  <span className="mono-label">SENSITIVITY / FAILURE SURFACE</span>
                   <h3>
-                    The result was tested across intent-label noise and
-                    learning rates.
+                    Label noise changed the mechanism in a non-monotonic way.
                   </h3>
                   <p>
-                    This grid is a parameter sweep, not a confidence surface.
-                    Each cell aggregates 240 generated runs.
+                    Higher noise sometimes lowered divergence by suppressing
+                    high-weight commit evidence. This is a failure analysis,
+                    not a robustness claim. Each cell aggregates 240 runs.
                   </p>
                 </header>
                 <div>
                   <SensitivityHeatmap
                     data={sensitivityData(summary.sensitivity)}
                     metric="profileContamination"
-                    note="Actor-blind and provenance-aware updating are compared over five label-noise values and four learning rates. The shared scale makes between-facet comparison valid."
-                    subtitle="Mean normalized contamination over the registered parameter grid."
-                    title="Profile contamination sensitivity"
+                    note="Actor-blind and provenance-aware updating are compared over five label-noise values and four learning rates. P10–P90 values are available below; lower means can arise for the wrong mechanistic reason."
+                    subtitle="Mean reference-profile divergence over the protocol-defined parameter grid."
+                    title="Reference-divergence sensitivity"
                   />
                 </div>
               </div>
@@ -797,14 +906,14 @@ export function App() {
               <h3>One command regenerates the evidence.</h3>
               <pre>
                 <code>
-                  <span>$</span> pnpm install{"\n"}
+                  <span>$</span> pnpm install --frozen-lockfile{"\n"}
                   <span>$</span> pnpm experiment{"\n"}
                   <span>$</span> pnpm check
                 </code>
               </pre>
               <div className="artifact-links">
                 <a href={`${base}results/v1/baseline.json`} download>
-                  Download full rows <span>6.5 MB ↓</span>
+                  Download full rows <span>JSON ↓</span>
                 </a>
                 <a href={`${base}results/v1/summary.json`} download>
                   Download summary <span>JSON ↓</span>
@@ -848,7 +957,14 @@ export function App() {
                   <h4>{reference.title}</h4>
                   <p>{reference.note}</p>
                   <small>
-                    {reference.year ?? "standard"}
+                    {reference.year ??
+                      (reference.kind === "standard"
+                        ? "standard"
+                        : reference.kind === "data"
+                          ? "dataset"
+                          : reference.kind === "reuse"
+                            ? "software"
+                            : "prior work")}
                     {reference.license ? ` · ${reference.license}` : ""}
                     <b>↗</b>
                   </small>
@@ -863,8 +979,8 @@ export function App() {
         <div>
           <span className="footer-mark">ACI / 01</span>
           <h2>
-            When delegated action becomes identity evidence, provenance and
-            revision must become interaction primitives.
+            Before delegated action becomes profile evidence, provenance has
+            to beat the simpler baselines.
           </h2>
         </div>
         <div className="footer-meta">

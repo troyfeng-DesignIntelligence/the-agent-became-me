@@ -49,15 +49,30 @@ export function evaluateRun(
   const taskUtility = mean(
     purchased.map((product) => dot(scenario.taskVector, product.attributes))
   );
-  const attributionErrors = trace.events.filter((event) => {
+  const eventPairs = trace.events.map((event) => {
     const receipt = receipts.find((candidate) => candidate.eventId === event.id);
-    if (!receipt) return true;
-    return (
+    return { event, receipt };
+  });
+  const actorRecordingErrors = eventPairs.filter(
+    ({ event, receipt }) => !receipt || receipt.recordedActor !== event.actor
+  ).length;
+  const intentLabelErrors = eventPairs.filter(
+    ({ event, receipt }) =>
+      !receipt || receipt.recordedIntent !== event.actualIntent
+  ).length;
+  const attributionErrors = eventPairs.filter(
+    ({ event, receipt }) =>
+      !receipt ||
       receipt.recordedActor !== event.actor ||
-      (receipt.updaterUsedProvenance &&
-        receipt.recordedIntent !== event.actualIntent)
-    );
-  }).length;
+      receipt.recordedIntent !== event.actualIntent
+  ).length;
+  const provenanceUses = eventPairs.filter(
+    ({ receipt }) => receipt?.updaterUsedProvenance
+  ).length;
+  const persistentUpdates = eventPairs.filter(
+    ({ receipt }) => receipt && receipt.effectiveWeight > 0
+  ).length;
+  const eventCount = Math.max(1, trace.events.length);
   const constraintViolations = purchased.filter((product) =>
     scenario.forbiddenAllergens.some((allergen) =>
       product.allergens.includes(allergen)
@@ -71,7 +86,17 @@ export function evaluateRun(
     ),
     taskUtility: Number(taskUtility.toFixed(6)),
     attributionErrorRate: Number(
-      (attributionErrors / Math.max(1, trace.events.length)).toFixed(6)
+      (attributionErrors / eventCount).toFixed(6)
+    ),
+    actorRecordingErrorRate: Number(
+      (actorRecordingErrors / eventCount).toFixed(6)
+    ),
+    intentLabelErrorRate: Number(
+      (intentLabelErrors / eventCount).toFixed(6)
+    ),
+    provenanceUseRate: Number((provenanceUses / eventCount).toFixed(6)),
+    persistentUpdateRate: Number(
+      (persistentUpdates / eventCount).toFixed(6)
     ),
     interactionCost,
     constraintViolations

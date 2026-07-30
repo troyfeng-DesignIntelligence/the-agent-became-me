@@ -18,13 +18,15 @@ export const POLICIES = [
 export const STUDY_A_CONDITIONS = [
   "actor-blind",
   "logged-only",
+  "matched-attenuation",
   "provenance-aware",
-  "approval-gated"
+  "scope-gated",
+  "no-update"
 ] as const;
 export const STUDY_B_CONDITIONS = [
   "action-only",
-  "impact-preview",
-  "preview-and-repair"
+  "impact-proxy",
+  "impact-proxy-with-quarantine"
 ] as const;
 
 export const AxisSchema = z.enum(AXES);
@@ -127,7 +129,13 @@ export const UpdateReceiptSchema = z.object({
   recordedActor: z.enum(["principal", "agent"]),
   recordedIntent: IntentSchema,
   updaterUsedProvenance: z.boolean(),
-  status: z.enum(["counted", "downweighted", "excluded", "temporary", "confirmed"]),
+  status: z.enum([
+    "counted",
+    "downweighted",
+    "excluded",
+    "quarantined",
+    "confirmed"
+  ]),
   effectiveWeight: z.number().min(0),
   profileBefore: VectorSchema,
   profileAfter: VectorSchema,
@@ -139,6 +147,10 @@ export const RunMetricsSchema = z.object({
   futureRecommendationRegret: z.number().min(0),
   taskUtility: z.number().min(0).max(1),
   attributionErrorRate: z.number().min(0).max(1),
+  actorRecordingErrorRate: z.number().min(0).max(1),
+  intentLabelErrorRate: z.number().min(0).max(1),
+  provenanceUseRate: z.number().min(0).max(1),
+  persistentUpdateRate: z.number().min(0).max(1),
   interactionCost: z.number().nonnegative(),
   constraintViolations: z.number().int().nonnegative()
 });

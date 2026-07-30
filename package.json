@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
@@ -11,8 +14,9 @@
     "test:watch": "vitest",
     "data:fetch": "node scripts/fetch-openfoodfacts.mjs",
     "experiment": "tsx scripts/generate-baseline.ts",
+    "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",
-    "check": "pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm typecheck && pnpm test && pnpm verify:artifacts && pnpm build"
   },
   "dependencies": {
     "@fontsource-variable/ibm-plex-sans": "^5.2.7",

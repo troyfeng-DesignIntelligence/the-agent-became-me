@@ -44,26 +44,29 @@ export function rankProducts(
         product.attributes
       );
       const noise = (rng.next() - 0.5) * (policy === "exploratory" ? 0.2 : 0.06);
-      const previewPenalty =
-        interfaceCondition === "impact-preview" ||
-        interfaceCondition === "preview-and-repair"
+      const impactProxyPenalty =
+        interfaceCondition === "impact-proxy" ||
+        interfaceCondition === "impact-proxy-with-quarantine"
           ? profileImpact * 0.16
           : 0;
 
       const score =
         policy === "goal-bound"
-          ? taskScore * 0.82 + product.popularity * 0.18 + noise - previewPenalty
+          ? taskScore * 0.82 +
+            product.popularity * 0.18 +
+            noise -
+            impactProxyPenalty
           : policy === "exploratory"
             ? taskScore * 0.64 +
               product.popularity * 0.2 +
               profileImpact * 0.16 +
               noise -
-              previewPenalty
+              impactProxyPenalty
             : taskScore * 0.55 +
               profileScore * 0.3 +
               product.popularity * 0.15 +
               noise -
-              previewPenalty;
+              impactProxyPenalty;
 
       return {
         product,

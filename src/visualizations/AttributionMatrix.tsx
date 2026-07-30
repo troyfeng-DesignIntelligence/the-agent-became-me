@@ -6,6 +6,7 @@ import {
   cx,
   formatRate,
   orderedUnique,
+  readableTextColor,
   useChartIds,
   type ChartCopy
 } from "./shared";
@@ -92,7 +93,12 @@ export function AttributionMatrix({
     <figure className={cx("vis", "vis--attribution-matrix", className)}>
       <ChartHeader title={title} subtitle={subtitle} />
       <p className="vis__semantic-summary">{semanticSummary}</p>
-      <div className="vis__scroll-region" style={{ overflowX: "auto" }}>
+      <div
+        aria-label="Scrollable trace-handling matrix"
+        className="vis__scroll-region"
+        style={{ overflowX: "auto" }}
+        tabIndex={0}
+      >
         <svg
           className="vis__svg attribution-matrix__svg"
           viewBox={`0 0 ${width} ${resolvedHeight}`}
@@ -160,9 +166,9 @@ export function AttributionMatrix({
             {rows.flatMap((row) =>
               columns.map((column) => {
                 const cell = lookup.get(`${row}\u0000${column}`);
-                const normalized = cell
-                  ? cell.value / Math.max(highest, 0.0001)
-                  : 0;
+                const background = cell
+                  ? color(cell.value)
+                  : VIS_COLORS.paper;
                 return (
                   <g
                     className="attribution-matrix__cell"
@@ -177,7 +183,7 @@ export function AttributionMatrix({
                       height={y.bandwidth()}
                       fill={
                         cell
-                          ? color(cell.value)
+                          ? background
                           : `url(#${ids.missingPatternId})`
                       }
                       stroke={VIS_COLORS.paper}
@@ -197,9 +203,7 @@ export function AttributionMatrix({
                       x={(x(column) ?? 0) + x.bandwidth() / 2}
                       y={(y(row) ?? 0) + y.bandwidth() / 2 + 4}
                       textAnchor="middle"
-                      fill={
-                        normalized > 0.57 ? "#ffffff" : VIS_COLORS.ink
-                      }
+                      fill={readableTextColor(background)}
                       fontFamily="'IBM Plex Mono', monospace"
                       fontSize={12}
                       pointerEvents="none"
@@ -262,4 +266,3 @@ export function AttributionMatrix({
     </figure>
   );
 }
-

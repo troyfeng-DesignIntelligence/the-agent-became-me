@@ -8,7 +8,10 @@ import {
   type StudyBCondition,
   type UpdateReceipt
 } from "../domain/schema";
-import { updateProfile } from "../recommender/profile-updater";
+import {
+  matchedAttenuationScale,
+  updateProfile
+} from "../recommender/profile-updater";
 import { evaluateRun } from "./metrics";
 
 export interface ProfileHistoryPoint {
@@ -27,6 +30,7 @@ interface ReplayOptions {
   studyACondition?: StudyACondition;
   studyBCondition?: StudyBCondition;
   learningRate?: number;
+  initialProfile?: ProfileVector;
 }
 
 export function replayTrace(
@@ -36,9 +40,14 @@ export function replayTrace(
   options: ReplayOptions
 ): ReplayResult {
   const productById = new Map(products.map((product) => [product.id, product]));
-  let profile = scenario.principalReference;
+  const initialProfile = options.initialProfile ?? scenario.principalReference;
+  const attenuationScale =
+    options.studyACondition === "matched-attenuation"
+      ? matchedAttenuationScale(trace)
+      : undefined;
+  let profile = initialProfile;
   const profileHistory: ProfileHistoryPoint[] = [
-    { step: -1, profile: scenario.principalReference }
+    { step: -1, profile: initialProfile }
   ];
   const receipts: UpdateReceipt[] = [];
 
@@ -50,7 +59,8 @@ export function replayTrace(
     const receipt = updateProfile(profile, event, product, scenario, {
       learningRate: options.learningRate ?? 0.22,
       studyACondition: options.studyACondition,
-      studyBCondition: options.studyBCondition
+      studyBCondition: options.studyBCondition,
+      matchedAttenuationScale: attenuationScale
     });
     receipts.push(receipt);
     profile = receipt.profileAfter;
@@ -58,9 +68,9 @@ export function replayTrace(
   }
 
   const interactionCost =
-    options.studyBCondition === "impact-preview"
+    options.studyBCondition === "impact-proxy"
       ? 3
-      : options.studyBCondition === "preview-and-repair"
+      : options.studyBCondition === "impact-proxy-with-quarantine"
         ? 8
         : 0;
 

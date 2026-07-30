@@ -5,6 +5,11 @@ import {
   type ProfileVector
 } from "../src/domain/schema";
 import { replayTrace } from "../src/experiments/replay";
+import {
+  ACTION_WEIGHTS,
+  INTENT_WEIGHTS,
+  matchedAttenuationScale
+} from "../src/recommender/profile-updater";
 import { SCENARIOS } from "../src/sim/scenarios";
 import { NamedRandomStream } from "../src/sim/rng";
 import { generateBehaviorTrace } from "../src/sim/trace";
@@ -217,7 +222,7 @@ describe("deterministic simulation core", () => {
     );
   });
 
-  it("uses the fixed trace to reduce contamination with operational provenance", () => {
+  it("replays one fixed trace across provenance and scope contracts", () => {
     const scenario = SCENARIOS[0];
     const trace = generateBehaviorTrace(
       products,
@@ -231,36 +236,82 @@ describe("deterministic simulation core", () => {
     const provenance = replayTrace(products, scenario, trace, {
       studyACondition: "provenance-aware"
     });
-    const approval = replayTrace(products, scenario, trace, {
-      studyACondition: "approval-gated"
+    const scope = replayTrace(products, scenario, trace, {
+      studyACondition: "scope-gated"
     });
 
     expect(provenance.metrics.profileContamination).toBeLessThan(
       actorBlind.metrics.profileContamination
     );
-    expect(approval.metrics.profileContamination).toBeLessThanOrEqual(
+    expect(scope.metrics.profileContamination).toBeLessThanOrEqual(
       provenance.metrics.profileContamination
     );
     expect(provenance.metrics.taskUtility).toBe(actorBlind.metrics.taskUtility);
   });
 
-  it("reports the explicit interaction-cost trade-off in Study B", () => {
+  it("keeps impact-proxy traces fixed when only quarantine changes", () => {
     const scenario = SCENARIOS[0];
-    const trace = generateBehaviorTrace(
+    const proxyTrace = generateBehaviorTrace(
       products,
       scenario,
       "goal-bound",
       3,
-      { interfaceCondition: "preview-and-repair" }
+      { interfaceCondition: "impact-proxy" }
     );
-    const repaired = replayTrace(products, scenario, trace, {
-      studyBCondition: "preview-and-repair"
+    const quarantineTrace = generateBehaviorTrace(
+      products,
+      scenario,
+      "goal-bound",
+      3,
+      { interfaceCondition: "impact-proxy-with-quarantine" }
+    );
+    const quarantined = replayTrace(products, scenario, quarantineTrace, {
+      studyBCondition: "impact-proxy-with-quarantine"
     });
 
-    expect(repaired.metrics.interactionCost).toBe(8);
-    expect(repaired.receipts.some((receipt) => receipt.status === "temporary")).toBe(
-      true
+    expect(quarantineTrace).toEqual(proxyTrace);
+    expect(quarantined.metrics.interactionCost).toBe(8);
+    expect(
+      quarantined.receipts.some(
+        (receipt) => receipt.status === "quarantined"
+      )
+    ).toBe(true);
+  });
+
+  it("matches total update mass without using intent selectively", () => {
+    const scenario = SCENARIOS[0];
+    const trace = generateBehaviorTrace(
+      products,
+      scenario,
+      "exploratory",
+      21,
+      { labelNoise: 0.1 }
     );
+    const scale = matchedAttenuationScale(trace);
+    const matchedMass = trace.events.reduce(
+      (total, event) => total + ACTION_WEIGHTS[event.action] * scale,
+      0
+    );
+    const provenanceMass = trace.events.reduce(
+      (total, event) =>
+        total +
+        ACTION_WEIGHTS[event.action] * INTENT_WEIGHTS[event.observedIntent],
+      0
+    );
+
+    expect(matchedMass).toBeCloseTo(provenanceMass, 12);
+  });
+
+  it("exposes no-update as an explicit aligned-profile floor", () => {
+    const scenario = SCENARIOS[0];
+    const trace = generateBehaviorTrace(products, scenario, "goal-bound", 5);
+    const result = replayTrace(products, scenario, trace, {
+      studyACondition: "no-update"
+    });
+
+    expect(result.finalProfile).toEqual(scenario.principalReference);
+    expect(result.metrics.profileContamination).toBe(0);
+    expect(result.metrics.persistentUpdateRate).toBe(0);
   });
 
   it("validates signed profile deltas in update receipts", () => {

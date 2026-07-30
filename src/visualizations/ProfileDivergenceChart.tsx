@@ -1,4 +1,4 @@
-import { area, curveMonotoneX, line, max, scaleLinear } from "d3";
+import { area, curveStepAfter, line, max, scaleLinear } from "d3";
 import {
   AccessibleDataTable,
   ChartHeader,
@@ -36,16 +36,24 @@ export interface ProfileDivergenceChartProps extends ChartCopy {
   showTable?: boolean;
 }
 
+function toDisplayStep(step: number): number {
+  return step + 1;
+}
+
+function formatTraceState(step: number): string {
+  return step === -1 ? "Before" : `After event ${toDisplayStep(step)}`;
+}
+
 export function ProfileDivergenceChart({
   series,
   width = 920,
   height = 430,
-  title = "Profile divergence across delegated actions",
-  subtitle = "Normalized distance from the principal reference profile at each interaction step.",
+  title = "Profile divergence after each delegated action",
+  subtitle = "Normalized distance from the principal reference before the trace and after each event.",
   description,
   note,
   className,
-  xLabel = "Delegated interaction step",
+  xLabel = "Trace state (before, then event number)",
   yLabel = "Profile divergence",
   showTable = true
 }: ProfileDivergenceChartProps) {
@@ -54,36 +62,43 @@ export function ProfileDivergenceChart({
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
   const allPoints = series.flatMap((item) => item.points);
-  const steps = allPoints.map((point) => point.step);
-  const minStep = Math.min(0, ...steps);
-  const maxStep = Math.max(1, ...steps);
+  const displaySteps = [
+    ...new Set(allPoints.map((point) => toDisplayStep(point.step)))
+  ].sort((left, right) => left - right);
+  const minDisplayStep = Math.min(0, ...displaySteps);
+  const maxDisplayStep = Math.max(1, ...displaySteps);
   const highestValue =
     max(
       allPoints,
       (point) => point.p90 ?? point.value
     ) ?? 0;
   const x = scaleLinear()
-    .domain([minStep, maxStep])
+    .domain([minDisplayStep, maxDisplayStep])
     .range([0, innerWidth]);
   const y = scaleLinear()
     .domain([0, Math.max(0.05, highestValue * 1.08)])
     .nice()
     .range([innerHeight, 0]);
-  const xTicks = x.ticks(Math.min(8, maxStep - minStep + 1));
+  const xTicks =
+    displaySteps.length <= 18
+      ? displaySteps
+      : x
+          .ticks(8)
+          .filter((tick) => Number.isInteger(tick));
   const yTicks = y.ticks(5);
   const lineGenerator = line<ProfileDivergencePoint>()
-    .x((point) => x(point.step))
+    .x((point) => x(toDisplayStep(point.step)))
     .y((point) => y(point.value))
-    .curve(curveMonotoneX);
+    .curve(curveStepAfter);
   const bandGenerator = area<ProfileDivergencePoint>()
     .defined(
       (point) =>
         typeof point.p10 === "number" && typeof point.p90 === "number"
     )
-    .x((point) => x(point.step))
+    .x((point) => x(toDisplayStep(point.step)))
     .y0((point) => y(point.p10 ?? point.value))
     .y1((point) => y(point.p90 ?? point.value))
-    .curve(curveMonotoneX);
+    .curve(curveStepAfter);
   const styledSeries = series.map((item, index) => ({
     ...item,
     ...conditionStyle(item.condition, index, item.color, item.dash),
@@ -95,17 +110,32 @@ export function ProfileDivergenceChart({
       value: item.points.at(-1)?.value ?? 0
     }))
     .sort((left, right) => left.value - right.value);
+  const minimumFinal = finalRows[0]?.value;
+  const maximumFinal = finalRows.at(-1)?.value;
+  const lowestFinal = finalRows.filter(
+    (row) =>
+      minimumFinal !== undefined && Math.abs(row.value - minimumFinal) < 1e-9
+  );
+  const highestFinal = finalRows.filter(
+    (row) =>
+      maximumFinal !== undefined && Math.abs(row.value - maximumFinal) < 1e-9
+  );
+  const joinConditions = (
+    rows: Array<{ condition: string; value: number }>
+  ) => rows.map((row) => row.condition).join(" and ");
   const semanticSummary =
     finalRows.length === 0
       ? "No profile-divergence observations are available."
-      : `${finalRows[0].condition} has the lowest final divergence (${formatDecimal(
-          finalRows[0].value
-        )}); ${finalRows.at(-1)?.condition} has the highest (${formatDecimal(
-          finalRows.at(-1)?.value ?? 0
-        )}).`;
+      : `${joinConditions(lowestFinal)} ${
+          lowestFinal.length > 1 ? "tie for" : "has"
+        } the lowest final divergence (${formatDecimal(
+          lowestFinal[0].value
+        )}); ${joinConditions(highestFinal)} ${
+          highestFinal.length > 1 ? "tie for" : "has"
+        } the highest (${formatDecimal(highestFinal[0].value)}).`;
   const longDescription =
     description ??
-    `${semanticSummary} Divergence is shown from zero on a shared vertical scale.`;
+    `${semanticSummary} Divergence is shown from zero on a shared vertical scale. The horizontal axis starts before the trace and advances to the state after each numbered event.`;
 
   return (
     <figure className={cx("vis", "vis--profile-divergence", className)}>
@@ -119,7 +149,12 @@ export function ProfileDivergenceChart({
         }))}
       />
       <p className="vis__semantic-summary">{semanticSummary}</p>
-      <div className="vis__scroll-region" style={{ overflowX: "auto" }}>
+      <div
+        aria-label="Scrollable profile-divergence chart"
+        className="vis__scroll-region"
+        style={{ overflowX: "auto" }}
+        tabIndex={0}
+      >
         <svg
           className="vis__svg profile-divergence__svg"
           viewBox={`0 0 ${width} ${height}`}
@@ -176,7 +211,7 @@ export function ProfileDivergenceChart({
                   fontSize={12}
                   fontFamily="'IBM Plex Mono', monospace"
                 >
-                  {tick}
+                  {tick === 0 ? "Before" : tick}
                 </text>
               </g>
             ))}
@@ -230,7 +265,7 @@ export function ProfileDivergenceChart({
                   {item.points.map((point, pointIndex) => (
                     <circle
                       className="profile-divergence__point"
-                      cx={x(point.step)}
+                      cx={x(toDisplayStep(point.step))}
                       cy={y(point.value)}
                       fill={pointIndex === item.points.length - 1 ? item.color : VIS_COLORS.paper}
                       key={`${item.condition}-${point.step}`}
@@ -239,8 +274,9 @@ export function ProfileDivergenceChart({
                       strokeWidth={1.6}
                     >
                       <title>
-                        {item.label ?? humanizeCondition(item.condition)}, step{" "}
-                        {point.step}: {formatDecimal(point.value)}
+                        {item.label ?? humanizeCondition(item.condition)},{" "}
+                        {formatTraceState(point.step)}:{" "}
+                        {formatDecimal(point.value)}
                       </title>
                     </circle>
                   ))}
@@ -288,7 +324,11 @@ export function ProfileDivergenceChart({
               header: "Condition",
               render: (row) => row.condition
             },
-            { key: "step", header: "Step", render: (row) => row.step },
+            {
+              key: "state",
+              header: "Trace state",
+              render: (row) => formatTraceState(row.step)
+            },
             {
               key: "value",
               header: "Divergence",
@@ -308,4 +348,3 @@ export function ProfileDivergenceChart({
     </figure>
   );
 }
-

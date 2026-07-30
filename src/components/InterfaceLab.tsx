@@ -5,7 +5,12 @@ import { formatAxis } from "./EditorialVisuals";
 
 type LabCondition = Extract<
   StudyACondition,
-  "actor-blind" | "provenance-aware" | "approval-gated"
+  | "actor-blind"
+  | "logged-only"
+  | "matched-attenuation"
+  | "provenance-aware"
+  | "scope-gated"
+  | "no-update"
 >;
 
 const conditionMeta: Record<
@@ -14,14 +19,27 @@ const conditionMeta: Record<
     short: string;
     label: string;
     premise: string;
-    tone: "error" | "provenance" | "negotiated";
+    tone: "error" | "provenance" | "negotiated" | "neutral";
   }
 > = {
   "actor-blind": {
     short: "U",
-    label: "Unmarked",
+    label: "Actor-blind",
     premise: "Every action is treated as evidence about the principal.",
     tone: "error"
+  },
+  "logged-only": {
+    short: "L",
+    label: "Logged only",
+    premise: "Actor and intent are recorded, but the updater ignores them.",
+    tone: "neutral"
+  },
+  "matched-attenuation": {
+    short: "M",
+    label: "Matched shrinkage",
+    premise:
+      "One oracle-calibrated trace-level scale matches provenance-aware update mass without selective event weighting.",
+    tone: "neutral"
   },
   "provenance-aware": {
     short: "P",
@@ -29,13 +47,22 @@ const conditionMeta: Record<
     premise: "Actor and inferred intent change the update weight.",
     tone: "provenance"
   },
-  "approval-gated": {
-    short: "N",
-    label: "Approval-gated",
-    premise: "Only in-scope, explicitly confirmed evidence can persist.",
+  "scope-gated": {
+    short: "S",
+    label: "Scope-gated",
+    premise:
+      "Only commit evidence allowed by the protocol-defined scope can persist.",
     tone: "negotiated"
+  },
+  "no-update": {
+    short: "0",
+    label: "No update",
+    premise: "The trace remains auditable, but no event changes the profile.",
+    tone: "neutral"
   }
 };
+
+const labConditions = Object.keys(conditionMeta) as LabCondition[];
 
 interface InterfaceLabProps {
   replay: RepresentativeReplay;
@@ -91,19 +118,39 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
           role="tablist"
           aria-label="Profile update interface condition"
         >
-          {(Object.keys(conditionMeta) as LabCondition[]).map((id) => {
+          {labConditions.map((id, index) => {
             const meta = conditionMeta[id];
             return (
               <button
+                aria-controls="lab-condition-panel"
                 aria-selected={condition === id}
                 className={`condition-tab tone-${meta.tone}`}
+                id={`condition-tab-${id}`}
                 key={id}
                 onClick={() => setCondition(id)}
+                onKeyDown={(keyboardEvent) => {
+                  if (
+                    keyboardEvent.key !== "ArrowLeft" &&
+                    keyboardEvent.key !== "ArrowRight"
+                  ) {
+                    return;
+                  }
+                  keyboardEvent.preventDefault();
+                  const direction =
+                    keyboardEvent.key === "ArrowRight" ? 1 : -1;
+                  const nextIndex =
+                    (index + direction + labConditions.length) %
+                    labConditions.length;
+                  const next = labConditions[nextIndex];
+                  setCondition(next);
+                  document.getElementById(`condition-tab-${next}`)?.focus();
+                }}
                 role="tab"
+                tabIndex={condition === id ? 0 : -1}
                 type="button"
               >
-                <span>{meta.short}</span>
-                {meta.label}
+                <span className="condition-tab__mark">{meta.short}</span>
+                <span className="condition-tab__label">{meta.label}</span>
               </button>
             );
           })}
@@ -124,7 +171,12 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
         </div>
       </div>
 
-      <div className="lab-stage">
+      <div
+        aria-labelledby={`condition-tab-${condition}`}
+        className="lab-stage"
+        id="lab-condition-panel"
+        role="tabpanel"
+      >
         <article className="trace-receipt">
           <header>
             <span className="mono-label">EVENT RECEIPT</span>
@@ -204,7 +256,7 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
           </div>
           <div className="reference-key">
             <span>
-              <i /> latent reference
+              <i /> evaluator reference
             </span>
             <span>current inferred profile</span>
           </div>
@@ -240,7 +292,8 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
           <p className="impact-note">
             {receipt.recordedActor === "principal"
               ? "The delegate’s action is being written into the principal’s record."
-              : receipt.status === "excluded"
+              : receipt.status === "excluded" ||
+                  receipt.status === "quarantined"
                 ? "The trace remains auditable, but this update does not persist."
                 : "Actor and intent remain attached to the evidence."}
           </p>
@@ -258,6 +311,9 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
         </button>
         <input
           aria-label="Trace step"
+          aria-valuetext={`Event ${step + 1} of ${maxStep + 1}: ${event.action}, ${
+            product?.name ?? event.productId
+          }`}
           max={maxStep}
           min={0}
           onChange={(event) => {
@@ -278,12 +334,13 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
       </div>
 
       <div className="world-comparison" aria-label="Final profile comparison">
-        {(Object.keys(conditionMeta) as LabCondition[]).map((id) => {
+        {labConditions.map((id) => {
           const item = replay.worlds[id];
           const selected = condition === id;
           return (
             <button
               className={`world-card${selected ? " is-selected" : ""}`}
+              aria-pressed={selected}
               key={id}
               onClick={() => setCondition(id)}
               type="button"
@@ -293,7 +350,7 @@ export function InterfaceLab({ replay, catalog }: InterfaceLabProps) {
               </span>
               <span>
                 <strong>{conditionMeta[id].label}</strong>
-                <small>final contamination</small>
+                <small>final divergence</small>
               </span>
               <output>{item.metrics.profileContamination.toFixed(3)}</output>
             </button>

@@ -1,4 +1,5 @@
 import {
+  type BehaviorTrace,
   type BehaviorEvent,
   type Product,
   type ProfileVector,
@@ -9,14 +10,14 @@ import {
 } from "../domain/schema";
 import { blend, roundVector, subtract } from "../sim/vector";
 
-const actionWeights = {
+export const ACTION_WEIGHTS = {
   view: 0.18,
   compare: 0.32,
   shortlist: 0.56,
   purchase: 1
 } as const;
 
-const intentWeights = {
+export const INTENT_WEIGHTS = {
   explore: 0.06,
   consider: 0.28,
   commit: 0.82
@@ -26,19 +27,35 @@ export interface UpdateOptions {
   learningRate: number;
   studyACondition?: StudyACondition;
   studyBCondition?: StudyBCondition;
+  matchedAttenuationScale?: number;
 }
 
 function statusForWeight(
   effectiveWeight: number,
   baseWeight: number,
   confirmed: boolean,
-  temporary: boolean
+  quarantined: boolean
 ): UpdateReceipt["status"] {
-  if (temporary) return "temporary";
+  if (quarantined) return "quarantined";
   if (confirmed) return "confirmed";
   if (effectiveWeight === 0) return "excluded";
   if (effectiveWeight < baseWeight * 0.8) return "downweighted";
   return "counted";
+}
+
+export function matchedAttenuationScale(trace: BehaviorTrace): number {
+  const fullMass = trace.events.reduce(
+    (total, event) => total + ACTION_WEIGHTS[event.action],
+    0
+  );
+  if (fullMass === 0) return 0;
+  const provenanceMass = trace.events.reduce(
+    (total, event) =>
+      total +
+      ACTION_WEIGHTS[event.action] * INTENT_WEIGHTS[event.observedIntent],
+    0
+  );
+  return provenanceMass / fullMass;
 }
 
 export function updateProfile(
@@ -48,35 +65,41 @@ export function updateProfile(
   scenario: Scenario,
   options: UpdateOptions
 ): UpdateReceipt {
-  const baseWeight = actionWeights[event.action];
+  const baseWeight = ACTION_WEIGHTS[event.action];
   let effectiveWeight: number = baseWeight;
   let recordedActor: UpdateReceipt["recordedActor"] = "agent";
   let updaterUsedProvenance = true;
   let confirmed = false;
-  let temporary = false;
+  let quarantined = false;
 
   if (options.studyACondition === "actor-blind") {
     recordedActor = "principal";
     updaterUsedProvenance = false;
   } else if (options.studyACondition === "logged-only") {
     updaterUsedProvenance = false;
+  } else if (options.studyACondition === "matched-attenuation") {
+    updaterUsedProvenance = false;
+    effectiveWeight *= options.matchedAttenuationScale ?? 0;
   } else if (options.studyACondition === "provenance-aware") {
-    effectiveWeight *= intentWeights[event.observedIntent];
-  } else if (options.studyACondition === "approval-gated") {
+    effectiveWeight *= INTENT_WEIGHTS[event.observedIntent];
+  } else if (options.studyACondition === "scope-gated") {
     confirmed =
       scenario.learningScope === "commit-only" &&
       event.action === "purchase" &&
       event.observedIntent === "commit";
-    effectiveWeight = confirmed ? baseWeight * intentWeights.commit : 0;
+    effectiveWeight = confirmed ? baseWeight * INTENT_WEIGHTS.commit : 0;
+  } else if (options.studyACondition === "no-update") {
+    updaterUsedProvenance = false;
+    effectiveWeight = 0;
   }
 
   if (options.studyBCondition) {
-    effectiveWeight = baseWeight * intentWeights[event.observedIntent];
+    effectiveWeight = baseWeight * INTENT_WEIGHTS[event.observedIntent];
     if (
-      options.studyBCondition === "preview-and-repair" &&
+      options.studyBCondition === "impact-proxy-with-quarantine" &&
       event.observedIntent !== "commit"
     ) {
-      temporary = true;
+      quarantined = true;
       effectiveWeight = 0;
     }
   }
@@ -97,7 +120,7 @@ export function updateProfile(
       effectiveWeight,
       baseWeight,
       confirmed,
-      temporary
+      quarantined
     ),
     effectiveWeight: Number(effectiveWeight.toFixed(6)),
     profileBefore,

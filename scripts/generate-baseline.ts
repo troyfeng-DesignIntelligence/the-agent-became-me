@@ -20,6 +20,10 @@ const metrics = [
   "futureRecommendationRegret",
   "taskUtility",
   "attributionErrorRate",
+  "actorRecordingErrorRate",
+  "intentLabelErrorRate",
+  "provenanceUseRate",
+  "persistentUpdateRate",
   "interactionCost",
   "constraintViolations"
 ] as const;
@@ -101,11 +105,19 @@ const summary = {
     "expectedConflict",
     "policy"
   ]),
+  overallC: aggregateRows(output.studyC, ["condition"]),
+  cellsC: aggregateRows(output.studyC, ["condition", "policy"]),
   pairedSeedExample: output.studyA.filter(
     (row) =>
       row.scenarioId === "party-snacks" &&
       row.policy === "exploratory" &&
-      ["actor-blind", "provenance-aware", "approval-gated"].includes(
+      [
+        "actor-blind",
+        "matched-attenuation",
+        "provenance-aware",
+        "scope-gated",
+        "no-update"
+      ].includes(
         row.condition
       )
   ),
@@ -125,6 +137,7 @@ process.stdout.write(
   [
     `Wrote ${output.studyA.length} Study A rows`,
     `${output.studyB.length} Study B rows`,
+    `${output.studyC.length} Study C rows`,
     `${output.sensitivity.length} sensitivity rows`,
     `to ${outputPath}`,
     `summary to ${summaryPath}`
