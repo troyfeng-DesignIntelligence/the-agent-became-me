@@ -1,0 +1,4034 @@
+{
+  "schemaVersion": "catalog.v1",
+  "generatedAt": "2026-07-30T10:32:52.600Z",
+  "source": {
+    "name": "Open Food Facts",
+    "api": "https://world.openfoodfacts.org/api/v2/search",
+    "documentation": "https://openfoodfacts.github.io/documentation/docs/Product-Opener/api/",
+    "license": "Open Database License (ODbL) 1.0",
+    "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "attribution": "Contains information from Open Food Facts, made available under the Open Database License."
+  },
+  "transformations": [
+    "Product images and review or user-level records are excluded.",
+    "Five normalized profile axes are derived from Nutri-Score, Eco-Score, NOVA group, and explicit dietary labels.",
+    "Missing public fields are mapped to a neutral 0.5 value and remain inspectable in evidence."
+  ],
+  "categories": [
+    "breakfast-cereals",
+    "snacks",
+    "plant-based-beverages",
+    "energy-bars",
+    "yogurts"
+  ],
+  "productCount": 90,
+  "products": [
+    {
+      "id": "off-06175700",
+      "sourceCode": "06175700",
+      "name": "Tartines craquantes au sarrasin imp",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:extruded-crispbreads"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 1,
+        "plantBased": 1,
+        "lowProcessing": 1,
+        "indulgence": 0.0464
+      },
+      "popularity": 0.8961,
+      "allergens": [
+        "en:none"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:fair-trade",
+        "en:no-gluten",
+        "en:organic",
+        "en:crossed-grain-trademark",
+        "en:eu-organic",
+        "en:kosher",
+        "en:vegan",
+        "en:green-dot",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:the-vegan-society"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a-plus",
+        "novaGroup": 1,
+        "uniqueScans": 1094
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/06175700"
+    },
+    {
+      "id": "off-0857777004232",
+      "sourceCode": "0857777004232",
+      "name": "Chocolate Sea Salt RXBAR",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.57
+      },
+      "popularity": 0.5688,
+      "allergens": [
+        "en:eggs",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:no-gluten",
+        "en:kosher",
+        "en:orthodox-union-kosher"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 3,
+        "uniqueScans": 84
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/0857777004232"
+    },
+    {
+      "id": "off-20003166",
+      "sourceCode": "20003166",
+      "name": "Haferflocken Extra zart",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:flakes",
+        "en:cereal-flakes",
+        "en:extruded-flakes",
+        "en:rolled-flakes",
+        "en:rolled-oats",
+        "ro:Cereale"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 0.5,
+        "indulgence": 0.2564
+      },
+      "popularity": 0.7913,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:german-agricultural-society",
+        "en:gold-medal-of-the-german-agricultural-society",
+        "en:source-of-fibre",
+        "en:2014-gold-medal-of-the-german-agricultural-society",
+        "en:green-dot",
+        "en:high-fibres",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:Verified"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": null,
+        "uniqueScans": 482
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/20003166"
+    },
+    {
+      "id": "off-20955427",
+      "sourceCode": "20955427",
+      "name": "High Protein Quarkriegel",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:quarks",
+        "en:curd-snacks",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars",
+        "hu:Turodesszert",
+        "sk:protein"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5421,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [
+        "en:source-of-proteins",
+        "en:sustainable-farming",
+        "en:high-proteins",
+        "en:nutriscore",
+        "en:nutriscore-grade-c",
+        "en:nutriscore-grade-d",
+        "en:rainforest-alliance",
+        "en:rainforest-alliance-cocoa",
+        "en:utz-certified"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 68
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/20955427"
+    },
+    {
+      "id": "off-3033710073467",
+      "sourceCode": "3033710073467",
+      "name": "Chicorée & Café, RICORÉ® L'Original, Boîte de 100g",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-beverages",
+        "en:beverage-preparations",
+        "en:instant-beverages",
+        "en:instant-coffee-substitutes",
+        "en:instant-mix-of-chicory-and-coffee-powder"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.5,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8259,
+      "allergens": [],
+      "labels": [
+        "en:vegetarian",
+        "en:source-of-fibre",
+        "en:high-fibres",
+        "en:made-in-france",
+        "en:magnesium-source"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 632
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3033710073467"
+    },
+    {
+      "id": "off-3046920022606",
+      "sourceCode": "3046920022606",
+      "name": "Excellence 85% Cacao Chocolat Noir Puissant Lindt % Lindt",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:cocoa-and-its-products",
+        "en:chocolates",
+        "en:dark-chocolates",
+        "en:dark-chocolate-bar"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.7672
+      },
+      "popularity": 0.8917,
+      "allergens": [],
+      "labels": [
+        "en:non-eu-agriculture",
+        "en:made-in-belgium",
+        "en:made-in-france",
+        "en:no-palm-oil"
+      ],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "e",
+        "novaGroup": 3,
+        "uniqueScans": 1057
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3046920022606"
+    },
+    {
+      "id": "off-3046920022651",
+      "sourceCode": "3046920022651",
+      "name": "EXCELLENCE 70% CACAO NOIR INTENSE",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:fermented-foods",
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:cocoa-and-its-products",
+        "en:chocolates",
+        "en:dark-chocolates",
+        "en:dark-chocolate-bar",
+        "en:dark-chocolate-bar-with-more-than-70-cocoa"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.7672
+      },
+      "popularity": 0.8942,
+      "allergens": [],
+      "labels": [
+        "en:no-preservatives",
+        "en:made-in-france"
+      ],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "e",
+        "novaGroup": 3,
+        "uniqueScans": 1078
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3046920022651"
+    },
+    {
+      "id": "off-3046920029759",
+      "sourceCode": "3046920029759",
+      "name": "Extra fine dark chocolate",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:cocoa-and-its-products",
+        "en:chocolates",
+        "en:dark-chocolates",
+        "en:dark-chocolate-bar",
+        "en:extra-fine-dark-chocolates",
+        "en:Botanas",
+        "en:Cacao y sus productos",
+        "en:Chocolates negros",
+        "en:Chocolates negros extra finos",
+        "en:Snacks dulces"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.7672
+      },
+      "popularity": 0.9071,
+      "allergens": [],
+      "labels": [
+        "en:green-dot"
+      ],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "e",
+        "novaGroup": 3,
+        "uniqueScans": 1193
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3046920029759"
+    },
+    {
+      "id": "off-3067140013120",
+      "sourceCode": "3067140013120",
+      "name": "Chicorée soluble nature",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-beverages",
+        "en:beverage-preparations",
+        "en:instant-beverages",
+        "en:instant-coffee-substitutes",
+        "en:instant-chicory",
+        "fr:Chicorée poudre soluble non réhydratée"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 1,
+        "indulgence": 0.3712
+      },
+      "popularity": 0.798,
+      "allergens": [],
+      "labels": [
+        "en:no-gluten",
+        "en:source-of-fibre",
+        "en:high-fibres",
+        "en:no-added-sugar",
+        "en:no-caffeine"
+      ],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "unknown",
+        "novaGroup": 1,
+        "uniqueScans": 508
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3067140013120"
+    },
+    {
+      "id": "off-3159470000120",
+      "sourceCode": "3159470000120",
+      "name": "CORN FLAKES",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:flakes",
+        "en:cereal-flakes",
+        "en:extruded-cereals",
+        "en:extruded-flakes",
+        "en:corn-flakes"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.56,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.6512
+      },
+      "popularity": 0.8107,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:halal",
+        "en:kosher",
+        "en:no-artificial-flavors",
+        "en:green-dot",
+        "en:halal-food-authority",
+        "en:manchester-beth-din",
+        "en:no-colorings"
+      ],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "c",
+        "novaGroup": 3,
+        "uniqueScans": 561
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3159470000120"
+    },
+    {
+      "id": "off-3168930009078",
+      "sourceCode": "3168930009078",
+      "name": "Quaker Oats",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:flakes",
+        "en:cereal-flakes",
+        "en:rolled-flakes",
+        "en:rolled-oats"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 1,
+        "indulgence": 0.0464
+      },
+      "popularity": 0.7965,
+      "allergens": [],
+      "labels": [
+        "en:no-preservatives",
+        "en:source-of-fibre",
+        "en:100-natural",
+        "en:high-fibres",
+        "en:no-added-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": 1,
+        "uniqueScans": 502
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3168930009078"
+    },
+    {
+      "id": "off-3168930009795",
+      "sourceCode": "3168930009795",
+      "name": "Muesli Croustillant Noix de pécan & noix du Brésil",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:mueslis",
+        "en:cereals-with-nuts",
+        "en:mueslis-with-nuts"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.56,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.7718,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:no-preservatives",
+        "en:green-dot",
+        "en:no-colorings",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 414
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3168930009795"
+    },
+    {
+      "id": "off-3168930010265",
+      "sourceCode": "3168930010265",
+      "name": "cruesly mélange de noix",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:mueslis",
+        "en:cereals-with-nuts",
+        "en:crunchy-cereal-clusters",
+        "en:cereal-clusters-with-nuts"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8961,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:no-artificial-flavors",
+        "en:no-preservatives",
+        "en:green-dot",
+        "en:no-colorings",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 1094
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3168930010265"
+    },
+    {
+      "id": "off-3168930010906",
+      "sourceCode": "3168930010906",
+      "name": "Cruesli Chocolat noir",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:chocolate-cereals",
+        "en:breakfast-cereals-rich-in-fibre",
+        "en:crunchy-cereal-clusters",
+        "en:cereal-clusters-with-chocolate"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.36,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8067,
+      "allergens": [
+        "en:gluten",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:no-artificial-flavors",
+        "en:no-preservatives",
+        "en:green-dot",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-c"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "d",
+        "novaGroup": 4,
+        "uniqueScans": 544
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3168930010906"
+    },
+    {
+      "id": "off-3168930163480",
+      "sourceCode": "3168930163480",
+      "name": "Gazpacho",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:fruits-and-vegetables-based-foods",
+        "en:vegetable-based-foods-and-beverages",
+        "en:meals",
+        "en:plant-based-beverages",
+        "en:soups",
+        "en:vegetable-based-beverages",
+        "en:vegetable-soups",
+        "en:cold-soups",
+        "en:gazpacho"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.4308
+      },
+      "popularity": 0.8825,
+      "allergens": [],
+      "labels": [
+        "en:no-gluten",
+        "en:no-preservatives",
+        "en:fsc",
+        "en:green-dot",
+        "en:no-additives",
+        "en:no-colorings",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 3,
+        "uniqueScans": 984
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3168930163480"
+    },
+    {
+      "id": "off-3175680011480",
+      "sourceCode": "3175680011480",
+      "name": "Sésame",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.56,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8945,
+      "allergens": [
+        "en:gluten",
+        "en:sesame-seeds"
+      ],
+      "labels": [
+        "en:no-preservatives",
+        "en:green-dot",
+        "en:made-in-france",
+        "en:natural-flavors",
+        "en:no-colorings",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-b"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 1081
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3175680011480"
+    },
+    {
+      "id": "off-3175681851849",
+      "sourceCode": "3175681851849",
+      "name": "Pomme Noisette",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "en:dry-biscuits"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.56,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8636,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-sugar",
+        "en:low-sugar",
+        "en:enriched-with-vitamins",
+        "en:low-or-no-sodium",
+        "en:no-preservatives",
+        "en:non-eu-agriculture",
+        "en:reduced-sugar",
+        "en:rich-in-vitamin-e",
+        "en:source-of-fibre",
+        "en:sustainable-farming",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:high-fibres",
+        "en:low-sodium",
+        "en:made-in-france",
+        "en:natural-flavors",
+        "en:no-colorings",
+        "en:no-dyes-or-preservatives",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:rich-in-vitamin-b1",
+        "en:rich-in-vitamin-b9",
+        "en:vitamin-b6-source",
+        "en:without-sweeteners"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 849
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3175681851849"
+    },
+    {
+      "id": "off-3175681851856",
+      "sourceCode": "3175681851856",
+      "name": "Biscuit raisins",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "en:shortbread-cookies",
+        "en:fruit-biscuits",
+        "en:shortbread-biscuit-with-fruits"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8447,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:no-preservatives",
+        "en:made-in-france",
+        "en:no-colorings",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 732
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3175681851856"
+    },
+    {
+      "id": "off-3229820019307",
+      "sourceCode": "3229820019307",
+      "name": "FLOCONS D'AVOINE",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:flakes",
+        "en:cereal-flakes",
+        "en:rolled-flakes",
+        "en:rolled-oats"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 1,
+        "indulgence": 0.0464
+      },
+      "popularity": 0.8459,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:organic",
+        "en:certified-by-ecocert",
+        "en:eu-organic",
+        "en:source-of-fibre",
+        "en:certified-b-corporation",
+        "en:de-oko-001",
+        "en:eu-agriculture",
+        "en:high-fibres",
+        "en:made-in-germany"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": 1,
+        "uniqueScans": 739
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820019307"
+    },
+    {
+      "id": "off-3229820100234",
+      "sourceCode": "3229820100234",
+      "name": "Filled - Dark Chocolate",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "en:chocolate-biscuits",
+        "en:filled-biscuits",
+        "en:dark-chocolate-biscuits",
+        "en:sandwich-biscuits"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.7912
+      },
+      "popularity": 0.8871,
+      "allergens": [
+        "en:gluten",
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:organic",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:certified-b-corporation",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:fr-bio-01",
+        "en:no-palm-oil",
+        "en:pure-cocoa-butter"
+      ],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 1020
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820100234"
+    },
+    {
+      "id": "off-3229820129488",
+      "sourceCode": "3229820129488",
+      "name": "Muesli Raisin, Figue, Datte, Abricot",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:cereals-with-fruits",
+        "en:mueslis",
+        "en:bircher-style-mueslis",
+        "en:mueslis-with-fruits",
+        "en:bircher-style-mueslis-with-fruits",
+        "en:bircher-style-sugar-free-muesli-flakes-with-fruits"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.3264
+      },
+      "popularity": 0.8438,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:organic",
+        "en:certified-by-ecocert",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:source-of-fibre",
+        "en:certified-b-corporation",
+        "en:de-oko-001",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:fr-bio-01",
+        "en:gb-org-05",
+        "en:high-fibres",
+        "en:no-added-sugar",
+        "en:planet-score"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": 3,
+        "uniqueScans": 727
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820129488"
+    },
+    {
+      "id": "off-3229820160672",
+      "sourceCode": "3229820160672",
+      "name": "Croustillant Chocolat",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:chocolate-cereals",
+        "en:breakfast-cereals-rich-in-fibre",
+        "en:crunchy-cereal-clusters",
+        "en:cereal-clusters-with-chocolate"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8665,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:organic",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:fr-bio-01",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-b"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 868
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820160672"
+    },
+    {
+      "id": "off-3229820769165",
+      "sourceCode": "3229820769165",
+      "name": "Muesli avoine chocolat",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:chocolate-cereals",
+        "en:mueslis",
+        "en:mueslis-with-chocolate"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.4664
+      },
+      "popularity": 0.8107,
+      "allergens": [
+        "en:gluten",
+        "en:milk"
+      ],
+      "labels": [
+        "en:organic",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:certified-b-corporation",
+        "en:de-oko-001",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:green-dot",
+        "en:made-in-germany",
+        "en:planet-score"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": 4,
+        "uniqueScans": 561
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820769165"
+    },
+    {
+      "id": "off-3229820782560",
+      "sourceCode": "3229820782560",
+      "name": "Muesli Superfruits Raisins, Cassis, Cranberry, Myrtille",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:cereals-with-fruits",
+        "en:mueslis",
+        "en:mueslis-with-fruits"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.3264
+      },
+      "popularity": 0.8367,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:organic",
+        "en:certified-by-ecocert",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:source-of-fibre",
+        "en:de-oko-001",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:green-dot",
+        "en:high-fibres",
+        "en:made-in-germany",
+        "en:no-added-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": 3,
+        "uniqueScans": 688
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820782560"
+    },
+    {
+      "id": "off-3229820787008",
+      "sourceCode": "3229820787008",
+      "name": "Lait d'amande",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:nuts-and-their-products",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:nut-based-drinks",
+        "en:almond-based-drinks",
+        "en:sweetened-plain-almond-based-drinks"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 1,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.5352
+      },
+      "popularity": 0.7684,
+      "allergens": [
+        "en:nuts"
+      ],
+      "labels": [
+        "en:organic",
+        "en:eu-organic",
+        "en:certified-b-corporation",
+        "en:fr-bio-01",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:it-bio-005",
+        "en:it-bio-007",
+        "en:made-in-italy"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a-plus",
+        "novaGroup": 3,
+        "uniqueScans": 403
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820787008"
+    },
+    {
+      "id": "off-3229820787015",
+      "sourceCode": "3229820787015",
+      "name": "Lait D’Amande",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:nuts-and-their-products",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:nut-based-drinks",
+        "en:almond-based-drinks",
+        "en:unsweetened-plain-almond-based-drinks"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.92,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8339,
+      "allergens": [
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-sugar",
+        "en:vegetarian",
+        "en:organic",
+        "en:certified-by-ecocert",
+        "en:eu-organic",
+        "en:vegan",
+        "en:100-vegetable",
+        "en:calcium-source",
+        "en:certified-b-corporation",
+        "en:fr-bio-01",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:it-bio-007",
+        "en:made-in-italy",
+        "en:no-added-sugar",
+        "en:no-palm-oil",
+        "en:plant-based"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "a",
+        "novaGroup": 4,
+        "uniqueScans": 673
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820787015"
+    },
+    {
+      "id": "off-3229820792132",
+      "sourceCode": "3229820792132",
+      "name": "Avoine - Boisson biologique",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:cereals-and-potatoes",
+        "en:dairy-substitutes",
+        "en:cereals-and-their-products",
+        "en:milk-substitutes",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:cereal-based-drinks",
+        "en:oat-based-drinks",
+        "en:unsweetened-beverages",
+        "fr:Boissons-vegetales-a-base-d-avoine"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.5352
+      },
+      "popularity": 0.8332,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:organic",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:certified-b-corporation",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:fr-bio-01",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:green-dot",
+        "en:it-bio-005",
+        "en:it-bio-006",
+        "en:it-bio-007",
+        "en:made-in-italy",
+        "en:made-in-spain",
+        "en:new-recipe",
+        "en:no-added-sugar",
+        "en:planet-score",
+        "en:planet-score-grade-a",
+        "en:Es-eco-033-cl"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a",
+        "novaGroup": 3,
+        "uniqueScans": 669
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3229820792132"
+    },
+    {
+      "id": "off-3251490332080",
+      "sourceCode": "3251490332080",
+      "name": "FIGUE & SON",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "fr:Biscuits au son de blé",
+        "fr:Biscuits au son de blé et la figue"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.56,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8612,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:no-preservatives",
+        "en:source-of-fibre",
+        "en:high-fibres",
+        "en:made-in-france",
+        "en:no-colorings",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 833
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3251490332080"
+    },
+    {
+      "id": "off-3268840001008",
+      "sourceCode": "3268840001008",
+      "name": "Cristaline",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:beverages",
+        "en:snacks",
+        "en:waters",
+        "en:spring-waters"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 1,
+        "indulgence": 0.0464
+      },
+      "popularity": 0.8462,
+      "allergens": [],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "not-applicable",
+        "novaGroup": 1,
+        "uniqueScans": 741
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3268840001008"
+    },
+    {
+      "id": "off-3284230006408",
+      "sourceCode": "3284230006408",
+      "name": "Sliced ​​Brioche",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:breakfasts",
+        "en:sweet-snacks",
+        "en:sweet-pastries-and-pies",
+        "en:viennoiseries",
+        "en:brioches",
+        "en:pure-butter-brioche",
+        "fr:brioches-tranchees"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.92,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8846,
+      "allergens": [
+        "en:eggs",
+        "en:gluten"
+      ],
+      "labels": [
+        "en:fair-trade",
+        "en:organic",
+        "en:eu-organic",
+        "en:free-range",
+        "en:no-artificial-flavors",
+        "en:non-eu-agriculture",
+        "en:1-for-the-planet",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:fair-trade-organic",
+        "en:fr-bio-01",
+        "en:free-range-eggs",
+        "en:french-eggs",
+        "en:made-in-france",
+        "en:no-colorings",
+        "en:nutriscore",
+        "en:nutriscore-grade-b"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a",
+        "novaGroup": 4,
+        "uniqueScans": 1000
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3284230006408"
+    },
+    {
+      "id": "off-3362600011044",
+      "sourceCode": "3362600011044",
+      "name": "Henry’s",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.56,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.9072
+      },
+      "popularity": 0.8438,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 727
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3362600011044"
+    },
+    {
+      "id": "off-3387390123210",
+      "sourceCode": "3387390123210",
+      "name": "Chocapic",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:chocolate-cereals",
+        "en:breakfast-cereals-fortified-with-vitamins-and-chemical-elements",
+        "en:extruded-cereals",
+        "en:chocolate-wheat-shells",
+        "en:unfilled-breakfast-chocolate-cereals-fortified-with-vitamins-and-chemical-elements"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8434,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:made-in-france",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:nutriscore-grade-b",
+        "en:rainforest-alliance"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 725
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3387390123210"
+    },
+    {
+      "id": "off-3609200011174",
+      "sourceCode": "3609200011174",
+      "name": "Chocolat au Lait & Cookie Dough",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:confectioneries",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.628,
+      "allergens": [
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:low-or-no-sugar",
+        "en:low-sugar",
+        "en:source-of-proteins",
+        "en:high-proteins"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 134
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/3609200011174"
+    },
+    {
+      "id": "off-4056489038627",
+      "sourceCode": "4056489038627",
+      "name": "Protein Bar sabor a Brownie",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5154,
+      "allergens": [
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:source-of-proteins",
+        "en:sustainable-farming",
+        "en:green-dot",
+        "en:high-proteins",
+        "en:rainforest-alliance",
+        "en:utz-certified",
+        "en:utz-certified-cocoa",
+        "en:utz-certified-coffee"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 55
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/4056489038627"
+    },
+    {
+      "id": "off-4056489346357",
+      "sourceCode": "4056489346357",
+      "name": "Boisson à l'amande, sans sucres",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:nuts-and-their-products",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:nut-based-drinks",
+        "en:almond-based-drinks",
+        "en:Frühstücke",
+        "en:Getränke",
+        "en:Nüsse-und-nussprodukte",
+        "en:Pflanzliche-getränke",
+        "en:Pflanzliche-lebensmittel-und-getränke"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.92,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.7889,
+      "allergens": [
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-sugar",
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:organic",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:vegan",
+        "en:100-vegetable",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:european-vegetarian-union",
+        "en:european-vegetarian-union-vegan",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:it-bio-009",
+        "en:no-added-sugar",
+        "en:no-lactose",
+        "en:no-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-b",
+        "en:veganok",
+        "en:V-label"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "a",
+        "novaGroup": 4,
+        "uniqueScans": 473
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/4056489346357"
+    },
+    {
+      "id": "off-4056489997672",
+      "sourceCode": "4056489997672",
+      "name": "Crunchy Protein Bar",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "pl:Baton-proteinowy"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5364,
+      "allergens": [
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:source-of-proteins",
+        "en:high-proteins",
+        "en:rainforest-alliance"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 65
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/4056489997672"
+    },
+    {
+      "id": "off-4260744953437",
+      "sourceCode": "4260744953437",
+      "name": "Fit Protein Bar",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5284,
+      "allergens": [
+        "en:milk",
+        "en:nuts",
+        "en:soybeans"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 61
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/4260744953437"
+    },
+    {
+      "id": "off-5010029000023",
+      "sourceCode": "5010029000023",
+      "name": "Weetabix",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:breakfast-cereals-rich-in-fibre",
+        "fr:Weetabix"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.56,
+        "plantBased": 1,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.3264
+      },
+      "popularity": 0.8226,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:low-or-no-fat",
+        "en:low-or-no-sugar",
+        "en:vegetarian",
+        "en:low-fat",
+        "en:low-sugar",
+        "en:source-of-fibre",
+        "en:vegan",
+        "en:green-dot",
+        "en:high-fibres",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "c",
+        "novaGroup": 3,
+        "uniqueScans": 616
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5010029000023"
+    },
+    {
+      "id": "off-5010477348357",
+      "sourceCode": "5010477348357",
+      "name": "Country crisp",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:breakfast-cereals-rich-in-fibre",
+        "en:cereals-with-nuts",
+        "en:crunchy-cereal-clusters",
+        "en:cereal-clusters-with-nuts"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.56,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8158,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-salt",
+        "en:sustainable",
+        "en:vegetarian",
+        "en:no-artificial-flavors",
+        "en:no-gmos",
+        "en:no-preservatives",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:no-added-salt",
+        "en:no-artificial-additives",
+        "en:no-colorings",
+        "en:no-dyes-or-preservatives",
+        "en:no-palm-oil"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 584
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5010477348357"
+    },
+    {
+      "id": "off-5010477348630",
+      "sourceCode": "5010477348630",
+      "name": "Muesli 36% fruits noix & graines",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:cereals-with-fruits",
+        "en:mueslis",
+        "en:mueslis-with-fruits"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 1,
+        "indulgence": 0.2552
+      },
+      "popularity": 0.7743,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-salt",
+        "en:low-or-no-sugar",
+        "en:organic",
+        "en:certified-by-ecocert",
+        "en:eu-organic",
+        "en:non-eu-agriculture",
+        "en:eu-agriculture",
+        "en:eu-non-eu-agriculture",
+        "en:fr-bio-01",
+        "en:gb-org-05",
+        "en:no-added-salt",
+        "en:no-added-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:soil-association-organic"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a",
+        "novaGroup": 1,
+        "uniqueScans": 422
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5010477348630"
+    },
+    {
+      "id": "off-5010477348678",
+      "sourceCode": "5010477348678",
+      "name": "Special Muesli",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:cereals-with-fruits",
+        "en:mueslis",
+        "en:mueslis-with-fruits"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 1,
+        "indulgence": 0.0464
+      },
+      "popularity": 0.84,
+      "allergens": [
+        "en:gluten",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-salt",
+        "en:vegetarian",
+        "en:no-artificial-flavors",
+        "en:no-preservatives",
+        "en:source-of-fibre",
+        "en:high-fibres",
+        "en:iron-source",
+        "en:magnesium-source",
+        "en:no-added-salt",
+        "en:no-added-sugar",
+        "en:no-colorings",
+        "en:no-palm-oil",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:phosphore-source",
+        "en:rich-in-vitamin-b1"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "b",
+        "novaGroup": 1,
+        "uniqueScans": 706
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5010477348678"
+    },
+    {
+      "id": "off-5060088700082",
+      "sourceCode": "5060088700082",
+      "name": "Protein Peanut Butter Bar",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:nuts-and-their-products",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:nut-bars",
+        "en:energy-bars",
+        "en:peanut-bars",
+        "en:protein-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.6064,
+      "allergens": [
+        "en:peanuts"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:kosher",
+        "en:vegan",
+        "en:kashrut-division-of-the-london-beth-din",
+        "en:no-added-sugar",
+        "en:no-lactose"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 113
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5060088700082"
+    },
+    {
+      "id": "off-5060088700112",
+      "sourceCode": "5060088700112",
+      "name": "Protein Bars Cocoa Hazelnut",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:nuts-and-their-products",
+        "en:bars",
+        "en:cereal-bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:chocolate-cereal-bars",
+        "en:nut-bars",
+        "en:cereal-bar-with-chocolate-fortified-with-vitamins-and-minerals",
+        "en:energy-bars",
+        "en:protein-bars",
+        "fr:barres-aux-fruits",
+        "en:barres-de-cereales",
+        "en:barres-de-fruits-noix"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.56,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.7421,
+      "allergens": [
+        "en:nuts",
+        "en:peanuts",
+        "en:Cacahuètes",
+        "en:Noisettes"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:kosher",
+        "en:no-milk",
+        "en:vegan",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:kashrut-division-of-the-london-beth-din",
+        "en:no-added-sugar",
+        "en:no-lactose"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 328
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5060088700112"
+    },
+    {
+      "id": "off-5060088700136",
+      "sourceCode": "5060088700136",
+      "name": "NAKD PROTEIN - Caramel - | Barres protéinées | 7g de pr",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:seafood",
+        "en:fishes-and-their-products",
+        "en:snacks",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:fishes",
+        "en:sweet-snacks",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:bars",
+        "en:lean-fishes",
+        "en:cereal-bars",
+        "en:dietary-supplements",
+        "en:bass",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.56,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5034,
+      "allergens": [
+        "en:nuts",
+        "en:peanuts"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:kosher",
+        "en:vegan",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:kashrut-division-of-the-london-beth-din",
+        "en:no-added-sugar",
+        "en:no-lactose"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 50
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5060088700136"
+    },
+    {
+      "id": "off-5060088704097",
+      "sourceCode": "5060088704097",
+      "name": "Protein Flapjacks Cocoa Oat",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:cereals-and-potatoes",
+        "en:sweet-snacks",
+        "en:cereals-and-their-products",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5131,
+      "allergens": [
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:vegan"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 54
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5060088704097"
+    },
+    {
+      "id": "off-5060088706022",
+      "sourceCode": "5060088706022",
+      "name": "Barrita dátiles y cacahuetes",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:nuts-and-their-products",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:nut-bars",
+        "en:energy-bars",
+        "fr:barres-aux-fruits",
+        "en:But bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 1,
+        "lowProcessing": 0.5,
+        "indulgence": 0.5
+      },
+      "popularity": 0.7405,
+      "allergens": [
+        "en:peanuts"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:kosher",
+        "en:no-preservatives",
+        "en:vegan",
+        "en:100-natural",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:green-dot",
+        "en:no-added-sugar",
+        "en:no-artificial-additives",
+        "en:no-lactose"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": null,
+        "uniqueScans": 324
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5060088706022"
+    },
+    {
+      "id": "off-5060088707661",
+      "sourceCode": "5060088707661",
+      "name": "raw fruit & nut bar",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.6161,
+      "allergens": [
+        "en:nuts"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:kosher",
+        "en:no-preservatives",
+        "en:source-of-fibre",
+        "en:vegan",
+        "en:100-natural",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:green-dot",
+        "en:kashrut-division-of-the-london-beth-din",
+        "en:natural-flavors",
+        "en:no-added-sugar",
+        "en:no-artificial-additives",
+        "en:no-lactose",
+        "en:without-addition-of-dairy-products"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 122
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5060088707661"
+    },
+    {
+      "id": "off-5391532121710",
+      "sourceCode": "5391532121710",
+      "name": "Vitamin & Protein Bar",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:cocoa-and-its-products",
+        "en:confectioneries",
+        "en:chocolate-candies",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:candy-chocolate-bars",
+        "en:caramel-chocolate-cookie-bars",
+        "en:energy-bars",
+        "en:protein-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5857,
+      "allergens": [
+        "en:gluten",
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:source-of-proteins",
+        "en:high-proteins"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 96
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5391532121710"
+    },
+    {
+      "id": "off-5391532124162",
+      "sourceCode": "5391532124162",
+      "name": "Fullfill Saveur Chocolat & Noisettes",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:Barres protéinées",
+        "en:Compléments alimentaires",
+        "en:Compléments pour le Bodybuilding",
+        "en:Surgelés"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5578,
+      "allergens": [
+        "en:milk",
+        "en:nuts",
+        "en:peanuts"
+      ],
+      "labels": [
+        "en:source-of-proteins",
+        "en:high-proteins",
+        "en:no-added-sugar"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 77
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5391532124162"
+    },
+    {
+      "id": "off-5411188103387",
+      "sourceCode": "5411188103387",
+      "name": "Vanilla",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:dairy-substitutes",
+        "en:desserts",
+        "en:vegan-products",
+        "en:dairy-desserts",
+        "en:non-dairy-desserts",
+        "en:non-dairy-fermented-foods",
+        "en:fermented-dairy-desserts",
+        "en:non-dairy-yogurts",
+        "en:yogurts",
+        "en:vanilla-yogurt",
+        "en:Plantaardige-yoghurt",
+        "en:Plantaardige-yoghurt-met-smaak",
+        "en:Plantaardige-zuivel-alternatieven",
+        "en:Vegan-en-plantaardig",
+        "en:Vegetarisch"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.92,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8017,
+      "allergens": [
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-gluten",
+        "en:no-milk",
+        "en:source-of-proteins",
+        "en:vegan",
+        "en:calcium-source",
+        "en:certified-b-corporation",
+        "en:green-dot",
+        "en:high-proteins",
+        "en:no-palm-oil"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "a",
+        "novaGroup": 4,
+        "uniqueScans": 523
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5411188103387"
+    },
+    {
+      "id": "off-5411188110835",
+      "sourceCode": "5411188110835",
+      "name": "MANDORLA TOSTATA DEL MEDITERRANEO",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:nuts-and-their-products",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:nut-based-drinks",
+        "en:almond-based-drinks",
+        "en:amandel",
+        "en:cashewdrink",
+        "en:plantaardige-drinks",
+        "en:plantaardige-zuivel-alternatieven",
+        "en:vegan-en-plantaardig",
+        "en:vegetarisch"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8299,
+      "allergens": [
+        "en:nuts"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-milk",
+        "en:vegan",
+        "en:calcium-source",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:no-lactose",
+        "en:nutriscore",
+        "en:nutriscore-grade-b",
+        "en:without-addition-of-dairy-products"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 652
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5411188110835"
+    },
+    {
+      "id": "off-5411188112709",
+      "sourceCode": "5411188112709",
+      "name": "No Sugars Nutty Almond",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:nuts-and-their-products",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:nut-based-drinks",
+        "en:almond-based-drinks"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8831,
+      "allergens": [
+        "en:nuts"
+      ],
+      "labels": [
+        "en:low-or-no-fat",
+        "en:low-or-no-sugar",
+        "en:vegetarian",
+        "en:low-fat",
+        "en:no-gluten",
+        "en:no-milk",
+        "en:no-preservatives",
+        "en:vegan",
+        "en:calcium-source",
+        "en:certified-b-corporation",
+        "en:european-vegetarian-union",
+        "en:european-vegetarian-union-vegan",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:low-saturated-fat",
+        "en:no-colorings",
+        "en:no-dyes-or-preservatives",
+        "en:no-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-b",
+        "en:plant-based",
+        "en:the-vegan-society",
+        "en:without-sweeteners"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 989
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5411188112709"
+    },
+    {
+      "id": "off-5411188115366",
+      "sourceCode": "5411188115366",
+      "name": "ALPRO creamy oat",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:cereals-and-potatoes",
+        "en:dairy-substitutes",
+        "en:cereals-and-their-products",
+        "en:milk-substitutes",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:cereal-based-drinks",
+        "en:unsweetened-beverages",
+        "en:oat-based-drinks",
+        "fr:Boisson avoine"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8095,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:no-preservatives",
+        "en:source-of-fibre",
+        "en:vegan",
+        "en:100-vegetable",
+        "en:calcium-source",
+        "en:certified-b-corporation",
+        "en:eu-agriculture",
+        "en:european-vegetarian-union",
+        "en:european-vegetarian-union-vegan",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:green-dot",
+        "en:high-fibres",
+        "en:no-added-sugar",
+        "en:no-colorings",
+        "en:no-lactose",
+        "en:no-trans-fat",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:rich-in-vitamin-b",
+        "en:vitamin-b12-source",
+        "en:vitamin-d-source",
+        "en:with-sunflower-oil",
+        "en:without-addition-of-dairy-products",
+        "en:without-sweeteners"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 556
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5411188115366"
+    },
+    {
+      "id": "off-5411188116592",
+      "sourceCode": "5411188116592",
+      "name": "Tempting and Tropical Coco",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:pasteurised-products"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.5,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.7629,
+      "allergens": [],
+      "labels": [
+        "en:low-or-no-fat",
+        "en:vegetarian",
+        "en:low-fat",
+        "en:no-gluten",
+        "en:enriched-with-vitamins",
+        "en:no-milk",
+        "en:pasteurized",
+        "en:vegan",
+        "en:100-vegetable",
+        "en:calcium-source",
+        "en:high-in-calcium",
+        "en:low-energy",
+        "en:made-in-france",
+        "en:no-added-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-b",
+        "en:vitamin-b12-source",
+        "en:vitamin-d-source"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 386
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5411188116592"
+    },
+    {
+      "id": "off-5411188124689",
+      "sourceCode": "5411188124689",
+      "name": "Unsweetened Oat Drink",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:cereals-and-potatoes",
+        "en:dairy-substitutes",
+        "en:cereals-and-their-products",
+        "en:milk-substitutes",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:cereal-based-drinks",
+        "en:unsweetened-beverages",
+        "en:oat-based-drinks",
+        "en:Plant-based milk substitutes"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8339,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:low-or-no-sugar",
+        "en:vegetarian",
+        "en:no-artificial-sweeteners",
+        "en:no-milk",
+        "en:no-preservatives",
+        "en:source-of-fibre",
+        "en:vegan",
+        "en:calcium-source",
+        "en:certified-b-corporation",
+        "en:european-vegetarian-union",
+        "en:european-vegetarian-union-vegan",
+        "en:fsc",
+        "en:fsc-mix",
+        "en:green-dot",
+        "en:high-fibres",
+        "en:no-colorings",
+        "en:no-dyes-or-preservatives",
+        "en:no-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-a",
+        "en:vitamin-b2-source"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 673
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5411188124689"
+    },
+    {
+      "id": "off-5449000147417",
+      "sourceCode": "5449000147417",
+      "name": "Orange juice",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-beverages",
+        "en:fruit-based-beverages",
+        "en:juices-and-nectars",
+        "en:Orange-based-beverages"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.7912
+      },
+      "popularity": 0.8844,
+      "allergens": [],
+      "labels": [
+        "en:with-sweeteners"
+      ],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 999
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5449000147417"
+    },
+    {
+      "id": "off-5900617034786",
+      "sourceCode": "5900617034786",
+      "name": "GO ON Energy",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:cocoa-and-its-products",
+        "en:confectioneries",
+        "en:chocolate-candies",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:candy-chocolate-bars",
+        "en:caramel-chocolate-bars",
+        "en:energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5421,
+      "allergens": [
+        "en:milk",
+        "en:peanuts",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:natural-flavors",
+        "en:pure-cocoa-butter",
+        "en:with-sunflower-oil"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 68
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/5900617034786"
+    },
+    {
+      "id": "off-6111031005064",
+      "sourceCode": "6111031005064",
+      "name": "tonik",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "en:wafers",
+        "en:chocolate-biscuits",
+        "en:stuffed-wafers",
+        "en:chocolate-stuffed-wafers"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.7672
+      },
+      "popularity": 0.8883,
+      "allergens": [
+        "en:gluten",
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "e",
+        "novaGroup": 3,
+        "uniqueScans": 1030
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111031005064"
+    },
+    {
+      "id": "off-6111032001003",
+      "sourceCode": "6111032001003",
+      "name": "Assil vanille",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0.5,
+        "indulgence": 0.4652
+      },
+      "popularity": 0.8582,
+      "allergens": [],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": null,
+        "uniqueScans": 814
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111032001003"
+    },
+    {
+      "id": "off-6111032001010",
+      "sourceCode": "6111032001010",
+      "name": "Yogurt Banana",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts",
+        "en:produits-fermentés",
+        "en:produits-laitiers-fermentés"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.92,
+        "plantBased": 0.25,
+        "lowProcessing": 0.5,
+        "indulgence": 0.4652
+      },
+      "popularity": 0.8162,
+      "allergens": [],
+      "labels": [
+        "en:fsc",
+        "en:fsc-mix"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a",
+        "novaGroup": null,
+        "uniqueScans": 586
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111032001010"
+    },
+    {
+      "id": "off-6111032002925",
+      "sourceCode": "6111032002925",
+      "name": "Danone nature",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts",
+        "en:plain-fermented-dairy-desserts",
+        "en:plain-yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.92,
+        "plantBased": 0.25,
+        "lowProcessing": 0.5,
+        "indulgence": 0.3608
+      },
+      "popularity": 0.7858,
+      "allergens": [],
+      "labels": [
+        "en:no-preservatives",
+        "en:contains-gluten"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "a",
+        "novaGroup": null,
+        "uniqueScans": 462
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111032002925"
+    },
+    {
+      "id": "off-6111032006619",
+      "sourceCode": "6111032006619",
+      "name": "Jamila رايبي",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:beverages",
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:dairy-drinks",
+        "en:fermented-dairy-desserts",
+        "en:fermented-drinks",
+        "en:fermented-dairy-desserts-with-fruits",
+        "en:fermented-milk-drinks",
+        "en:yogurts",
+        "en:fruit-yogurts",
+        "en:yogurt-drinks"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.9072
+      },
+      "popularity": 0.8493,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "e",
+        "novaGroup": 4,
+        "uniqueScans": 759
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111032006619"
+    },
+    {
+      "id": "off-6111032008453",
+      "sourceCode": "6111032008453",
+      "name": "danino",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:fermented-dairy-desserts-with-fruits",
+        "en:yogurts",
+        "en:fruit-yogurts",
+        "en:strawberry-yogurts",
+        "en:yogurt-with-fruits-and-sugar"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0.5,
+        "indulgence": 0.4652
+      },
+      "popularity": 0.7985,
+      "allergens": [],
+      "labels": [
+        "en:calcium-source"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": null,
+        "uniqueScans": 510
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111032008453"
+    },
+    {
+      "id": "off-6111242100206",
+      "sourceCode": "6111242100206",
+      "name": "Le nature",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts",
+        "en:plain-fermented-dairy-desserts",
+        "en:plain-yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.4308
+      },
+      "popularity": 0.9018,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 3,
+        "uniqueScans": 1144
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242100206"
+    },
+    {
+      "id": "off-6111242100305",
+      "sourceCode": "6111242100305",
+      "name": "Cremy",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.4664
+      },
+      "popularity": 0.8624,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 841
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242100305"
+    },
+    {
+      "id": "off-6111242100930",
+      "sourceCode": "6111242100930",
+      "name": "رايبي جودة",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:beverages",
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:dairy-drinks",
+        "en:fermented-dairy-desserts",
+        "en:yogurts",
+        "fr:Yaourt à boire de grenadine"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0.5,
+        "indulgence": 0.6972
+      },
+      "popularity": 0.8055,
+      "allergens": [],
+      "labels": [
+        "en:no-gluten"
+      ],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "e",
+        "novaGroup": null,
+        "uniqueScans": 539
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242100930"
+    },
+    {
+      "id": "off-6111242100985",
+      "sourceCode": "6111242100985",
+      "name": "Fromage frais nature",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:fromages-blancs-petit-suisses-and-skyr",
+        "en:yogurts",
+        "en:plain-fermented-dairy-desserts",
+        "fr:fromages-blancs",
+        "fr:fromages-blancs-natures"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 1,
+        "indulgence": 0.0464
+      },
+      "popularity": 0.9369,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "b",
+        "novaGroup": 1,
+        "uniqueScans": 1506
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242100985"
+    },
+    {
+      "id": "off-6111242100992",
+      "sourceCode": "6111242100992",
+      "name": "Perly",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:snacks",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:plain-fermented-dairy-desserts",
+        "en:plain-fermented-dairy-desserts-with-cream"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.3264
+      },
+      "popularity": 1,
+      "allergens": [
+        "en:banana",
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "b",
+        "novaGroup": 3,
+        "uniqueScans": 2465
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242100992"
+    },
+    {
+      "id": "off-6111242102002",
+      "sourceCode": "6111242102002",
+      "name": "غلال القمح",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts",
+        "en:stirred-yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.92,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.8002,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [
+        "en:source-of-fibre",
+        "en:high-fibres"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a",
+        "novaGroup": 4,
+        "uniqueScans": 517
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242102002"
+    },
+    {
+      "id": "off-6111242102767",
+      "sourceCode": "6111242102767",
+      "name": "Yougurt",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:fermented-dairy-desserts-with-fruits",
+        "en:yogurts",
+        "en:fruit-yogurts",
+        "fr:Laitier"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.7833,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 453
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242102767"
+    },
+    {
+      "id": "off-6111242102781",
+      "sourceCode": "6111242102781",
+      "name": "Tendre nature",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.5352
+      },
+      "popularity": 0.7954,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 3,
+        "uniqueScans": 498
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242102781"
+    },
+    {
+      "id": "off-6111242103702",
+      "sourceCode": "6111242103702",
+      "name": "Yaourt Grec Muesli - Jaouda - 110g",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts",
+        "en:sheep-milk-yogurts",
+        "en:greek-style-yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.5352
+      },
+      "popularity": 0.8104,
+      "allergens": [
+        "en:gluten",
+        "en:milk",
+        "en:nuts"
+      ],
+      "labels": [
+        "en:halal"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "b",
+        "novaGroup": 3,
+        "uniqueScans": 560
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242103702"
+    },
+    {
+      "id": "off-6111242104198",
+      "sourceCode": "6111242104198",
+      "name": "Pressup Orange 1l",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-beverages",
+        "en:fruit-based-beverages",
+        "en:juices-and-nectars",
+        "en:fruit-nectars",
+        "en:fruit-juices",
+        "en:orange-juices",
+        "en:orange-nectars"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.56,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.7571,
+      "allergens": [],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 369
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111242104198"
+    },
+    {
+      "id": "off-6111259092525",
+      "sourceCode": "6111259092525",
+      "name": "Goldium Blanc Nature",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:fromages-blancs-petit-suisses-and-skyr",
+        "en:yogurts",
+        "en:plain-fermented-dairy-desserts",
+        "fr:fromages-blancs",
+        "en:plain-fresh-cream-cheese-reduced-fat",
+        "fr:fromages-blancs-natures"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.7912
+      },
+      "popularity": 0.8339,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 673
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111259092525"
+    },
+    {
+      "id": "off-6111266962446",
+      "sourceCode": "6111266962446",
+      "name": "delicimo stracciatella",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:fermented-dairy-desserts",
+        "en:yogurts"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.74,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.7912
+      },
+      "popularity": 0.7915,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [
+        "en:no-gluten"
+      ],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 483
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111266962446"
+    },
+    {
+      "id": "off-6111266962910",
+      "sourceCode": "6111266962910",
+      "name": "press up jaouda petit orange",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-beverages",
+        "en:fruit-based-beverages",
+        "en:juices-and-nectars",
+        "en:fruit-juices",
+        "en:orange-juices"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.36,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.6752
+      },
+      "popularity": 0.7578,
+      "allergens": [],
+      "labels": [
+        "en:rich-in-vitamin-c"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "d",
+        "novaGroup": 4,
+        "uniqueScans": 371
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111266962910"
+    },
+    {
+      "id": "off-6111266963207",
+      "sourceCode": "6111266963207",
+      "name": "كيفير",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:beverages",
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:dairy-drinks",
+        "en:fermented-dairy-desserts",
+        "en:fermented-drinks",
+        "en:fermented-milk-drinks",
+        "en:yogurts",
+        "en:kefir"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 1,
+        "indulgence": 0.1508
+      },
+      "popularity": 0.8503,
+      "allergens": [
+        "en:milk"
+      ],
+      "labels": [
+        "en:no-gluten"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "e",
+        "novaGroup": 1,
+        "uniqueScans": 765
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6111266963207"
+    },
+    {
+      "id": "off-6923818812082",
+      "sourceCode": "6923818812082",
+      "name": "PE20/12/20 24 E 20/12/2 029",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:hot-beverages",
+        "en:plant-based-beverages",
+        "en:teas",
+        "en:green-teas",
+        "en:chinese-green-teas"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.92,
+        "plantBased": 0.25,
+        "lowProcessing": 1,
+        "indulgence": 0.2552
+      },
+      "popularity": 0.8093,
+      "allergens": [],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "a",
+        "novaGroup": 1,
+        "uniqueScans": 555
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/6923818812082"
+    },
+    {
+      "id": "off-7300400481588",
+      "sourceCode": "7300400481588",
+      "name": "Fibres",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:cereals-and-potatoes",
+        "en:salty-snacks",
+        "en:appetizers",
+        "en:cereals-and-their-products",
+        "en:chips-and-fries",
+        "en:breads",
+        "en:crisps",
+        "en:extruded-crispbreads",
+        "en:crispbreads",
+        "en:crispbreads-wholemeal",
+        "en:extruded-and-grilled-crispbread"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 1,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.3264
+      },
+      "popularity": 0.8728,
+      "allergens": [
+        "en:gluten",
+        "en:sesame-seeds"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:source-of-fibre",
+        "en:green-dot",
+        "en:high-fibres"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a-plus",
+        "novaGroup": 3,
+        "uniqueScans": 912
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/7300400481588"
+    },
+    {
+      "id": "off-7300400481595",
+      "sourceCode": "7300400481595",
+      "name": "AUTHENTIQUE",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:snacks",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:salty-snacks",
+        "en:appetizers",
+        "en:cereals-and-their-products",
+        "en:chips-and-fries",
+        "en:breads",
+        "en:crisps",
+        "en:rusks",
+        "en:crispbreads",
+        "fr:Pain croquant"
+      ],
+      "attributes": {
+        "nutrition": 0.92,
+        "sustainability": 0.92,
+        "plantBased": 0.8,
+        "lowProcessing": 0.3333,
+        "indulgence": 0.3264
+      },
+      "popularity": 0.8758,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:green-dot"
+      ],
+      "evidence": {
+        "nutriScore": "a",
+        "ecoScore": "a",
+        "novaGroup": 3,
+        "uniqueScans": 934
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/7300400481595"
+    },
+    {
+      "id": "off-7613035449626",
+      "sourceCode": "7613035449626",
+      "name": "Chocapic",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:chocolate-cereals",
+        "en:breakfast-cereals-fortified-with-vitamins-and-chemical-elements",
+        "en:extruded-cereals",
+        "en:breakfast-cereals-rich-in-fibre",
+        "en:chocolate-wheat-shells",
+        "en:unfilled-breakfast-chocolate-cereals-fortified-with-vitamins-and-chemical-elements"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.7703,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:made-in-france",
+        "en:no-colorings",
+        "en:nutriscore",
+        "en:nutriscore-grade-b",
+        "en:rainforest-alliance"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 409
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/7613035449626"
+    },
+    {
+      "id": "off-7613035676497",
+      "sourceCode": "7613035676497",
+      "name": "RICORE Original, Café & Chicorée, Boîte 260g",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:plant-based-beverages",
+        "en:beverage-preparations",
+        "en:coffees",
+        "en:instant-beverages",
+        "en:instant-coffee-substitutes",
+        "en:instant-coffees",
+        "en:instant-mix-of-chicory-and-coffee-powder"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.5,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8055,
+      "allergens": [],
+      "labels": [
+        "en:vegetarian",
+        "en:green-dot",
+        "en:made-in-france",
+        "en:nutriscore",
+        "en:nutriscore-grade-a"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 539
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/7613035676497"
+    },
+    {
+      "id": "off-7613036669146",
+      "sourceCode": "7613036669146",
+      "name": "Nestlé - Chocapic Cereal Organic, 375g (13.3oz)",
+      "category": "breakfast-cereals",
+      "sourceCategoryTags": [
+        "en:plant-based-foods-and-beverages",
+        "en:plant-based-foods",
+        "en:breakfasts",
+        "en:cereals-and-potatoes",
+        "en:cereals-and-their-products",
+        "en:breakfast-cereals",
+        "en:chocolate-cereals",
+        "en:breakfast-cereals-fortified-with-vitamins-and-chemical-elements",
+        "en:extruded-cereals",
+        "en:breakfast-cereals-rich-in-fibre",
+        "en:chocolate-wheat-shells"
+      ],
+      "attributes": {
+        "nutrition": 0.74,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.5708
+      },
+      "popularity": 0.8283,
+      "allergens": [
+        "en:gluten"
+      ],
+      "labels": [
+        "en:vegetarian",
+        "en:organic",
+        "en:eu-organic",
+        "en:rainforest-alliance"
+      ],
+      "evidence": {
+        "nutriScore": "b",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 644
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/7613036669146"
+    },
+    {
+      "id": "off-7622210449283",
+      "sourceCode": "7622210449283",
+      "name": "Prince Goût Chocolat au Blé Complet",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:breakfasts",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "en:filled-biscuits",
+        "en:sandwich-biscuits"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.56,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.9072
+      },
+      "popularity": 0.9557,
+      "allergens": [
+        "en:eggs",
+        "en:gluten",
+        "en:milk",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:distributor-labels",
+        "en:charte-lu-harmony"
+      ],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 1744
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/7622210449283"
+    },
+    {
+      "id": "off-8410076801203",
+      "sourceCode": "8410076801203",
+      "name": "Crunchy Canadian Maple Syrup",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:cereal-bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.5545,
+      "allergens": [],
+      "labels": [],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 75
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/8410076801203"
+    },
+    {
+      "id": "off-8410076901026",
+      "sourceCode": "8410076901026",
+      "name": "Protein Nut Bar Fruit & Chocolate",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.7173,
+      "allergens": [
+        "en:milk",
+        "en:peanuts",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:contains-milk",
+        "en:contains-palm-oil"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 270
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/8410076901026"
+    },
+    {
+      "id": "off-8410076901033",
+      "sourceCode": "8410076901033",
+      "name": "Salted Caramel Nut",
+      "category": "energy-bars",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:bars",
+        "en:dietary-supplements",
+        "en:bodybuilding-supplements",
+        "en:energy-bars",
+        "en:protein-bars",
+        "en:protein-energy-bars",
+        "en:Barres",
+        "en:Barres-proteinees",
+        "en:Complements-alimentaires",
+        "en:Snacks-sucres"
+      ],
+      "attributes": {
+        "nutrition": 0.5,
+        "sustainability": 0.5,
+        "plantBased": 0.25,
+        "lowProcessing": 0,
+        "indulgence": 0.71
+      },
+      "popularity": 0.6415,
+      "allergens": [
+        "en:milk",
+        "en:nuts",
+        "en:peanuts",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:no-gluten"
+      ],
+      "evidence": {
+        "nutriScore": "not-applicable",
+        "ecoScore": "unknown",
+        "novaGroup": 4,
+        "uniqueScans": 149
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/8410076901033"
+    },
+    {
+      "id": "off-8410376009392",
+      "sourceCode": "8410376009392",
+      "name": "Печиво zero sugar free",
+      "category": "snacks",
+      "sourceCategoryTags": [
+        "en:snacks",
+        "en:sweet-snacks",
+        "en:biscuits-and-cakes",
+        "en:biscuits-and-crackers",
+        "en:biscuits",
+        "en:crackers-breakfast"
+      ],
+      "attributes": {
+        "nutrition": 0.36,
+        "sustainability": 0.56,
+        "plantBased": 1,
+        "lowProcessing": 0,
+        "indulgence": 0.7912
+      },
+      "popularity": 0.8493,
+      "allergens": [
+        "en:gluten",
+        "en:soybeans"
+      ],
+      "labels": [
+        "en:low-or-no-sugar",
+        "en:vegetarian",
+        "en:source-of-fibre",
+        "en:vegan",
+        "en:european-vegetarian-union",
+        "en:green-dot",
+        "en:high-fibres",
+        "en:no-sugar",
+        "en:nutriscore",
+        "en:nutriscore-grade-b",
+        "en:with-sweeteners"
+      ],
+      "evidence": {
+        "nutriScore": "d",
+        "ecoScore": "c",
+        "novaGroup": 4,
+        "uniqueScans": 759
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/8410376009392"
+    },
+    {
+      "id": "off-8424893600352",
+      "sourceCode": "8424893600352",
+      "name": "kéfir 500g",
+      "category": "yogurts",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:beverages",
+        "en:dairies",
+        "en:fermented-foods",
+        "en:fermented-milk-products",
+        "en:desserts",
+        "en:dairy-desserts",
+        "en:dairy-drinks",
+        "en:fermented-dairy-desserts",
+        "en:fermented-drinks",
+        "en:fermented-milk-drinks",
+        "en:yogurts",
+        "en:kefir"
+      ],
+      "attributes": {
+        "nutrition": 0.56,
+        "sustainability": 0.16,
+        "plantBased": 0.25,
+        "lowProcessing": 0.5,
+        "indulgence": 0.4652
+      },
+      "popularity": 0.8072,
+      "allergens": [],
+      "labels": [
+        "en:no-gluten"
+      ],
+      "evidence": {
+        "nutriScore": "c",
+        "ecoScore": "e",
+        "novaGroup": null,
+        "uniqueScans": 546
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/8424893600352"
+    },
+    {
+      "id": "off-8886303210238",
+      "sourceCode": "8886303210238",
+      "name": "UHT Coconut Milk 17%",
+      "category": "plant-based-beverages",
+      "sourceCategoryTags": [
+        "en:beverages-and-beverages-preparations",
+        "en:plant-based-foods-and-beverages",
+        "en:beverages",
+        "en:plant-based-foods",
+        "en:dairy-substitutes",
+        "en:milk-substitutes",
+        "en:plant-based-beverages",
+        "en:plant-based-milk-alternatives",
+        "en:plant-based-creams",
+        "en:coconut-milks-and-creams",
+        "en:plant-based-creams-for-cooking"
+      ],
+      "attributes": {
+        "nutrition": 0.16,
+        "sustainability": 0.74,
+        "plantBased": 0.8,
+        "lowProcessing": 0,
+        "indulgence": 0.9072
+      },
+      "popularity": 0.7585,
+      "allergens": [],
+      "labels": [
+        "en:halal",
+        "en:kosher",
+        "en:no-gmos",
+        "en:fsc",
+        "en:non-gmo-project",
+        "en:organized-kashrut-kosher",
+        "en:Kascher"
+      ],
+      "evidence": {
+        "nutriScore": "e",
+        "ecoScore": "b",
+        "novaGroup": 4,
+        "uniqueScans": 373
+      },
+      "sourceUrl": "https://world.openfoodfacts.org/product/8886303210238"
+    }
+  ]
+}
