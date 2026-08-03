@@ -18,12 +18,27 @@ AI assistance supported:
 - drafting and reviewing TypeScript implementation ideas;
 - proposing test cases and failure checks;
 - drafting and editing documentation and interface copy;
+- developing the site's exhibition-style art direction;
+- generating two decorative concept-art assets used by the interface;
 - reviewing claim boundaries, reproducibility instructions, and handoff
   material.
 
 AI suggestions are treated as untrusted contributions. The project owner is
 responsible for reviewing source changes, running checks, verifying citations
 and licenses, and accepting the final research and design decisions.
+
+### Generated visual assets
+
+OpenAI's built-in image-generation tool produced two original interface assets:
+
+- `public/assets/evidence-reliquary.webp`, used as the hero specimen;
+- `public/assets/trace-field.webp`, used as a chapter transition.
+
+Both images are conceptual illustrations of the research question. They are
+not experimental observations, participant materials, product records, or
+evidence used to compute an outcome. The hero labels this boundary in the
+rendered interface. The complete final prompts, source references, and visual
+constraints are recorded in [Art Direction and Image Provenance](ART_DIRECTION.md).
 
 ## Where AI is not used
 

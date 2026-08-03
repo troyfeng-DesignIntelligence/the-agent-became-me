@@ -97,20 +97,20 @@ function Plate({
 
 function Hero() {
   const [replayKey, setReplayKey] = useState(0);
+  const base = import.meta.env.BASE_URL;
   return (
     <section className="hero section-shell" id="top">
+      <span className="hero-exhibit" aria-hidden="true">
+        EXHIBIT 001 / EVIDENCE ADMISSION
+      </span>
       <div className="hero-copy">
         <span className="hero-eyebrow">
           <i aria-hidden="true" /> {hero.eyebrow}
         </span>
-        <h1>
+        <h1 aria-label="The Agent Became Me">
           <span>The Agent</span>
-          <span>
-            Became{" "}
-            <em className="misregistered-word" data-shadow="Me">
-              Me
-            </em>
-          </span>
+          <span>Became</span>
+          <span className="identity-cut">Me</span>
         </h1>
         <p className="hero-deck">{hero.subtitle}</p>
         <p className="hero-summary">{hero.summary}</p>
@@ -129,103 +129,93 @@ function Hero() {
             No human participant data
           </span>
         </div>
+        <div className="hero-ledger" aria-label="Representative trace summary">
+          <span>
+            <strong>01</strong>
+            temporary request
+          </span>
+          <span>
+            <strong>17</strong>
+            trace events
+          </span>
+          <span>
+            <strong>01</strong>
+            altered profile
+          </span>
+        </div>
       </div>
 
-      <div className="hero-artifact">
-        <div className="artifact-meta">
-          <span>ACTOR-BLIND REPLAY</span>
-          <span>PARTY-SNACKS / SEED 17</span>
-        </div>
-        <div className="hero-system" key={replayKey}>
-          <article className="system-column system-human">
-            <header>
-              <span>01</span>
-              <strong>What you meant</strong>
-            </header>
-            <blockquote>
-              “Choose crowd-pleasing snacks for a children’s party. Avoid
-              peanuts. This is a one-off purchase.”
-            </blockquote>
-            <span className="scope-stamp">TASK-SCOPED</span>
-          </article>
-
-          <div className="system-transfer" aria-hidden="true">
-            <span />
-            <span />
-            <span />
+      <figure className="hero-reliquary">
+        <div className="reliquary-frame">
+          <img
+            alt="A black specimen frame holding paper evidence and blue and red threads that converge into a dark fingerprint-like mass."
+            decoding="async"
+            fetchPriority="high"
+            src={`${base}assets/evidence-reliquary.webp`}
+          />
+          <div className="reliquary-grid" aria-hidden="true" />
+          <div className="reliquary-signals" key={replayKey} aria-hidden="true">
+            <span className="signal signal-request">
+              <i /> temporary task
+            </span>
+            <span className="signal signal-agent">
+              <i /> delegated action
+            </span>
+            <span className="signal signal-profile">
+              <i /> persistent identity
+            </span>
           </div>
-
-          <article className="system-column system-agent">
-            <header>
-              <span>02</span>
-              <strong>What the agent did</strong>
-            </header>
-            <ol className="hero-trace-list">
-              <li>
-                <span>view</span>
-                08 candidates
-              </li>
-              <li>
-                <span>compare</span>
-                04 products
-              </li>
-              <li>
-                <span>shortlist</span>
-                03 products
-              </li>
-              <li>
-                <span>purchase</span>
-                02 products
-              </li>
-            </ol>
-            <span className="scope-stamp agent-stamp">AGENT ACTOR</span>
-          </article>
-
-          <div className="system-transfer is-error" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-
-          <article className="system-column system-profile">
-            <header>
-              <span>03</span>
-              <strong>What the platform learned</strong>
-            </header>
-            <div className="hero-inferences">
-              <span>
-                <small>low processing</small>
-                <strong>−63 pp</strong>
-              </span>
-              <span>
-                <small>indulgence</small>
-                <strong>+39 pp</strong>
-              </span>
-              <span>
-                <small>plant-based</small>
-                <strong>+16 pp</strong>
-              </span>
-            </div>
-            <span className="scope-stamp error-stamp">WRITTEN AS “YOU”</span>
-          </article>
+          <span className="reliquary-seal" aria-hidden="true">
+            MISFILED
+          </span>
         </div>
-        <div className="artifact-footer">
+        <figcaption>
           <span>
-            One request <b>→</b> 17 trace events <b>→</b> one altered profile
+            ART-DIRECTED GENERATED SPECIMEN · NOT STUDY DATA
           </span>
           <button
             className="replay-link"
             onClick={() => setReplayKey((key) => key + 1)}
             type="button"
           >
-            ↻ Replay the misattribution
+            ↻ Replay the evidence path
           </button>
-        </div>
-      </div>
+        </figcaption>
+      </figure>
       <a className="scroll-cue" href="#question">
         <span>SCROLL TO FOLLOW THE EVIDENCE</span>
         <i aria-hidden="true">↓</i>
       </a>
+    </section>
+  );
+}
+
+function TraceFieldInterlude() {
+  const base = import.meta.env.BASE_URL;
+  return (
+    <section className="trace-field-interlude" aria-labelledby="trace-field-title">
+      <img
+        alt="Blue and red evidence threads pass through a black gate, then become tangled and layered into an archival record."
+        loading="lazy"
+        src={`${base}assets/trace-field.webp`}
+      />
+      <div className="trace-field-shade" aria-hidden="true" />
+      <div className="trace-field-copy section-shell">
+        <span className="mono-label">THE ADMISSION PROBLEM / 001</span>
+        <h2 id="trace-field-title">
+          One gate decides whether action becomes identity.
+        </h2>
+        <p>
+          Before the gate, actor and intent remain distinct. After an
+          actor-blind update, a temporary trace can harden into the principal’s
+          enduring profile.
+        </p>
+      </div>
+      <div className="trace-field-key section-shell" aria-hidden="true">
+        <span><i className="key-blue" /> delegated evidence</span>
+        <span><i className="key-red" /> principal record</span>
+        <span><b>│</b> persistence gate</span>
+      </div>
     </section>
   );
 }
@@ -352,6 +342,8 @@ export function App() {
             </p>
           </div>
         </section>
+
+        <TraceFieldInterlude />
 
         <section className="lab-section section-shell" id="lab">
           <div className="section-number">02</div>

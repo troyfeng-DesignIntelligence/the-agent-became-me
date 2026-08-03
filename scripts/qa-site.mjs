@@ -98,11 +98,15 @@ async function desktopPass(browser) {
 
   await page.goto(siteUrl, { waitUntil: "domcontentloaded" });
   await page.locator(".interface-lab").waitFor();
-  await page.locator(".hero-inferences span").last().waitFor();
+  await page.locator(".reliquary-frame img").waitFor();
+  await page.waitForFunction(() => {
+    const image = document.querySelector(".reliquary-frame img");
+    return image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0;
+  });
   await page.waitForTimeout(2400);
 
   check(
-    (await page.locator("h1").innerText()).includes("The Agent"),
+    (await page.locator("h1").innerText()).toLowerCase().includes("the agent"),
     "Desktop: the project title is missing."
   );
   check(
@@ -131,6 +135,9 @@ async function desktopPass(browser) {
   await page.waitForTimeout(250);
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-lab.png")
+  });
+  await page.locator(".trace-field-interlude").screenshot({
+    path: path.join(outputDirectory, "desktop-trace-field.png")
   });
   await page.locator("#evidence").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
@@ -212,6 +219,9 @@ async function mobilePass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "mobile-lab.png")
   });
+  await page.locator(".trace-field-interlude").screenshot({
+    path: path.join(outputDirectory, "mobile-trace-field.png")
+  });
   await page.locator(".lab-toolbar").screenshot({
     path: path.join(outputDirectory, "mobile-contract-tabs.png")
   });
@@ -252,7 +262,7 @@ async function reducedMotionPass(browser) {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
   const duration = await page
-    .locator(".system-column")
+    .locator(".signal")
     .first()
     .evaluate((element) => getComputedStyle(element).animationDuration);
   check(mediaMatches, "Reduced motion: emulation did not activate.");

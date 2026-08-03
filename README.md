@@ -21,6 +21,12 @@ The repository combines:
 No API key is required. There are no human participants, real user profiles, or
 LLM-generated evaluation scores in the committed baseline.
 
+The visual system treats the site as an evidence exhibition rather than an AI
+product landing page: carbon-black rooms, bone-white documents, cobalt and
+vermilion trace colors, physical specimen imagery, and data-led transitions.
+The generated concept art is visibly labeled and is never presented as study
+data. See [Art Direction and Image Provenance](docs/ART_DIRECTION.md).
+
 ## What the project found
 
 The most important result is a **failed strong claim**.
@@ -264,6 +270,7 @@ Useful review documents:
 - [Collision Review](docs/COLLISION_REVIEW.md)
 - [Data and Reuse](docs/DATA_AND_REUSE.md)
 - [AI Use Disclosure](docs/AI_USE.md)
+- [Art Direction and Image Provenance](docs/ART_DIRECTION.md)
 
 ## Data, reuse, and licenses
 
