@@ -60,6 +60,15 @@ async function waitForImage(page, selector) {
   );
 }
 
+async function checkHeroSeparation(page, viewportLabel) {
+  const copy = await page.locator(".hero-copy").boundingBox();
+  const brief = await page.locator(".hero-brief").boundingBox();
+  check(
+    Boolean(copy && brief && copy.y + copy.height + 20 <= brief.y),
+    `${viewportLabel}: hero copy overlaps the supporting brief.`
+  );
+}
+
 async function pageOverflow(page) {
   return page.evaluate(() => {
     const clientWidth = document.documentElement.clientWidth;
@@ -116,6 +125,7 @@ async function desktopPass(browser) {
   await page.locator(".interface-lab").waitFor();
   await waitForImage(page, ".hero-gallery-image");
   await page.waitForTimeout(2400);
+  await checkHeroSeparation(page, "Desktop");
 
   check(
     (await page.locator("h1").innerText()).toLowerCase().includes("the agent"),
@@ -187,9 +197,18 @@ async function desktopPass(browser) {
   await page.locator(".study-archive").screenshot({
     path: path.join(outputDirectory, "desktop-study-archive.png")
   });
+  await page.locator(".study-block.is-secondary").screenshot({
+    path: path.join(outputDirectory, "desktop-study-blue-paper.png")
+  });
+  await page.locator(".study-block.is-tertiary").screenshot({
+    path: path.join(outputDirectory, "desktop-study-red-paper.png")
+  });
   await waitForImage(page, ".reliquary-interlude img");
   await page.locator(".reliquary-interlude").screenshot({
     path: path.join(outputDirectory, "desktop-reliquary-interlude.png")
+  });
+  await page.locator(".implications-section").screenshot({
+    path: path.join(outputDirectory, "desktop-implications-paper.png")
   });
   await page.locator("#methods").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
@@ -223,6 +242,39 @@ async function desktopPass(browser) {
     `Desktop: browser console errors: ${consoleErrors.join(" | ")}`
   );
   observations.push({ viewport: "desktop", overflow, consoleErrors });
+  await context.close();
+}
+
+async function compactDesktopPass(browser) {
+  const context = await browser.newContext({
+    viewport: { width: 1366, height: 768 },
+    colorScheme: "light"
+  });
+  const page = await context.newPage();
+  const consoleErrors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto(siteUrl, { waitUntil: "domcontentloaded" });
+  await waitForImage(page, ".hero-gallery-image");
+  await page.waitForTimeout(1200);
+  await checkHeroSeparation(page, "Compact desktop");
+  await page.screenshot({
+    path: path.join(outputDirectory, "desktop-compact-hero.png")
+  });
+
+  const overflow = await pageOverflow(page);
+  check(
+    overflow.scrollWidth <= overflow.clientWidth + 1,
+    `Compact desktop: document overflows horizontally (${overflow.scrollWidth}px > ${overflow.clientWidth}px).`
+  );
+  check(
+    consoleErrors.length === 0,
+    `Compact desktop: browser console errors: ${consoleErrors.join(" | ")}`
+  );
+  observations.push({ viewport: "compact-desktop", overflow, consoleErrors });
   await context.close();
 }
 
@@ -332,6 +384,7 @@ const browser = await chromium.launch(
 
 try {
   await desktopPass(browser);
+  await compactDesktopPass(browser);
   await mobilePass(browser);
   await reducedMotionPass(browser);
 } finally {

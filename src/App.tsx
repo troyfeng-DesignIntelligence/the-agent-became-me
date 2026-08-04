@@ -115,33 +115,35 @@ function Hero() {
       <span className="hero-exhibit" aria-hidden="true">
         EXHIBIT 001 / EVIDENCE ADMISSION
       </span>
-      <div className="hero-copy">
-        <span className="hero-eyebrow">
-          <i aria-hidden="true" /> {hero.eyebrow}
-        </span>
-        <h1 aria-label="The Agent Became Me">
-          <span>The Agent</span>
-          <span>Became</span>
-          <span className="identity-cut">Me</span>
-        </h1>
-        <p className="hero-deck">{hero.subtitle}</p>
-      </div>
-      <div className="hero-brief">
-        <p className="hero-summary">{hero.summary}</p>
-        <div className="hero-actions">
-          <a className="button button-primary" href="#lab">
-            {hero.primaryAction}
-          </a>
-          <a className="button button-secondary" href="#methods">
-            {hero.secondaryAction}
-          </a>
-        </div>
-        <div className="synthetic-disclosure">
-          <span className="synthetic-dot" aria-hidden="true" />
-          <span>
-            <strong>Synthetic scenarios</strong>
-            No human participant data
+      <div className="hero-content">
+        <div className="hero-copy">
+          <span className="hero-eyebrow">
+            <i aria-hidden="true" /> {hero.eyebrow}
           </span>
+          <h1 aria-label="The Agent Became Me">
+            <span>The Agent</span>
+            <span>Became</span>
+            <span className="identity-cut">Me</span>
+          </h1>
+          <p className="hero-deck">{hero.subtitle}</p>
+        </div>
+        <div className="hero-brief">
+          <p className="hero-summary">{hero.summary}</p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#lab">
+              {hero.primaryAction}
+            </a>
+            <a className="button button-secondary" href="#methods">
+              {hero.secondaryAction}
+            </a>
+          </div>
+          <div className="synthetic-disclosure">
+            <span className="synthetic-dot" aria-hidden="true" />
+            <span>
+              <strong>Synthetic scenarios</strong>
+              No human participant data
+            </span>
+          </div>
         </div>
       </div>
       <div className="hero-ledger" aria-label="Representative trace summary">
