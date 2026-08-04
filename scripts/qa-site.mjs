@@ -221,6 +221,68 @@ async function sensitivityLayout(page, viewportLabel) {
   return layout;
 }
 
+async function checkScrollExperience(page) {
+  await positionForScreenshot(page, "#question", 108);
+  await page.waitForTimeout(250);
+  const questionIsActive = await page
+    .locator('.nav-links a[href="#question"]')
+    .evaluate((element) => element.classList.contains("is-active"));
+
+  await positionForScreenshot(page, "#lab", 108);
+  await page.waitForTimeout(1100);
+  const traceIsActive = await page
+    .locator('.nav-links a[href="#lab"]')
+    .evaluate((element) => element.classList.contains("is-active"));
+  const labReveal = await page.locator(".interface-lab").evaluate((element) => ({
+    revealed: element.classList.contains("is-revealed"),
+    opacity: Number.parseFloat(getComputedStyle(element).opacity)
+  }));
+
+  await positionForScreenshot(page, ".trace-field-interlude", 90);
+  await page.waitForTimeout(120);
+  const shiftBefore = await page
+    .locator(".trace-field-interlude > img")
+    .evaluate((element) =>
+      Number.parseFloat(
+        element.style.getPropertyValue("--scroll-shift") || "0"
+      )
+    );
+  await page.evaluate(() => window.scrollBy({ top: 320, behavior: "instant" }));
+  await page.waitForTimeout(120);
+  const shiftAfter = await page
+    .locator(".trace-field-interlude > img")
+    .evaluate((element) =>
+      Number.parseFloat(
+        element.style.getPropertyValue("--scroll-shift") || "0"
+      )
+    );
+  const activeRailMarks = await page.locator(".chapter-rail i.is-active").count();
+
+  check(questionIsActive, "Desktop: question chapter did not become active.");
+  check(traceIsActive, "Desktop: trace chapter did not become active.");
+  check(
+    labReveal.revealed && labReveal.opacity > 0.98,
+    "Desktop: the lab did not complete its scroll reveal."
+  );
+  check(
+    Math.abs(shiftAfter - shiftBefore) >= 1,
+    "Desktop: the narrative image parallax did not respond to scrolling."
+  );
+  check(
+    activeRailMarks === 1,
+    `Desktop: expected one active chapter rail mark, found ${activeRailMarks}.`
+  );
+
+  return {
+    questionIsActive,
+    traceIsActive,
+    labReveal,
+    shiftBefore,
+    shiftAfter,
+    activeRailMarks
+  };
+}
+
 async function desktopPass(browser) {
   const context = await browser.newContext({
     viewport: { width: 1440, height: 1000 },
@@ -270,8 +332,9 @@ async function desktopPass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-hero.png")
   });
+  const scrollExperience = await checkScrollExperience(page);
   await positionForScreenshot(page, ".question-copy", 108);
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(1050);
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-question-hierarchy.png")
   });
@@ -377,7 +440,8 @@ async function desktopPass(browser) {
     overflow,
     consoleErrors,
     headingHierarchy,
-    sensitivity
+    sensitivity,
+    scrollExperience
   });
   await context.close();
 }
@@ -522,12 +586,26 @@ async function reducedMotionPass(browser) {
     .locator(".hero-gallery-art")
     .first()
     .evaluate((element) => getComputedStyle(element).animationDuration);
+  const revealState = await page.locator(".question-copy > *").first().evaluate((element) => ({
+    opacity: getComputedStyle(element).opacity,
+    animationName: getComputedStyle(element).animationName,
+    revealed: element.classList.contains("is-revealed")
+  }));
   check(mediaMatches, "Reduced motion: emulation did not activate.");
   check(
     duration === "1e-05s" || duration === "0.01ms" || duration === "0s",
     `Reduced motion: animation duration remained ${duration}.`
   );
-  observations.push({ viewport: "reduced-motion", mediaMatches, duration });
+  check(
+    revealState.opacity === "1" && revealState.animationName === "none",
+    "Reduced motion: scroll-reveal content still animates or remains hidden."
+  );
+  observations.push({
+    viewport: "reduced-motion",
+    mediaMatches,
+    duration,
+    revealState
+  });
   await context.close();
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   designImplications,
   findings,
@@ -29,23 +29,166 @@ import {
 
 function useScrollProgress() {
   const [progress, setProgress] = useState(0);
+  const frame = useRef<number | null>(null);
 
   useEffect(() => {
     const update = () => {
+      frame.current = null;
       const range =
         document.documentElement.scrollHeight - window.innerHeight;
       setProgress(range <= 0 ? 0 : window.scrollY / range);
     };
+    const requestUpdate = () => {
+      if (frame.current === null) {
+        frame.current = window.requestAnimationFrame(update);
+      }
+    };
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame.current !== null) window.cancelAnimationFrame(frame.current);
     };
   }, []);
 
   return progress;
+}
+
+const chapters = [
+  { id: "top", label: "Opening", index: "00" },
+  { id: "question", label: "Question", index: "01" },
+  { id: "lab", label: "Trace", index: "02" },
+  { id: "evidence", label: "Evidence", index: "03" },
+  { id: "methods", label: "Methods", index: "04" }
+] as const;
+
+function useActiveChapter() {
+  const [activeChapter, setActiveChapter] = useState("top");
+
+  useEffect(() => {
+    const sections = chapters
+      .map(({ id }) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+        if (visible?.target.id) setActiveChapter(visible.target.id);
+      },
+      {
+        rootMargin: "-22% 0px -58% 0px",
+        threshold: [0, 0.1, 0.35, 0.7]
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  return activeChapter;
+}
+
+function useEditorialScroll(dataReady: boolean) {
+  useEffect(() => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const root = document.documentElement;
+    const revealGroups = [
+      ".question-copy > *, .margin-note, .question-specimen",
+      ".gap-section .section-header > *, .provocation",
+      ".trace-field-copy > *, .trace-field-key > *",
+      ".lab-header > *, .interface-lab",
+      ".evidence-intro > *, .identity-specimen, .plate",
+      ".study-archive, .study-block",
+      ".findings-section > .section-header > *, .finding-row",
+      ".reliquary-interlude figure > *",
+      ".implications-intro > *, .implication-grid article",
+      ".methods-section > .section-header > *, .method-ledger > div",
+      ".sensitivity-panel, .method-card, .references-block"
+    ];
+    const targets = revealGroups.flatMap((selector) =>
+      [...document.querySelectorAll<HTMLElement>(selector)]
+    );
+
+    root.classList.add("scroll-enhanced");
+    targets.forEach((target, index) => {
+      target.classList.add("scroll-reveal");
+      target.style.setProperty(
+        "--reveal-delay",
+        `${Math.min(index % 4, 3) * 55}ms`
+      );
+    });
+
+    if (reducedMotion) {
+      targets.forEach((target) => target.classList.add("is-revealed"));
+      return;
+    }
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-revealed");
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -9% 0px", threshold: 0.08 }
+    );
+
+    targets.forEach((target) => {
+      const bounds = target.getBoundingClientRect();
+      if (bounds.top < window.innerHeight * 0.94) {
+        target.classList.add("is-revealed");
+      } else {
+        revealObserver.observe(target);
+      }
+    });
+
+    const parallaxTargets = [
+      { element: document.querySelector<HTMLElement>(".hero-gallery-image"), range: 18 },
+      { element: document.querySelector<HTMLElement>(".trace-field-interlude > img"), range: 24 },
+      { element: document.querySelector<HTMLElement>(".reliquary-interlude img"), range: 18 }
+    ].filter(
+      (target): target is { element: HTMLElement; range: number } =>
+        target.element !== null
+    );
+    parallaxTargets.forEach(({ element }) =>
+      element.classList.add("scroll-parallax")
+    );
+
+    let frame: number | null = null;
+    const updateParallax = () => {
+      frame = null;
+      const viewportCenter = window.innerHeight / 2;
+      parallaxTargets.forEach(({ element, range }) => {
+        const bounds = element.getBoundingClientRect();
+        if (bounds.bottom < -100 || bounds.top > window.innerHeight + 100) return;
+        const travel = (bounds.top + bounds.height / 2 - viewportCenter) /
+          (window.innerHeight + bounds.height);
+        const shift = Math.max(-1, Math.min(1, travel)) * range;
+        element.style.setProperty("--scroll-shift", `${shift.toFixed(2)}px`);
+      });
+    };
+    const requestParallax = () => {
+      if (frame === null) frame = window.requestAnimationFrame(updateParallax);
+    };
+    updateParallax();
+    window.addEventListener("scroll", requestParallax, { passive: true });
+    window.addEventListener("resize", requestParallax);
+
+    return () => {
+      revealObserver.disconnect();
+      window.removeEventListener("scroll", requestParallax);
+      window.removeEventListener("resize", requestParallax);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, [dataReady]);
 }
 
 const percent = (value: number, digits = 0) =>
@@ -212,6 +355,8 @@ function LoadingState() {
 export function App() {
   const scrollProgress = useScrollProgress();
   const { summary, catalog, error, loading } = useProjectData();
+  const activeChapter = useActiveChapter();
+  useEditorialScroll(Boolean(summary));
 
   const evidence = useMemo(() => {
     if (!summary) return null;
@@ -264,10 +409,34 @@ export function App() {
           The Agent Became Me
         </a>
         <div className="nav-links">
-          <a href="#question">Question</a>
-          <a href="#lab">Trace</a>
-          <a href="#evidence">Evidence</a>
-          <a href="#methods">Methods</a>
+          <a
+            aria-current={activeChapter === "question" ? "location" : undefined}
+            className={activeChapter === "question" ? "is-active" : ""}
+            href="#question"
+          >
+            Question
+          </a>
+          <a
+            aria-current={activeChapter === "lab" ? "location" : undefined}
+            className={activeChapter === "lab" ? "is-active" : ""}
+            href="#lab"
+          >
+            Trace
+          </a>
+          <a
+            aria-current={activeChapter === "evidence" ? "location" : undefined}
+            className={activeChapter === "evidence" ? "is-active" : ""}
+            href="#evidence"
+          >
+            Evidence
+          </a>
+          <a
+            aria-current={activeChapter === "methods" ? "location" : undefined}
+            className={activeChapter === "methods" ? "is-active" : ""}
+            href="#methods"
+          >
+            Methods
+          </a>
         </div>
         <span className="nav-status">
           <i /> reproducible artifact
@@ -278,6 +447,23 @@ export function App() {
           style={{ transform: `scaleX(${scrollProgress})` }}
         />
       </nav>
+
+      <div className="chapter-rail" aria-hidden="true">
+        <span>
+          {chapters.find((chapter) => chapter.id === activeChapter)?.index ?? "00"}
+        </span>
+        <div>
+          {chapters.map((chapter) => (
+            <i
+              className={chapter.id === activeChapter ? "is-active" : ""}
+              key={chapter.id}
+            />
+          ))}
+        </div>
+        <small>
+          {chapters.find((chapter) => chapter.id === activeChapter)?.label ?? "Opening"}
+        </small>
+      </div>
 
       <main id="main">
         <Hero />
