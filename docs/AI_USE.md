@@ -29,12 +29,16 @@ and licenses, and accepting the final research and design decisions.
 
 ### Generated visual assets
 
-OpenAI's built-in image-generation tool produced two original interface assets:
+OpenAI's built-in image-generation tool produced six original interface assets:
 
-- `public/assets/evidence-reliquary.webp`, used as the hero specimen;
-- `public/assets/trace-field.webp`, used as a chapter transition.
+- `public/assets/hero-gallery.webp`, used as the spacious hero installation;
+- `public/assets/temporary-intent.webp`, used in the research-question chapter;
+- `public/assets/evidence-reliquary.webp`, used as the misfiled specimen;
+- `public/assets/trace-field.webp`, used as a chapter transition;
+- `public/assets/identity-imprint.webp`, used in the evidence opening;
+- `public/assets/quarantine-archive.webp`, used in the study-design chapter.
 
-Both images are conceptual illustrations of the research question. They are
+All six images are conceptual illustrations of the research question. They are
 not experimental observations, participant materials, product records, or
 evidence used to compute an outcome. The hero labels this boundary in the
 rendered interface. The complete final prompts, source references, and visual

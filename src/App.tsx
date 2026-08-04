@@ -96,10 +96,22 @@ function Plate({
 }
 
 function Hero() {
-  const [replayKey, setReplayKey] = useState(0);
   const base = import.meta.env.BASE_URL;
   return (
     <section className="hero section-shell" id="top">
+      <figure className="hero-gallery-art">
+        <img
+          alt="A nearly empty black exhibition room with a small persistence gate under a spotlight at the far right."
+          className="hero-gallery-image"
+          decoding="async"
+          fetchPriority="high"
+          src={`${base}assets/hero-gallery.webp`}
+        />
+        <div className="hero-gallery-wash" aria-hidden="true" />
+        <figcaption>
+          ART-DIRECTED GENERATED INSTALLATION · NOT STUDY DATA
+        </figcaption>
+      </figure>
       <span className="hero-exhibit" aria-hidden="true">
         EXHIBIT 001 / EVIDENCE ADMISSION
       </span>
@@ -113,6 +125,8 @@ function Hero() {
           <span className="identity-cut">Me</span>
         </h1>
         <p className="hero-deck">{hero.subtitle}</p>
+      </div>
+      <div className="hero-brief">
         <p className="hero-summary">{hero.summary}</p>
         <div className="hero-actions">
           <a className="button button-primary" href="#lab">
@@ -129,59 +143,21 @@ function Hero() {
             No human participant data
           </span>
         </div>
-        <div className="hero-ledger" aria-label="Representative trace summary">
-          <span>
-            <strong>01</strong>
-            temporary request
-          </span>
-          <span>
-            <strong>17</strong>
-            trace events
-          </span>
-          <span>
-            <strong>01</strong>
-            altered profile
-          </span>
-        </div>
       </div>
-
-      <figure className="hero-reliquary">
-        <div className="reliquary-frame">
-          <img
-            alt="A black specimen frame holding paper evidence and blue and red threads that converge into a dark fingerprint-like mass."
-            decoding="async"
-            fetchPriority="high"
-            src={`${base}assets/evidence-reliquary.webp`}
-          />
-          <div className="reliquary-grid" aria-hidden="true" />
-          <div className="reliquary-signals" key={replayKey} aria-hidden="true">
-            <span className="signal signal-request">
-              <i /> temporary task
-            </span>
-            <span className="signal signal-agent">
-              <i /> delegated action
-            </span>
-            <span className="signal signal-profile">
-              <i /> persistent identity
-            </span>
-          </div>
-          <span className="reliquary-seal" aria-hidden="true">
-            MISFILED
-          </span>
-        </div>
-        <figcaption>
-          <span>
-            ART-DIRECTED GENERATED SPECIMEN · NOT STUDY DATA
-          </span>
-          <button
-            className="replay-link"
-            onClick={() => setReplayKey((key) => key + 1)}
-            type="button"
-          >
-            ↻ Replay the evidence path
-          </button>
-        </figcaption>
-      </figure>
+      <div className="hero-ledger" aria-label="Representative trace summary">
+        <span>
+          <strong>01</strong>
+          temporary request
+        </span>
+        <span>
+          <strong>17</strong>
+          trace events
+        </span>
+        <span>
+          <strong>01</strong>
+          altered profile
+        </span>
+      </div>
       <a className="scroll-cue" href="#question">
         <span>SCROLL TO FOLLOW THE EVIDENCE</span>
         <i aria-hidden="true">↓</i>
@@ -319,6 +295,17 @@ export function App() {
             <span className="mono-label">CLAIM BOUNDARY</span>
             <p>{researchQuestion.noveltyBoundary}</p>
           </aside>
+          <figure className="question-specimen">
+            <img
+              alt="Loose cobalt threads pass beneath a removable vellum instruction slip on a conservation table."
+              loading="lazy"
+              src={`${base}assets/temporary-intent.webp`}
+            />
+            <figcaption>
+              <span>SPECIMEN A / TEMPORARY INTENT</span>
+              <p>Evidence can remain provisional, attributable, and removable.</p>
+            </figcaption>
+          </figure>
         </section>
 
         <section className="gap-section section-shell">
@@ -376,18 +363,31 @@ export function App() {
           <section className="evidence-section" id="evidence">
             <div className="section-shell">
               <div className="section-number light">03</div>
-              <header className="evidence-intro">
-                <span className="section-kicker">Generated evidence</span>
-                <h2>
-                  Selective provenance did not beat a matched shrinkage
-                  control.
-                </h2>
-                <p>
-                  The added falsification control changed the conclusion.
-                  These numbers describe an implemented synthetic protocol—not
-                  people, platforms, or experienced consent.
-                </p>
-              </header>
+              <div className="evidence-opening">
+                <header className="evidence-intro">
+                  <span className="section-kicker">Generated evidence</span>
+                  <h2>
+                    Selective provenance did not beat a matched shrinkage
+                    control.
+                  </h2>
+                  <p>
+                    The added falsification control changed the conclusion.
+                    These numbers describe an implemented synthetic protocol—not
+                    people, platforms, or experienced consent.
+                  </p>
+                </header>
+                <figure className="identity-specimen">
+                  <img
+                    alt="A heavy black registration plate presses red and blue thread traces into handmade archival paper."
+                    loading="lazy"
+                    src={`${base}assets/identity-imprint.webp`}
+                  />
+                  <figcaption>
+                    <span>SPECIMEN C / IDENTITY IMPRINT</span>
+                    Conceptual image · not an observed trace
+                  </figcaption>
+                </figure>
+              </div>
               <div className="headline-findings">
                 <div className="headline-stat">
                   <span>Provenance-specific penalty</span>
@@ -662,6 +662,22 @@ export function App() {
 
         {summary && evidence && (
           <section className="studies-section section-shell">
+            <figure className="study-archive">
+              <img
+                alt="Open black archive drawers keep bundles of blue evidence threads separated from a closed red record drawer."
+                loading="lazy"
+                src={`${base}assets/quarantine-archive.webp`}
+              />
+              <figcaption>
+                <span className="mono-label">SPECIMEN D / QUARANTINE</span>
+                <h2>Logging does not have to mean learning.</h2>
+                <p>
+                  A record can remain inspectable without immediately becoming
+                  durable evidence about the principal.
+                </p>
+                <small>ART-DIRECTED GENERATED SPECIMEN · NOT STUDY DATA</small>
+              </figcaption>
+            </figure>
             <div className="study-block">
               <header>
                 <span className="study-label">{studyA.label}</span>
@@ -791,6 +807,22 @@ export function App() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="reliquary-interlude">
+          <figure className="section-shell">
+            <img
+              alt="A black specimen frame holds paper evidence and blue and red threads that converge into a dark imprint."
+              loading="lazy"
+              src={`${base}assets/evidence-reliquary.webp`}
+            />
+            <figcaption>
+              <span className="mono-label">SPECIMEN B / MISFILED</span>
+              <h2>A record can be precise and still name the wrong actor.</h2>
+              <p>Attribution is part of the interface, not an audit detail.</p>
+              <small>CONCEPTUAL IMAGE · NOT STUDY DATA</small>
+            </figcaption>
+          </figure>
         </section>
 
         <section className="implications-section">

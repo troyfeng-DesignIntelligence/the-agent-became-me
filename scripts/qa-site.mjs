@@ -44,6 +44,22 @@ async function waitForSite() {
   );
 }
 
+async function waitForImage(page, selector) {
+  const image = page.locator(selector).first();
+  await image.scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    (target) => {
+      const element = document.querySelector(target);
+      return (
+        element instanceof HTMLImageElement &&
+        element.complete &&
+        element.naturalWidth > 0
+      );
+    },
+    selector
+  );
+}
+
 async function pageOverflow(page) {
   return page.evaluate(() => {
     const clientWidth = document.documentElement.clientWidth;
@@ -98,11 +114,7 @@ async function desktopPass(browser) {
 
   await page.goto(siteUrl, { waitUntil: "domcontentloaded" });
   await page.locator(".interface-lab").waitFor();
-  await page.locator(".reliquary-frame img").waitFor();
-  await page.waitForFunction(() => {
-    const image = document.querySelector(".reliquary-frame img");
-    return image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0;
-  });
+  await waitForImage(page, ".hero-gallery-image");
   await page.waitForTimeout(2400);
 
   check(
@@ -127,9 +139,17 @@ async function desktopPass(browser) {
     (await page.locator(".plate-meta").count()) === 8,
     "Desktop: evidence plates are missing grain/protocol metadata."
   );
+  check(
+    (await page.locator("main img").count()) >= 6,
+    "Desktop: the photographic evidence series is incomplete."
+  );
 
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-hero.png")
+  });
+  await waitForImage(page, ".question-specimen img");
+  await page.locator(".question-specimen").screenshot({
+    path: path.join(outputDirectory, "desktop-question-specimen.png")
   });
   await page.locator("#lab").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
@@ -143,6 +163,10 @@ async function desktopPass(browser) {
   await page.waitForTimeout(250);
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-evidence.png")
+  });
+  await waitForImage(page, ".identity-specimen img");
+  await page.locator(".identity-specimen").screenshot({
+    path: path.join(outputDirectory, "desktop-identity-specimen.png")
   });
   await page.locator(".plate").nth(1).screenshot({
     path: path.join(outputDirectory, "desktop-contracts.png")
@@ -158,6 +182,14 @@ async function desktopPass(browser) {
   });
   await page.locator(".plate").nth(7).screenshot({
     path: path.join(outputDirectory, "desktop-counterexample.png")
+  });
+  await waitForImage(page, ".study-archive img");
+  await page.locator(".study-archive").screenshot({
+    path: path.join(outputDirectory, "desktop-study-archive.png")
+  });
+  await waitForImage(page, ".reliquary-interlude img");
+  await page.locator(".reliquary-interlude").screenshot({
+    path: path.join(outputDirectory, "desktop-reliquary-interlude.png")
   });
   await page.locator("#methods").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
@@ -214,6 +246,10 @@ async function mobilePass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "mobile-hero.png")
   });
+  await waitForImage(page, ".question-specimen img");
+  await page.locator(".question-specimen").screenshot({
+    path: path.join(outputDirectory, "mobile-question-specimen.png")
+  });
   await page.locator("#lab").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
   await page.screenshot({
@@ -230,6 +266,18 @@ async function mobilePass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "mobile-evidence.png"),
     fullPage: false
+  });
+  await waitForImage(page, ".identity-specimen img");
+  await page.locator(".identity-specimen").screenshot({
+    path: path.join(outputDirectory, "mobile-identity-specimen.png")
+  });
+  await waitForImage(page, ".study-archive img");
+  await page.locator(".study-archive").screenshot({
+    path: path.join(outputDirectory, "mobile-study-archive.png")
+  });
+  await waitForImage(page, ".reliquary-interlude img");
+  await page.locator(".reliquary-interlude").screenshot({
+    path: path.join(outputDirectory, "mobile-reliquary-interlude.png")
   });
   await page.locator("#methods").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
@@ -262,7 +310,7 @@ async function reducedMotionPass(browser) {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
   const duration = await page
-    .locator(".signal")
+    .locator(".hero-gallery-art")
     .first()
     .evaluate((element) => getComputedStyle(element).animationDuration);
   check(mediaMatches, "Reduced motion: emulation did not activate.");

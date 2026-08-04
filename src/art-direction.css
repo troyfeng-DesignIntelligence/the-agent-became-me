@@ -1303,3 +1303,767 @@ body {
     transform: none;
   }
 }
+
+/* Gallery edition — a quieter hero and a photographic narrative rhythm. */
+
+.hero {
+  isolation: isolate;
+  display: block;
+  min-height: max(940px, 108svh);
+  padding: 0;
+  background: #050506;
+}
+
+.hero::before {
+  z-index: 2;
+  top: 72px;
+  background:
+    linear-gradient(90deg, transparent 0 49.92%, rgb(231 225 214 / 7%) 50%, transparent 50.08%),
+    repeating-linear-gradient(90deg, transparent 0 8.2vw, rgb(231 225 214 / 3%) 8.25vw);
+  pointer-events: none;
+}
+
+.hero::after {
+  z-index: 4;
+  right: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  bottom: 42px;
+  width: clamp(70px, 8vw, 130px);
+}
+
+.hero-gallery-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  animation: gallery-enter 1500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.85) contrast(1.06) brightness(0.92);
+  transform: scale(1.012);
+}
+
+.hero-gallery-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(5 5 6 / 72%) 0 28%, rgb(5 5 6 / 22%) 52%, transparent 72%),
+    linear-gradient(180deg, rgb(5 5 6 / 32%) 0 12%, transparent 38% 68%, rgb(5 5 6 / 76%) 100%);
+}
+
+.hero-gallery-art figcaption {
+  position: absolute;
+  right: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  bottom: 68px;
+  color: rgb(231 225 214 / 43%);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-exhibit {
+  z-index: 4;
+  top: 108px;
+}
+
+.hero-copy {
+  position: absolute;
+  z-index: 4;
+  top: clamp(152px, 17svh, 210px);
+  left: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  width: min(54vw, 820px);
+  max-width: none;
+}
+
+.hero h1 {
+  margin: clamp(54px, 7svh, 82px) 0 clamp(42px, 5svh, 64px);
+  font-size: clamp(72px, 8.25vw, 134px);
+  letter-spacing: -0.083em;
+  line-height: 0.76;
+}
+
+.hero h1 > span:nth-child(2) {
+  margin-left: 0.34em;
+}
+
+.hero h1 > span.identity-cut {
+  margin-top: 0.06em;
+  margin-left: 1.36em;
+  padding: 0;
+  border-bottom: 2px solid var(--vermilion);
+  background: transparent;
+  color: var(--vermilion);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 430;
+  line-height: 0.7;
+  text-transform: none;
+  transform: none;
+}
+
+.hero-deck {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(25px, 2.25vw, 38px);
+  line-height: 1.06;
+}
+
+.hero-brief {
+  position: absolute;
+  z-index: 4;
+  top: 67%;
+  left: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  width: min(39vw, 560px);
+}
+
+.hero-summary {
+  max-width: 480px;
+  margin: 0 0 24px;
+  font-size: 13px;
+  line-height: 1.72;
+}
+
+.hero-actions {
+  margin-top: 0;
+}
+
+.hero-actions .button {
+  min-height: 46px;
+  padding-inline: 20px;
+}
+
+.hero-brief .synthetic-disclosure {
+  max-width: 390px;
+  margin-top: 24px;
+  padding-top: 16px;
+}
+
+.hero-ledger {
+  position: absolute;
+  z-index: 4;
+  bottom: 34px;
+  left: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  width: min(40vw, 600px);
+  margin: 0;
+  background: rgb(5 5 6 / 18%);
+  backdrop-filter: blur(6px);
+}
+
+.hero-ledger span {
+  min-height: 66px;
+}
+
+.hero .scroll-cue {
+  display: none;
+}
+
+.question-section {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 38px);
+  padding-top: clamp(150px, 16vw, 250px);
+  padding-bottom: clamp(190px, 19vw, 300px);
+}
+
+.question-section > .section-number {
+  grid-column: 1;
+}
+
+.question-section > .question-copy {
+  grid-column: 2 / 10;
+}
+
+.question-section > .margin-note {
+  grid-column: 10 / 13;
+}
+
+.question-copy h2 {
+  max-width: 1120px;
+  margin-bottom: clamp(70px, 8vw, 120px);
+}
+
+.question-specimen {
+  position: relative;
+  grid-column: 2 / 13;
+  margin: clamp(110px, 12vw, 190px) 0 0;
+}
+
+.question-specimen::before {
+  position: absolute;
+  z-index: 2;
+  top: -18px;
+  right: 4.5%;
+  width: 27%;
+  height: 3px;
+  background: var(--cobalt);
+  content: "";
+}
+
+.question-specimen img {
+  display: block;
+  width: 100%;
+  height: min(56vw, 720px);
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.84) contrast(1.03);
+}
+
+.question-specimen figcaption {
+  position: absolute;
+  right: 0;
+  bottom: clamp(-74px, -5vw, -48px);
+  width: min(430px, 43%);
+  padding: 28px 32px 30px;
+  background: var(--carbon);
+  color: var(--bone);
+}
+
+.question-specimen figcaption span {
+  color: #6f8bff;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.question-specimen figcaption p {
+  margin: 18px 0 0;
+  font-family: var(--serif);
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.08;
+}
+
+.evidence-opening {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  gap: clamp(70px, 9vw, 150px);
+  align-items: start;
+}
+
+.evidence-opening .evidence-intro {
+  display: block;
+  padding-top: clamp(70px, 8vw, 120px);
+}
+
+.evidence-opening .evidence-intro > * {
+  grid-column: auto;
+}
+
+.evidence-opening .evidence-intro h2 {
+  margin-top: 24px;
+}
+
+.evidence-opening .evidence-intro p {
+  max-width: 520px;
+  margin-top: 42px;
+}
+
+.identity-specimen {
+  position: relative;
+  margin: 0;
+  transform: translateY(-34px);
+}
+
+.identity-specimen::after {
+  position: absolute;
+  z-index: -1;
+  right: -14px;
+  bottom: -14px;
+  width: 82%;
+  height: 48%;
+  background: var(--vermilion);
+  content: "";
+}
+
+.identity-specimen img {
+  display: block;
+  width: 100%;
+  height: min(70vw, 850px);
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.86) contrast(1.06);
+}
+
+.identity-specimen figcaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  background: rgb(10 10 11 / 86%);
+  color: rgb(231 225 214 / 58%);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(8px);
+}
+
+.identity-specimen figcaption span {
+  color: var(--vermilion);
+}
+
+.evidence-opening + .headline-findings {
+  margin-top: clamp(120px, 12vw, 190px);
+  margin-left: 0;
+}
+
+.study-archive {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+  margin: 0 0 clamp(130px, 15vw, 240px);
+  color: var(--bone);
+}
+
+.study-archive img {
+  grid-column: 1 / 8;
+  width: 100%;
+  height: min(82svh, 900px);
+  object-fit: cover;
+  object-position: center;
+  box-shadow: -14px 14px 0 var(--cobalt);
+  filter: saturate(0.86) contrast(1.06);
+}
+
+.study-archive figcaption {
+  grid-column: 8 / 13;
+  padding-bottom: clamp(30px, 8vw, 120px);
+}
+
+.study-archive .mono-label {
+  color: #6f8bff;
+}
+
+.study-archive h2 {
+  max-width: 570px;
+  margin: 28px 0;
+  font-family: var(--serif);
+  font-size: clamp(46px, 5vw, 80px);
+  font-weight: 420;
+  letter-spacing: -0.05em;
+  line-height: 0.93;
+}
+
+.study-archive p {
+  max-width: 440px;
+  color: rgb(231 225 214 / 62%);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.study-archive small {
+  display: block;
+  margin-top: 50px;
+  color: rgb(231 225 214 / 38%);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: 0.05em;
+}
+
+.reliquary-interlude {
+  position: relative;
+  overflow: hidden;
+  background: var(--carbon);
+  color: var(--bone);
+}
+
+.reliquary-interlude > figure {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(70px, 11vw, 180px);
+  align-items: center;
+  min-height: 100svh;
+  margin-block: 0;
+  padding-top: clamp(100px, 12vw, 180px);
+  padding-bottom: clamp(100px, 12vw, 180px);
+}
+
+.reliquary-interlude img {
+  width: 100%;
+  height: min(76svh, 820px);
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 16px 16px 0 var(--vermilion);
+  filter: saturate(0.84) contrast(1.08);
+}
+
+.reliquary-interlude figcaption {
+  max-width: 720px;
+}
+
+.reliquary-interlude .mono-label {
+  color: var(--vermilion);
+}
+
+.reliquary-interlude h2 {
+  margin: 34px 0;
+  font-family: var(--sans);
+  font-size: clamp(54px, 6.8vw, 108px);
+  font-weight: 730;
+  letter-spacing: -0.07em;
+  line-height: 0.87;
+  text-transform: uppercase;
+}
+
+.reliquary-interlude p {
+  max-width: 450px;
+  color: rgb(231 225 214 / 65%);
+  font-family: var(--serif);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.2;
+}
+
+.reliquary-interlude small {
+  display: block;
+  margin-top: 60px;
+  color: rgb(231 225 214 / 35%);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: 0.06em;
+}
+
+@keyframes gallery-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 1180px) {
+  .hero {
+    min-height: max(980px, 112svh);
+  }
+
+  .hero h1 {
+    font-size: clamp(70px, 9.2vw, 108px);
+  }
+
+  .hero-copy {
+    width: 61vw;
+  }
+
+  .hero-brief {
+    width: 48vw;
+  }
+
+  .question-section > .question-copy {
+    grid-column: 2 / 9;
+  }
+
+  .question-section > .margin-note {
+    grid-column: 9 / 13;
+  }
+}
+
+@media (max-width: 920px) {
+  .hero {
+    min-height: 1220px;
+    padding: 0;
+  }
+
+  .hero-gallery-art {
+    top: 370px;
+    height: 650px;
+  }
+
+  .hero-gallery-image {
+    object-position: 70% center;
+  }
+
+  .hero-gallery-wash {
+    background:
+      linear-gradient(180deg, #050506 0, transparent 24%, transparent 70%, #050506 100%),
+      linear-gradient(90deg, rgb(5 5 6 / 42%), transparent 74%);
+  }
+
+  .hero-gallery-art figcaption {
+    bottom: 38px;
+  }
+
+  .hero-copy {
+    top: 118px;
+    width: calc(100% - var(--gutter) * 2);
+  }
+
+  .hero h1 {
+    margin: 42px 0 44px;
+    font-size: clamp(70px, 13.5vw, 108px);
+  }
+
+  .hero-deck {
+    max-width: 560px;
+  }
+
+  .hero-brief {
+    top: 970px;
+    width: min(74vw, 560px);
+  }
+
+  .hero-ledger {
+    bottom: 26px;
+    width: min(72vw, 600px);
+  }
+
+  .question-section {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .question-section > .question-copy {
+    grid-column: 2 / 9;
+  }
+
+  .question-section > .margin-note {
+    grid-column: 2 / 6;
+    margin-top: 50px;
+  }
+
+  .question-specimen {
+    grid-column: 1 / 9;
+  }
+
+  .evidence-opening {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-opening .evidence-intro {
+    padding-top: 0;
+  }
+
+  .identity-specimen {
+    width: min(70vw, 560px);
+    margin-left: auto;
+    transform: none;
+  }
+
+  .identity-specimen img {
+    height: min(95vw, 760px);
+  }
+
+  .study-archive img {
+    grid-column: 1 / 8;
+  }
+
+  .study-archive figcaption {
+    grid-column: 8 / 13;
+  }
+
+  .reliquary-interlude > figure {
+    grid-template-columns: minmax(270px, 0.8fr) minmax(0, 1.2fr);
+    gap: 56px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 1380px;
+    padding: 0;
+    background: #050506;
+  }
+
+  .hero::before {
+    top: 60px;
+    background: linear-gradient(90deg, transparent 0 49.8%, rgb(231 225 214 / 6%) 50%, transparent 50.2%);
+  }
+
+  .hero::after,
+  .hero-exhibit {
+    display: none;
+  }
+
+  .hero-gallery-art {
+    top: 410px;
+    height: 640px;
+  }
+
+  .hero-gallery-image {
+    object-position: 72% center;
+  }
+
+  .hero-gallery-art figcaption {
+    right: var(--gutter);
+    bottom: 28px;
+    left: var(--gutter);
+    font-size: 6px;
+  }
+
+  .hero-copy {
+    top: 104px;
+    left: var(--gutter);
+    width: calc(100% - var(--gutter) * 2);
+  }
+
+  .hero h1 {
+    margin: 38px 0 44px;
+    font-size: clamp(60px, 19.4vw, 78px);
+    line-height: 0.78;
+  }
+
+  .hero h1 > span:nth-child(2) {
+    margin-left: 0.12em;
+  }
+
+  .hero h1 > span.identity-cut {
+    margin-top: 0.1em;
+    margin-left: 0.86em;
+  }
+
+  .hero-deck {
+    max-width: 340px;
+    font-size: 23px;
+  }
+
+  .hero-brief {
+    top: 1062px;
+    left: var(--gutter);
+    width: calc(100% - var(--gutter) * 2);
+  }
+
+  .hero-summary {
+    max-width: none;
+    font-size: 12px;
+  }
+
+  .hero-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-actions .button {
+    padding-inline: 10px;
+    font-size: 8px;
+  }
+
+  .hero-brief .synthetic-disclosure {
+    margin-top: 20px;
+  }
+
+  .hero-ledger {
+    right: var(--gutter);
+    bottom: 18px;
+    left: var(--gutter);
+    width: auto;
+  }
+
+  .question-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 120px;
+    padding-bottom: 170px;
+  }
+
+  .question-section > .section-number,
+  .question-section > .question-copy,
+  .question-section > .margin-note,
+  .question-specimen {
+    grid-column: 1;
+  }
+
+  .question-section > .section-number {
+    margin-bottom: 60px;
+  }
+
+  .question-section > .margin-note {
+    width: 82%;
+    margin: 50px 0 0 auto;
+  }
+
+  .question-specimen {
+    width: calc(100% + var(--gutter) * 2);
+    margin: 100px calc(var(--gutter) * -1) 0;
+  }
+
+  .question-specimen img {
+    height: 390px;
+    object-position: 40% center;
+  }
+
+  .question-specimen figcaption {
+    right: var(--gutter);
+    bottom: -84px;
+    width: calc(100% - var(--gutter) * 2);
+    padding: 24px;
+  }
+
+  .evidence-opening {
+    gap: 90px;
+  }
+
+  .identity-specimen {
+    width: calc(100% - 18px);
+  }
+
+  .identity-specimen img {
+    height: 620px;
+  }
+
+  .identity-specimen figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .evidence-opening + .headline-findings {
+    margin-top: 110px;
+  }
+
+  .study-archive {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 120px;
+  }
+
+  .study-archive img {
+    width: calc(100% - 18px);
+    height: 72svh;
+    min-height: 560px;
+    box-shadow: 9px 9px 0 var(--cobalt);
+  }
+
+  .study-archive figcaption {
+    padding: 58px var(--gutter) 0;
+  }
+
+  .study-archive h2 {
+    font-size: 50px;
+  }
+
+  .reliquary-interlude > figure {
+    display: flex;
+    min-height: auto;
+    flex-direction: column;
+    gap: 80px;
+    padding-top: 110px;
+    padding-bottom: 120px;
+  }
+
+  .reliquary-interlude img {
+    width: calc(100% - 12px);
+    height: 68svh;
+    min-height: 560px;
+    margin-right: 12px;
+    box-shadow: 10px 10px 0 var(--vermilion);
+  }
+
+  .reliquary-interlude h2 {
+    font-size: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gallery-art {
+    animation: none !important;
+  }
+}
