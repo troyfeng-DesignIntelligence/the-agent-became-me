@@ -46,7 +46,7 @@ const causalStages = [
   {
     eyebrow: "04 / inference",
     label: "Profile update",
-    note: "A task choice is treated as enduring preference evidence."
+    note: "A task choice becomes long-term preference evidence."
   },
   {
     eyebrow: "05 / return",

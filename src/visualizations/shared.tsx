@@ -6,17 +6,17 @@ export const VIS_COLORS = {
   ink: "#151518",
   muted: "#69676d",
   rule: "#d4cec3",
-  error: "#b33b28",
-  provenance: "#2452bd",
-  negotiated: "#0f6b5a",
-  intermediary: "#6548b8"
+  error: "#a45f52",
+  provenance: "#526983",
+  negotiated: "#4f746d",
+  intermediary: "#786f84"
 } as const;
 
 const CONDITION_COLORS: Record<string, string> = {
   "actor-blind": VIS_COLORS.error,
   "action-only": VIS_COLORS.error,
   "logged-only": VIS_COLORS.intermediary,
-  "matched-attenuation": "#725116",
+  "matched-attenuation": "#806e4f",
   "impact-proxy": VIS_COLORS.provenance,
   "provenance-aware": VIS_COLORS.provenance,
   "scope-gated": VIS_COLORS.negotiated,
@@ -53,7 +53,7 @@ const FALLBACK_COLORS = [
   VIS_COLORS.provenance,
   VIS_COLORS.negotiated,
   VIS_COLORS.intermediary,
-  "#9a6b18"
+  "#8a7452"
 ];
 
 export interface ChartCopy {

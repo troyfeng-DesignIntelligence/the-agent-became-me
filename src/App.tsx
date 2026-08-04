@@ -109,7 +109,7 @@ function Hero() {
         />
         <div className="hero-gallery-wash" aria-hidden="true" />
         <figcaption>
-          ART-DIRECTED GENERATED INSTALLATION · NOT STUDY DATA
+          SYNTHETIC CONCEPT IMAGE · NOT STUDY DATA
         </figcaption>
       </figure>
       <span className="hero-exhibit" aria-hidden="true">
@@ -181,12 +181,11 @@ function TraceFieldInterlude() {
       <div className="trace-field-copy section-shell">
         <span className="mono-label">THE ADMISSION PROBLEM / 001</span>
         <h2 id="trace-field-title">
-          One gate decides whether action becomes identity.
+          The update rule decides what reaches the profile.
         </h2>
         <p>
-          Before the gate, actor and intent remain distinct. After an
-          actor-blind update, a temporary trace can harden into the principal’s
-          enduring profile.
+          The trace records who acted and why. An actor-blind updater ignores
+          both fields and writes the event into the principal's profile.
         </p>
       </div>
       <div className="trace-field-key section-shell" aria-hidden="true">
@@ -305,7 +304,7 @@ export function App() {
             />
             <figcaption>
               <span>SPECIMEN A / TEMPORARY INTENT</span>
-              <p>Evidence can remain provisional, attributable, and removable.</p>
+              <p>A trace can be logged without changing the profile.</p>
             </figcaption>
           </figure>
         </section>
@@ -314,12 +313,11 @@ export function App() {
           <header className="section-header">
             <div>
               <span className="section-kicker">The delegation gap</span>
-              <h2>A temporary task can leave a durable trace.</h2>
+              <h2>A temporary task can change a persistent profile.</h2>
             </div>
             <p>
-              The interface problem does not begin at checkout. It begins when
-              a system decides whether delegated behavior should count as
-              personal evidence.
+              The design question appears after the agent acts, when the system
+              decides which events should update the principal's profile.
             </p>
           </header>
           <CausalRibbon />
@@ -339,7 +337,7 @@ export function App() {
           <header className="section-header lab-header">
             <div>
               <span className="section-kicker">One trace, six contracts</span>
-              <h2>Change the rule. Keep the evidence locked.</h2>
+              <h2>Hold the trace fixed. Change the update rule.</h2>
             </div>
             <p>
               Scrub one frozen shopping trace through six update contracts.
@@ -373,9 +371,9 @@ export function App() {
                     control.
                   </h2>
                   <p>
-                    The added falsification control changed the conclusion.
-                    These numbers describe an implemented synthetic protocol—not
-                    people, platforms, or experienced consent.
+                    The matched control changed my conclusion. These results
+                    come from a synthetic protocol. They do not measure people,
+                    live platforms, or experienced consent.
                   </p>
                 </header>
                 <figure className="identity-specimen">
@@ -416,7 +414,7 @@ export function App() {
                 index="01"
                 label="CAUSAL MECHANISM"
                 meta="CONCEPTUAL SCHEMATIC · NOT AN OBSERVED TRACE"
-                note="Interpretive distance grows between a human request and a persistent profile update."
+                note="This schematic tracks how a temporary request can produce a persistent profile update."
                 title="The delegation gap"
               >
                 <CausalRibbon activeStage={3} />
@@ -565,7 +563,7 @@ export function App() {
                 index="04"
                 label="PROVENANCE BRAID"
                 meta={`REPRESENTATIVE · 17 RECEIPT-DERIVED LINKS · ${summary.protocolVersion.toUpperCase()}`}
-                note="Each path follows the largest absolute signed trait delta for one event in the actor-blind replay; the exact ledger is available below."
+                note="Each path links one actor-blind event to its largest signed trait change. The table below contains the exact receipt values."
                 title="Where delegated evidence entered the profile"
                 variant="paper"
               >
@@ -591,7 +589,7 @@ export function App() {
                 index="06"
                 label="TRACE-HANDLING DIAGNOSTICS"
                 meta={`GENERATED · 4 SCENARIOS · 480 RUNS/CONTRACT · ${summary.protocolVersion.toUpperCase()}`}
-                note="All cells use one definition across contracts: recording errors, label errors, provenance use, or persistence rate."
+                note="Each row keeps one definition across contracts: recording error, label error, provenance use, or persistence rate."
                 title="What each contract recorded and used"
                 variant="paper"
               >
@@ -623,7 +621,7 @@ export function App() {
                 index="07"
                 label="SEPARATED OUTCOME DISTRIBUTIONS"
                 meta={`GENERATED · STUDY A 2,880 RUNS · STUDY B 1,440 RUNS · ${summary.protocolVersion.toUpperCase()}`}
-                note="The studies stay in separate panels because Study A freezes traces while Study B changes a behavior-side signal and a persistence-side contract."
+                note="Study A freezes every trace. Study B changes the ranking signal and the persistence rule, so I report it separately."
                 title="Reference divergence, utility, and modeled cost"
               >
                 <div className="outcome-panels">
@@ -647,12 +645,12 @@ export function App() {
                 index="08"
                 label="LEARNING-NEEDED COUNTEREXAMPLE"
                 meta={`GENERATED · WEEKLY BREAKFAST · 720 RUNS · ${summary.protocolVersion.toUpperCase()}`}
-                note="This stress test starts from the scenario’s disclosed, stale profile rather than the evaluator reference. It asks when preserving state can itself be wrong."
+                note="This stress test starts from a disclosed but stale profile. It checks one case where preserving state gives the wrong result."
                 title="No update is not a universal integrity strategy"
                 variant="paper"
               >
                 <ConditionOutcomePanel
-                  note="One deliberately aligned task cannot establish external validity. It is included to falsify the simpler rule that less learning must always be better."
+                  note="This is one deliberately aligned task, not evidence of external validity. It tests the rule that less learning is always better."
                   rows={summary.overallC}
                   studyLabel="STUDY C · STALE INITIAL PROFILE"
                   title="Learning-needed stress test"
@@ -674,10 +672,10 @@ export function App() {
                 <span className="mono-label">SPECIMEN D / QUARANTINE</span>
                 <h2>Logging does not have to mean learning.</h2>
                 <p>
-                  A record can remain inspectable without immediately becoming
-                  durable evidence about the principal.
+                  The system can retain an event for inspection without using
+                  it to update the principal's profile.
                 </p>
-                <small>ART-DIRECTED GENERATED SPECIMEN · NOT STUDY DATA</small>
+                <small>SYNTHETIC CONCEPT IMAGE · NOT STUDY DATA</small>
               </figcaption>
             </figure>
             <div className="study-block">
@@ -782,7 +780,7 @@ export function App() {
           <header className="section-header">
             <div>
               <span className="section-kicker">What the testbed suggests</span>
-              <h2>Four findings, each with a boundary.</h2>
+              <h2>Four results and where each one stops.</h2>
             </div>
             <p>
               Measured outcomes stay separate from design implications. No
@@ -820,8 +818,8 @@ export function App() {
             />
             <figcaption>
               <span className="mono-label">SPECIMEN B / MISFILED</span>
-              <h2>A record can be precise and still name the wrong actor.</h2>
-              <p>Attribution is part of the interface, not an audit detail.</p>
+              <h2>A detailed trace can still assign an event to the wrong actor.</h2>
+              <p>The attribution rule changes the profile, so it belongs in the interface design.</p>
               <small>CONCEPTUAL IMAGE · NOT STUDY DATA</small>
             </figcaption>
           </figure>
@@ -833,7 +831,7 @@ export function App() {
             <header className="implications-intro">
               <span className="section-kicker">Testable design hypotheses</span>
               <h2>
-                The failed claim points to better experiments.
+                The result changed what I would test next.
               </h2>
             </header>
             <div className="implication-grid">
@@ -853,11 +851,12 @@ export function App() {
           <header className="section-header">
             <div>
               <span className="section-kicker">Methods, limits & source</span>
-              <h2>Every visual has a path back to the rows.</h2>
+              <h2>Every chart can be traced to generated rows.</h2>
             </div>
             <p>
-              The site is the reader layer. The protocol, source snapshot,
-              deterministic runner, tests, and full output remain inspectable.
+              This site is the reading layer. The repository contains the
+              protocol, source snapshot, deterministic runner, tests, and full
+              output.
             </p>
           </header>
 
@@ -964,11 +963,11 @@ export function App() {
           <div className="references-block">
             <header>
               <span className="mono-label">COLLISION & REUSE MAP</span>
-              <h3>Built beside prior work, not on top of an empty field.</h3>
+              <h3>This project starts from existing work.</h3>
               <p>
-                The contribution is deliberately narrow. Existing simulators,
-                provenance standards, recommendation agents, and scrutable
-                profiles define the territory.
+                I use prior work on simulators, provenance standards,
+                recommendation agents, and editable profiles to set the scope
+                of the contribution.
               </p>
             </header>
             <div className="reference-grid">
@@ -1005,8 +1004,7 @@ export function App() {
         <div>
           <span className="footer-mark">ACI / 01</span>
           <h2>
-            Before delegated action becomes profile evidence, provenance has
-            to beat the simpler baselines.
+            Provenance only matters here if it beats a simpler baseline.
           </h2>
         </div>
         <div className="footer-meta">

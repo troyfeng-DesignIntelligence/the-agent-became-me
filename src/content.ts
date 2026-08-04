@@ -21,16 +21,16 @@ export interface Finding {
 }
 
 export const hero = {
-  eyebrow: "A synthetic agent–computer interaction study",
+  eyebrow: "An agent-computer interaction experiment",
   title: "The Agent Became Me",
   subtitle:
-    "What happens when a shopping agent’s temporary assignment is treated as lasting evidence about the person who delegated it?",
+    "A shopping agent gets one temporary assignment. Should its actions update the person who delegated it?",
   summary:
-    "This reproducible testbed delegates four shopping scenarios to transparent policies, replays the traces through competing update contracts, and includes controls designed to falsify a provenance-specific explanation.",
+    "I built four synthetic shopping scenarios, then replayed each trace under six profile-update rules. The controls test whether provenance adds anything beyond simply reducing how much the system learns.",
   status:
     "Generated evidence · protocol.v1 · 4 synthetic scenarios · 3 policies · paired controls · no human participants",
   disclosure:
-    "All principals, delegation briefs, behaviors, and outcomes are synthetic. Public Open Food Facts product metadata supplies the choice environment; no user records are used.",
+    "All principals, task briefs, behaviors, and outcomes are synthetic. The catalog uses public Open Food Facts metadata. It contains no user records.",
   primaryAction: "Inspect the evidence",
   secondaryAction: "Read the protocol"
 } as const;
@@ -42,9 +42,9 @@ export const researchQuestion = {
   framing:
     "The project studies attribution inside a simulated recommender pipeline. It does not treat profile movement as a change in a person’s identity or underlying preferences.",
   contribution:
-    "The scoped contribution is an executable benchmark for delegated-action attribution with explicit falsification controls: matched update mass, no-update bounds, stale-profile stress, event-level provenance, and inspectable receipts.",
+    "I built an executable benchmark for delegated-action attribution. It includes matched update mass, a no-update baseline, a stale-profile stress case, event-level provenance, and inspectable receipts.",
   noveltyBoundary:
-    "Agents in recommendation, editable profiles, dynamic memories, and provenance standards already exist. This project does not claim to invent them or to be the first study of agent-mediated personalization."
+    "Recommendation agents, editable profiles, dynamic memories, and provenance standards already exist. My claim is narrower: this project tests how known delegate actions enter a simulated user profile."
 } as const;
 
 export const studyA = {
@@ -54,7 +54,7 @@ export const studyA = {
   question:
     "If behavior is held constant, does intent-selective provenance outperform a non-selective control with the same total update mass?",
   explanation:
-    "Each synthetic trace is frozen and replayed through six contracts. Catalog, scenario, principal reference, task vector, policy, seed, event order, and learning rate remain identical. Matched shrinkage is the decisive attenuation control.",
+    "I freeze each synthetic trace and replay it through six contracts. The catalog, scenario, reference profile, task vector, policy, seed, event order, and learning rate stay fixed. Matched shrinkage tests whether lower update mass explains the result.",
   runCount: 2880,
   runsPerCondition: 480,
   conditions: [
@@ -96,17 +96,17 @@ export const studyA = {
     }
   ],
   caution:
-    "The initially aligned profile makes less updating structurally favorable. Matched shrinkage and the stale-profile stress test are required before interpreting the result."
+    "The starting profile already matches the evaluator reference, so less updating has an advantage. The matched control and stale-profile test show where that advantage matters."
 } as const;
 
 export const studyB = {
   id: "study-b",
   label: "Study B",
-  title: "Separate a behavior signal from persistence",
+  title: "Separate ranking from persistence",
   question:
     "What changes when ranking receives a profile-distance proxy, and what changes again when the resulting non-commit evidence is quarantined?",
   explanation:
-    "Action-only versus impact proxy changes the behavior-side ranking rule. Impact proxy versus proxy plus quarantine reuses identical paired traces and changes only persistence. These are implementation probes, not a human-tested preview or repair workflow.",
+    "Action only and impact proxy use different ranking rules. Impact proxy and proxy plus quarantine reuse identical traces, changing only what reaches the stored profile. No person used or evaluated these controls.",
   runCount: 1440,
   runsPerCondition: 480,
   conditions: [
@@ -136,9 +136,9 @@ export const studyB = {
 export const studyC = {
   id: "study-c",
   label: "Study C",
-  title: "A learning-needed counterexample",
+  title: "When the profile needs to learn",
   explanation:
-    "The weekly-breakfast task starts from the scenario’s disclosed, stale profile. The same six contracts test whether preserving state can be worse when delegated behavior is aligned with a legitimate recurring preference.",
+    "The weekly-breakfast task starts from a disclosed but stale profile. I replay the same six contracts to test a case where the delegated behavior matches a recurring preference and the stored profile should change.",
   runCount: 720,
   runsPerCondition: 120,
   caution:
@@ -149,9 +149,9 @@ export const findings: readonly Finding[] = [
   {
     id: "matched-control",
     kicker: "Study A · 480 paired runs per contract",
-    title: "The matched control falsified the provenance-specific claim.",
+    title: "The matched control changed the conclusion.",
     body:
-      "Provenance-aware updating lowered divergence relative to actor-blind updating, but uniform shrinkage with the same total update mass performed slightly better. In this testbed, attenuation—not selective provenance—is the simpler explanation.",
+      "Provenance-aware updating lowered divergence relative to actor-blind updating. Uniform shrinkage with the same total update mass performed slightly better. In this testbed, reduced update mass explains the result without needing selective provenance.",
     evidence: [
       "Mean divergence: 0.176 matched shrinkage; 0.187 provenance-aware",
       "Mean simulated ranking loss: 0.005 matched; 0.006 provenance-aware",
@@ -159,14 +159,14 @@ export const findings: readonly Finding[] = [
       "Higher provenance-aware divergence in 12/12 cell means and 456/480 paired runs"
     ],
     boundary:
-      "The matched scale is oracle-calibrated from observed-intent weights and is not a deployable metadata-free policy. Even so, it defeats the stronger mechanistic claim that selective provenance itself explains the observed gain."
+      "The matched scale is calibrated from observed-intent weights, so it is a mechanism control rather than a deployable policy. It still rules out the stronger claim that selective provenance produced the gain on its own."
   },
   {
     id: "logged-only-control",
     kicker: "Study A · frozen traces",
-    title: "Recording provenance without using it changed the audit trail, not the profile.",
+    title: "Recording provenance changed the log, not the profile.",
     body:
-      "Actor-blind and logged-only contracts produced identical profile and ranking outcomes. The diagnostic matrix now separates actor-recording error, intent-label error, provenance use, and event persistence instead of combining unlike definitions.",
+      "Actor-blind and logged-only contracts produced identical profile and ranking outcomes. I report actor-recording errors, intent-label errors, provenance use, and persistence separately because they describe different failures.",
     evidence: [
       "Mean divergence: 0.311 in both contracts",
       "Mean simulated ranking loss: 0.035 in both contracts",
@@ -179,9 +179,9 @@ export const findings: readonly Finding[] = [
   {
     id: "learning-needed",
     kicker: "Study C · explicit counterexample",
-    title: "No update won the aligned-profile benchmark—and lost the stale-profile stress test.",
+    title: "No update won with an aligned profile, then lost with a stale one.",
     body:
-      "When the stored profile started at the evaluator reference, no update produced zero divergence by construction. When the weekly-breakfast stress test started from a stale disclosed profile, scope-gated learning moved closer to the reference than no update.",
+      "With the profile initialized at the evaluator reference, no update produced zero divergence by construction. In the weekly-breakfast case, the disclosed profile started stale and scope-gated learning moved it closer to the reference.",
     evidence: [
       "Aligned start: 0.000 no-update divergence",
       "Stale start: 0.104 no update; 0.067 scope-gated",
@@ -193,7 +193,7 @@ export const findings: readonly Finding[] = [
   {
     id: "quarantine-contract",
     kicker: "Study B · 480 runs per condition",
-    title: "Quarantining non-commit evidence changed persistence, not the agent trace.",
+    title: "Quarantine changed persistence without changing the agent trace.",
     body:
       "The impact-proxy and proxy-plus-quarantine conditions generated identical paired traces. Replaying those traces with non-commit evidence excluded from persistence lowered mean divergence from 0.180 to 0.131.",
     evidence: [
@@ -209,29 +209,29 @@ export const findings: readonly Finding[] = [
 
 export const designImplications = [
   {
-    title: "Test provenance against simpler regularization",
+    title: "Compare provenance with simple shrinkage",
     body:
-      "Future evaluations should match total update mass before attributing a benefit to actor or purpose metadata. In this benchmark, uniform shrinkage was the stronger explanation."
+      "Match total update mass before crediting actor or purpose metadata. Here, uniform shrinkage explained the gain more simply."
   },
   {
-    title: "Test when task context deserves persistence",
+    title: "Test when task context should persist",
     body:
-      "The simulation motivates comparing task-scoped, expiring, and durable evidence in cases where learning is harmful and cases where a stored profile is stale."
+      "Compare task-scoped, expiring, and durable evidence in both kinds of case: when learning causes drift and when the stored profile is stale."
   },
   {
-    title: "Build a real counterfactual impact signal",
+    title: "Use a real counterfactual impact signal",
     body:
-      "A follow-up ACI should expose the updater’s actual projected state transition—not the static distance proxy used here—and log how an agent responds."
+      "The next experiment should expose the updater's projected state transition instead of the static distance proxy used here, then record how the agent responds."
   },
   {
     title: "Keep quarantine and repair distinct",
     body:
-      "Quarantining evidence before persistence is not rollback. A genuine repair study needs explicit update, expiry, reversal, and confirmation events with inspectable receipts."
+      "Quarantine happens before persistence; rollback happens after it. A repair study needs explicit update, expiry, reversal, and confirmation events with inspectable receipts."
   },
   {
     title: "Stress asymmetric label failures",
     body:
-      "Aggregate noise can improve divergence by accidentally suppressing commit signals. Follow-up tests should separate false explore, consider, and commit labels."
+      "Aggregate noise can lower divergence by accidentally suppressing commit signals. The next test should vary false explore, consider, and commit labels independently."
   }
 ] as const;
 
@@ -258,7 +258,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2026,
     url: "https://doi.org/10.1145/3773078.3831734",
     note:
-      "Directly occupies the broad human–agent–platform framing. This project contributes a narrow executable profile-update benchmark, not a new recommendation paradigm."
+      "The closest match to the overall human-agent-platform setup. My project is narrower and tests profile updates in executable scenarios."
   },
   {
     id: "iagent",
@@ -268,7 +268,7 @@ export const references: readonly ReferenceLink[] = [
     url: "https://aclanthology.org/2025.findings-acl.928/",
     repositoryUrl: "https://github.com/agiresearch/iAgent",
     note:
-      "Closest user–agent–platform precedent: instruction-aware reranking, individual memory, and learning from recommendation feedback. The public repository has no visible license; cite, but do not copy."
+      "A close precedent for instruction-aware reranking and agent memory. Its public repository has no visible license, so I cite it without reusing code."
   },
   {
     id: "shared-accounts-top-n",
@@ -277,7 +277,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2015,
     url: "https://doi.org/10.1145/2792838.2800170",
     note:
-      "Establishes that one account can contain mixed preference evidence. Here the actor is a known software delegate rather than an unknown human account sharer."
+      "Shows how one account can contain evidence from several people. Here the actor is known and is a software delegate."
   },
   {
     id: "shared-account-user-identification",
@@ -286,7 +286,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2018,
     url: "https://doi.org/10.1145/3209978.3210054",
     note:
-      "Infers which hidden person produced a session. This benchmark receives actor identity and instead tests whether a delegate event should enter a principal profile."
+      "Infers which person produced a shared-account session. My benchmark already knows the actor and asks whether the event should update the principal's profile."
   },
   {
     id: "shopping-intent-personalization",
@@ -296,7 +296,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2023,
     url: "https://arxiv.org/abs/2305.05279",
     note:
-      "Occupies shopping-goal inference and intent-aware ranking. The arXiv record is withdrawn; only its accessible record and abstract support this comparison."
+      "Relevant to shopping-goal inference and intent-aware ranking. The paper was withdrawn, so I rely only on its accessible record and abstract."
   },
   {
     id: "governable-personalization",
@@ -306,7 +306,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2026,
     url: "https://arxiv.org/abs/2604.20065",
     note:
-      "Frames assistants as personalization intermediaries and identifies intent translation, ownership, access, and accountability as research problems."
+      "Treats assistants as personalization intermediaries and discusses intent translation, ownership, access, and accountability."
   },
   {
     id: "scrutable-profiles",
@@ -318,7 +318,7 @@ export const references: readonly ReferenceLink[] = [
     repositoryUrl:
       "https://github.com/jeromeramos70/user-profile-recommendation",
     note:
-      "Demonstrates editable natural-language profiles and counterfactual recommendation changes.",
+      "A concrete example of editable natural-language profiles and counterfactual recommendation changes.",
     license: "Apache-2.0 repository"
   },
   {
@@ -328,7 +328,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2026,
     url: "https://arxiv.org/abs/2605.14401",
     note:
-      "Occupies evidence-tracked event, preference, and profile memory lifecycles. This benchmark focuses on admission of known delegate evidence."
+      "Tracks evidence across event, preference, and profile memory. I focus on one earlier decision: whether known delegate evidence enters the profile at all."
   },
   {
     id: "agent4rec",
@@ -338,7 +338,7 @@ export const references: readonly ReferenceLink[] = [
     url: "https://arxiv.org/abs/2310.10108",
     repositoryUrl: "https://github.com/LehengTHU/Agent4Rec",
     note:
-      "Provides profile, memory, and action modules for recommender simulation. This project distinguishes a simulated user from a delegate whose task behavior need not express enduring preference.",
+      "Its profile, memory, and action modules inform the simulation context. I distinguish a simulated user from a delegate acting on a temporary task.",
     license: "MIT repository"
   },
   {
@@ -348,7 +348,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2022,
     url: "https://proceedings.mlr.press/v162/carroll22a.html",
     note:
-      "Establishes long-horizon preference-shift and utility–shift trade-off methods. Here, a declared evaluator reference is fixed to isolate inference divergence."
+      "Provides methods for studying preference shifts over time. I hold a declared evaluator reference fixed to isolate profile divergence."
   },
   {
     id: "preference-pollution",
@@ -356,7 +356,7 @@ export const references: readonly ReferenceLink[] = [
     title: "Recommender Systems, Ground Truth, and Preference Pollution",
     url: "https://doi.org/10.1002/aaai.12055",
     note:
-      "Establishes the broader feedback problem in which recommender outputs distort later preference evidence. This project studies one synthetic delegated-action mechanism."
+      "Describes how recommender outputs can distort later preference evidence. My experiment isolates one synthetic delegated-action mechanism."
   },
   {
     id: "swe-agent",
@@ -366,7 +366,7 @@ export const references: readonly ReferenceLink[] = [
     url: "https://arxiv.org/abs/2405.15793",
     repositoryUrl: "https://github.com/swe-agent/swe-agent",
     note:
-      "Provides the agent–computer interface precedent: interface design can alter agent behavior and task performance.",
+      "The agent-computer interface precedent for treating interface design as part of agent performance.",
     license: "MIT repository"
   },
   {
@@ -375,7 +375,7 @@ export const references: readonly ReferenceLink[] = [
     title: "W3C PROV-O: The PROV Ontology",
     url: "https://www.w3.org/TR/prov-o/",
     note:
-      "Source for Agent, Activity, Entity, attribution, association, delegation, revision, and invalidation primitives."
+      "I use its Agent, Activity, Entity, attribution, delegation, revision, and invalidation primitives."
   },
   {
     id: "prov-agent",
@@ -385,7 +385,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2025,
     url: "https://arxiv.org/abs/2508.02866",
     note:
-      "Extends provenance modeling to prompts, responses, decisions, and tool-mediated agent workflows."
+      "Extends provenance records to prompts, responses, decisions, and tool-mediated workflows."
   },
   {
     id: "human-delegation-provenance",
@@ -395,7 +395,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2026,
     url: "https://arxiv.org/abs/2604.04522",
     note:
-      "Occupies verifiable delegation and authorization scope. The testbed implements neither cryptographic authorization nor an approval interaction."
+      "Covers verifiable delegation and authorization scope. My testbed has neither cryptographic authorization nor an approval interaction."
   },
   {
     id: "agenttrace",
@@ -405,7 +405,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2026,
     url: "https://arxiv.org/abs/2603.28551",
     note:
-      "Occupies general action traceability and persistent-side-effect inspection. This project narrows the persistent side effect to a simulated recommender profile."
+      "Studies action traceability and persistent side effects. I narrow the side effect to a simulated recommender profile."
   },
   {
     id: "open-food-facts",
@@ -415,7 +415,7 @@ export const references: readonly ReferenceLink[] = [
     repositoryUrl:
       "https://openfoodfacts.github.io/documentation/docs/Product-Opener/api/",
     note:
-      "Public product-level metadata supplies the 90-item test catalog. The project excludes product images, reviews, accounts, and user records.",
+      "The 90-item test catalog uses public product metadata only. It excludes images, reviews, accounts, and user records.",
     license: "Open Database License 1.0; attribution and share-alike apply"
   },
   {
@@ -427,7 +427,7 @@ export const references: readonly ReferenceLink[] = [
     url: "https://arxiv.org/abs/2311.16586",
     repositoryUrl: "https://pypi.org/project/sardine-rec/",
     note:
-      "A reusable substrate for larger dynamic, slate-based, and uncertainty-aware follow-up experiments.",
+      "A possible base for later experiments with dynamic environments, slates, and uncertainty.",
     license: "MIT core package"
   },
   {
@@ -436,7 +436,7 @@ export const references: readonly ReferenceLink[] = [
     title: "RecSim",
     url: "https://github.com/google-research/recsim",
     note:
-      "Informs the separation among environment, user response, recommender policy, and metrics.",
+      "Useful for separating the environment, response model, recommender policy, and metrics.",
     license: "Apache-2.0"
   },
   {
@@ -445,7 +445,7 @@ export const references: readonly ReferenceLink[] = [
     title: "T-RECS",
     url: "https://elucherini.github.io/t-recs/",
     note:
-      "Provides sociotechnical simulation and longitudinal measurement patterns.",
+      "A reference for sociotechnical simulation and longitudinal measurement.",
     license: "MIT repository"
   },
   {
@@ -455,7 +455,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2022,
     url: "https://github.com/amazon-science/esci-data",
     note:
-      "Offers product/query relevance labels for a future shopping-task adapter.",
+      "A source of product-query relevance labels for a later shopping-task adapter.",
     license: "Apache-2.0"
   },
   {
@@ -465,7 +465,7 @@ export const references: readonly ReferenceLink[] = [
     year: 2020,
     url: "https://github.com/st-tech/zr-obp",
     note:
-      "Offers propensity-aware replay and off-policy estimators for a later real-log evaluation.",
+      "A possible route to propensity-aware replay and off-policy estimation with real logs.",
     license: "Apache-2.0"
   },
   {
@@ -474,7 +474,7 @@ export const references: readonly ReferenceLink[] = [
     title: "RecList",
     url: "https://github.com/RecList/reclist",
     note:
-      "A behavioral-testing pattern for contamination, rollback, utility, and consent-scope requirements.",
+      "A behavioral-testing reference for profile drift, rollback, utility, and consent-scope requirements.",
     license: "MIT"
   }
 ] as const;
