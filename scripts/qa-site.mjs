@@ -301,6 +301,35 @@ async function desktopPass(browser) {
   await page.waitForTimeout(2400);
   await checkHeroSeparation(page, "Desktop");
   const headingHierarchy = await checkHeadingHierarchy(page, "Desktop");
+  const typography = await page.evaluate(async () => {
+    await document.fonts.ready;
+    const heroFamily = getComputedStyle(document.querySelector("h1")).fontFamily;
+    const questionFamily = getComputedStyle(
+      document.querySelector(".question-copy h2")
+    ).fontFamily;
+    return {
+      displayLoaded: document.fonts.check('700 32px "Syne Variable"'),
+      editorialLoaded: document.fonts.check(
+        '400 32px "Source Serif 4 Variable"'
+      ),
+      monoLoaded: document.fonts.check('400 16px "IBM Plex Mono"'),
+      heroFamily,
+      questionFamily
+    };
+  });
+  check(
+    typography.displayLoaded && typography.heroFamily.includes("Syne"),
+    "Desktop: Syne display type did not load or apply to the hero."
+  );
+  check(
+    typography.editorialLoaded &&
+      typography.questionFamily.includes("Source Serif 4"),
+    "Desktop: Source Serif 4 did not load or apply to the research question."
+  );
+  check(
+    typography.monoLoaded,
+    "Desktop: IBM Plex Mono did not load for data labels."
+  );
 
   check(
     (await page.locator("h1").innerText()).toLowerCase().includes("the agent"),
@@ -441,7 +470,8 @@ async function desktopPass(browser) {
     consoleErrors,
     headingHierarchy,
     sensitivity,
-    scrollExperience
+    scrollExperience,
+    typography
   });
   await context.close();
 }

@@ -13,8 +13,8 @@
   --provenance: #526983;
   --negotiated: #4f746d;
   --focus: #4f6178;
-  --sans: "IBM Plex Sans Variable", "IBM Plex Sans", Arial, sans-serif;
-  --serif: "Newsreader Variable", "Newsreader", Georgia, serif;
+  --sans: "Syne Variable", "Syne", Arial, sans-serif;
+  --serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
   --mono: "IBM Plex Mono", "Courier New", monospace;
   --max: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
@@ -39,6 +39,7 @@ body {
     var(--paper);
   color: var(--ink);
   font-family: var(--sans);
+  font-optical-sizing: auto;
   font-size: 16px;
   line-height: 1.5;
   text-rendering: optimizeLegibility;

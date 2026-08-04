@@ -165,7 +165,7 @@ export function ProfileDivergenceChart({
             width: "100%",
             minWidth: "640px",
             height: "auto",
-            fontFamily: "'IBM Plex Sans', system-ui, sans-serif"
+            fontFamily: "'Syne Variable', 'Syne', system-ui, sans-serif"
           }}
         >
           <title id={ids.titleId}>{title}</title>

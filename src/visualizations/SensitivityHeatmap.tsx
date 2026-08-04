@@ -184,7 +184,7 @@ export function SensitivityHeatmap({
             width: "100%",
             minWidth: "720px",
             height: "auto",
-            fontFamily: "'IBM Plex Sans', system-ui, sans-serif"
+            fontFamily: "'Syne Variable', 'Syne', system-ui, sans-serif"
           }}
         >
           <title id={ids.titleId}>{resolvedTitle}</title>
