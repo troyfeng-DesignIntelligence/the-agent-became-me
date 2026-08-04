@@ -1413,18 +1413,33 @@ body {
 }
 
 .hero h1 > span.identity-cut {
-  margin-top: 0.06em;
-  margin-left: 1.36em;
-  padding: 0;
-  border-bottom: 2px solid var(--vermilion);
+  position: relative;
+  margin-top: 0.12em;
+  margin-left: 1.05em;
+  padding: 0 0.08em 0.08em 0.02em;
   background: transparent;
   color: var(--vermilion);
   font-family: var(--serif);
+  font-size: 1.16em;
   font-style: italic;
-  font-weight: 430;
-  line-height: 0.7;
+  font-weight: 590;
+  letter-spacing: -0.075em;
+  line-height: 0.66;
   text-transform: none;
   transform: none;
+}
+
+.hero h1 > span.identity-cut::after {
+  position: absolute;
+  right: -0.06em;
+  bottom: 0.015em;
+  left: 0.04em;
+  height: 2px;
+  background: currentColor;
+  content: "";
+  opacity: 0.82;
+  transform: rotate(-1.5deg) skewX(-18deg);
+  transform-origin: left center;
 }
 
 .hero-deck {
@@ -1820,7 +1835,8 @@ body {
 
   .hero h1 {
     margin: 42px 0 44px;
-    font-size: clamp(70px, 13.5vw, 108px);
+    font-size: min(10.4vw, 96px);
+    letter-spacing: -0.075em;
   }
 
   .hero-deck {
@@ -1941,8 +1957,10 @@ body {
   }
 
   .hero h1 > span.identity-cut {
-    margin-top: 0.1em;
-    margin-left: 0.86em;
+    margin-top: 0.16em;
+    margin-left: 0.72em;
+    font-size: 1.3em;
+    line-height: 0.62;
   }
 
   .hero-deck {

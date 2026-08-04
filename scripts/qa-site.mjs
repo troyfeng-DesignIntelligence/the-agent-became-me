@@ -518,6 +518,82 @@ async function compactDesktopPass(browser) {
   await context.close();
 }
 
+async function tabletHeroPass(browser) {
+  const context = await browser.newContext({
+    viewport: { width: 820, height: 1000 },
+    colorScheme: "light"
+  });
+  const page = await context.newPage();
+  const consoleErrors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto(siteUrl, { waitUntil: "domcontentloaded" });
+  await waitForImage(page, ".hero-gallery-image");
+  await page.waitForTimeout(1400);
+  await checkHeroSeparation(page, "Tablet");
+
+  const heroTypography = await page.evaluate(() => {
+    const viewportWidth = document.documentElement.clientWidth;
+    const title = document.querySelector(".hero h1");
+    const identity = document.querySelector(".identity-cut");
+    const spans = [...document.querySelectorAll(".hero h1 > span")].map(
+      (span) => {
+        const box = span.getBoundingClientRect();
+        return {
+          text: span.textContent?.trim() ?? "",
+          left: Math.round(box.left),
+          right: Math.round(box.right)
+        };
+      }
+    );
+    const titleStyle = getComputedStyle(title);
+    const identityStyle = getComputedStyle(identity);
+    return {
+      viewportWidth,
+      spans,
+      titleSize: Number.parseFloat(titleStyle.fontSize),
+      identitySize: Number.parseFloat(identityStyle.fontSize),
+      identityFamily: identityStyle.fontFamily,
+      identityWeight: Number.parseFloat(identityStyle.fontWeight)
+    };
+  });
+  check(
+    heroTypography.spans.every(
+      (span) => span.left >= 0 && span.right <= heroTypography.viewportWidth
+    ),
+    "Tablet: a hero title line is clipped by the viewport."
+  );
+  check(
+    heroTypography.identityFamily.includes("Source Serif 4") &&
+      heroTypography.identitySize > heroTypography.titleSize &&
+      heroTypography.identityWeight >= 550,
+    "Tablet: the Me signature treatment did not apply."
+  );
+
+  await page.screenshot({
+    path: path.join(outputDirectory, "tablet-hero.png")
+  });
+  const overflow = await pageOverflow(page);
+  check(
+    overflow.scrollWidth <= overflow.clientWidth + 1,
+    `Tablet: document overflows horizontally (${overflow.scrollWidth}px > ${overflow.clientWidth}px).`
+  );
+  check(
+    consoleErrors.length === 0,
+    `Tablet: browser console errors: ${consoleErrors.join(" | ")}`
+  );
+  observations.push({
+    viewport: "tablet",
+    overflow,
+    consoleErrors,
+    heroTypography
+  });
+  await context.close();
+}
+
 async function mobilePass(browser) {
   const context = await browser.newContext({
     viewport: { width: 390, height: 844 },
@@ -650,6 +726,7 @@ const browser = await chromium.launch(
 try {
   await desktopPass(browser);
   await compactDesktopPass(browser);
+  await tabletHeroPass(browser);
   await mobilePass(browser);
   await reducedMotionPass(browser);
 } finally {
