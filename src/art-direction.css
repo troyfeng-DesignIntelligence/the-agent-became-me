@@ -2122,6 +2122,8 @@ body {
 :root {
   --paper-grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.58'/%3E%3C/svg%3E");
   --paper-fiber-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='210' viewBox='0 0 420 210'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .31' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.46'/%3E%3C/svg%3E");
+  --neutral-grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210' viewBox='0 0 210 210'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.68' numOctaves='4' seed='31' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+  --neutral-fiber-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='280' viewBox='0 0 560 280'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .24' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.09'/%3E%3C/svg%3E");
 }
 
 .study-block.is-secondary,
@@ -2178,6 +2180,45 @@ body {
   background-color: var(--vermilion);
   background-image: var(--paper-grain-texture), var(--paper-fiber-texture);
   background-size: 180px 180px, 420px 210px;
+}
+
+/* Neutral stock: warm cotton paper on light pages, matte charcoal on dark pages. */
+
+.question-section,
+.evidence-section,
+.findings-section {
+  background-image:
+    var(--neutral-grain-texture),
+    var(--neutral-fiber-texture),
+    radial-gradient(ellipse at 14% 18%, rgb(255 255 255 / 24%), transparent 42%),
+    radial-gradient(ellipse at 82% 74%, rgb(74 69 61 / 5%), transparent 48%),
+    linear-gradient(112deg, transparent 0 38%, rgb(255 255 255 / 10%) 52%, transparent 70%);
+  background-blend-mode: multiply, multiply, normal, normal, normal;
+  background-size: 210px 210px, 560px 280px, auto, auto, auto;
+}
+
+.question-section,
+.gap-section,
+.lab-section,
+.studies-section,
+.findings-section,
+.methods-section {
+  overflow-x: clip;
+}
+
+.gap-section,
+.lab-section,
+.studies-section,
+.methods-section,
+.reliquary-interlude {
+  background-image:
+    var(--neutral-grain-texture),
+    var(--neutral-fiber-texture),
+    radial-gradient(ellipse at 17% 14%, rgb(231 225 214 / 4%), transparent 42%),
+    radial-gradient(ellipse at 78% 76%, rgb(0 0 0 / 18%), transparent 48%),
+    linear-gradient(118deg, transparent 0 36%, rgb(231 225 214 / 2%) 54%, transparent 72%);
+  background-blend-mode: screen, screen, normal, normal, normal;
+  background-size: 210px 210px, 560px 280px, auto, auto, auto;
 }
 
 @media (max-width: 1180px) {

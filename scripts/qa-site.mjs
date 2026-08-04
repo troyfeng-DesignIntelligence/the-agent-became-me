@@ -213,6 +213,10 @@ async function desktopPass(browser) {
   await page.locator(".question-specimen").screenshot({
     path: path.join(outputDirectory, "desktop-question-specimen.png")
   });
+  await positionForScreenshot(page, ".gap-section .section-header", 108);
+  await page.screenshot({
+    path: path.join(outputDirectory, "desktop-charcoal-paper.png")
+  });
   await page.locator("#lab").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
   await page.screenshot({
@@ -261,6 +265,10 @@ async function desktopPass(browser) {
   });
   await page.locator(".implications-section").screenshot({
     path: path.join(outputDirectory, "desktop-implications-paper.png")
+  });
+  await positionForScreenshot(page, ".findings-section .section-header", 108);
+  await page.screenshot({
+    path: path.join(outputDirectory, "desktop-cotton-paper.png")
   });
   await page.locator("#methods").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
