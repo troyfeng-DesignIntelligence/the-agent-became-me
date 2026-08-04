@@ -286,10 +286,17 @@ export function App() {
           <div className="section-number">01</div>
           <div className="question-copy">
             <span className="section-kicker">{researchQuestion.label}</span>
-            <h2>{researchQuestion.question}</h2>
+            <h2>{researchQuestion.headline}</h2>
+            <p className="question-statement">{researchQuestion.question}</p>
             <div className="question-notes">
-              <p>{researchQuestion.framing}</p>
-              <p>{researchQuestion.contribution}</p>
+              <div>
+                <span className="mono-label">Scope</span>
+                <p>{researchQuestion.framing}</p>
+              </div>
+              <div>
+                <span className="mono-label">What I built</span>
+                <p>{researchQuestion.contribution}</p>
+              </div>
             </div>
           </div>
           <aside className="margin-note">

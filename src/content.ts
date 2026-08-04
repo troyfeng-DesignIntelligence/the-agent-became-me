@@ -37,8 +37,9 @@ export const hero = {
 
 export const researchQuestion = {
   label: "Research question",
+  headline: "Who owns the trace left by a delegated task?",
   question:
-    "When an AI agent directly operates a personalized system, how do delegation provenance and profile-update controls change whether task-driven agent behavior becomes long-term evidence about the human principal?",
+    "When an AI agent operates a personalized system, how should provenance and update controls decide whether task-driven behavior enters the human principal's long-term profile?",
   framing:
     "The project studies attribution inside a simulated recommender pipeline. It does not treat profile movement as a change in a person’s identity or underlying preferences.",
   contribution:

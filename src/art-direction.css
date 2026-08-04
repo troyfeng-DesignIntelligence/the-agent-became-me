@@ -453,12 +453,29 @@ body {
 }
 
 .question-copy h2 {
-  font-size: clamp(44px, 6vw, 96px);
-  line-height: 0.94;
+  max-width: 820px;
+  font-size: clamp(44px, 5vw, 78px);
+  line-height: 0.96;
 }
 
 .question-notes {
   border-top-width: 2px;
+}
+
+.question-statement {
+  max-width: 840px;
+  margin: 0 0 clamp(58px, 6vw, 88px);
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.15vw, 34px);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+
+.question-notes .mono-label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--ink);
 }
 
 .margin-note {
@@ -547,10 +564,10 @@ body {
 }
 
 .trace-field-copy h2 {
-  max-width: 840px;
+  max-width: 760px;
   margin: 24px 0;
   font-family: var(--sans);
-  font-size: clamp(54px, 8vw, 132px);
+  font-size: clamp(50px, 6.2vw, 96px);
   font-weight: 760;
   letter-spacing: -0.075em;
   line-height: 0.84;
@@ -864,8 +881,9 @@ body {
 }
 
 .implications-intro h2 {
+  max-width: 880px;
   font-family: var(--sans);
-  font-size: clamp(50px, 7.5vw, 116px);
+  font-size: clamp(48px, 6vw, 92px);
   font-weight: 750;
   letter-spacing: -0.07em;
   line-height: 0.86;
@@ -994,7 +1012,7 @@ body {
 
 .site-footer h2 {
   font-family: var(--sans);
-  font-size: clamp(46px, 6vw, 96px);
+  font-size: clamp(44px, 5vw, 76px);
   font-weight: 750;
   letter-spacing: -0.07em;
   line-height: 0.9;
@@ -1485,8 +1503,8 @@ body {
 }
 
 .question-copy h2 {
-  max-width: 1120px;
-  margin-bottom: clamp(70px, 8vw, 120px);
+  max-width: 820px;
+  margin-bottom: clamp(34px, 3.5vw, 52px);
 }
 
 .question-specimen {
@@ -1709,7 +1727,7 @@ body {
 .reliquary-interlude h2 {
   margin: 34px 0;
   font-family: var(--sans);
-  font-size: clamp(54px, 6.8vw, 108px);
+  font-size: clamp(50px, 5.6vw, 86px);
   font-weight: 730;
   letter-spacing: -0.07em;
   line-height: 0.87;

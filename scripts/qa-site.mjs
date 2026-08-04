@@ -60,6 +60,13 @@ async function waitForImage(page, selector) {
   );
 }
 
+async function positionForScreenshot(page, selector, topOffset = 96) {
+  await page.locator(selector).first().evaluate((element, offset) => {
+    const top = element.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "instant" });
+  }, topOffset);
+}
+
 async function checkHeroSeparation(page, viewportLabel) {
   const copy = await page.locator(".hero-copy").boundingBox();
   const brief = await page.locator(".hero-brief").boundingBox();
@@ -67,6 +74,45 @@ async function checkHeroSeparation(page, viewportLabel) {
     Boolean(copy && brief && copy.y + copy.height + 20 <= brief.y),
     `${viewportLabel}: hero copy overlaps the supporting brief.`
   );
+}
+
+async function checkHeadingHierarchy(page, viewportLabel) {
+  const audit = await page.evaluate(() => {
+    const viewportHeight = window.innerHeight;
+    return [...document.querySelectorAll("main h2")]
+      .filter((heading) => {
+        const style = getComputedStyle(heading);
+        const rect = heading.getBoundingClientRect();
+        return style.display !== "none" && rect.width > 0 && rect.height > 0;
+      })
+      .map((heading) => {
+        const style = getComputedStyle(heading);
+        const rect = heading.getBoundingClientRect();
+        const text = heading.textContent?.replace(/\s+/g, " ").trim() ?? "";
+        const wordCount = text ? text.split(" ").length : 0;
+        const fontSize = Number.parseFloat(style.fontSize);
+        const heightRatio = rect.height / viewportHeight;
+        return {
+          section:
+            heading.closest("section")?.getAttribute("class") ?? "unknown",
+          text,
+          wordCount,
+          fontSize: Math.round(fontSize),
+          height: Math.round(rect.height),
+          heightRatio: Number(heightRatio.toFixed(2)),
+          oversized:
+            heightRatio > 0.58 || (wordCount > 24 && fontSize >= 44)
+        };
+      });
+  });
+  const oversized = audit.filter((item) => item.oversized);
+  check(
+    oversized.length === 0,
+    `${viewportLabel}: oversized long-form heading blocks the reading hierarchy (${oversized
+      .map((item) => item.text)
+      .join(" | ")}).`
+  );
+  return audit;
 }
 
 async function pageOverflow(page) {
@@ -126,6 +172,7 @@ async function desktopPass(browser) {
   await waitForImage(page, ".hero-gallery-image");
   await page.waitForTimeout(2400);
   await checkHeroSeparation(page, "Desktop");
+  const headingHierarchy = await checkHeadingHierarchy(page, "Desktop");
 
   check(
     (await page.locator("h1").innerText()).toLowerCase().includes("the agent"),
@@ -156,6 +203,11 @@ async function desktopPass(browser) {
 
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-hero.png")
+  });
+  await positionForScreenshot(page, ".question-copy", 108);
+  await page.waitForTimeout(250);
+  await page.screenshot({
+    path: path.join(outputDirectory, "desktop-question-hierarchy.png")
   });
   await waitForImage(page, ".question-specimen img");
   await page.locator(".question-specimen").screenshot({
@@ -241,7 +293,12 @@ async function desktopPass(browser) {
     consoleErrors.length === 0,
     `Desktop: browser console errors: ${consoleErrors.join(" | ")}`
   );
-  observations.push({ viewport: "desktop", overflow, consoleErrors });
+  observations.push({
+    viewport: "desktop",
+    overflow,
+    consoleErrors,
+    headingHierarchy
+  });
   await context.close();
 }
 
@@ -261,6 +318,10 @@ async function compactDesktopPass(browser) {
   await waitForImage(page, ".hero-gallery-image");
   await page.waitForTimeout(1200);
   await checkHeroSeparation(page, "Compact desktop");
+  const headingHierarchy = await checkHeadingHierarchy(
+    page,
+    "Compact desktop"
+  );
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-compact-hero.png")
   });
@@ -274,7 +335,12 @@ async function compactDesktopPass(browser) {
     consoleErrors.length === 0,
     `Compact desktop: browser console errors: ${consoleErrors.join(" | ")}`
   );
-  observations.push({ viewport: "compact-desktop", overflow, consoleErrors });
+  observations.push({
+    viewport: "compact-desktop",
+    overflow,
+    consoleErrors,
+    headingHierarchy
+  });
   await context.close();
 }
 
@@ -295,8 +361,14 @@ async function mobilePass(browser) {
   await page.goto(siteUrl, { waitUntil: "domcontentloaded" });
   await page.locator(".interface-lab").waitFor();
   await page.waitForTimeout(2400);
+  const headingHierarchy = await checkHeadingHierarchy(page, "Mobile");
   await page.screenshot({
     path: path.join(outputDirectory, "mobile-hero.png")
+  });
+  await positionForScreenshot(page, ".question-copy", 78);
+  await page.waitForTimeout(250);
+  await page.screenshot({
+    path: path.join(outputDirectory, "mobile-question-hierarchy.png")
   });
   await waitForImage(page, ".question-specimen img");
   await page.locator(".question-specimen").screenshot({
@@ -347,7 +419,12 @@ async function mobilePass(browser) {
     consoleErrors.length === 0,
     `Mobile: browser console errors: ${consoleErrors.join(" | ")}`
   );
-  observations.push({ viewport: "mobile", overflow, consoleErrors });
+  observations.push({
+    viewport: "mobile",
+    overflow,
+    consoleErrors,
+    headingHierarchy
+  });
   await context.close();
 }
 
