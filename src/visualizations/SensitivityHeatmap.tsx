@@ -161,7 +161,8 @@ export function SensitivityHeatmap({
   const resolvedSubtitle =
     subtitle ??
     "Shared color scale across interface conditions; cells vary label noise and profile learning rate.";
-  const gradientWidth = 190;
+  const gradientWidth = 170;
+  const legendX = (innerWidth - gradientWidth) / 2;
 
   return (
     <figure className={cx("vis", "vis--sensitivity-heatmap", className)}>
@@ -354,9 +355,7 @@ export function SensitivityHeatmap({
 
             <g
               className="sensitivity-heatmap__legend"
-              transform={`translate(${innerWidth - gradientWidth},${
-                innerHeight + 42
-              })`}
+              transform={`translate(${legendX},${innerHeight + 48})`}
             >
               <text
                 x={0}

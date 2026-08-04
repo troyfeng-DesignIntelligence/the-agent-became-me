@@ -155,6 +155,72 @@ async function pageOverflow(page) {
   });
 }
 
+async function sensitivityLayout(page, viewportLabel) {
+  const layout = await page.evaluate(() => {
+    const panel = document.querySelector(".sensitivity-panel");
+    const header = panel?.querySelector(":scope > header");
+    const figure = panel?.querySelector(":scope > div > .vis");
+    const legend = panel?.querySelector(".sensitivity-heatmap__legend");
+    const axisLabels = [
+      ...document.querySelectorAll(
+        ".sensitivity-panel .sensitivity-heatmap__svg .vis__axis-label"
+      )
+    ];
+    const rect = (element) => {
+      if (!(element instanceof Element)) return null;
+      const box = element.getBoundingClientRect();
+      return {
+        left: box.left,
+        right: box.right,
+        top: box.top,
+        bottom: box.bottom
+      };
+    };
+    const overlaps = (left, right) =>
+      Boolean(
+        left &&
+          right &&
+          left.left < right.right &&
+          left.right > right.left &&
+          left.top < right.bottom &&
+          left.bottom > right.top
+      );
+    const panelRect = rect(panel);
+    const headerRect = rect(header);
+    const figureRect = rect(figure);
+    const legendRect = rect(legend);
+    const axisRects = axisLabels.map(rect).filter(Boolean);
+    return {
+      panelRect,
+      headerRect,
+      figureRect,
+      legendRect,
+      axisRects,
+      insetLeft:
+        panelRect && headerRect ? headerRect.left - panelRect.left : null,
+      insetRight:
+        panelRect && figureRect ? panelRect.right - figureRect.right : null,
+      legendAxisOverlap: axisRects.some((axisRect) =>
+        overlaps(legendRect, axisRect)
+      )
+    };
+  });
+
+  check(
+    layout.insetLeft !== null && layout.insetLeft >= 40,
+    `${viewportLabel}: sensitivity copy lacks a safe left inset.`
+  );
+  check(
+    layout.insetRight !== null && layout.insetRight >= 40,
+    `${viewportLabel}: sensitivity chart lacks a safe right inset.`
+  );
+  check(
+    !layout.legendAxisOverlap,
+    `${viewportLabel}: sensitivity legend overlaps an axis label.`
+  );
+  return layout;
+}
+
 async function desktopPass(browser) {
   const context = await browser.newContext({
     viewport: { width: 1440, height: 1000 },
@@ -275,6 +341,11 @@ async function desktopPass(browser) {
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-methods.png")
   });
+  await positionForScreenshot(page, ".sensitivity-panel", 90);
+  await page.screenshot({
+    path: path.join(outputDirectory, "desktop-sensitivity-panel.png")
+  });
+  const sensitivity = await sensitivityLayout(page, "Desktop");
 
   await page.locator("#lab").scrollIntoViewIfNeeded();
   await page
@@ -305,7 +376,8 @@ async function desktopPass(browser) {
     viewport: "desktop",
     overflow,
     consoleErrors,
-    headingHierarchy
+    headingHierarchy,
+    sensitivity
   });
   await context.close();
 }

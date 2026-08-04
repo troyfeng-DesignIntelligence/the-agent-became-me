@@ -2245,12 +2245,16 @@ button {
 
 .sensitivity-panel {
   display: grid;
-  grid-template-columns: 4fr 8fr;
-  gap: clamp(38px, 7vw, 110px);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(38px, 5vw, 88px);
   margin-top: 100px;
-  padding: 70px 0;
+  padding: clamp(48px, 4vw, 70px);
   border-top: 1px solid var(--ink);
   border-bottom: 1px solid var(--ink);
+}
+
+.sensitivity-panel > * {
+  min-width: 0;
 }
 
 .sensitivity-panel > header {
