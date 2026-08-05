@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "online-storefront-model-robustness-protocol.v1",
+  "status": "frozen-before-gru4rec-outcome-generation",
+  "frozenDate": "2026-08-05",
+  "question": "Does the activation-timing effect recur under a recurrent learned sequential recommender when data, tasks, conditions, seeds, candidate masks, and analysis are held fixed?",
+  "models": [
+    {
+      "id": "sasrec",
+      "encoder": "one-block causal self-attention",
+      "objective": "sampled binary next-item prediction"
+    },
+    {
+      "id": "gru4rec",
+      "encoder": "one-layer gated recurrent unit",
+      "objective": "sampled binary next-item prediction"
+    }
+  ],
+  "sharedHyperparameters": {
+    "embeddingWidth": 32,
+    "maximumHistoryLength": 50,
+    "dropout": 0.2,
+    "batchSize": 128,
+    "maximumEpochs": 20,
+    "earlyStoppingPatience": 4,
+    "learningRate": 0.001
+  },
+  "checkpointSeeds": [7, 17, 29],
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 115,
+  "conditions": [
+    "no-memory",
+    "logged-inert",
+    "immediate-remove",
+    "held-outcome"
+  ],
+  "agentConfigurations": ["constraint-first", "exploration-first"],
+  "modes": ["fixed-trace", "free-running"],
+  "primaryOutcomes": [
+    "fixed-trace T1 immediate-versus-held Top-10 displacement",
+    "free-running immediate-versus-held trace divergence"
+  ],
+  "validityGates": {
+    "learnedModel": "each family must beat global popularity in test NDCG@10 in every category",
+    "orderSensitive": "each family must change Top-10 under reversed history in at least 0.50 of evaluated cases in every category",
+    "primaryRecurrence": "fixed-trace T1 lower 95% hierarchical-bootstrap bound must exceed 0.15 for each family",
+    "resolvedEquivalence": "T2 and T3 upper 95% bounds must be below 0.05 for each family",
+    "inertLogging": "no-memory and logged-inert must match within each family"
+  },
+  "uncertainty": {
+    "method": "hierarchical paired bootstrap",
+    "replicates": 2000,
+    "seed": 20260806,
+    "resampling": "tasks and model seeds within category; categories equally weighted"
+  },
+  "claimBoundary": "GRU4Rec denotes the recurrent encoder family. The implementation uses the same sampled next-item loss as SASRec to isolate encoder architecture; it is not a reproduction of every optimization detail from the original session-parallel paper."
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "online-storefront-llm-pilot-protocol.v1",
+  "status": "frozen-before-paid-api-calls",
+  "frozenDate": "2026-08-05",
+  "purpose": "Estimate action-validity, failure rates, cost, latency, and paired effect variance before fixing the confirmatory LLM-agent sample size.",
+  "provider": "OpenAI Responses API",
+  "storeResponses": false,
+  "models": [
+    {
+      "id": "gpt-5.6-luna",
+      "reasoningEffort": "low"
+    },
+    {
+      "id": "gpt-5.6-terra",
+      "reasoningEffort": "low"
+    }
+  ],
+  "promptPolicies": [
+    {
+      "id": "constraint-first",
+      "priority": "satisfy hard constraints, then maximize task utility"
+    },
+    {
+      "id": "exploration-first",
+      "priority": "inspect recommendation-supported alternatives while respecting hard constraints"
+    }
+  ],
+  "factorialAgentConfigurations": 4,
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "selectionRule": "lowest stable task hashes among v2-eligible tasks, fixed before API calls",
+  "recommenderFamilies": ["sasrec", "gru4rec"],
+  "pilotRecommenderAllocation": "one balanced model-seed pair per task, crossed across category and task hash",
+  "conditions": [
+    "no-memory",
+    "logged-inert",
+    "immediate-remove",
+    "held-outcome"
+  ],
+  "decisionStepsPerTrajectory": 2,
+  "requestPolicy": {
+    "temperature": "provider default; not overridden for GPT-5.6 reasoning models",
+    "maximumRetries": 2,
+    "timeoutSeconds": 90,
+    "structuredActionSchema": ["view", "select", "abandon"],
+    "maximumOutputTokens": 180,
+    "cache": "content-addressed raw responses under ignored artifacts",
+    "privacy": "send pseudonymous candidate IDs and derived task features only; never send titles, reviews, original IDs, or histories"
+  },
+  "pilotOutcomes": [
+    "valid structured action rate",
+    "retry and timeout rate",
+    "input and output tokens",
+    "wall-clock latency",
+    "paired T1 recommendation displacement",
+    "paired trace divergence",
+    "decision accuracy and selected utility"
+  ],
+  "goGates": {
+    "validActionRate": 0.95,
+    "timeoutRateMaximum": 0.05,
+    "privacyViolationCount": 0,
+    "sampleSizeRule": "use the largest task-cluster SD across model-by-prompt cells to target a 0.05 CI half-width; cap only after reporting the unconstrained requirement"
+  },
+  "costGate": "Do not issue paid API calls until OPENAI_API_KEY is present and the operator explicitly accepts the dry-run request and token estimate.",
+  "claimBoundary": "This pilot tests model-mediated action selection in a pseudonymous research storefront. It is not computer-use on Amazon.com and cannot establish human behavior."
+}

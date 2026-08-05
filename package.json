@@ -41,6 +41,8 @@
     "online:evaluate": "node scripts/evaluate-online-storefront-pilot.mjs",
     "online:v2:run": "node scripts/run-online-storefront-v2.mjs",
     "online:v2:evaluate": "node scripts/evaluate-online-storefront-v2.mjs",
+    "online:model-robustness:run": "node scripts/run-online-storefront-model-robustness.mjs",
+    "online:model-robustness:evaluate": "node scripts/evaluate-online-storefront-model-robustness.mjs",
     "paper:figures": "node scripts/generate-paper-figures.mjs",
     "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",
