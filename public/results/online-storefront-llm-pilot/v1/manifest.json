@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "online-storefront-llm-pilot-manifest.v1",
+  "protocolSha256": "91a8e0fa775a1ba11f6876a88e041fefd7480cc3f80f38e44aceb10abe987942",
+  "files": {
+    "summary.json": {
+      "sha256": "29d4142516ce4376a122626196786ea1f26f22fe82d91a284740456e4639f690",
+      "bytes": 2586
+    },
+    "rows.json": {
+      "sha256": "068a04a6249dacf1fc0635450ecb5af8e176aff8712e1ef7d3c7aa159afd3631",
+      "bytes": 125317
+    },
+    "contrasts.json": {
+      "sha256": "58f12f80e2b58d3d7ffed08040b2615da770eafe038217cc099dec7b71b46129",
+      "bytes": 38033
+    }
+  }
+}

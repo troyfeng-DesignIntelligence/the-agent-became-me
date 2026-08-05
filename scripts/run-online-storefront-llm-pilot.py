@@ -140,8 +140,23 @@ def request_payload(
         "input": json.dumps(task_state, sort_keys=True, separators=(",", ":")),
         "max_output_tokens": int(env.get("MIMO_MAX_OUTPUT_TOKENS", "180")),
         "stream": False,
-        "reasoning": {"effort": env.get("MIMO_REASONING_EFFORT", "low")},
+        "reasoning": {"effort": "none"},
+        "text": {"format": {"type": "json_object"}},
     }
+
+
+def response_text(response: dict) -> str:
+    direct = response.get("output_text")
+    if isinstance(direct, str) and direct:
+        return direct
+    parts = []
+    for item in response.get("output") or []:
+        if item.get("type") != "message":
+            continue
+        for content in item.get("content") or []:
+            if content.get("type") == "output_text" and isinstance(content.get("text"), str):
+                parts.append(content["text"])
+    return "".join(parts)
 
 
 def parse_action(text: str, aliases: set[str], phase: str) -> dict:
@@ -174,7 +189,7 @@ def api_call(
     cache_path = CACHE / f"{cache_key}.json"
     if cache_path.exists():
         cached = json.loads(cache_path.read_text(encoding="utf-8"))
-        action = parse_action(cached["response"]["output_text"], aliases, phase)
+        action = parse_action(response_text(cached["response"]), aliases, phase)
         stats["cacheHitCount"] += 1
         return {"action": action, "response": cached["response"], "cacheKey": cache_key}
 
@@ -220,7 +235,7 @@ def api_call(
             usage = result.get("usage") or {}
             stats["inputTokens"] += int(usage.get("input_tokens") or 0)
             stats["outputTokens"] += int(usage.get("output_tokens") or 0)
-            action = parse_action(result.get("output_text", ""), aliases, phase)
+            action = parse_action(response_text(result), aliases, phase)
             CACHE.mkdir(parents=True, exist_ok=True)
             write_json(
                 cache_path,
@@ -448,7 +463,7 @@ def dry_run(protocol: dict, env: dict[str, str]) -> dict:
         "estimatedMaximumInputTokens": estimated_input,
         "estimatedMaximumOutputTokens": estimated_output,
         "estimatedMaximumCostRmbBeforeRetries": round(estimated_rmb, 4),
-        "recommendedHardCapRmb": max(3.0, math.ceil(estimated_rmb * 3 * 10) / 10),
+        "recommendedHardCapRmb": math.ceil(estimated_rmb * 3 * 10) / 10,
         "apiKeyPresent": bool(env.get("MIMO_API_KEY")),
     }
 

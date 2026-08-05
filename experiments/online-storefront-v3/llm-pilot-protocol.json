@@ -1,9 +1,9 @@
 {
   "schemaVersion": "online-storefront-llm-pilot-protocol.v1",
-  "status": "amended-before-any-api-call-and-refrozen",
+  "status": "integration-amended-before-any-valid-action-and-refrozen",
   "frozenDate": "2026-08-05",
   "amendedDate": "2026-08-05",
-  "amendmentReason": "The operator selected Xiaomi MiMo v2.5 before implementation and before any paid API call or LLM outcome existed.",
+  "amendmentReason": "The operator selected Xiaomi MiMo v2.5 before implementation. After the first three integration requests exhausted their output budget without a valid action, and before any valid action or research outcome existed, reasoning was disabled and the provider's JSON response mode was enabled. The failed attempts remain disclosed as integration failures and their conservative cost is reserved from the approved cap.",
   "purpose": "Estimate action-validity, failure rates, cost, latency, and paired effect variance before fixing the confirmatory LLM-agent sample size.",
   "provider": "Xiaomi MiMo OpenAI-compatible Responses API",
   "publishRawResponses": false,
@@ -11,7 +11,7 @@
   "models": [
     {
       "id": "mimo-v2.5",
-      "reasoningEffort": "low"
+      "reasoningEffort": "none"
     }
   ],
   "promptPolicies": [
@@ -49,6 +49,7 @@
     "maximumRetries": 2,
     "timeoutSeconds": 90,
     "structuredActionSchema": ["view", "select", "abandon"],
+    "providerJsonMode": true,
     "maximumOutputTokens": 180,
     "cache": "content-addressed raw responses under ignored artifacts",
     "privacy": "send pseudonymous candidate IDs and derived task features only; never send titles, reviews, original IDs, or histories"

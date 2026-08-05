@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "online-storefront-llm-pilot-summary.v1",
+  "generatedAt": "2026-08-05T16:25:27.494539+00:00",
+  "protocolSha256": "91a8e0fa775a1ba11f6876a88e041fefd7480cc3f80f38e44aceb10abe987942",
+  "design": {
+    "taskCount": 32,
+    "trajectoryCount": 256,
+    "pairedContrastCount": 64,
+    "model": "mimo-v2.5",
+    "promptPolicies": [
+      "constraint-first",
+      "exploration-first"
+    ],
+    "recommenderFamilies": [
+      "sasrec",
+      "gru4rec"
+    ],
+    "conditions": [
+      "no-memory",
+      "logged-inert",
+      "immediate-remove",
+      "held-outcome"
+    ]
+  },
+  "api": {
+    "requestCount": 204,
+    "cacheHitCount": 64,
+    "retrySuccessCount": 1,
+    "invalidOrFailedAttemptCount": 1,
+    "timeoutCount": 0,
+    "validActionRate": 0.996283,
+    "inputTokens": 147422,
+    "outputTokens": 5040,
+    "observedCostRmbAtPublishedRates": 0.157502,
+    "medianLatencySeconds": 2.039
+  },
+  "pilotVariance": {
+    "cells": [
+      {
+        "modelFamily": "gru4rec",
+        "promptPolicy": "constraint-first",
+        "taskCount": 16,
+        "t1Sd": 0.264575,
+        "traceDivergenceSd": 0.25
+      },
+      {
+        "modelFamily": "gru4rec",
+        "promptPolicy": "exploration-first",
+        "taskCount": 16,
+        "t1Sd": 0.247319,
+        "traceDivergenceSd": 0.478714
+      },
+      {
+        "modelFamily": "sasrec",
+        "promptPolicy": "constraint-first",
+        "taskCount": 16,
+        "t1Sd": 0.281588,
+        "traceDivergenceSd": 0.0
+      },
+      {
+        "modelFamily": "sasrec",
+        "promptPolicy": "exploration-first",
+        "taskCount": 16,
+        "t1Sd": 0.296367,
+        "traceDivergenceSd": 0.403113
+      }
+    ],
+    "largestTaskClusterSd": 0.478714,
+    "derivedTasksPerModelPromptCellFor005HalfWidth": 353
+  },
+  "descriptive": {
+    "meanT1Displacement": 0.685937,
+    "traceDivergenceRate": 0.140625,
+    "decisionAccuracy": 0.921875
+  },
+  "goGates": {
+    "validActionRateAtLeast095": true,
+    "timeoutRateBelow005": true,
+    "privacyViolationCount": 0
+  },
+  "claims": {
+    "observed": [
+      "MiMo v2.5 selected actions from pseudonymous candidate features under two frozen prompt policies.",
+      "Raw response text is excluded from public artifacts and retained only in ignored content-addressed caches."
+    ],
+    "notEstablished": [
+      "A single LLM family does not establish model-family robustness.",
+      "The pilot estimates reliability and variance; it is not the confirmatory LLM-agent result.",
+      "The agent did not browse Amazon.com or another production retailer."
+    ]
+  }
+}
