@@ -74,8 +74,12 @@ Status: CONFIRMED
 
 ## Phase 8 - Deploy
 
-Status: IN PROGRESS
+Status: COMPLETE
 
-- Planned repository: `troyfeng-DesignIntelligence/the-agent-became-me`.
-- Planned public URL: `https://troyfeng-designintelligence.github.io/the-agent-became-me/`.
-- After the first live deployment, the online pilot will be rerun against the public URL and the live-source evidence manifest will be published in the same deployment phase.
+- Repository: `https://github.com/troyfeng-DesignIntelligence/the-agent-became-me`.
+- Public URL: `https://troyfeng-designintelligence.github.io/the-agent-became-me/`.
+- Pages is configured to deploy from GitHub Actions with HTTPS enforced.
+- GitHub Actions verification, browser QA, artifact upload, and Pages deployment passed.
+- The live storefront, research route, and public result endpoint returned HTTP 200.
+- The 16-condition browser pilot was rerun against the public URL on 2026-08-05.
+- Live pilot evaluation passed with score 1.0: 64 snapshots, 8 fixed-trace matches, no browser errors, and evidence hashes verified.

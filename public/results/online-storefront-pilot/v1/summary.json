@@ -1,7 +1,7 @@
 {
   "schemaVersion": "online-storefront-pilot.v1",
-  "generatedAt": "2026-08-05T09:25:46.904Z",
-  "sourceUrl": "http://127.0.0.1:4173/",
+  "generatedAt": "2026-08-05T10:27:39.297Z",
+  "sourceUrl": "https://troyfeng-designintelligence.github.io/the-agent-became-me/",
   "evidenceStatus": "browser-agent experiment on a research-owned storefront",
   "design": {
     "taskCount": 8,
