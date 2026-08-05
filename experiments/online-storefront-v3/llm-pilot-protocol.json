@@ -6,7 +6,8 @@
   "amendmentReason": "The operator selected Xiaomi MiMo v2.5 before implementation and before any paid API call or LLM outcome existed.",
   "purpose": "Estimate action-validity, failure rates, cost, latency, and paired effect variance before fixing the confirmatory LLM-agent sample size.",
   "provider": "Xiaomi MiMo OpenAI-compatible Responses API",
-  "storeResponses": false,
+  "publishRawResponses": false,
+  "privateCacheRawResponses": true,
   "models": [
     {
       "id": "mimo-v2.5",
@@ -40,7 +41,9 @@
     "immediate-remove",
     "held-outcome"
   ],
-  "decisionStepsPerTrajectory": 2,
+  "browseDecisionStepsPerTrajectory": 2,
+  "terminalDecisionStepsPerTrajectory": 1,
+  "maximumCallsPerTrajectory": 3,
   "requestPolicy": {
     "temperature": "provider default; not overridden for MiMo v2.5 Responses calls",
     "maximumRetries": 2,
