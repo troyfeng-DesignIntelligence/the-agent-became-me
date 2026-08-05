@@ -59,11 +59,27 @@ const evidenceValid = await Promise.all(
 );
 const summaryHash = createHash("sha256")
   .update(
-    await readFile(
-      resolve(root, "public/results/delegated-activation/v1/summary.json")
-    )
+    (
+      await readFile(
+        resolve(root, "public/results/delegated-activation/v1/summary.json"),
+        "utf8"
+      )
+    ).replace(/\r\n/g, "\n")
   )
   .digest("hex");
+const privacyEvidenceChecks = {
+  noOriginalUserIds: rows.privacy.originalUserIdsIncluded === false,
+  noOriginalItemIds: rows.privacy.originalItemIdsIncluded === false,
+  noProductTitles: rows.privacy.productTitlesIncluded === false,
+  noReviewText: trajectories.privacy.reviewTextIncluded === false,
+  summaryHashMatches: manifest.sourceSummarySha256 === summaryHash,
+  evidenceFileCount: Object.keys(manifest.files).length === 2,
+  evidenceFilesMatch: evidenceValid.every(Boolean)
+};
+const evidenceDiagnostics = {
+  expectedSummarySha256: manifest.sourceSummarySha256,
+  actualSummarySha256: summaryHash
+};
 
 const components = {
   schemas: Boolean(
@@ -153,15 +169,7 @@ const components = {
         )
       )
   ),
-  privacyAndEvidence: Boolean(
-    rows.privacy.originalUserIdsIncluded === false &&
-      rows.privacy.originalItemIdsIncluded === false &&
-      rows.privacy.productTitlesIncluded === false &&
-      trajectories.privacy.reviewTextIncluded === false &&
-      manifest.sourceSummarySha256 === summaryHash &&
-      Object.keys(manifest.files).length === 2 &&
-      evidenceValid.every(Boolean)
-  ),
+  privacyAndEvidence: Object.values(privacyEvidenceChecks).every(Boolean),
   calibratedClaims: Boolean(
     summary.claims.observed.length >= 4 &&
       summary.claims.notEstablished.length >= 5 &&
@@ -203,7 +211,13 @@ const pass =
   components.privacyAndEvidence;
 
 process.stdout.write(
-  `${JSON.stringify({ pass, score, outcomeCounts, components })}\n`
+  `${JSON.stringify({
+    pass,
+    score,
+    outcomeCounts,
+    components,
+    privacyEvidenceChecks,
+    evidenceDiagnostics
+  })}\n`
 );
 if (!pass) process.exitCode = 1;
-

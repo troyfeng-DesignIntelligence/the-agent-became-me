@@ -827,7 +827,12 @@ def main() -> None:
     draw_progress(category_payloads, pooled["progress"])
     manifest = {
         "schemaVersion": "delegated-activation-evidence-manifest.v1",
-        "sourceSummarySha256": hashlib.sha256((OUTPUT / "summary.json").read_bytes()).hexdigest(),
+        "sourceSummarySha256": hashlib.sha256(
+            (OUTPUT / "summary.json")
+            .read_text(encoding="utf-8")
+            .replace("\r\n", "\n")
+            .encode("utf-8")
+        ).hexdigest(),
         "files": {},
         "redaction": "Product and user identifiers are domain-separated hashes; raw titles, ASINs, reviewer IDs, and review text are absent.",
     }
