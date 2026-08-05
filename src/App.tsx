@@ -23,6 +23,7 @@ import { ExternalValidationPanel } from "./components/ExternalValidationPanel";
 import { LearnedCommercePanel } from "./components/LearnedCommercePanel";
 import { CrossCategoryReplicationPanel } from "./components/CrossCategoryReplicationPanel";
 import { DelegatedActivationPanel } from "./components/DelegatedActivationPanel";
+import { OnlineStorefrontV2Panel } from "./components/OnlineStorefrontV2Panel";
 import { useProjectData, type MetricSummary } from "./data";
 import {
   AttributionMatrix,
@@ -118,6 +119,7 @@ function useEditorialScroll(dataReady: boolean) {
       ".cross-task-section .section-header > *, .cross-task-result, .cross-task-control-lab > *",
       ".learned-commerce",
       ".activation-study",
+      ".online-v2-study",
       ".findings-section > .section-header > *, .finding-row",
       ".reliquary-interlude figure > *",
       ".implications-intro > *, .implication-grid article",
@@ -378,6 +380,7 @@ export function App() {
     amazonSasrec,
     amazonCrossCategory,
     delegatedActivation,
+    onlineStorefrontV2,
     catalog,
     error,
     loading
@@ -1355,6 +1358,10 @@ export function App() {
 
             {delegatedActivation && (
               <DelegatedActivationPanel summary={delegatedActivation} />
+            )}
+
+            {onlineStorefrontV2 && (
+              <OnlineStorefrontV2Panel summary={onlineStorefrontV2} />
             )}
 
             {crossTaskSensitivity && (

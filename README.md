@@ -32,7 +32,8 @@ pnpm dev
 
 Open `http://127.0.0.1:5173/` for the portfolio narrative or
 `http://127.0.0.1:5173/?view=storefront&task=cereal-selected&arm=held` for the
-online research storefront.
+online research storefront. The model-backed v2 replay is available at
+`http://127.0.0.1:5173/?view=storefront-v2&mode=free-running&phase=task-in-progress`.
 
 Run the production checks and browser-agent experiment with:
 
@@ -41,6 +42,9 @@ pnpm check
 pnpm build
 pnpm online:pilot
 pnpm online:evaluate
+pnpm online:v2:run
+pnpm online:v2:evaluate
+pnpm qa:storefront-v2
 ```
 
 The online storefront is a research-owned static web application. It has no
@@ -245,6 +249,31 @@ and next-task shelves matched exactly. This validates the deployed instrument,
 not a commercial recommender. Open it with
 `?view=storefront&task=cereal-selected&arm=held` or see the
 [online storefront guide](docs/ONLINE_STOREFRONT.md).
+
+### Model-backed online storefront v2
+
+The main online experiment replaces the pilot ranker with 12 frozen SASRec
+checkpoints trained across four Amazon Reviews 2018 categories. Its 460-task
+design compares four contracts—no memory, inert logging, immediate activation
+followed by removal, and outcome-gated holding—under both identical fixed
+traces and two free-running autonomous policies. The protocol, task count,
+estimands, margins, bootstrap seed, and failure accounting were frozen before
+outcomes were generated.
+
+Across 22,080 condition rows, fixed-trace in-progress Top-10 displacement
+between immediate and held activation was `0.765 [0.745, 0.785]`. The rankings
+were equivalent after resolution and at the next-task checkpoint (`0.000`,
+upper 95% bounds `0.000`). When shelves could affect subsequent actions,
+paired traces diverged in `36.7% [31.6%, 43.4%]` of runs. Held activation was
+non-inferior on the frozen decision-accuracy and selected-utility margins.
+No-memory and inert logging matched throughout, separating event recording
+from recommendation activation.
+
+GitHub Pages presents a frozen, pseudonymous replay of offline PyTorch SASRec
+inference; it does not run checkpoint inference in the browser. The two agents
+are deterministic retrieval-and-planning policies, not frontier LLMs. See the
+[v2 protocol and interface guide](docs/ONLINE_STOREFRONT.md) and
+[final experiment report](experiments/online-storefront-v2/final_report.md).
 
 ## Claim boundary
 

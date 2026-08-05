@@ -56,6 +56,7 @@ jobs:
           trap 'kill "$preview_pid"' EXIT
           pnpm qa:site
           pnpm qa:storefront
+          pnpm qa:storefront-v2
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

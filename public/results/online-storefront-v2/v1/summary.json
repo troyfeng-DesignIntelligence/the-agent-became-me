@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "online-storefront-v2-summary.v1",
+  "generatedAt": "2026-08-05T14:16:04.585678+00:00",
+  "protocolSha256": "562b3ee2c1ce09d05d5e3a3e7d7ae7ea82642358e89856f239680e48c962eb3f",
+  "evidenceStatus": "trained-SASRec replay with fixed and condition-sensitive autonomous traces",
+  "design": {
+    "taskCount": 460,
+    "tasksPerCategory": 115,
+    "categoryCounts": [
+      {
+        "category": "luxury-beauty",
+        "taskCount": 115
+      },
+      {
+        "category": "software",
+        "taskCount": 115
+      },
+      {
+        "category": "industrial-and-scientific",
+        "taskCount": 115
+      },
+      {
+        "category": "prime-pantry",
+        "taskCount": 115
+      }
+    ],
+    "modelSeeds": [
+      7,
+      17,
+      29
+    ],
+    "agentConfigurations": [
+      "constraint-first",
+      "exploration-first"
+    ],
+    "conditions": [
+      "no-memory",
+      "logged-inert",
+      "immediate-remove",
+      "held-outcome"
+    ],
+    "modes": [
+      "fixed-trace",
+      "free-running"
+    ],
+    "timepoints": [
+      "task-start",
+      "task-in-progress",
+      "outcome-resolved",
+      "next-task"
+    ],
+    "conditionRowCount": 22080,
+    "pairedContrastRowCount": 5520,
+    "sampleSizeDerivation": {
+      "pilotSource": "public/results/delegated-activation/v1/rows.json",
+      "pilotTaskCountPerCategory": 80,
+      "precisionTargetHalfWidth": 0.05,
+      "confidenceLevel": 0.95,
+      "largestPilotTaskSd": 0.2729091980489973,
+      "formula": "ceil((1.96 * pilot_task_sd / 0.05)^2)",
+      "derivedMaximumPerCategory": 115,
+      "tasksPerCategory": 115,
+      "categoryCount": 4,
+      "totalTaskCount": 460
+    }
+  },
+  "confirmatory": {
+    "fixedTrace": {
+      "primaryT1ImmediateHeldDisplacement": {
+        "estimate": 0.765454,
+        "lower95": 0.744851,
+        "upper95": 0.784639
+      },
+      "t2ImmediateHeldDisplacement": {
+        "estimate": 0,
+        "lower95": 0,
+        "upper95": 0
+      },
+      "t3ImmediateHeldDisplacement": {
+        "estimate": 0,
+        "lower95": 0,
+        "upper95": 0
+      }
+    },
+    "freeRunning": {
+      "t1ImmediateHeldDisplacement": {
+        "estimate": 0.781211,
+        "lower95": 0.763005,
+        "upper95": 0.798516
+      },
+      "traceDivergenceRate": {
+        "estimate": 0.367464,
+        "lower95": 0.316295,
+        "upper95": 0.433723
+      },
+      "heldMinusImmediateDecisionAccuracy": {
+        "estimate": 0,
+        "lower95": 0,
+        "upper95": 0
+      },
+      "heldMinusImmediateSelectedUtility": {
+        "estimate": 0,
+        "lower95": 0,
+        "upper95": 0
+      }
+    },
+    "gates": {
+      "primaryLowerBoundAbove015": true,
+      "t2EquivalentWithin005": true,
+      "t3EquivalentWithin005": true,
+      "decisionAccuracyNonInferior": true,
+      "selectedUtilityNonInferior": true,
+      "noMemoryAndLoggedInertMatched": true
+    }
+  },
+  "failuresAndNegativeCases": {
+    "protocolDeviationCount": 0,
+    "emptySlateCount": 0,
+    "missingCheckpointCount": 0,
+    "agentTimeoutCount": 0,
+    "incorrectDecisionCount": 162,
+    "abandonedRunCount": 11106,
+    "nullPrimaryPairCount": 8
+  },
+  "claims": {
+    "observed": [
+      "Frozen SASRec checkpoints, rather than a hand-authored profile ranker, produced every reported platform slate.",
+      "Fixed-trace and free-running effects are reported separately.",
+      "All four evidence contracts were evaluated against matched principal histories, checkpoints, and analysis candidate masks."
+    ],
+    "notEstablished": [
+      "The autonomous policies are deterministic retrieval-and-planning agents, not frontier LLM shopping agents.",
+      "The experiment is a research-owned replay and does not manipulate Amazon.com or another production recommender.",
+      "No human preference, trust, comprehension, welfare, purchase, or experienced utility was measured.",
+      "Resolved-state equality is an inference-context property and not trained-model unlearning."
+    ]
+  },
+  "descriptive": {
+    "byAgentConfig": {
+      "constraint-first": {
+        "pairCount": 2760,
+        "fixedT1Displacement": 0.7632608695652131,
+        "freeT1Displacement": 0.7644202898550687,
+        "freeTraceDivergenceRate": 0.12681159420289856,
+        "heldMinusImmediateDecisionAccuracy": 0,
+        "heldMinusImmediateSelectedUtility": 0
+      },
+      "exploration-first": {
+        "pairCount": 2760,
+        "fixedT1Displacement": 0.7678985507246342,
+        "freeT1Displacement": 0.7983333333333306,
+        "freeTraceDivergenceRate": 0.6094202898550725,
+        "heldMinusImmediateDecisionAccuracy": 0,
+        "heldMinusImmediateSelectedUtility": 0
+      }
+    },
+    "byCategory": {
+      "luxury-beauty": {
+        "pairCount": 1380,
+        "fixedT1Displacement": 0.7688405797101444,
+        "freeT1Displacement": 0.774347826086956,
+        "freeTraceDivergenceRate": 0.2753623188405797,
+        "heldMinusImmediateDecisionAccuracy": 0,
+        "heldMinusImmediateSelectedUtility": 0
+      },
+      "software": {
+        "pairCount": 1380,
+        "fixedT1Displacement": 0.6437681159420288,
+        "freeT1Displacement": 0.6628985507246372,
+        "freeTraceDivergenceRate": 0.4681159420289855,
+        "heldMinusImmediateDecisionAccuracy": 0,
+        "heldMinusImmediateSelectedUtility": 0
+      },
+      "industrial-and-scientific": {
+        "pairCount": 1380,
+        "fixedT1Displacement": 0.7937681159420252,
+        "freeT1Displacement": 0.8294202898550701,
+        "freeTraceDivergenceRate": 0.38405797101449274,
+        "heldMinusImmediateDecisionAccuracy": 0,
+        "heldMinusImmediateSelectedUtility": 0
+      },
+      "prime-pantry": {
+        "pairCount": 1380,
+        "fixedT1Displacement": 0.855942028985505,
+        "freeT1Displacement": 0.8588405797101429,
+        "freeTraceDivergenceRate": 0.34492753623188405,
+        "heldMinusImmediateDecisionAccuracy": 0,
+        "heldMinusImmediateSelectedUtility": 0
+      }
+    }
+  }
+}

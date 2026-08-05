@@ -1,0 +1,1719 @@
+{
+  "schemaVersion": "online-storefront-v2-model-bundle.v1",
+  "protocolSha256": "562b3ee2c1ce09d05d5e3a3e7d7ae7ea82642358e89856f239680e48c962eb3f",
+  "model": {
+    "name": "SASRec",
+    "checkpointSeeds": [
+      7,
+      17,
+      29
+    ],
+    "inference": "precomputed with trained PyTorch checkpoints; pseudonymous Top-10 slates replayed in the static browser artifact"
+  },
+  "representativeCases": [
+    {
+      "category": "prime-pantry",
+      "taskId": "fee2851c115c57b3",
+      "modelSeed": 7,
+      "agentConfig": "constraint-first",
+      "outcome": "selected",
+      "fixedT1Displacement": 1,
+      "conditions": {
+        "no-memory": {
+          "fixedTraceId": "2b1139eaef49e16c",
+          "freeTraceId": "41c73b17d1ccf4d3",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313"
+            ]
+          }
+        },
+        "logged-inert": {
+          "fixedTraceId": "2b1139eaef49e16c",
+          "freeTraceId": "41c73b17d1ccf4d3",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313"
+            ]
+          }
+        },
+        "immediate-remove": {
+          "fixedTraceId": "2b1139eaef49e16c",
+          "freeTraceId": "988924305da4ff41",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "55E784C79C",
+              "DDFC9C3F0A",
+              "05838DB3C4",
+              "395CD790C9",
+              "4AA6F8C825",
+              "B258FF452F",
+              "292DE3552A",
+              "3F072CAD3A",
+              "83FCCDBDE4",
+              "712052357A"
+            ],
+            "outcome-resolved": [
+              "65158C743D",
+              "53A7B15A9F",
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "B7026C12AE",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "BE83727CE3",
+              "0F955C7524",
+              "53A7B15A9F",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "55E784C79C",
+              "DDFC9C3F0A",
+              "05838DB3C4",
+              "395CD790C9",
+              "4AA6F8C825",
+              "B258FF452F",
+              "292DE3552A",
+              "3F072CAD3A",
+              "83FCCDBDE4",
+              "712052357A"
+            ],
+            "outcome-resolved": [
+              "65158C743D",
+              "53A7B15A9F",
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "B7026C12AE",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "BE83727CE3",
+              "0F955C7524",
+              "53A7B15A9F",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0"
+            ]
+          }
+        },
+        "held-outcome": {
+          "fixedTraceId": "2b1139eaef49e16c",
+          "freeTraceId": "988924305da4ff41",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "65158C743D",
+              "53A7B15A9F",
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "B7026C12AE",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "BE83727CE3",
+              "0F955C7524",
+              "53A7B15A9F",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "65158C743D",
+              "53A7B15A9F",
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "B7026C12AE",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "BE83727CE3",
+              "0F955C7524",
+              "53A7B15A9F",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "category": "software",
+      "taskId": "ffdf693a1e660bc3",
+      "modelSeed": 7,
+      "agentConfig": "constraint-first",
+      "outcome": "abandoned",
+      "fixedT1Displacement": 1,
+      "conditions": {
+        "no-memory": {
+          "fixedTraceId": "e94277da0a262165",
+          "freeTraceId": "35d3dc30dc596c24",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          }
+        },
+        "logged-inert": {
+          "fixedTraceId": "e94277da0a262165",
+          "freeTraceId": "35d3dc30dc596c24",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          }
+        },
+        "immediate-remove": {
+          "fixedTraceId": "e94277da0a262165",
+          "freeTraceId": "9e4d39448a611a41",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "235532DDB5",
+              "A7BFB2202D",
+              "0D8060BC5A",
+              "6735DA31AD",
+              "10B36476B4",
+              "BDE9E30095",
+              "75C496D23D",
+              "22E61B7237",
+              "9E533D1555",
+              "19C7D02E77"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "235532DDB5",
+              "A7BFB2202D",
+              "0D8060BC5A",
+              "6735DA31AD",
+              "10B36476B4",
+              "BDE9E30095",
+              "75C496D23D",
+              "22E61B7237",
+              "9E533D1555",
+              "19C7D02E77"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          }
+        },
+        "held-outcome": {
+          "fixedTraceId": "e94277da0a262165",
+          "freeTraceId": "9e4d39448a611a41",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "fee2851c115c57b3",
+      "modelSeed": 7,
+      "agentConfig": "exploration-first",
+      "outcome": "selected",
+      "fixedT1Displacement": 1,
+      "conditions": {
+        "no-memory": {
+          "fixedTraceId": "ffc98a534c5cb5d9",
+          "freeTraceId": "1258ea9ab39f56df",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "task-in-progress": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "outcome-resolved": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313",
+              "8CB29441E0",
+              "759B7BE3D1"
+            ]
+          }
+        },
+        "logged-inert": {
+          "fixedTraceId": "ffc98a534c5cb5d9",
+          "freeTraceId": "1258ea9ab39f56df",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "task-in-progress": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "outcome-resolved": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "79D504B150",
+              "9F37397B5D",
+              "E3297B0313",
+              "8CB29441E0",
+              "759B7BE3D1"
+            ]
+          }
+        },
+        "immediate-remove": {
+          "fixedTraceId": "ffc98a534c5cb5d9",
+          "freeTraceId": "898a89e993950ea3",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "DDFC9C3F0A",
+              "4AA6F8C825",
+              "DB3CDE316C",
+              "05838DB3C4",
+              "83B344988A",
+              "55E784C79C",
+              "D1F82737E8",
+              "4BC4474C45",
+              "F00B8551C6",
+              "10AAFA3400"
+            ],
+            "outcome-resolved": [
+              "65158C743D",
+              "53A7B15A9F",
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "B7026C12AE",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "BE83727CE3",
+              "0F955C7524",
+              "53A7B15A9F",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "task-in-progress": [
+              "47EE711AFE",
+              "B258FF452F",
+              "B5FE9E719C",
+              "85BEA8C606",
+              "05C9B65247",
+              "05838DB3C4",
+              "6424AB0666",
+              "395CD790C9",
+              "4AA6F8C825",
+              "BC60FA79D6"
+            ],
+            "outcome-resolved": [
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78",
+              "801EFC81C2",
+              "BD6DEBDE07",
+              "2E038D8963"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0",
+              "759B7BE3D1",
+              "E3297B0313"
+            ]
+          }
+        },
+        "held-outcome": {
+          "fixedTraceId": "ffc98a534c5cb5d9",
+          "freeTraceId": "5158b2e01eaccfa0",
+          "fixedSlates": {
+            "task-start": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "task-in-progress": [
+              "B7026C12AE",
+              "65158C743D",
+              "53A7B15A9F",
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A"
+            ],
+            "outcome-resolved": [
+              "65158C743D",
+              "53A7B15A9F",
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "B7026C12AE",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "65158C743D",
+              "BE83727CE3",
+              "0F955C7524",
+              "53A7B15A9F",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "task-in-progress": [
+              "BE83727CE3",
+              "C75BEDF3D2",
+              "39AE5A9E78",
+              "F8ACF4508F",
+              "85BEA8C606",
+              "BF05248388",
+              "7BF65ECE8A",
+              "C4F4717857",
+              "759B7BE3D1",
+              "C81A2AF1AB"
+            ],
+            "outcome-resolved": [
+              "C559A5A42C",
+              "85BEA8C606",
+              "759B7BE3D1",
+              "6309CB7A64",
+              "F3CA72613B",
+              "78868D471A",
+              "39AE5A9E78",
+              "801EFC81C2",
+              "BD6DEBDE07",
+              "2E038D8963"
+            ],
+            "next-task": [
+              "F8ACF4508F",
+              "BE83727CE3",
+              "0F955C7524",
+              "C75BEDF3D2",
+              "7BF65ECE8A",
+              "9F37397B5D",
+              "79D504B150",
+              "8CB29441E0",
+              "759B7BE3D1",
+              "E3297B0313"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "category": "software",
+      "taskId": "ffdf693a1e660bc3",
+      "modelSeed": 7,
+      "agentConfig": "exploration-first",
+      "outcome": "abandoned",
+      "fixedT1Displacement": 1,
+      "conditions": {
+        "no-memory": {
+          "fixedTraceId": "8d75995073227d5c",
+          "freeTraceId": "251a66b1182e0bcb",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "task-in-progress": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "outcome-resolved": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "next-task": [
+              "051A4D2A28",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "2D5377ED57",
+              "AF3B2691B5",
+              "8496B28144"
+            ]
+          }
+        },
+        "logged-inert": {
+          "fixedTraceId": "8d75995073227d5c",
+          "freeTraceId": "251a66b1182e0bcb",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "task-in-progress": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "outcome-resolved": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "next-task": [
+              "051A4D2A28",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "2D5377ED57",
+              "AF3B2691B5",
+              "8496B28144"
+            ]
+          }
+        },
+        "immediate-remove": {
+          "fixedTraceId": "8d75995073227d5c",
+          "freeTraceId": "5ef7d606c24d313d",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "E81608C9DC",
+              "14A4BC0DC6",
+              "69BBB3DA46",
+              "235532DDB5",
+              "1559014060",
+              "B09C19067A",
+              "F4D975CDF3",
+              "395E6B3CAB",
+              "18E7E68E96",
+              "19C7D02E77"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "task-in-progress": [
+              "41A1B974FD",
+              "051A4D2A28",
+              "0F07A286D6",
+              "A73E37A5CD",
+              "306046DFAA",
+              "7920EEA9B6",
+              "D6B8431152",
+              "D54AFA235F",
+              "F2F1318411",
+              "AF3B2691B5"
+            ],
+            "outcome-resolved": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "next-task": [
+              "051A4D2A28",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "2D5377ED57",
+              "AF3B2691B5",
+              "8496B28144"
+            ]
+          }
+        },
+        "held-outcome": {
+          "fixedTraceId": "8d75995073227d5c",
+          "freeTraceId": "5ef7d606c24d313d",
+          "fixedSlates": {
+            "task-start": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "task-in-progress": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "outcome-resolved": [
+              "5D135A2046",
+              "8229F817FD",
+              "51953D56C3",
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ],
+            "next-task": [
+              "5D135A2046",
+              "8229F817FD",
+              "051A4D2A28",
+              "51953D56C3",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD"
+            ]
+          },
+          "freeSlates": {
+            "task-start": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "task-in-progress": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "outcome-resolved": [
+              "051A4D2A28",
+              "7920EEA9B6",
+              "306046DFAA",
+              "D54AFA235F",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "AF3B2691B5",
+              "A73E37A5CD",
+              "2D5377ED57"
+            ],
+            "next-task": [
+              "051A4D2A28",
+              "D54AFA235F",
+              "306046DFAA",
+              "7920EEA9B6",
+              "F2F1318411",
+              "0F07A286D6",
+              "41A1B974FD",
+              "2D5377ED57",
+              "AF3B2691B5",
+              "8496B28144"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

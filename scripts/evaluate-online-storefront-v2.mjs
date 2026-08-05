@@ -24,7 +24,9 @@ const digest = (value) =>
   createHash("sha256").update(value).digest("hex");
 
 const protocol = await readJson(protocolPath);
-const protocolSha256 = digest(canonical(protocol));
+const protocolSha256 = digest(
+  (await readFile(protocolPath, "utf8")).replace(/\r\n/g, "\n")
+);
 const summary = await readJson(resolve(resultRoot, "summary.json"));
 const conditionRows = await readJson(resolve(resultRoot, "rows.json"));
 const contrasts = await readJson(resolve(resultRoot, "contrasts.json"));

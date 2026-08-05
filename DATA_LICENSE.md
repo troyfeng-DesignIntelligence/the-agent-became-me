@@ -12,6 +12,7 @@ The project code and documentation are licensed under the [MIT License](https://
 | Learned SASRec outputs | `public/results/amazon-sasrec/v1/*.json` and `public/results/amazon-cross-category/v1/*.json`; one-way case hashes and derived metrics only | Project-generated analysis; source dataset terms still govern the required input |
 | Shopping-agent activation outputs | `public/results/delegated-activation/v1/*.json` and `public/evidence/delegated-activation/v1/*`; one-way task/item hashes, derived metrics, and redacted evidence images only | Project-generated analysis; source Amazon Reviews 2018 terms still govern the required input |
 | Online research-store outputs | `public/results/online-storefront-pilot/v1/*.json` and `public/evidence/online-storefront-pilot/v1/*`; pseudonymous product IDs, derived metrics, and screenshots of the research-owned interface | Project-generated analysis; the bundled Open Food Facts snapshot remains governed by ODbL 1.0 |
+| Online storefront v2 outputs | `public/results/online-storefront-v2/v1/*.json`; pseudonymous task/item IDs, paired metrics, aggregate uncertainty, integrity hashes, and representative frozen SASRec slates only | Project-generated analysis; source Amazon Reviews 2018 terms still govern the required input |
 
 Attribution: Contains information from [Open Food Facts](https://world.openfoodfacts.org/), made available under the Open Database License. Open Food Facts provides its reuse terms at [world.openfoodfacts.org/terms-of-use](https://world.openfoodfacts.org/terms-of-use).
 
@@ -37,3 +38,8 @@ The delegated-activation artifacts add generated task and agent traces over the
 same frozen Amazon-derived research environment. They do not redistribute raw
 reviews, titles, original IDs, or model checkpoints. Public task and item IDs
 are one-way hashes, and the timeline images contain only redacted identifiers.
+
+The online-storefront-v2 artifacts use the same ignored Amazon-derived inputs
+and checkpoints. The public browser replay contains pseudonymous model outputs,
+not the raw histories, source identifiers, product titles, metadata, or model
+weights required to reconstruct the original records.

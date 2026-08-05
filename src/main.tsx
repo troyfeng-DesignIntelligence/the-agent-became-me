@@ -6,11 +6,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { OnlineStorefront } from "./online-storefront/OnlineStorefront";
+import { ModelStorefrontV2 } from "./online-storefront-v2/ModelStorefrontV2";
 import "./styles.css";
 import "./art-direction.css";
 
 const root = document.getElementById("root");
-const isStorefront = new URLSearchParams(window.location.search).get("view") === "storefront";
+const requestedView = new URLSearchParams(window.location.search).get("view");
 
 if (!root) {
   throw new Error("Missing #root element.");
@@ -18,6 +19,12 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    {isStorefront ? <OnlineStorefront /> : <App />}
+    {requestedView === "storefront" ? (
+      <OnlineStorefront />
+    ) : requestedView === "storefront-v2" ? (
+      <ModelStorefrontV2 />
+    ) : (
+      <App />
+    )}
   </StrictMode>
 );

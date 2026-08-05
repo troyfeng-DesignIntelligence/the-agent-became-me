@@ -513,7 +513,11 @@ def public_condition_row(
 
 def main() -> None:
     protocol = json.loads(PROTOCOL_PATH.read_text(encoding="utf-8"))
-    protocol_hash = sha256(canonical_json_bytes(protocol))
+    protocol_hash = sha256(
+        PROTOCOL_PATH.read_text(encoding="utf-8")
+        .replace("\r\n", "\n")
+        .encode("utf-8")
+    )
     tasks_per_category = protocol["sampling"]["tasksPerCategory"]
     delegate.TASKS_PER_CATEGORY = tasks_per_category
     OUTPUT.mkdir(parents=True, exist_ok=True)

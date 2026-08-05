@@ -60,10 +60,10 @@ control preference.
 | Controlled cross-task mechanism | 5 scenarios × 40 paired seeds × 6 contracts = 1,200 runs | Retained temporary evidence can alter later slots in a transparent model | A calibrated commercial recommender |
 | Synthetic sensitivity | 250 cells × 100 paired runs = 25,000 runs | The custom ranker has a parameter-dependent boundary | A general law or population estimate |
 | Real-history algorithm validation | 703 histories × 3 task bands × 4 algorithms × 3 lifecycle rules = 25,308 paired rows | The paired effect survives multiple personalized families and differs by memory assumption | Observed delegation, shopping-domain transfer, or commercial effect size |
-
 | Learned commerce sequence validation | 3,811 Amazon histories; 3 SASRec seeds; 600 histories × 3 task bands × 3 seeds × 3 lifecycle rules = 16,200 paired rows | The effect recurs in a learned, order-sensitive e-commerce recommender | Observed delegation, deployed Amazon behavior, purchase intent, or human response |
 | Cross-category learned replication | 4 Amazon categories; 30,838 histories; 261,836 events; 12 SASRec checkpoints; 54,000 task rows; hierarchical user/seed bootstrap | The direction recurs across four domains and survives leave-one-category-out checks | Universal e-commerce generality or one constant effect size |
 | Shopping-agent activation-timing experiment | 320 generated tasks; 960 task-seed rows; 4 categories; 12 SASRec checkpoints; four recommendation snapshots | Immediate activation changes pending-task rankings under a matched resolved state; holding platform activation preserves identical task-local utility | Amazon.com behavior, frontier-agent behavior, human response, or trained-model unlearning |
+| Online storefront v2 | 460 tasks; 22,080 condition rows; four contracts; fixed traces and two free-running policies; frozen SASRec checkpoints | Separates logging from ranking activation, tests deletion timing, and measures recommendation-mediated trajectory divergence with preregistered uncertainty gates | Frontier-LLM behavior, human response, commercial deployment, or model-state unlearning |
 
 ## Results
 
@@ -214,6 +214,38 @@ effect. The agent is deterministic, the storefront is offline, and the tasks
 are generated even though the underlying histories are real public sequences.
 Exact post-resolution equality is a replay property, not trained-model state removal.
 
+### R8 — Logging alone was inert; activation timing changed both shelves and trajectories
+
+The online v2 study froze 115 tasks per category from the largest pilot
+task-level SD, for 460 tasks total. Four contracts separated no task memory,
+an audit log excluded from ranking, immediate recommendation activation with
+later removal, and an outcome-gated hold. Each contract was evaluated under
+identical fixed traces and under two autonomous retrieval-and-planning
+policies. The design produced 22,080 condition rows and 5,520 paired contrasts.
+
+Under fixed traces, immediate-versus-held in-progress Top-10 displacement was
+`0.765 [0.745, 0.785]`, exceeding the preregistered `0.15` lower-bound gate.
+At outcome resolution and at the standardized next task, displacement was
+`0.000` with upper 95% bounds of `0.000`, satisfying the preregistered `0.05`
+equivalence margin. No-memory and logged-inert rankings and traces matched
+throughout. This isolates recommendation activation rather than event capture
+as the operative mechanism in the research system.
+
+When recommendation shelves could affect subsequent actions, immediate and
+held trajectories diverged in `36.7% [31.6%, 43.4%]` of paired runs. The
+descriptive divergence rates differed sharply by policy: `12.7%` for the
+constraint-first agent and `60.9%` for the exploration-first agent. Held
+activation was non-inferior on the frozen decision-accuracy and selected-item
+utility margins. Eight fixed pairs had zero T1 displacement, 162 condition
+rows contained an incorrect decision, and 11,106 ended abandoned; these cases
+remain in the public output rather than being excluded.
+
+This is the strongest direct test of the paper's timing mechanism, but it
+remains a computational replay. SASRec inference ran offline and the deployed
+static page exposes frozen pseudonymous slates. The policies are deterministic
+autonomous agents, not frontier LLMs, and equality after resolution is a
+context-replay result rather than learned-model unlearning.
+
 ## Contribution statement
 
 1. A lifecycle account of temporary delegation that separates provisional
@@ -226,9 +258,12 @@ Exact post-resolution equality is a replay property, not trained-model state rem
    outcome-only commit attenuates, while holding before activation eliminates paired exposure.
 5. A four-category replication with hierarchical user- and model-level
    uncertainty, equal-category pooling, and leave-one-category-out checks.
-6. A paired shopping-agent experiment separating platform-profile activation
+6. A preregistered four-contract online experiment that separates logging from
+   ranking activation and distinguishes fixed-trace causal effects from
+   recommendation-mediated trajectory divergence under two agent policies.
+7. A paired shopping-agent experiment separating platform-profile activation
    from task-local personalization across four task checkpoints.
-7. An interaction prototype that makes task scope, activation, outcome, and
+8. An interaction prototype that makes task scope, activation, outcome, and
    removal inspectable; its usability remains unevaluated.
 
 ## Figure set
@@ -245,6 +280,7 @@ Exact post-resolution equality is a replay property, not trained-model state rem
 | Fig. 8 | `figures/figure-6-learned-sasrec.svg` | Learned-model validity and lifecycle exposure |
 | Fig. 9 | `figures/figure-7-cross-category-uncertainty.svg` | Category-specific and equal-weight pooled 95% bootstrap intervals |
 | Fig. 10 | `public/evidence/delegated-activation/v1/selected-timeline.png` and `abandoned-timeline.png` | Four-checkpoint agent-trajectory comparison under matched resolved state |
+| Fig. 11 | `?view=storefront-v2&mode=free-running&phase=task-in-progress` plus v2 contrast intervals | Four-contract model-backed replay and fixed-versus-free-running estimands |
 
 ## Claim discipline
 
@@ -256,6 +292,8 @@ Exact post-resolution equality is a replay property, not trained-model state rem
   independent.”
 - Say “ranking displacement,” not “preference manipulation” or “harm.”
 - Say “interaction prototype,” not “validated control.”
+- Say “frozen model-backed replay,” not “live SASRec service” or “Amazon test.”
+- Say “deterministic autonomous policies,” not “frontier LLM agents.”
 
 ## Most defensible paper story
 
@@ -269,9 +307,13 @@ short-horizon sequential model remains highly exposed. This motivates controls
 that operate before activation rather than assuming downweighting or a later
 profile editor will behave uniformly across models.
 
-The learned Amazon result is now the strongest system evidence: it shows the
-same activation problem in a standard, trained, order-sensitive recommender on
-real commerce histories. It should lead the quantitative results. MovieLens
-remains useful as an algorithm-family bridge, while the synthetic grid explains
+The online v2 fixed-trace contrast is now the strongest direct mechanism test:
+it separates recording from activation, compares deletion with holding, uses
+trained SASRec outputs, and freezes its inferential gates before generation.
+Its free-running extension then shows that a shelf difference can propagate
+into different agent trajectories, with substantial policy heterogeneity.
+The cross-category learned result supplies broader model and domain support;
+MovieLens remains an algorithm-family bridge, while the synthetic grid explains
 mechanism sensitivity. None of these layers turns the injected task into
-observed delegation or the prototype into a validated human-facing control.
+observed commercial delegation, the deterministic policies into frontier
+agents, or the prototype into a validated human-facing control.

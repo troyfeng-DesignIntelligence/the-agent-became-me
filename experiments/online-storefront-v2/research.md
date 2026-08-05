@@ -35,3 +35,5 @@ Implementation correctness only: batching, caching, schema validation, determini
 
 | Iteration | Hypothesis | Score | Status | Notes |
 |---:|---|---:|---|---|
+| 0 | The frozen design is complete before cross-platform artifact verification. | 0.900 | baseline | All scientific gates passed; raw JSON canonicalization differed between Python and JavaScript. |
+| 1 | Hashing the normalized frozen protocol bytes will make verification portable without changing outcomes. | 1.000 | kept | All 14 evaluator components passed; existing tests and evaluators remained green. |

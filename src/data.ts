@@ -529,6 +529,59 @@ export interface DelegatedActivationSummary {
   };
 }
 
+export interface OnlineStorefrontV2Summary {
+  schemaVersion: "online-storefront-v2-summary.v1";
+  protocolSha256: string;
+  evidenceStatus: string;
+  design: {
+    taskCount: number;
+    tasksPerCategory: number;
+    categoryCounts: Array<{ category: string; taskCount: number }>;
+    modelSeeds: number[];
+    agentConfigurations: string[];
+    conditions: string[];
+    modes: string[];
+    timepoints: string[];
+    conditionRowCount: number;
+    pairedContrastRowCount: number;
+  };
+  confirmatory: {
+    fixedTrace: {
+      primaryT1ImmediateHeldDisplacement: OnlineV2Interval;
+      t2ImmediateHeldDisplacement: OnlineV2Interval;
+      t3ImmediateHeldDisplacement: OnlineV2Interval;
+    };
+    freeRunning: {
+      t1ImmediateHeldDisplacement: OnlineV2Interval;
+      traceDivergenceRate: OnlineV2Interval;
+      heldMinusImmediateDecisionAccuracy: OnlineV2Interval;
+      heldMinusImmediateSelectedUtility: OnlineV2Interval;
+    };
+    gates: Record<string, boolean>;
+  };
+  descriptive: {
+    byAgentConfig: Record<string, OnlineV2Breakdown>;
+    byCategory: Record<string, OnlineV2Breakdown>;
+  };
+  failuresAndNegativeCases: Record<string, number>;
+  claims: { observed: string[]; notEstablished: string[] };
+}
+
+export interface OnlineV2Interval {
+  estimate: number;
+  lower95: number;
+  upper95: number;
+}
+
+export interface OnlineV2Breakdown {
+  pairCount: number;
+  fixedT1Displacement: number;
+  freeT1Displacement: number;
+  freeTraceDivergenceRate: number;
+  heldMinusImmediateDecisionAccuracy: number;
+  heldMinusImmediateSelectedUtility: number;
+}
+
 const MetricSummarySchema = RunMetricsSchema.extend({
   condition: z.string(),
   runCount: z.number().int().nonnegative(),
@@ -1123,6 +1176,63 @@ const DelegatedActivationSummarySchema = z.object({
   })
 });
 
+const OnlineV2IntervalSchema = z.object({
+  estimate: z.number(),
+  lower95: z.number(),
+  upper95: z.number()
+});
+const OnlineV2BreakdownSchema = z.object({
+  pairCount: z.number().int().positive(),
+  fixedT1Displacement: z.number().min(0).max(1),
+  freeT1Displacement: z.number().min(0).max(1),
+  freeTraceDivergenceRate: z.number().min(0).max(1),
+  heldMinusImmediateDecisionAccuracy: z.number(),
+  heldMinusImmediateSelectedUtility: z.number()
+});
+const OnlineStorefrontV2SummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-v2-summary.v1"),
+  protocolSha256: z.string().length(64),
+  evidenceStatus: z.string(),
+  design: z.object({
+    taskCount: z.number().int().positive(),
+    tasksPerCategory: z.number().int().positive(),
+    categoryCounts: z.array(z.object({
+      category: z.string(),
+      taskCount: z.number().int().positive()
+    })).length(4),
+    modelSeeds: z.array(z.number().int()).length(3),
+    agentConfigurations: z.array(z.string()).length(2),
+    conditions: z.array(z.string()).length(4),
+    modes: z.array(z.string()).length(2),
+    timepoints: z.array(z.string()).length(4),
+    conditionRowCount: z.number().int().positive(),
+    pairedContrastRowCount: z.number().int().positive()
+  }).passthrough(),
+  confirmatory: z.object({
+    fixedTrace: z.object({
+      primaryT1ImmediateHeldDisplacement: OnlineV2IntervalSchema,
+      t2ImmediateHeldDisplacement: OnlineV2IntervalSchema,
+      t3ImmediateHeldDisplacement: OnlineV2IntervalSchema
+    }),
+    freeRunning: z.object({
+      t1ImmediateHeldDisplacement: OnlineV2IntervalSchema,
+      traceDivergenceRate: OnlineV2IntervalSchema,
+      heldMinusImmediateDecisionAccuracy: OnlineV2IntervalSchema,
+      heldMinusImmediateSelectedUtility: OnlineV2IntervalSchema
+    }),
+    gates: z.record(z.string(), z.boolean())
+  }),
+  descriptive: z.object({
+    byAgentConfig: z.record(z.string(), OnlineV2BreakdownSchema),
+    byCategory: z.record(z.string(), OnlineV2BreakdownSchema)
+  }),
+  failuresAndNegativeCases: z.record(z.string(), z.number().int().nonnegative()),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
 >;
@@ -1139,6 +1249,7 @@ interface ProjectDataState {
   amazonSasrec: AmazonSasrecSummary | null;
   amazonCrossCategory: AmazonCrossCategorySummary | null;
   delegatedActivation: DelegatedActivationSummary | null;
+  onlineStorefrontV2: OnlineStorefrontV2Summary | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1157,6 +1268,7 @@ export function useProjectData(): ProjectDataState {
     amazonSasrec: null,
     amazonCrossCategory: null,
     delegatedActivation: null,
+    onlineStorefrontV2: null,
     catalog: null,
     error: null,
     loading: true
@@ -1250,6 +1362,14 @@ export function useProjectData(): ProjectDataState {
           }
           return DelegatedActivationSummarySchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-v2/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load online storefront v2 experiment.");
+          }
+          return OnlineStorefrontV2SummarySchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1265,7 +1385,8 @@ export function useProjectData(): ProjectDataState {
           externalValidity,
           amazonSasrec,
           amazonCrossCategory,
-          delegatedActivation
+          delegatedActivation,
+          onlineStorefrontV2
         ]) => {
         if (!cancelled) {
           setState({
@@ -1280,6 +1401,7 @@ export function useProjectData(): ProjectDataState {
             amazonSasrec,
             amazonCrossCategory,
             delegatedActivation,
+            onlineStorefrontV2,
             catalog,
             error: null,
             loading: false
@@ -1301,6 +1423,7 @@ export function useProjectData(): ProjectDataState {
             amazonSasrec: null,
             amazonCrossCategory: null,
             delegatedActivation: null,
+            onlineStorefrontV2: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

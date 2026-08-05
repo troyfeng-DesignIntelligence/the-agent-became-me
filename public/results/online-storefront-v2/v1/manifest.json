@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "online-storefront-v2-manifest.v1",
+  "protocolSha256": "562b3ee2c1ce09d05d5e3a3e7d7ae7ea82642358e89856f239680e48c962eb3f",
+  "files": {
+    "summary.json": {
+      "sha256": "325eaa4a5f024c70fa91bf3bd256de7cb79fe77944348a2aa0aed8262f31849a",
+      "bytes": 5955
+    },
+    "rows.json": {
+      "sha256": "f30776f714b7952209471f59bbc3eb8e421596bf9d7a64f9d57407d23e909c84",
+      "bytes": 9978321
+    },
+    "contrasts.json": {
+      "sha256": "5dae6bf39fced095e6a33969cef76e56869717eab6565b8cb9a05809441f2fa1",
+      "bytes": 3043669
+    },
+    "model-bundle.json": {
+      "sha256": "59370fdf61afe2d9c3df33b02aa0dab0c67cb67f1e966d6753df308ea3b71c30",
+      "bytes": 46189
+    }
+  }
+}
