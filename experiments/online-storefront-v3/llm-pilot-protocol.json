@@ -1,17 +1,15 @@
 {
   "schemaVersion": "online-storefront-llm-pilot-protocol.v1",
-  "status": "frozen-before-paid-api-calls",
+  "status": "amended-before-any-api-call-and-refrozen",
   "frozenDate": "2026-08-05",
+  "amendedDate": "2026-08-05",
+  "amendmentReason": "The operator selected Xiaomi MiMo v2.5 before implementation and before any paid API call or LLM outcome existed.",
   "purpose": "Estimate action-validity, failure rates, cost, latency, and paired effect variance before fixing the confirmatory LLM-agent sample size.",
-  "provider": "OpenAI Responses API",
+  "provider": "Xiaomi MiMo OpenAI-compatible Responses API",
   "storeResponses": false,
   "models": [
     {
-      "id": "gpt-5.6-luna",
-      "reasoningEffort": "low"
-    },
-    {
-      "id": "gpt-5.6-terra",
+      "id": "mimo-v2.5",
       "reasoningEffort": "low"
     }
   ],
@@ -25,7 +23,7 @@
       "priority": "inspect recommendation-supported alternatives while respecting hard constraints"
     }
   ],
-  "factorialAgentConfigurations": 4,
+  "factorialAgentConfigurations": 2,
   "categories": [
     "luxury-beauty",
     "software",
@@ -44,7 +42,7 @@
   ],
   "decisionStepsPerTrajectory": 2,
   "requestPolicy": {
-    "temperature": "provider default; not overridden for GPT-5.6 reasoning models",
+    "temperature": "provider default; not overridden for MiMo v2.5 Responses calls",
     "maximumRetries": 2,
     "timeoutSeconds": 90,
     "structuredActionSchema": ["view", "select", "abandon"],
@@ -67,6 +65,6 @@
     "privacyViolationCount": 0,
     "sampleSizeRule": "use the largest task-cluster SD across model-by-prompt cells to target a 0.05 CI half-width; cap only after reporting the unconstrained requirement"
   },
-  "costGate": "Do not issue paid API calls until OPENAI_API_KEY is present and the operator explicitly accepts the dry-run request and token estimate.",
+  "costGate": "Do not issue paid API calls until MIMO_API_KEY is present and the operator explicitly accepts the dry-run request and token estimate.",
   "claimBoundary": "This pilot tests model-mediated action selection in a pseudonymous research storefront. It is not computer-use on Amazon.com and cannot establish human behavior."
 }
