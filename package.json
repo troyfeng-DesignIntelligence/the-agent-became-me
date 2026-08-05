@@ -39,11 +39,13 @@
     "delegate:evaluate": "node scripts/evaluate-delegated-activation.mjs",
     "online:pilot": "node scripts/run-online-storefront-pilot.mjs",
     "online:evaluate": "node scripts/evaluate-online-storefront-pilot.mjs",
+    "online:v2:run": "node scripts/run-online-storefront-v2.mjs",
+    "online:v2:evaluate": "node scripts/evaluate-online-storefront-v2.mjs",
     "paper:figures": "node scripts/generate-paper-figures.mjs",
     "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",
     "qa:storefront": "node scripts/qa-online-storefront.mjs",
-    "check": "pnpm typecheck && pnpm test && pnpm verify:artifacts && pnpm amazon:evaluate && pnpm cross-task:evaluate && pnpm sensitivity:evaluate && pnpm external:evaluate && pnpm amazon:sasrec:evaluate && pnpm amazon:cross-category:evaluate && pnpm delegate:evaluate && pnpm online:evaluate && pnpm build"
+    "check": "pnpm typecheck && pnpm test && pnpm verify:artifacts && pnpm amazon:evaluate && pnpm cross-task:evaluate && pnpm sensitivity:evaluate && pnpm external:evaluate && pnpm amazon:sasrec:evaluate && pnpm amazon:cross-category:evaluate && pnpm delegate:evaluate && pnpm online:evaluate && pnpm online:v2:evaluate && pnpm build"
   },
   "dependencies": {
     "@fontsource-variable/source-serif-4": "^5.3.0",

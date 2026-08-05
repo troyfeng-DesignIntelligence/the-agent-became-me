@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "online-storefront-v2-protocol.v1",
+  "status": "frozen-before-v2-outcome-generation",
+  "frozenDate": "2026-08-05",
+  "researchQuestions": {
+    "rq1": "Under an identical delegated trace and matched resolved state, how much recommendation exposure is caused by immediate platform activation rather than holding evidence until task resolution?",
+    "rq2": "When recommendations are allowed to influence later agent actions, how does activation timing alter trajectories and task outcomes?",
+    "rq3": "Do inert logging, platform activation, and task-local retrieval have distinguishable effects?"
+  },
+  "sampling": {
+    "pilotSource": "public/results/delegated-activation/v1/rows.json",
+    "pilotTaskCountPerCategory": 80,
+    "precisionTargetHalfWidth": 0.05,
+    "confidenceLevel": 0.95,
+    "largestPilotTaskSd": 0.2729091980489973,
+    "formula": "ceil((1.96 * pilot_task_sd / 0.05)^2)",
+    "derivedMaximumPerCategory": 115,
+    "tasksPerCategory": 115,
+    "categoryCount": 4,
+    "totalTaskCount": 460
+  },
+  "models": {
+    "family": "SASRec",
+    "checkpointSeeds": [7, 17, 29],
+    "historySource": "Amazon Reviews 2018 chronological implicit-feedback sequences",
+    "candidatePolicy": "identical masked candidate universe within each paired comparison"
+  },
+  "agentConfigurations": [
+    {
+      "id": "constraint-first",
+      "searchViews": 2,
+      "recommendationViews": 2,
+      "platformRankWeight": 0.35,
+      "taskRankWeight": 0.65,
+      "utilityWeight": 1.0,
+      "noveltyWeight": 0.0
+    },
+    {
+      "id": "exploration-first",
+      "searchViews": 3,
+      "recommendationViews": 3,
+      "platformRankWeight": 0.65,
+      "taskRankWeight": 0.35,
+      "utilityWeight": 0.7,
+      "noveltyWeight": 0.3
+    }
+  ],
+  "conditions": [
+    {
+      "id": "no-memory",
+      "eventLog": false,
+      "taskLocalRetrieval": false,
+      "platformActivation": "never",
+      "outcomeCommit": "never"
+    },
+    {
+      "id": "logged-inert",
+      "eventLog": true,
+      "taskLocalRetrieval": false,
+      "platformActivation": "never",
+      "outcomeCommit": "never"
+    },
+    {
+      "id": "immediate-remove",
+      "eventLog": true,
+      "taskLocalRetrieval": true,
+      "platformActivation": "during-task",
+      "outcomeCommit": "selected-only"
+    },
+    {
+      "id": "held-outcome",
+      "eventLog": true,
+      "taskLocalRetrieval": true,
+      "platformActivation": "after-success-only",
+      "outcomeCommit": "selected-only"
+    }
+  ],
+  "modes": ["fixed-trace", "free-running"],
+  "timepoints": ["task-start", "task-in-progress", "outcome-resolved", "next-task"],
+  "primaryEstimand": {
+    "mode": "fixed-trace",
+    "contrast": "immediate-remove minus held-outcome",
+    "outcome": "paired top-10 displacement at task-in-progress",
+    "goThreshold": 0.15
+  },
+  "equivalence": {
+    "contrast": "immediate-remove versus held-outcome under fixed trace",
+    "timepoints": ["outcome-resolved", "next-task"],
+    "margin": 0.05,
+    "criterion": "upper 95% hierarchical-bootstrap bound below margin"
+  },
+  "taskUtility": {
+    "contrast": "held-outcome minus immediate-remove under free-running agents",
+    "outcomes": ["decision accuracy", "selected-item constraint utility"],
+    "nonInferiorityMargin": -0.05
+  },
+  "uncertainty": {
+    "method": "hierarchical paired bootstrap",
+    "replicates": 2000,
+    "seed": 20260805,
+    "resampling": "tasks and model seeds resampled within category; categories equally weighted"
+  },
+  "failureAccounting": [
+    "protocol deviation",
+    "empty recommendation slate",
+    "missing checkpoint",
+    "agent timeout",
+    "constraint-infeasible task",
+    "negative or null primary effect"
+  ],
+  "claimBoundary": "The study estimates effects inside a research-owned replay system backed by frozen SASRec checkpoints. It does not establish deployed Amazon behavior, human response, or trained-model unlearning."
+}
