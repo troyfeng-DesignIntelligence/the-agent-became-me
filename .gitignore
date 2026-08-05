@@ -4,5 +4,6 @@ coverage/
 playwright-report/
 test-results/
 artifacts/
+__pycache__/
 .DS_Store
 *.log

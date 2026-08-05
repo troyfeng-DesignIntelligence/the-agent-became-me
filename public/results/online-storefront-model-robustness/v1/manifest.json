@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "online-storefront-model-robustness-manifest.v1",
+  "protocolSha256": "b143ed9d709049508d044013e46078f89850a3445c5cd6ab93b894ae9bcddb94",
+  "files": {
+    "summary.json": {
+      "sha256": "9818272dfcbe681e50ffd9f4525e5edc41aaf3b3792ffac4ea0656c9e1302f30",
+      "bytes": 75616
+    },
+    "rows.json": {
+      "sha256": "7dd759243991e51bc11b38af912fb9a4a7eb30dcafe4179f2530d09230d5c496",
+      "bytes": 21392597
+    },
+    "contrasts.json": {
+      "sha256": "2be421b62f3edee8bd42c9b2006c9dcc80aae22b38951eb5cbbf43681517b623",
+      "bytes": 6486172
+    }
+  }
+}

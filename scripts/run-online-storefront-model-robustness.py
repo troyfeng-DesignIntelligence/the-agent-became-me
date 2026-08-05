@@ -107,7 +107,7 @@ def validation_summary(family: str, model, data: dict, seed: int) -> dict:
     return {
         "modelFamily": family,
         "modelSeed": seed,
-        "evaluatedUserCount": learned["count"],
+        "evaluatedUserCount": min(800, len(data["testHistories"])),
         "ndcgAt10": learned["ndcgAt10"],
         "hitRateAt10": learned["hitRateAt10"],
         "popularityNdcgAt10": result["popularity"]["ndcgAt10"],
@@ -299,6 +299,68 @@ def family_result(family: str, contrasts: list[dict], bootstrap_protocol: dict) 
     }
 
 
+def bootstrap_family_difference(contrasts: list[dict], bootstrap_protocol: dict) -> dict:
+    """Descriptive paired GRU-minus-SAS intervals under the frozen hierarchy."""
+    rng = np.random.default_rng(bootstrap_protocol["uncertainty"]["seed"] + 1)
+    categories = sorted({row["category"] for row in contrasts})
+    seeds = bootstrap_protocol["models"]["checkpointSeeds"]
+    configs = [row["id"] for row in bootstrap_protocol["agentConfigurations"]]
+    tasks_by_category = {
+        category: sorted(
+            {row["taskId"] for row in contrasts if row["category"] == category}
+        )
+        for category in categories
+    }
+    index = {
+        (
+            row["modelFamily"],
+            row["category"],
+            row["taskId"],
+            row["modelSeed"],
+            row["agentConfig"],
+            row["mode"],
+        ): row
+        for row in contrasts
+    }
+    samples = {"fixedT1": [], "freeT1": [], "freeTraceDivergence": []}
+    for _ in range(bootstrap_protocol["uncertainty"]["replicates"]):
+        sampled_seeds = rng.choice(seeds, size=len(seeds), replace=True)
+        category_values = {key: [] for key in samples}
+        for category in categories:
+            tasks = tasks_by_category[category]
+            sampled_tasks = rng.choice(tasks, size=len(tasks), replace=True)
+            values = {key: [] for key in samples}
+            for task_id in sampled_tasks:
+                for seed in sampled_seeds:
+                    for config in configs:
+                        for mode, output_key, metric in [
+                            ("fixed-trace", "fixedT1", "t1ImmediateHeldDisplacement"),
+                            ("free-running", "freeT1", "t1ImmediateHeldDisplacement"),
+                            ("free-running", "freeTraceDivergence", "traceDiverged"),
+                        ]:
+                            gru_row = index[
+                                ("gru4rec", category, task_id, int(seed), config, mode)
+                            ]
+                            sas_row = index[
+                                ("sasrec", category, task_id, int(seed), config, mode)
+                            ]
+                            values[output_key].append(
+                                float(gru_row[metric]) - float(sas_row[metric])
+                            )
+            for key in samples:
+                category_values[key].append(mean(values[key]))
+        for key in samples:
+            samples[key].append(mean(category_values[key]))
+    return {
+        "label": "descriptive paired GRU4Rec minus SASRec; not a preregistered superiority test",
+        "fixedT1DisplacementDifference": v2.interval(samples["fixedT1"]),
+        "freeT1DisplacementDifference": v2.interval(samples["freeT1"]),
+        "freeTraceDivergenceDifference": v2.interval(
+            samples["freeTraceDivergence"]
+        ),
+    }
+
+
 def main() -> None:
     protocol_text = PROTOCOL_PATH.read_text(encoding="utf-8").replace("\r\n", "\n")
     protocol = json.loads(protocol_text)
@@ -408,6 +470,9 @@ def main() -> None:
         "validation": validation,
         "trainingRuns": training_runs,
         "results": family_results,
+        "descriptiveBetweenFamily": bootstrap_family_difference(
+            all_contrasts, v2_protocol
+        ),
         "gates": {
             "learnedAndOrderSensitiveInEveryCategory": validation_gate,
             "byFamily": family_gates,
@@ -473,5 +538,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    torch.set_grad_enabled(False)
     main()

@@ -64,6 +64,7 @@ control preference.
 | Cross-category learned replication | 4 Amazon categories; 30,838 histories; 261,836 events; 12 SASRec checkpoints; 54,000 task rows; hierarchical user/seed bootstrap | The direction recurs across four domains and survives leave-one-category-out checks | Universal e-commerce generality or one constant effect size |
 | Shopping-agent activation-timing experiment | 320 generated tasks; 960 task-seed rows; 4 categories; 12 SASRec checkpoints; four recommendation snapshots | Immediate activation changes pending-task rankings under a matched resolved state; holding platform activation preserves identical task-local utility | Amazon.com behavior, frontier-agent behavior, human response, or trained-model unlearning |
 | Online storefront v2 | 460 tasks; 22,080 condition rows; four contracts; fixed traces and two free-running policies; frozen SASRec checkpoints | Separates logging from ranking activation, tests deletion timing, and measures recommendation-mediated trajectory divergence with preregistered uncertainty gates | Frontier-LLM behavior, human response, commercial deployment, or model-state unlearning |
+| Sequence-encoder robustness | Same 460 tasks and protocol; SASRec versus GRU recurrent encoders; 44,160 condition rows and 11,040 paired contrasts | Tests whether activation timing recurs when the learned sequential architecture changes | Architecture independence, production behavior, or canonical reproduction of every GRU4Rec optimization detail |
 
 ## Results
 
@@ -246,6 +247,34 @@ static page exposes frozen pseudonymous slates. The policies are deterministic
 autonomous agents, not frontier LLMs, and equality after resolution is a
 context-replay result rather than learned-model unlearning.
 
+### R9 — The timing effect recurred under a recurrent encoder, but trajectory amplification changed
+
+The model-robustness extension held tasks, contracts, agent policies, modes,
+seeds, candidate masks, and the bootstrap hierarchy fixed while replacing the
+SASRec self-attention encoder with a one-layer GRU sequence encoder. Both used
+the same 32-dimensional item representation and sampled next-item objective.
+The resulting artifact contains 44,160 condition rows and 11,040 paired
+contrasts.
+
+Both model families beat global popularity in mean test NDCG@10 in all four
+categories and changed at least 93.9% of Top-10 rankings under reversed
+histories. The recurrent model did not beat the first-order transition control
+in every category, and one Software seed was notably weak; these limitations
+remain in the released results.
+
+| Model | Fixed T1 displacement, 95% CI | Free T1 displacement, 95% CI | Free trace divergence, 95% CI |
+|---|---:|---:|---:|
+| SASRec | 0.766 [0.746, 0.786] | 0.781 [0.762, 0.799] | 36.8% [31.6%, 43.3%] |
+| GRU | 0.745 [0.639, 0.813] | 0.756 [0.646, 0.825] | 30.3% [25.2%, 35.0%] |
+
+Both encoders passed the preregistered recurrence, equivalence, and inert-log
+gates. A post-confirmatory paired comparison found a GRU-minus-SAS difference
+of `-0.064 [-0.106, -0.015]` in free-running trace divergence. The corresponding
+fixed and free recommendation-displacement differences included zero. We
+therefore claim recurrence of the timing effect across two learned sequence
+encoders, together with model dependence in how shelf differences propagate
+into trajectories—not architecture independence.
+
 ## Contribution statement
 
 1. A lifecycle account of temporary delegation that separates provisional
@@ -265,6 +294,8 @@ context-replay result rather than learned-model unlearning.
    from task-local personalization across four task checkpoints.
 8. An interaction prototype that makes task scope, activation, outcome, and
    removal inspectable; its usability remains unevaluated.
+9. A controlled sequence-encoder replication showing recurrence under SASRec
+   and a GRU family while exposing model-dependent trajectory amplification.
 
 ## Figure set
 
@@ -281,6 +312,7 @@ context-replay result rather than learned-model unlearning.
 | Fig. 9 | `figures/figure-7-cross-category-uncertainty.svg` | Category-specific and equal-weight pooled 95% bootstrap intervals |
 | Fig. 10 | `public/evidence/delegated-activation/v1/selected-timeline.png` and `abandoned-timeline.png` | Four-checkpoint agent-trajectory comparison under matched resolved state |
 | Fig. 11 | `?view=storefront-v2&mode=free-running&phase=task-in-progress` plus v2 contrast intervals | Four-contract model-backed replay and fixed-versus-free-running estimands |
+| Fig. 12 | SASRec-versus-GRU fixed displacement and free trace-divergence intervals | Recurrence and model-dependent trajectory amplification |
 
 ## Claim discipline
 
@@ -317,3 +349,9 @@ MovieLens remains an algorithm-family bridge, while the synthetic grid explains
 mechanism sensitivity. None of these layers turns the injected task into
 observed commercial delegation, the deterministic policies into frontier
 agents, or the prototype into a validated human-facing control.
+
+The sequence-encoder extension strengthens recurrence but also narrows the
+claim: recommendation displacement was similar across the two families, while
+trajectory divergence was lower under the GRU encoder. The paper should treat
+this heterogeneity as a result, not average it into an architecture-independent
+effect.

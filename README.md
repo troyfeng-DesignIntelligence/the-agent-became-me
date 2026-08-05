@@ -45,6 +45,8 @@ pnpm online:evaluate
 pnpm online:v2:run
 pnpm online:v2:evaluate
 pnpm qa:storefront-v2
+pnpm online:model-robustness:run
+pnpm online:model-robustness:evaluate
 ```
 
 The online storefront is a research-owned static web application. It has no
@@ -274,6 +276,22 @@ inference; it does not run checkpoint inference in the browser. The two agents
 are deterministic retrieval-and-planning policies, not frontier LLMs. See the
 [v2 protocol and interface guide](docs/ONLINE_STOREFRONT.md) and
 [final experiment report](experiments/online-storefront-v2/final_report.md).
+
+### Second learned sequence encoder
+
+A preregistered robustness extension replaces the SASRec encoder with a
+GRU4Rec-family recurrent encoder while holding the 460 tasks, four contracts,
+two agent policies, modes, seeds, candidate masks, and bootstrap hierarchy
+fixed. Both families passed the activation-recurrence and resolved-equivalence
+gates. Fixed-trace T1 displacement was `0.766 [0.746, 0.786]` for SASRec and
+`0.745 [0.639, 0.813]` for GRU. Free-running trace divergence was
+`36.8% [31.6%, 43.3%]` and `30.3% [25.2%, 35.0%]`, respectively.
+
+The recurrent model beat global popularity in all four categories but did not
+beat the first-order transition control everywhere. A descriptive paired
+comparison found lower trajectory divergence under GRU, while the fixed and
+free T1 displacement differences included zero. See the
+[model-robustness report](experiments/online-storefront-v3/MODEL_ROBUSTNESS_REPORT.md).
 
 ## Claim boundary
 
