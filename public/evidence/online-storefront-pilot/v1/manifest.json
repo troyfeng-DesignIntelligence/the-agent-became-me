@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "online-storefront-evidence.v1",
+  "generatedAt": "2026-08-05T09:25:46.904Z",
+  "sourceUrl": "http://127.0.0.1:4173/",
+  "files": [
+    {
+      "name": "selected-immediate-task-start.png",
+      "bytes": 147046,
+      "sha256": "266cacd9e83235d93075151ae25ea6dd19419cc02690c3ddb6dfb40222b0604f"
+    },
+    {
+      "name": "selected-immediate-task-in-progress.png",
+      "bytes": 257288,
+      "sha256": "e510924181b39c5079812393a00c1294271f6961ecef37fec09db8d9d313ce62"
+    },
+    {
+      "name": "selected-immediate-outcome-resolved.png",
+      "bytes": 157901,
+      "sha256": "fe0179522994f767cfbe6dc90a28e3db1c2f2168610e88caa3283fa61a208ddc"
+    },
+    {
+      "name": "selected-immediate-next-task.png",
+      "bytes": 149932,
+      "sha256": "dfb6c7c6318463fda5d1a8c6097d78fa9c0bf7c9d56f0dd9d4e15d02d8d5b8af"
+    },
+    {
+      "name": "selected-held-task-start.png",
+      "bytes": 146890,
+      "sha256": "edd9c1a6208b85fd9a9d6b48c9112c111171e139a2706e75d12c68f64f89641f"
+    },
+    {
+      "name": "selected-held-task-in-progress.png",
+      "bytes": 246131,
+      "sha256": "00dcc2d40d7b702ba391da63ca3408fd234fae1bb90aea0277e77ca5a1efd879"
+    },
+    {
+      "name": "selected-held-outcome-resolved.png",
+      "bytes": 157628,
+      "sha256": "fc9557b27acd8e5f0c3a3c601053809864d12fce4f16c93ecbe117a8d6a4c9bb"
+    },
+    {
+      "name": "selected-held-next-task.png",
+      "bytes": 149746,
+      "sha256": "b05331a6061605ab796c6808dc7d4c0dbe19e89f353fa7994ccbcab07369d2ff"
+    },
+    {
+      "name": "abandoned-immediate-task-start.png",
+      "bytes": 132825,
+      "sha256": "f8b1d90676cf7d99a65e1977e8a002a89ff6cb3c6607f4c47eb02bb43ebe607d"
+    },
+    {
+      "name": "abandoned-immediate-task-in-progress.png",
+      "bytes": 252345,
+      "sha256": "8006305d20f3946de8db4a3152b23e82a04d5d53c83c3905c6e2968531b84da2"
+    },
+    {
+      "name": "abandoned-immediate-outcome-resolved.png",
+      "bytes": 150131,
+      "sha256": "defc7538e7e9b35fbe5abddf2e8f25c75ae31ac0fe031ce8cb8d5b3a8c961e51"
+    },
+    {
+      "name": "abandoned-immediate-next-task.png",
+      "bytes": 139798,
+      "sha256": "af182b79993d1d1b277ba11ab90b9e4dab7d6c07b8b6ed81f625fad0ea218188"
+    },
+    {
+      "name": "abandoned-held-task-start.png",
+      "bytes": 132689,
+      "sha256": "cb46321f264c4b6cc62901660c3946eb59351547dc7fc4022dac475fd9613c2d"
+    },
+    {
+      "name": "abandoned-held-task-in-progress.png",
+      "bytes": 240785,
+      "sha256": "8c3d9fa1465346fefce7f34c00840c47eadc00d5ca34a78931dfb73b421fb294"
+    },
+    {
+      "name": "abandoned-held-outcome-resolved.png",
+      "bytes": 149638,
+      "sha256": "ac46ec680fd7d3be07df8bce1c6c77d912ae2fc8aa4c3975534b97748c538154"
+    },
+    {
+      "name": "abandoned-held-next-task.png",
+      "bytes": 139553,
+      "sha256": "07cf37819ddbaf7d91f821a8b58d8260282a91634c0fcdfaff37da9fa400178c"
+    }
+  ]
+}

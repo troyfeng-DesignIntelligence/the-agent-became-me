@@ -1,0 +1,656 @@
+{
+  "schemaVersion": "amazon-sasrec-sequence-validation.v1",
+  "generatedAt": "2026-08-05T04:27:28.876835+00:00",
+  "dataset": {
+    "source": "Amazon Reviews 2018 / Luxury Beauty 5-core",
+    "publisher": "UCSD McAuley Lab",
+    "reviewCount": 34278,
+    "retainedEventCount": 34246,
+    "repeatedUserItemEventCount": 6204,
+    "eventRetention": "all published review events retained, matching the original SASRec interaction partition",
+    "userCount": 3811,
+    "itemCount": 1581,
+    "minimumSequenceLength": 5,
+    "medianSequenceLength": 7.0,
+    "files": {
+      "Luxury_Beauty_5.json.gz": {
+        "url": "https://mcauleylab.ucsd.edu/public_datasets/data/amazon_v2/categoryFilesSmall/Luxury_Beauty_5.json.gz",
+        "bytes": 7353658,
+        "sha256": "57d93915786b57f9a000f5818c6035bec6110be2b2b72b383a26744c5314df3e"
+      },
+      "meta_Luxury_Beauty.json.gz": {
+        "url": "https://mcauleylab.ucsd.edu/public_datasets/data/amazon_v2/metaFiles2/meta_Luxury_Beauty.json.gz",
+        "bytes": 7635635,
+        "sha256": "8890dd1fc3e5b476612662f10881d1dfdbe2a43ac726e5cd115ba05a486a34d5"
+      }
+    },
+    "metadataAudit": {
+      "metadataMatchedItemCount": 1577,
+      "emptyCategoryRecordCount": 1625,
+      "emptyBrandRecordCount": 1623,
+      "eligibleFamilyCount": 66,
+      "familyRule": "alphabetic title token; generic stop words removed; 25-250 catalog items; >=100 interactions"
+    }
+  },
+  "design": {
+    "split": "per-user leave-two-out",
+    "feedback": "each review treated as an implicit product interaction; ratings and text excluded",
+    "testLeakageCount": 0,
+    "validationLeakageCount": 0,
+    "evaluationCandidates": "one held-out positive plus 99 fixed unseen negatives"
+  },
+  "model": {
+    "name": "SASRec",
+    "reference": "Kang and McAuley, ICDM 2018, DOI 10.1109/ICDM.2018.00035",
+    "hiddenDimension": 32,
+    "attentionHeads": 2,
+    "blocks": 1,
+    "maximumSequenceLength": 50,
+    "dropout": 0.2,
+    "causalMask": true,
+    "learnedPositionEmbeddings": true,
+    "trainingObjective": "sampled binary cross-entropy over positive and unseen negative next items",
+    "trainingRuns": [
+      {
+        "seed": 7,
+        "epochsCompleted": 20,
+        "initialTrainingLoss": 1.325599,
+        "finalTrainingLoss": 0.527885,
+        "bestValidationNdcgAt10": 0.539757,
+        "wallClockSeconds": 35.156,
+        "epochHistory": [
+          {
+            "epoch": 1,
+            "trainingLoss": 1.325599,
+            "ndcgAt10": 0.36147
+          },
+          {
+            "epoch": 2,
+            "trainingLoss": 1.224534,
+            "ndcgAt10": 0.38497
+          },
+          {
+            "epoch": 3,
+            "trainingLoss": 1.130671,
+            "ndcgAt10": 0.40186
+          },
+          {
+            "epoch": 4,
+            "trainingLoss": 1.051749,
+            "ndcgAt10": 0.407929
+          },
+          {
+            "epoch": 5,
+            "trainingLoss": 0.986961,
+            "ndcgAt10": 0.42594
+          },
+          {
+            "epoch": 6,
+            "trainingLoss": 0.925492,
+            "ndcgAt10": 0.433326
+          },
+          {
+            "epoch": 7,
+            "trainingLoss": 0.87597,
+            "ndcgAt10": 0.442455
+          },
+          {
+            "epoch": 8,
+            "trainingLoss": 0.832662,
+            "ndcgAt10": 0.459558
+          },
+          {
+            "epoch": 9,
+            "trainingLoss": 0.788161,
+            "ndcgAt10": 0.464417
+          },
+          {
+            "epoch": 10,
+            "trainingLoss": 0.755362,
+            "ndcgAt10": 0.476578
+          },
+          {
+            "epoch": 11,
+            "trainingLoss": 0.721307,
+            "ndcgAt10": 0.480164
+          },
+          {
+            "epoch": 12,
+            "trainingLoss": 0.687146,
+            "ndcgAt10": 0.487967
+          },
+          {
+            "epoch": 13,
+            "trainingLoss": 0.659378,
+            "ndcgAt10": 0.499899
+          },
+          {
+            "epoch": 14,
+            "trainingLoss": 0.63778,
+            "ndcgAt10": 0.500023
+          },
+          {
+            "epoch": 15,
+            "trainingLoss": 0.617137,
+            "ndcgAt10": 0.511115
+          },
+          {
+            "epoch": 16,
+            "trainingLoss": 0.597815,
+            "ndcgAt10": 0.511339
+          },
+          {
+            "epoch": 17,
+            "trainingLoss": 0.574705,
+            "ndcgAt10": 0.508711
+          },
+          {
+            "epoch": 18,
+            "trainingLoss": 0.567532,
+            "ndcgAt10": 0.527188
+          },
+          {
+            "epoch": 19,
+            "trainingLoss": 0.546438,
+            "ndcgAt10": 0.536843
+          },
+          {
+            "epoch": 20,
+            "trainingLoss": 0.527885,
+            "ndcgAt10": 0.539757
+          }
+        ],
+        "validation": {
+          "sasrec": {
+            "hitRateAt10": 0.724744,
+            "ndcgAt10": 0.552493
+          },
+          "popularity": {
+            "hitRateAt10": 0.441092,
+            "ndcgAt10": 0.289304
+          },
+          "firstOrderTransition": {
+            "hitRateAt10": 0.558646,
+            "ndcgAt10": 0.487893
+          },
+          "orderSensitivity": {
+            "changedTop10Rate": 0.963264,
+            "meanTop10Displacement": 0.33671
+          }
+        },
+        "test": {
+          "sasrec": {
+            "hitRateAt10": 0.635791,
+            "ndcgAt10": 0.467552
+          },
+          "popularity": {
+            "hitRateAt10": 0.336657,
+            "ndcgAt10": 0.187091
+          },
+          "firstOrderTransition": {
+            "hitRateAt10": 0.477827,
+            "ndcgAt10": 0.426819
+          },
+          "orderSensitivity": {
+            "changedTop10Rate": 0.972448,
+            "meanTop10Displacement": 0.38486
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "epochsCompleted": 20,
+        "initialTrainingLoss": 1.322083,
+        "finalTrainingLoss": 0.535968,
+        "bestValidationNdcgAt10": 0.544195,
+        "wallClockSeconds": 37.203,
+        "epochHistory": [
+          {
+            "epoch": 1,
+            "trainingLoss": 1.322083,
+            "ndcgAt10": 0.378967
+          },
+          {
+            "epoch": 2,
+            "trainingLoss": 1.219052,
+            "ndcgAt10": 0.413993
+          },
+          {
+            "epoch": 3,
+            "trainingLoss": 1.124958,
+            "ndcgAt10": 0.42777
+          },
+          {
+            "epoch": 4,
+            "trainingLoss": 1.044098,
+            "ndcgAt10": 0.438255
+          },
+          {
+            "epoch": 5,
+            "trainingLoss": 0.983385,
+            "ndcgAt10": 0.448967
+          },
+          {
+            "epoch": 6,
+            "trainingLoss": 0.931446,
+            "ndcgAt10": 0.459605
+          },
+          {
+            "epoch": 7,
+            "trainingLoss": 0.882017,
+            "ndcgAt10": 0.471988
+          },
+          {
+            "epoch": 8,
+            "trainingLoss": 0.833987,
+            "ndcgAt10": 0.475463
+          },
+          {
+            "epoch": 9,
+            "trainingLoss": 0.797787,
+            "ndcgAt10": 0.487212
+          },
+          {
+            "epoch": 10,
+            "trainingLoss": 0.757355,
+            "ndcgAt10": 0.493726
+          },
+          {
+            "epoch": 11,
+            "trainingLoss": 0.729115,
+            "ndcgAt10": 0.495036
+          },
+          {
+            "epoch": 12,
+            "trainingLoss": 0.698669,
+            "ndcgAt10": 0.503897
+          },
+          {
+            "epoch": 13,
+            "trainingLoss": 0.667307,
+            "ndcgAt10": 0.506543
+          },
+          {
+            "epoch": 14,
+            "trainingLoss": 0.643641,
+            "ndcgAt10": 0.515171
+          },
+          {
+            "epoch": 15,
+            "trainingLoss": 0.621082,
+            "ndcgAt10": 0.520751
+          },
+          {
+            "epoch": 16,
+            "trainingLoss": 0.603264,
+            "ndcgAt10": 0.525396
+          },
+          {
+            "epoch": 17,
+            "trainingLoss": 0.587037,
+            "ndcgAt10": 0.53037
+          },
+          {
+            "epoch": 18,
+            "trainingLoss": 0.564738,
+            "ndcgAt10": 0.535325
+          },
+          {
+            "epoch": 19,
+            "trainingLoss": 0.545031,
+            "ndcgAt10": 0.541774
+          },
+          {
+            "epoch": 20,
+            "trainingLoss": 0.535968,
+            "ndcgAt10": 0.544195
+          }
+        ],
+        "validation": {
+          "sasrec": {
+            "hitRateAt10": 0.721858,
+            "ndcgAt10": 0.551927
+          },
+          "popularity": {
+            "hitRateAt10": 0.443191,
+            "ndcgAt10": 0.283212
+          },
+          "firstOrderTransition": {
+            "hitRateAt10": 0.558384,
+            "ndcgAt10": 0.488141
+          },
+          "orderSensitivity": {
+            "changedTop10Rate": 0.962477,
+            "meanTop10Displacement": 0.352978
+          }
+        },
+        "test": {
+          "sasrec": {
+            "hitRateAt10": 0.631593,
+            "ndcgAt10": 0.469013
+          },
+          "popularity": {
+            "hitRateAt10": 0.334033,
+            "ndcgAt10": 0.183519
+          },
+          "firstOrderTransition": {
+            "hitRateAt10": 0.477565,
+            "ndcgAt10": 0.426506
+          },
+          "orderSensitivity": {
+            "changedTop10Rate": 0.971399,
+            "meanTop10Displacement": 0.40412
+          }
+        }
+      },
+      {
+        "seed": 29,
+        "epochsCompleted": 20,
+        "initialTrainingLoss": 1.328094,
+        "finalTrainingLoss": 0.53797,
+        "bestValidationNdcgAt10": 0.546772,
+        "wallClockSeconds": 37.25,
+        "epochHistory": [
+          {
+            "epoch": 1,
+            "trainingLoss": 1.328094,
+            "ndcgAt10": 0.350468
+          },
+          {
+            "epoch": 2,
+            "trainingLoss": 1.225224,
+            "ndcgAt10": 0.411547
+          },
+          {
+            "epoch": 3,
+            "trainingLoss": 1.128198,
+            "ndcgAt10": 0.43683
+          },
+          {
+            "epoch": 4,
+            "trainingLoss": 1.050813,
+            "ndcgAt10": 0.438732
+          },
+          {
+            "epoch": 5,
+            "trainingLoss": 0.98627,
+            "ndcgAt10": 0.442759
+          },
+          {
+            "epoch": 6,
+            "trainingLoss": 0.933975,
+            "ndcgAt10": 0.452625
+          },
+          {
+            "epoch": 7,
+            "trainingLoss": 0.890903,
+            "ndcgAt10": 0.454314
+          },
+          {
+            "epoch": 8,
+            "trainingLoss": 0.845589,
+            "ndcgAt10": 0.461651
+          },
+          {
+            "epoch": 9,
+            "trainingLoss": 0.804585,
+            "ndcgAt10": 0.472303
+          },
+          {
+            "epoch": 10,
+            "trainingLoss": 0.771182,
+            "ndcgAt10": 0.479461
+          },
+          {
+            "epoch": 11,
+            "trainingLoss": 0.724378,
+            "ndcgAt10": 0.487983
+          },
+          {
+            "epoch": 12,
+            "trainingLoss": 0.700476,
+            "ndcgAt10": 0.496052
+          },
+          {
+            "epoch": 13,
+            "trainingLoss": 0.675855,
+            "ndcgAt10": 0.506366
+          },
+          {
+            "epoch": 14,
+            "trainingLoss": 0.652161,
+            "ndcgAt10": 0.512161
+          },
+          {
+            "epoch": 15,
+            "trainingLoss": 0.625428,
+            "ndcgAt10": 0.52134
+          },
+          {
+            "epoch": 16,
+            "trainingLoss": 0.601109,
+            "ndcgAt10": 0.524787
+          },
+          {
+            "epoch": 17,
+            "trainingLoss": 0.586619,
+            "ndcgAt10": 0.531543
+          },
+          {
+            "epoch": 18,
+            "trainingLoss": 0.57081,
+            "ndcgAt10": 0.535057
+          },
+          {
+            "epoch": 19,
+            "trainingLoss": 0.551058,
+            "ndcgAt10": 0.546772
+          },
+          {
+            "epoch": 20,
+            "trainingLoss": 0.53797,
+            "ndcgAt10": 0.546361
+          }
+        ],
+        "validation": {
+          "sasrec": {
+            "hitRateAt10": 0.720808,
+            "ndcgAt10": 0.545027
+          },
+          "popularity": {
+            "hitRateAt10": 0.442666,
+            "ndcgAt10": 0.285715
+          },
+          "firstOrderTransition": {
+            "hitRateAt10": 0.558908,
+            "ndcgAt10": 0.48827
+          },
+          "orderSensitivity": {
+            "changedTop10Rate": 0.96169,
+            "meanTop10Displacement": 0.308895
+          }
+        },
+        "test": {
+          "sasrec": {
+            "hitRateAt10": 0.620047,
+            "ndcgAt10": 0.456017
+          },
+          "popularity": {
+            "hitRateAt10": 0.331671,
+            "ndcgAt10": 0.184774
+          },
+          "firstOrderTransition": {
+            "hitRateAt10": 0.474941,
+            "ndcgAt10": 0.425148
+          },
+          "orderSensitivity": {
+            "changedTop10Rate": 0.973235,
+            "meanTop10Displacement": 0.359092
+          }
+        }
+      }
+    ]
+  },
+  "taskBoundary": {
+    "design": {
+      "caseCount": 1800,
+      "eligibleUserCount": 600,
+      "modelSeeds": [
+        7,
+        17,
+        29
+      ],
+      "similarityBands": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "lifecycles": [
+        "persist-all",
+        "outcome-commit",
+        "outcome-quarantine"
+      ],
+      "temporaryTaskItemCount": 4,
+      "familyDefinition": "alphabetic title token; generic stop words removed; 25-250 catalog items; >=100 interactions",
+      "pairedDefinition": "same checkpoint, original history, held-out item, injected set, same candidate mask, and tie-breaking; only lifecycle activation changes",
+      "injectedItemsExcludedFromEveryArm": true
+    },
+    "lifecycle": [
+      {
+        "lifecycle": "outcome-commit",
+        "rowCount": 5400,
+        "meanExcessTargetSlotsAt10": 0.333148,
+        "meanRankingDisplacementAt10": 0.700759,
+        "spilloverRate": 0.286296,
+        "meanNextItemHitDeltaAt10": -0.130185
+      },
+      {
+        "lifecycle": "outcome-quarantine",
+        "rowCount": 5400,
+        "meanExcessTargetSlotsAt10": 0.0,
+        "meanRankingDisplacementAt10": 0.0,
+        "spilloverRate": 0.0,
+        "meanNextItemHitDeltaAt10": 0.0
+      },
+      {
+        "lifecycle": "persist-all",
+        "rowCount": 5400,
+        "meanExcessTargetSlotsAt10": 0.41,
+        "meanRankingDisplacementAt10": 0.752778,
+        "spilloverRate": 0.298519,
+        "meanNextItemHitDeltaAt10": -0.141111
+      }
+    ],
+    "similarityBands": [
+      {
+        "similarityBand": "high",
+        "rowCount": 5400,
+        "meanExcessTargetSlotsAt10": 0.082407,
+        "meanRankingDisplacementAt10": 0.418074,
+        "spilloverRate": 0.202963,
+        "meanNextItemHitDeltaAt10": -0.079259
+      },
+      {
+        "similarityBand": "low",
+        "rowCount": 5400,
+        "meanExcessTargetSlotsAt10": 0.353333,
+        "meanRankingDisplacementAt10": 0.529,
+        "spilloverRate": 0.226667,
+        "meanNextItemHitDeltaAt10": -0.09
+      },
+      {
+        "similarityBand": "medium",
+        "rowCount": 5400,
+        "meanExcessTargetSlotsAt10": 0.307407,
+        "meanRankingDisplacementAt10": 0.506463,
+        "spilloverRate": 0.155185,
+        "meanNextItemHitDeltaAt10": -0.102037
+      }
+    ],
+    "seedLifecycle": [
+      {
+        "modelSeed": 7,
+        "lifecycle": "outcome-commit",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.303333,
+        "spilloverRate": 0.292222
+      },
+      {
+        "modelSeed": 7,
+        "lifecycle": "outcome-quarantine",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.0,
+        "spilloverRate": 0.0
+      },
+      {
+        "modelSeed": 7,
+        "lifecycle": "persist-all",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.378889,
+        "spilloverRate": 0.300556
+      },
+      {
+        "modelSeed": 17,
+        "lifecycle": "outcome-commit",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.433889,
+        "spilloverRate": 0.311111
+      },
+      {
+        "modelSeed": 17,
+        "lifecycle": "outcome-quarantine",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.0,
+        "spilloverRate": 0.0
+      },
+      {
+        "modelSeed": 17,
+        "lifecycle": "persist-all",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.503333,
+        "spilloverRate": 0.311111
+      },
+      {
+        "modelSeed": 29,
+        "lifecycle": "outcome-commit",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.262222,
+        "spilloverRate": 0.255556
+      },
+      {
+        "modelSeed": 29,
+        "lifecycle": "outcome-quarantine",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.0,
+        "spilloverRate": 0.0
+      },
+      {
+        "modelSeed": 29,
+        "lifecycle": "persist-all",
+        "rowCount": 1800,
+        "meanExcessTargetSlotsAt10": 0.347778,
+        "spilloverRate": 0.283889
+      }
+    ],
+    "observedComparisons": {
+      "positivePersistSeedCount": 3,
+      "quarantineMaxExcess": 0,
+      "quarantineMaxDisplacement": 0.0
+    }
+  },
+  "claims": {
+    "observed": [
+      "Three independently initialized SASRec models were trained on chronological Amazon Luxury Beauty review sequences.",
+      "Held-out next-product ranking was evaluated against fixed popularity and first-order transition controls.",
+      "Temporary product-family tasks were injected counterfactually under paired lifecycle activation conditions.",
+      "Pre-activation quarantine was tested as an exact ranking-invariance control."
+    ],
+    "notEstablished": [
+      "Amazon reviews are not observed AI-agent delegation events.",
+      "Review interactions are not equivalent to clicks, carts, purchases, or production recommendation logs.",
+      "The experiment does not estimate causal effects in Amazon's deployed recommender.",
+      "Title-token product families are metadata-derived proxies, not an official Amazon taxonomy.",
+      "One Luxury Beauty category does not establish cross-domain generality."
+    ]
+  }
+}

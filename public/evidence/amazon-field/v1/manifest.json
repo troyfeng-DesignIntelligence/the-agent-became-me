@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "amazon-field-evidence-slices.v1",
+  "evidenceStatus": "deterministically-cropped-and-redacted-live-screenshots",
+  "generatedAt": "2026-08-04T16:43:15.810Z",
+  "generationScript": "prepare-amazon-evidence.mjs",
+  "records": [
+    {
+      "condition": "idle-control",
+      "state": "baseline",
+      "source": "artifacts/amazon-field-probe/live/idle-control-baseline.png",
+      "sourceSha256": "6f946677ca08095c63b885ff032febb002d4b66b8c02c5b84b07e8bceffa5d7e",
+      "output": "public/evidence/amazon-field/v1/idle-control-baseline-redacted.png",
+      "outputSha256": "66b288cf9156ec749e9f8606da0a02c42b2ba14fdba1253bcc41973db9d86e2d",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "idle-control",
+      "state": "post",
+      "source": "artifacts/amazon-field-probe/live/idle-control-post.png",
+      "sourceSha256": "bc88fa02091fb63f867304b223edf3fa94155886ab2ea450fab1d5645fc33acb",
+      "output": "public/evidence/amazon-field/v1/idle-control-post-redacted.png",
+      "outputSha256": "ee545e34ee067b2740e46e1dafb46c246c7047b51b7b342174187adba8434d12",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "search-only",
+      "state": "baseline",
+      "source": "artifacts/amazon-field-probe/live/search-only-baseline.png",
+      "sourceSha256": "8f4ed40a2bd037165b536cedededba2a9c60b8881a72ec93f932ffc44b2d0c8d",
+      "output": "public/evidence/amazon-field/v1/search-only-baseline-redacted.png",
+      "outputSha256": "9edf9809cf40e0b06cf9a1f688cffc07c434d722ddc5757c7263e96739336289",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "search-only",
+      "state": "post",
+      "source": "artifacts/amazon-field-probe/live/search-only-post.png",
+      "sourceSha256": "0dba84db7e0dce5328f0c89a77391d5a6be633c99b67bb3c5b12e01190c22d1f",
+      "output": "public/evidence/amazon-field/v1/search-only-post-redacted.png",
+      "outputSha256": "857a09d4d7d6c59d02be7dc95d3b5d7001030ce1f4a3e3be93e4249751c59804",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "product-view",
+      "state": "baseline",
+      "source": "artifacts/amazon-field-probe/live/product-view-baseline.png",
+      "sourceSha256": "21c8ff974267897f8bd9da6ac140e36b12e7a79ce0052929368f2acd4b8b2838",
+      "output": "public/evidence/amazon-field/v1/product-view-baseline-redacted.png",
+      "outputSha256": "13ad704c79c1ffd8a3a7cf12c9c6730f13d2e54a639dbc96a46de5cc8a8afa5c",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "product-view",
+      "state": "post",
+      "source": "artifacts/amazon-field-probe/live/product-view-post.png",
+      "sourceSha256": "5ccbe3eb02857d632f929f6b59cb32996920343ef36e06d8cbcd3ca1d853dfc2",
+      "output": "public/evidence/amazon-field/v1/product-view-post-redacted.png",
+      "outputSha256": "c272ff128ad6d846e7a23e41770e09a5858f811a7f191865b78b2bff93c074bd",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "cart-stage",
+      "state": "baseline",
+      "source": "artifacts/amazon-field-probe/live/cart-stage-baseline.png",
+      "sourceSha256": "5e6ac08391b8cf55b4d7f16d6d1a30417edd7979012adf99e84e0d65b749cd3a",
+      "output": "public/evidence/amazon-field/v1/cart-stage-baseline-redacted.png",
+      "outputSha256": "4898ebb91f75aed7520c5cb415179b9202e4b10d744ef2907286696b3df68809",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    },
+    {
+      "condition": "cart-stage",
+      "state": "post",
+      "source": "artifacts/amazon-field-probe/live/cart-stage-post.png",
+      "sourceSha256": "bd46ce2edab204b03d0c0d28cedda486dc702f5257307a9b758b97defdd1c60b",
+      "output": "public/evidence/amazon-field/v1/cart-stage-post-redacted.png",
+      "outputSha256": "c272ff128ad6d846e7a23e41770e09a5858f811a7f191865b78b2bff93c074bd",
+      "crop": {
+        "x": 0,
+        "y": 240,
+        "width": 1440,
+        "height": 450,
+        "scale": 0.75
+      },
+      "redaction": {
+        "method": "deterministic-canvas-region-blur",
+        "regionCount": 16,
+        "note": "Product imagery and brand-bearing pixels were blurred; module headings and page geometry were retained."
+      }
+    }
+  ]
+}

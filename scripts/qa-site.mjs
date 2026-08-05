@@ -3,7 +3,8 @@ import path from "node:path";
 import process from "node:process";
 import { chromium } from "@playwright/test";
 
-const siteUrl = process.env.SITE_URL ?? "http://127.0.0.1:4173";
+const siteUrl =
+  process.env.SITE_URL ?? process.argv[2] ?? "http://127.0.0.1:4173";
 const outputDirectory = path.resolve(
   process.env.QA_OUTPUT ?? "artifacts/qa"
 );
@@ -342,7 +343,7 @@ async function desktopPass(browser) {
     "Desktop: the falsification headline did not load."
   );
   check(
-    (await page.getByRole("tab").count()) === 6,
+    (await page.locator(".interface-lab").getByRole("tab").count()) === 6,
     "Desktop: the interface lab does not expose all six Study A contracts."
   );
   check(
@@ -356,6 +357,22 @@ async function desktopPass(browser) {
   check(
     (await page.locator("main img").count()) >= 6,
     "Desktop: the photographic evidence series is incomplete."
+  );
+  check(
+    (await page.locator(".amazon-condition").count()) === 4,
+    "Desktop: the Amazon field probe does not expose all four conditions."
+  );
+  check(
+    (await page.locator(".amazon-lifecycle-row").count()) === 6,
+    "Desktop: the Amazon controlled replay does not expose all six lifecycle contracts."
+  );
+  check(
+    (await page.locator(".cross-task-contracts button").count()) === 5,
+    "Desktop: the cross-task prototype does not expose all five user-facing lifecycle choices."
+  );
+  check(
+    (await page.locator('.activation-store-link[href*="view=storefront"]').count()) === 1,
+    "Desktop: the online research-store link is missing."
   );
 
   await page.screenshot({
@@ -416,6 +433,205 @@ async function desktopPass(browser) {
   });
   await page.locator(".study-block.is-tertiary").screenshot({
     path: path.join(outputDirectory, "desktop-study-red-paper.png")
+  });
+  await positionForScreenshot(page, ".webarena-replay .section-header", 108);
+  await page.waitForTimeout(1100);
+  await page.locator(".webarena-replay").screenshot({
+    path: path.join(outputDirectory, "desktop-webarena-replay.png")
+  });
+  await positionForScreenshot(page, ".webarena-loop-keys", 108);
+  await page.waitForTimeout(1100);
+  const loopOpacity = await page
+    .locator(".webarena-loop-keys article")
+    .first()
+    .evaluate((element) => getComputedStyle(element).opacity);
+  check(
+    Number.parseFloat(loopOpacity) >= 0.99,
+    "Desktop: WebArena loop comparison remained hidden after scroll."
+  );
+  await page.locator(".webarena-loop-keys").screenshot({
+    path: path.join(outputDirectory, "desktop-webarena-loop-keys.png")
+  });
+  await positionForScreenshot(page, ".webarena-contracts", 108);
+  await page.waitForTimeout(500);
+  const contractOpacity = await page
+    .locator(".webarena-contract")
+    .first()
+    .evaluate((element) => getComputedStyle(element).opacity);
+  check(contractOpacity === "1", "Desktop: WebArena lifecycle rows remained hidden after scroll.");
+  await page.locator(".webarena-contracts").screenshot({
+    path: path.join(outputDirectory, "desktop-webarena-lifecycle.png")
+  });
+  await positionForScreenshot(page, ".amazon-field .section-header", 108);
+  await page.waitForTimeout(1100);
+  await positionForScreenshot(page, ".amazon-condition-grid", 108);
+  await page.waitForTimeout(1100);
+  const amazonSignalText = (
+    await page.locator(".amazon-condition.is-signal").innerText()
+  ).toLowerCase();
+  check(
+    amazonSignalText.includes("new known modules") &&
+      amazonSignalText.includes("telephone +6"),
+    "Desktop: the Amazon product-view signal is incomplete."
+  );
+  await page.locator(".amazon-condition-grid").screenshot({
+    path: path.join(outputDirectory, "desktop-amazon-conditions.png")
+  });
+  await waitForImage(page, ".amazon-evidence-pair img");
+  check(
+    (await page.locator(".amazon-evidence-pair img").count()) === 2,
+    "Desktop: the before/after Amazon evidence pair is incomplete."
+  );
+  await page
+    .locator(".amazon-evidence-tabs")
+    .getByRole("tab", { name: /search only/i })
+    .click();
+  check(
+    (await page.locator(".amazon-evidence-pair img").first().getAttribute("src"))?.includes(
+      "search-only-baseline-redacted"
+    ),
+    "Desktop: the Amazon evidence tabs did not change the source pair."
+  );
+  await page
+    .locator(".amazon-evidence-tabs")
+    .getByRole("tab", { name: /product views/i })
+    .click();
+  await page.locator(".amazon-evidence").screenshot({
+    path: path.join(outputDirectory, "desktop-amazon-evidence.png")
+  });
+  await positionForScreenshot(page, ".amazon-lifecycle-row", 180);
+  await page.waitForTimeout(1100);
+  const amazonRowOpacity = await page
+    .locator(".amazon-lifecycle-row")
+    .first()
+    .evaluate((element) => getComputedStyle(element).opacity);
+  check(
+    amazonRowOpacity === "1",
+    "Desktop: Amazon lifecycle rows remained hidden after scroll."
+  );
+  await page.locator(".amazon-controlled").screenshot({
+    path: path.join(outputDirectory, "desktop-amazon-controlled.png")
+  });
+  await positionForScreenshot(page, ".external-validation", 88);
+  await page.waitForTimeout(550);
+  check(
+    (await page.locator(".external-validation-models article").count()) === 3,
+    "Desktop: the external-validity panel did not render three recommender families."
+  );
+  check(
+    (await page.locator(".external-validation").innerText()).includes("50.2%"),
+    "Desktop: the sequential spillover result did not load."
+  );
+  await page.locator(".external-validation").screenshot({
+    path: path.join(outputDirectory, "desktop-external-validation.png")
+  });
+  await positionForScreenshot(page, ".learned-commerce", 88);
+  await page.waitForTimeout(550);
+  check(
+    (await page.locator(".learned-commerce-lifecycles article").count()) === 3,
+    "Desktop: the learned-commerce panel did not render three lifecycle conditions."
+  );
+  check(
+    (await page.locator(".learned-commerce").innerText()).includes("0.464"),
+    "Desktop: the learned SASRec NDCG result did not load."
+  );
+  await page.locator(".learned-commerce").screenshot({
+    path: path.join(outputDirectory, "desktop-learned-commerce.png")
+  });
+  await positionForScreenshot(page, ".cross-category-replication", 88);
+  await page.waitForTimeout(550);
+  check(
+    (await page.locator(".replication-forest-row").count()) === 5,
+    "Desktop: cross-category forest plot did not render four categories and one pooled row."
+  );
+  check(
+    (await page.locator(".cross-category-replication").innerText()).includes("+0.321"),
+    "Desktop: pooled cross-category interval did not load."
+  );
+  await page.locator(".cross-category-replication").screenshot({
+    path: path.join(outputDirectory, "desktop-cross-category-replication.png")
+  });
+  await positionForScreenshot(page, ".activation-study", 88);
+  await page.waitForTimeout(1100);
+  await waitForImage(page, ".activation-evidence img");
+  check(
+    (await page.locator(".activation-timeline article").count()) === 4,
+    "Desktop: activation-timing panel did not render four checkpoints."
+  );
+  check(
+    (await page.locator(".activation-study").innerText()).includes("0.766"),
+    "Desktop: activation-timing result did not load."
+  );
+  await page.locator(".activation-study").screenshot({
+    path: path.join(outputDirectory, "desktop-activation-timing.png")
+  });
+  await positionForScreenshot(page, ".pollution-map", 88);
+  await page.waitForTimeout(550);
+  check(
+    (await page.locator(".pollution-cell").count()) === 25,
+    "Desktop: the selected pollution phase slice does not contain 25 cells."
+  );
+  check(
+    (await page.locator(".pollution-map > footer").innerText()).includes("54%"),
+    "Desktop: the pollution phase summary did not load."
+  );
+  await page
+    .locator(".pollution-controls")
+    .getByRole("button", { name: /intent weighted/i })
+    .click();
+  await page
+    .locator(".pollution-controls fieldset")
+    .nth(1)
+    .getByRole("button", { name: "1.00", exact: true })
+    .click();
+  check(
+    (await page.locator(".pollution-detail").innerText()).includes("Task similarity"),
+    "Desktop: the pollution-cell detail panel did not render."
+  );
+  await page.locator(".pollution-map").screenshot({
+    path: path.join(outputDirectory, "desktop-pollution-phase-map.png")
+  });
+  await positionForScreenshot(page, ".cross-task-control-lab", 96);
+  await page.waitForTimeout(1100);
+  check(
+    (await page.locator(".cross-task-results").innerText()).includes("24.17"),
+    "Desktop: the cross-task aggregate result did not load."
+  );
+  await page.getByRole("button", { name: /hold until outcome/i }).click();
+  await page.locator('input[aria-label="Cross-task timeline"]').fill("3");
+  check(
+    (await page.locator(".cross-task-status").innerText())
+      .toLowerCase()
+      .includes("held outside profile"),
+    "Desktop: quarantine did not expose the held profile state."
+  );
+  await page.locator('input[aria-label="Cross-task timeline"]').fill("4");
+  check(
+    (await page.locator(".cross-task-shelf output").innerText()).startsWith("0 / 6"),
+    "Desktop: abandoned quarantined evidence leaked into the follow-up shelf."
+  );
+  await page.getByRole("button", { name: /undo on failure/i }).click();
+  await page.locator('input[aria-label="Cross-task timeline"]').fill("3");
+  check(
+    Number.parseFloat(await page.locator(".cross-task-meter > strong").innerText()) > 0.9,
+    "Desktop: rollback did not expose provisional profile evidence."
+  );
+  await page.locator('input[aria-label="Cross-task timeline"]').fill("4");
+  check(
+    (await page.locator(".cross-task-status").innerText())
+      .toLowerCase()
+      .includes("removed"),
+    "Desktop: rollback did not remove abandoned-task evidence after the boundary."
+  );
+  await page.getByRole("button", { name: /learn now/i }).click();
+  await page.locator('input[aria-label="Cross-task timeline"]').fill("4");
+  await page.locator(".cross-task-control-lab").screenshot({
+    path: path.join(outputDirectory, "desktop-cross-task-control.png")
+  });
+  await positionForScreenshot(page, ".webarena-replay .section-header", 108);
+  await page.waitForTimeout(250);
+  await page.locator(".webarena-replay").screenshot({
+    path: path.join(outputDirectory, "desktop-webarena-replay.png")
   });
   await waitForImage(page, ".reliquary-interlude img");
   await page.locator(".reliquary-interlude").screenshot({
@@ -648,6 +864,55 @@ async function mobilePass(browser) {
   await waitForImage(page, ".study-archive img");
   await page.locator(".study-archive").screenshot({
     path: path.join(outputDirectory, "mobile-study-archive.png")
+  });
+  await positionForScreenshot(page, ".amazon-field .section-header", 78);
+  await page.waitForTimeout(650);
+  await page.locator(".amazon-field-lead").screenshot({
+    path: path.join(outputDirectory, "mobile-amazon-field.png")
+  });
+  await page.locator(".amazon-evidence").screenshot({
+    path: path.join(outputDirectory, "mobile-amazon-evidence.png")
+  });
+  await page.locator(".amazon-controlled").screenshot({
+    path: path.join(outputDirectory, "mobile-amazon-controlled.png")
+  });
+  await page.locator(".external-validation").screenshot({
+    path: path.join(outputDirectory, "mobile-external-validation.png")
+  });
+  await positionForScreenshot(page, ".learned-commerce", 72);
+  await page.waitForTimeout(650);
+  await page.locator(".learned-commerce").screenshot({
+    path: path.join(outputDirectory, "mobile-learned-commerce.png")
+  });
+  await positionForScreenshot(page, ".cross-category-replication", 72);
+  await page.waitForTimeout(650);
+  await page.locator(".cross-category-replication").screenshot({
+    path: path.join(outputDirectory, "mobile-cross-category-replication.png")
+  });
+  await positionForScreenshot(page, ".activation-study", 72);
+  await page.waitForTimeout(1100);
+  await waitForImage(page, ".activation-evidence img");
+  check(
+    await page.locator(".activation-study").evaluate(
+      (element) => Number.parseFloat(getComputedStyle(element).opacity) > 0.98
+    ),
+    "Mobile: activation-timing panel remained hidden after scroll reveal."
+  );
+  await page.locator(".activation-study").screenshot({
+    path: path.join(outputDirectory, "mobile-activation-timing.png")
+  });
+  await page.locator(".pollution-map").screenshot({
+    path: path.join(outputDirectory, "mobile-pollution-phase-map.png")
+  });
+  await positionForScreenshot(page, ".cross-task-control-lab", 72);
+  await page.waitForTimeout(650);
+  await page.locator(".cross-task-control-bar").screenshot({
+    path: path.join(outputDirectory, "mobile-cross-task-controls.png")
+  });
+  await page.locator(".cross-task-shelf").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(350);
+  await page.locator(".cross-task-shelf").screenshot({
+    path: path.join(outputDirectory, "mobile-cross-task-shelf.png")
   });
   await waitForImage(page, ".reliquary-interlude img");
   await page.locator(".reliquary-interlude").screenshot({

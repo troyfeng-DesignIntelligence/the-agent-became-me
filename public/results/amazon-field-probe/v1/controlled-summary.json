@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "amazon-field-controlled-lifecycle.v1",
+  "evidenceStatus": "controlled-counterfactual-replay",
+  "fieldArtifactSha256": "b415ea4a0fc236dcba1f9ac2b4ff8df740eea27929a1fcbb8752bf6dd77aeeff",
+  "sourceFieldExecutedAt": "2026-08-04T12:20:20.741Z",
+  "design": {
+    "traceCount": 4,
+    "conditions": [
+      "persist-all",
+      "deduplicate-target",
+      "intent-weighted",
+      "outcome-quarantine",
+      "rollback-on-failure",
+      "scope-gated"
+    ],
+    "rowCount": 24,
+    "outcome": "abandoned temporary task",
+    "awsStatus": "Amazon Personalize-compatible interaction export prepared; no paid AWS resources provisioned"
+  },
+  "conditions": [
+    {
+      "condition": "persist-all",
+      "runCount": 4,
+      "totalProvisionalProfileMass": 1.33,
+      "totalStagedEvidenceMass": 0,
+      "totalFinalPersistentMass": 1.33,
+      "totalRollbackMass": 0,
+      "totalFailedResidualMass": 1.33
+    },
+    {
+      "condition": "deduplicate-target",
+      "runCount": 4,
+      "totalProvisionalProfileMass": 1.33,
+      "totalStagedEvidenceMass": 0,
+      "totalFinalPersistentMass": 1.33,
+      "totalRollbackMass": 0,
+      "totalFailedResidualMass": 1.33
+    },
+    {
+      "condition": "intent-weighted",
+      "runCount": 4,
+      "totalProvisionalProfileMass": 0.4741,
+      "totalStagedEvidenceMass": 0,
+      "totalFinalPersistentMass": 0.4741,
+      "totalRollbackMass": 0,
+      "totalFailedResidualMass": 0.4741
+    },
+    {
+      "condition": "outcome-quarantine",
+      "runCount": 4,
+      "totalProvisionalProfileMass": 0,
+      "totalStagedEvidenceMass": 1.33,
+      "totalFinalPersistentMass": 0,
+      "totalRollbackMass": 0,
+      "totalFailedResidualMass": 0
+    },
+    {
+      "condition": "rollback-on-failure",
+      "runCount": 4,
+      "totalProvisionalProfileMass": 1.33,
+      "totalStagedEvidenceMass": 0,
+      "totalFinalPersistentMass": 0,
+      "totalRollbackMass": 1.33,
+      "totalFailedResidualMass": 0
+    },
+    {
+      "condition": "scope-gated",
+      "runCount": 4,
+      "totalProvisionalProfileMass": 0,
+      "totalStagedEvidenceMass": 0,
+      "totalFinalPersistentMass": 0,
+      "totalRollbackMass": 0,
+      "totalFailedResidualMass": 0
+    }
+  ],
+  "observedComparisons": {
+    "quarantineRollbackFinalDifference": 0,
+    "quarantineProvisionalMass": 0,
+    "rollbackProvisionalMass": 1.33,
+    "rollbackRemovedMass": 1.33
+  },
+  "claims": {
+    "observed": [
+      "The live signed-out action contracts create different provisional and final evidence mass under the executable local lifecycle policies.",
+      "Quarantine and rollback finish identically for abandoned tasks but differ in provisional exposure."
+    ],
+    "notEstablished": [
+      "The local event weights or lifecycle policies reproduce Amazon.com internals.",
+      "Amazon Personalize was provisioned or queried.",
+      "The field probe establishes account-level or long-term personalization."
+    ]
+  }
+}

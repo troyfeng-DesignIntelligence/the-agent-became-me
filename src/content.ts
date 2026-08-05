@@ -105,9 +105,9 @@ export const studyB = {
   label: "Study B",
   title: "Separate ranking from persistence",
   question:
-    "What changes when ranking receives a profile-distance proxy, and what changes again when the resulting non-commit evidence is quarantined?",
+      "What changes when ranking receives a profile-distance proxy, and what changes again when the resulting non-commit evidence is held before platform activation?",
   explanation:
-    "Action only and impact proxy use different ranking rules. Impact proxy and proxy plus quarantine reuse identical traces, changing only what reaches the stored profile. No person used or evaluated these controls.",
+      "Action only and impact proxy use different ranking rules. Impact proxy and proxy plus staged hold reuse identical traces, changing only what reaches the stored profile. No person used or evaluated these controls.",
   runCount: 1440,
   runsPerCondition: 480,
   conditions: [
@@ -125,7 +125,7 @@ export const studyB = {
     },
     {
       id: "impact-proxy-with-quarantine",
-      name: "Proxy + quarantine",
+      name: "Proxy + staged hold",
       copy:
         "The same proxy-generated trace is replayed, but non-commit evidence is retained for audit and excluded from persistent updates."
     }
@@ -194,11 +194,11 @@ export const findings: readonly Finding[] = [
   {
     id: "quarantine-contract",
     kicker: "Study B · 480 runs per condition",
-    title: "Quarantine changed persistence without changing the agent trace.",
+    title: "A staged hold changed persistence without changing the agent trace.",
     body:
-      "The impact-proxy and proxy-plus-quarantine conditions generated identical paired traces. Replaying those traces with non-commit evidence excluded from persistence lowered mean divergence from 0.180 to 0.131.",
+      "The impact-proxy and staged-hold conditions generated identical paired traces. Replaying those traces with non-commit evidence excluded from persistence lowered mean divergence from 0.180 to 0.131.",
     evidence: [
-      "Mean divergence: 0.180 proxy; 0.131 proxy + quarantine",
+      "Mean divergence: 0.180 proxy; 0.131 proxy + staged hold",
       "Mean simulated ranking loss: 0.006 → 0.004",
       "Mean task utility: 0.432 in both paired-trace conditions",
       "Modeled cost index: 3 → 8"
@@ -225,9 +225,9 @@ export const designImplications = [
       "The next experiment should expose the updater's projected state transition instead of the static distance proxy used here, then record how the agent responds."
   },
   {
-    title: "Keep quarantine and repair distinct",
+    title: "Keep holding and post-hoc repair distinct",
     body:
-      "Quarantine happens before persistence; rollback happens after it. A repair study needs explicit update, expiry, reversal, and confirmation events with inspectable receipts."
+      "Holding happens before platform activation; rollback happens after it. A repair study needs explicit update, expiry, reversal, and confirmation events with inspectable receipts."
   },
   {
     title: "Stress asymmetric label failures",
@@ -245,7 +245,7 @@ export const limitations = [
   "Matched shrinkage slightly outperformed provenance-aware updating. The benchmark therefore does not establish a provenance-specific benefit.",
   "Matched shrinkage is oracle-calibrated per trace from provenance-aware observed-intent weights. It is a non-selective mechanism control, not a deployable policy wholly independent of intent metadata.",
   "Intent labels and their noise are generated. Aggregate label noise is not monotonic evidence of robustness and may suppress high-weight commit updates.",
-  "Study B uses a static product-to-profile distance proxy and a quarantine rule. It does not implement or evaluate a projected-impact preview, approval flow, or repair action.",
+      "Study B uses a static product-to-profile distance proxy and a hold-before-activation rule. It does not implement or evaluate a projected-impact preview, approval flow, or repair action.",
   "Study B’s cost values are abstract simulator indices, not measurements of human burden.",
   "The literature review was scoped rather than systematic. Finding no exact precedent does not establish novelty."
 ] as const;

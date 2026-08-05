@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "delegated-activation-evidence-manifest.v1",
+  "sourceSummarySha256": "50c3416e3a147148388c5e20feaaf2331edf8a4f720f23a4d8b30b164c192fea",
+  "files": {
+    "abandoned-timeline.png": {
+      "sha256": "ddb514834ddb687afe9d4101fb817dc7f0129aa2fc76c7bff9b5be97884933ad",
+      "bytes": 55876
+    },
+    "selected-timeline.png": {
+      "sha256": "9392ed4f2866ea823346b226e6a5a4f88b00352e2cc57db5de673e0e531f511a",
+      "bytes": 58922
+    }
+  },
+  "redaction": "Product and user identifiers are domain-separated hashes; raw titles, ASINs, reviewer IDs, and review text are absent."
+}

@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "amazon-signed-out-field-probe.v1",
+  "evidenceStatus": "live-interface-observation",
+  "executedAt": "2026-08-04T12:20:20.741Z",
+  "design": {
+    "task": "temporary accessibility-oriented landline-phone shopping task",
+    "conditions": [
+      "idle-control",
+      "search-only",
+      "product-view",
+      "cart-stage"
+    ],
+    "signedOut": true,
+    "isolatedContexts": true,
+    "maximumNavigations": 24,
+    "minimumNavigationIntervalMs": 4000,
+    "prohibitedActions": [
+      "login",
+      "account creation",
+      "purchase",
+      "checkout",
+      "CAPTCHA solving",
+      "automation evasion"
+    ]
+  },
+  "execution": {
+    "totalNavigations": 16,
+    "researchCumulativeNavigations": 24,
+    "completedConditionCount": 4,
+    "stopped": false,
+    "stop": null,
+    "fatal": null
+  },
+  "observations": [
+    {
+      "condition": "idle-control",
+      "asinJaccard": 1,
+      "taskTokenDelta": {
+        "large button": 0,
+        "corded": 0,
+        "telephone": 0,
+        "senior": 0
+      },
+      "moduleDelta": [],
+      "baselineAsinCount": 150,
+      "postAsinCount": 150,
+      "cleanup": {
+        "attempted": false,
+        "cartCountAfter": null
+      }
+    },
+    {
+      "condition": "search-only",
+      "asinJaccard": 0.34,
+      "taskTokenDelta": {
+        "large button": 0,
+        "corded": 0,
+        "telephone": 0,
+        "senior": 0
+      },
+      "moduleDelta": [],
+      "baselineAsinCount": 51,
+      "postAsinCount": 150,
+      "cleanup": {
+        "attempted": false,
+        "cartCountAfter": null
+      }
+    },
+    {
+      "condition": "product-view",
+      "asinJaccard": 0.49763,
+      "taskTokenDelta": {
+        "large button": 1,
+        "corded": 4,
+        "telephone": 6,
+        "senior": 7
+      },
+      "moduleDelta": [
+        "Customers who viewed items in your browsing history also viewed",
+        "Related to items you've viewed"
+      ],
+      "baselineAsinCount": 157,
+      "postAsinCount": 159,
+      "cleanup": {
+        "attempted": false,
+        "cartCountAfter": null
+      }
+    },
+    {
+      "condition": "cart-stage",
+      "asinJaccard": 0.605,
+      "taskTokenDelta": {
+        "large button": 0,
+        "corded": 0,
+        "telephone": 0,
+        "senior": 0
+      },
+      "moduleDelta": [
+        "Related to items you've viewed"
+      ],
+      "baselineAsinCount": 158,
+      "postAsinCount": 163,
+      "cleanup": {
+        "attempted": true,
+        "cartCountAfter": 0
+      }
+    }
+  ],
+  "claims": {
+    "permitted": [
+      "A bounded signed-out Amazon session displayed the recorded visible surfaces under the specified condition.",
+      "Differences are interface observations and can motivate a controlled lifecycle test."
+    ],
+    "notEstablished": [
+      "Amazon changed an internal user profile.",
+      "The task caused long-term or account-level personalization.",
+      "Observed modules are personalized rather than contextual, item-to-item, advertised, or A/B tested."
+    ]
+  }
+}

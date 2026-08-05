@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "webarena-failure-lifecycle.v1",
+  "evidenceStatus": "released-trajectory-observation",
+  "source": {
+    "webarenaCommit": "dce04686a56253aefba7b18a4fa0937cf1dc987b",
+    "trajectoryArchiveCommit": "ef1d8b4467e83ad54f119fe82a137169600a2679",
+    "taskSha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "trajectorySha256": "9c191ae840beaad88ca5ebfb4fb41920dd6ce683b3a031732ec9ba2a22d63aa4",
+    "evalSha256": "3eaf7c9af9d45747e5fe49ded982b03eafd77b3ba81be6652e88a4d6c86512f8",
+    "ocrSha256": "c73ed9557dd49a08f298d1ac2f3b57938ed1dc44063cb4a7f8f544e6ce237c62"
+  },
+  "corpus": {
+    "traceCount": 192,
+    "auditedStepCount": 1740,
+    "mappedEventCount": 84,
+    "successfulTraceCount": 26,
+    "failedTraceCount": 166,
+    "taskClassCounts": {
+      "purchase": 12,
+      "preference-staging": 20,
+      "product-discovery": 65,
+      "review-research": 15,
+      "account-or-order-operation": 54,
+      "communication": 26
+    }
+  },
+  "mapperValidation": {
+    "ocrRecordCount": 7736,
+    "ocrAvailableEventCount": 84,
+    "ocrAvailabilityRate": 1,
+    "ocrCorroboratedEventCount": 80,
+    "ocrCorroborationRate": 0.952381,
+    "knownUiControlEventCount": 0,
+    "evidenceKindCounts": {
+      "product": 28,
+      "review": 29,
+      "shortlist": 16,
+      "purchase": 11
+    },
+    "byAction": [
+      {
+        "action": "view",
+        "eventCount": 28,
+        "corroboratedCount": 27,
+        "corroborationRate": 0.964286
+      },
+      {
+        "action": "compare",
+        "eventCount": 29,
+        "corroboratedCount": 27,
+        "corroborationRate": 0.931034
+      },
+      {
+        "action": "shortlist",
+        "eventCount": 16,
+        "corroboratedCount": 15,
+        "corroborationRate": 0.9375
+      },
+      {
+        "action": "purchase",
+        "eventCount": 11,
+        "corroboratedCount": 11,
+        "corroborationRate": 1
+      }
+    ],
+    "interpretation": "OCR corroboration checks whether released screenshot descriptions contain the mapped click target; it is auxiliary model-generated evidence, not human annotation."
+  },
+  "screenshotValidation": {
+    "status": "supplementary-nonhuman-review",
+    "selection": "all four OCR-noncorroborated primary events plus one OCR-corroborated control per action",
+    "auditSha256": "43f10a79e3915b04d0551c1ebd3eb70fdc38626c699c41f9029ea4b44e704805",
+    "recordCount": 8,
+    "boundaryCount": 4,
+    "controlCount": 4,
+    "visibleCount": 8,
+    "validEvidenceTargetCount": 8,
+    "interpretation": "Supplementary Codex visual inspection of source-verified screenshots; it is not independent human annotation."
+  },
+  "loopAnalysis": {
+    "conservativeExactTarget": {
+      "key": "exact",
+      "eventCount": 84,
+      "repeatedCount": 1,
+      "repeatedShare": 0.011905,
+      "tracesWithRepeats": 1,
+      "byOutcome": [
+        {
+          "outcome": "Success",
+          "eventCount": 18,
+          "repeatedCount": 0,
+          "tracesWithRepeats": 0,
+          "repeatedShare": 0
+        },
+        {
+          "outcome": "Failure",
+          "eventCount": 66,
+          "repeatedCount": 1,
+          "tracesWithRepeats": 1,
+          "repeatedShare": 0.015152
+        }
+      ]
+    },
+    "labelOnlySensitivity": {
+      "key": "label",
+      "eventCount": 84,
+      "repeatedCount": 25,
+      "repeatedShare": 0.297619,
+      "tracesWithRepeats": 9,
+      "byOutcome": [
+        {
+          "outcome": "Success",
+          "eventCount": 18,
+          "repeatedCount": 6,
+          "tracesWithRepeats": 1,
+          "repeatedShare": 0.333333
+        },
+        {
+          "outcome": "Failure",
+          "eventCount": 66,
+          "repeatedCount": 19,
+          "tracesWithRepeats": 8,
+          "repeatedShare": 0.287879
+        }
+      ]
+    }
+  },
+  "design": {
+    "unit": "released WebArena shopping action trajectory",
+    "conditions": [
+      "persist-all",
+      "deduplicate-target",
+      "intent-weighted",
+      "outcome-quarantine",
+      "rollback-on-failure",
+      "scope-gated"
+    ],
+    "tracesPerCondition": 192,
+    "repeatedTargetDefinition": "same accessibility node id plus normalized target label within a trajectory",
+    "keyDistinction": "quarantine creates no provisional profile write; rollback writes provisionally and removes failed-task mass after outcome"
+  },
+  "conditions": [
+    {
+      "condition": "persist-all",
+      "runCount": 192,
+      "meanProvisionalProfileMass": 0.178542,
+      "meanFinalPersistentMass": 0.178542,
+      "totalFailedResidualMass": 26.86,
+      "totalRollbackMass": 0,
+      "successfulEvidenceRetention": 1
+    },
+    {
+      "condition": "deduplicate-target",
+      "runCount": 192,
+      "meanProvisionalProfileMass": 0.177604,
+      "meanFinalPersistentMass": 0.177604,
+      "totalFailedResidualMass": 26.68,
+      "totalRollbackMass": 0,
+      "successfulEvidenceRetention": 1
+    },
+    {
+      "condition": "intent-weighted",
+      "runCount": 192,
+      "meanProvisionalProfileMass": 0.064521,
+      "meanFinalPersistentMass": 0.064521,
+      "totalFailedResidualMass": 10.5876,
+      "totalRollbackMass": 0,
+      "successfulEvidenceRetention": 0.242642
+    },
+    {
+      "condition": "outcome-quarantine",
+      "runCount": 192,
+      "meanProvisionalProfileMass": 0,
+      "meanFinalPersistentMass": 0.038646,
+      "totalFailedResidualMass": 0,
+      "totalRollbackMass": 0,
+      "successfulEvidenceRetention": 1
+    },
+    {
+      "condition": "rollback-on-failure",
+      "runCount": 192,
+      "meanProvisionalProfileMass": 0.178542,
+      "meanFinalPersistentMass": 0.038646,
+      "totalFailedResidualMass": 0,
+      "totalRollbackMass": 26.86,
+      "successfulEvidenceRetention": 1
+    },
+    {
+      "condition": "scope-gated",
+      "runCount": 192,
+      "meanProvisionalProfileMass": 0.046979,
+      "meanFinalPersistentMass": 0.046979,
+      "totalFailedResidualMass": 9.02,
+      "totalRollbackMass": 0,
+      "successfulEvidenceRetention": 0
+    }
+  ],
+  "observedComparisons": {
+    "quarantineRollbackFinalDifference": 0,
+    "quarantineProvisionalMass": 0,
+    "rollbackProvisionalMass": 0.178542,
+    "rollbackRemovedMass": 26.86,
+    "failedResidualReductionUnderQuarantine": 1,
+    "labelOnlyDedupFailedResidualMass": 16.34,
+    "labelOnlyDedupFailedResidualReduction": 0.39166,
+    "labelOnlyDedupSuccessfulEvidenceRetention": 0.854447
+  },
+  "claims": {
+    "observed": [
+      "Released failure traces can contain mapped product-facing actions even when task completion fails.",
+      "Outcome quarantine and rollback produce the same final failed-task mass in this replay but differ in provisional profile exposure.",
+      "Repeated-target prevalence is reported under both a conservative node-plus-label key and a broader label-only sensitivity rule."
+    ],
+    "notEstablished": [
+      "Failure is not shown to cause more profile evidence because task mix, trace length, and the release failure rate differ.",
+      "OCR corroboration is generated metadata rather than human judgment or production logging ground truth.",
+      "The screenshot audit was performed by Codex and is not an independent human reliability study.",
+      "Evidence mass is not user harm, preference accuracy, or measured profile drift.",
+      "No production platform is shown to quarantine, persist, or roll back events in these ways."
+    ]
+  },
+  "limitations": [
+    "Only released GPT-4 CoT WebArena agent traces are analyzed.",
+    "The conservative loop key can miss repeated targets when accessibility ids change.",
+    "The label-only sensitivity key can merge identically named controls across different products.",
+    "Task success is a WebArena outcome label, not a measure of user satisfaction.",
+    "Lifecycle policies are executable counterfactual contracts, not observed deployments."
+  ]
+}

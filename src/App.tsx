@@ -16,6 +16,13 @@ import {
   ProvenanceBraid
 } from "./components/EditorialVisuals";
 import { InterfaceLab } from "./components/InterfaceLab";
+import { CrossTaskControlLab } from "./components/CrossTaskControlLab";
+import { AmazonEvidenceSlices } from "./components/AmazonEvidenceSlices";
+import { PollutionPhaseMap } from "./components/PollutionPhaseMap";
+import { ExternalValidationPanel } from "./components/ExternalValidationPanel";
+import { LearnedCommercePanel } from "./components/LearnedCommercePanel";
+import { CrossCategoryReplicationPanel } from "./components/CrossCategoryReplicationPanel";
+import { DelegatedActivationPanel } from "./components/DelegatedActivationPanel";
 import { useProjectData, type MetricSummary } from "./data";
 import {
   AttributionMatrix,
@@ -106,6 +113,11 @@ function useEditorialScroll(dataReady: boolean) {
       ".lab-header > *, .interface-lab",
       ".evidence-intro > *, .identity-specimen, .plate",
       ".study-archive, .study-block",
+      ".webarena-replay .section-header > *, .webarena-lead, .webarena-stat, .webarena-loop-keys > *, .webarena-contract",
+      ".amazon-field .section-header > *, .amazon-field-lead > *, .amazon-condition, .amazon-lifecycle-row, .amazon-claim-boundary > *",
+      ".cross-task-section .section-header > *, .cross-task-result, .cross-task-control-lab > *",
+      ".learned-commerce",
+      ".activation-study",
       ".findings-section > .section-header > *, .finding-row",
       ".reliquary-interlude figure > *",
       ".implications-intro > *, .implication-grid article",
@@ -354,7 +366,22 @@ function LoadingState() {
 
 export function App() {
   const scrollProgress = useScrollProgress();
-  const { summary, catalog, error, loading } = useProjectData();
+  const {
+    summary,
+    webarena,
+    webarenaFailure,
+    amazonField,
+    amazonControlled,
+    crossTaskExposure,
+    crossTaskSensitivity,
+    externalValidity,
+    amazonSasrec,
+    amazonCrossCategory,
+    delegatedActivation,
+    catalog,
+    error,
+    loading
+  } = useProjectData();
   const activeChapter = useActiveChapter();
   useEditorialScroll(Boolean(summary));
 
@@ -825,7 +852,7 @@ export function App() {
                     title="Attribution-contract outcomes"
                   />
                   <ConditionOutcomePanel
-                    note="The impact-proxy conditions share the same behavior traces. Their difference isolates the non-commit quarantine rule; cost is a modeled index, not measured burden."
+                    note="The impact-proxy conditions share the same behavior traces. Their difference isolates the hold-before-activation rule; cost is a modeled index, not measured burden."
                     rows={summary.overallB}
                     showCost
                     studyLabel="STUDY B · BUNDLED PROBES"
@@ -862,7 +889,7 @@ export function App() {
                 src={`${base}assets/quarantine-archive.webp`}
               />
               <figcaption>
-                <span className="mono-label">SPECIMEN D / QUARANTINE</span>
+                <span className="mono-label">SPECIMEN D / STAGED HOLD</span>
                 <h2>Logging does not have to mean learning.</h2>
                 <p>
                   The system can retain an event for inspection without using
@@ -918,7 +945,7 @@ export function App() {
                 </span>
                 <span>
                   <strong>−{percent(evidence.quarantineReduction, 0)}</strong>
-                  divergence with quarantine
+                  divergence with staged hold
                 </span>
                 <span>
                   <strong>+8</strong>
@@ -965,6 +992,385 @@ export function App() {
               </div>
               <p className="study-caution">{studyC.caution}</p>
             </div>
+          </section>
+        )}
+
+        {webarena && webarenaFailure && (
+          <section className="webarena-replay section-shell">
+            <header className="section-header">
+              <div>
+                <span className="section-kicker">Released trajectory experiment</span>
+                <h2>Failure did not erase the profile evidence.</h2>
+              </div>
+              <p>
+                All 192 released GPT-4 CoT shopping traces were replayed through
+                six evidence-lifecycle contracts. OCR and a bounded screenshot
+                audit checked the action mapper before policy comparison.
+              </p>
+            </header>
+
+            <div className="webarena-ledger">
+              <article className="webarena-lead">
+                <span className="mono-label">OBSERVED / RELEASED TRACES</span>
+                <strong>
+                  {
+                    webarena.outcomeStrata.find(
+                      (row) => row.outcome === "Failure"
+                    )?.totalMappedEvidenceEvents
+                  }
+                  <small> / {webarena.corpus.mappedEvidenceEventCount}</small>
+                </strong>
+                <h3>mapped evidence events occurred in failed trajectories.</h3>
+                <p>
+                  A task can fail while its product views, review openings,
+                  shortlist actions, and purchases still look like preference
+                  evidence to a separate profile updater. This is exposure, not
+                  measured user harm.
+                </p>
+              </article>
+
+              <div className="webarena-stats" aria-label="Released trace coverage">
+                {[
+                  [webarenaFailure.corpus.traceCount, "shopping traces"],
+                  [webarenaFailure.corpus.auditedStepCount, "audited steps"],
+                  [
+                    percent(
+                      webarenaFailure.mapperValidation.ocrCorroborationRate,
+                      1
+                    ),
+                    "OCR corroborated"
+                  ],
+                  [
+                    `${webarenaFailure.screenshotValidation.validEvidenceTargetCount}/${webarenaFailure.screenshotValidation.recordCount}`,
+                    "screenshots validated"
+                  ]
+                ].map(([value, label]) => (
+                  <div className="webarena-stat" key={label}>
+                    <strong>
+                      {typeof value === "number"
+                        ? value.toLocaleString()
+                        : value}
+                    </strong>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="webarena-loop-keys">
+              <article>
+                <span className="mono-label">NODE + LABEL / PRIMARY</span>
+                <strong>
+                  {percent(
+                    webarenaFailure.loopAnalysis.conservativeExactTarget
+                      .repeatedShare,
+                    1
+                  )}
+                </strong>
+                <p>
+                  repeated actions when both the accessibility node and target
+                  label must match.
+                </p>
+              </article>
+              <article>
+                <span className="mono-label">LABEL ONLY / SENSITIVITY</span>
+                <strong>
+                  {percent(
+                    webarenaFailure.loopAnalysis.labelOnlySensitivity
+                      .repeatedShare,
+                    1
+                  )}
+                </strong>
+                <p>
+                  repeated actions if identically named controls are treated as
+                  the same target across a page.
+                </p>
+              </article>
+              <p>
+                The 25× gap is the finding: “repeated action” is not a stable
+                measurement until target identity is defined. Label-only
+                deduplication removes {percent(
+                  webarenaFailure.observedComparisons
+                    .labelOnlyDedupFailedResidualReduction,
+                  1
+                )} of failed residual mass, but also discards {percent(
+                  1 -
+                    webarenaFailure.observedComparisons
+                      .labelOnlyDedupSuccessfulEvidenceRetention,
+                  1
+                )} of successful evidence.
+              </p>
+            </div>
+
+            <div className="webarena-contracts">
+              <div className="webarena-contract-legend">
+                <span>FAILED-TRACE RESIDUAL MASS</span>
+                <span>LOWER IS BETTER</span>
+              </div>
+              {webarenaFailure.conditions.map((row) => (
+                <div className="webarena-contract" key={row.condition}>
+                  <span>{row.condition.replaceAll("-", " ")}</span>
+                  <i>
+                    <b
+                      style={{
+                        transform: `scaleX(${
+                          row.totalFailedResidualMass / 26.86
+                        })`
+                      }}
+                    />
+                  </i>
+                  <output>{row.totalFailedResidualMass.toFixed(2)}</output>
+                </div>
+              ))}
+            </div>
+
+            <p className="webarena-boundary">
+              Holding before activation and rollback both remove 100% of final failed-task
+              residual mass in this replay. They are not equivalent: rollback
+              first exposes a mean provisional mass of{" "}
+              {webarenaFailure.observedComparisons.rollbackProvisionalMass.toFixed(3)}
+              , then removes {webarenaFailure.observedComparisons.rollbackRemovedMass.toFixed(2)}
+              . Holding writes nothing provisionally. Deduplication barely
+              changes the result because exact repeated targets were rare.
+            </p>
+          </section>
+        )}
+
+        {amazonField && amazonControlled && (
+          <section className="amazon-field section-shell" aria-labelledby="amazon-field-title">
+            <header className="section-header">
+              <div>
+                <span className="section-kicker">Live storefront / bounded probe</span>
+                <h2 id="amazon-field-title">The trail appeared on a live storefront.</h2>
+              </div>
+              <p>
+                Four isolated, signed-out contexts tested one temporary phone-shopping
+                task. This is a page-level observation, not access to Amazon's profile
+                system and not proof of long-term personalization.
+              </p>
+            </header>
+
+            <div className="amazon-field-lead">
+              <div className="amazon-field-signal">
+                <span className="mono-label">STRONGEST VISIBLE SIGNAL</span>
+                <strong>02</strong>
+                <h3>history-related modules appeared after product views.</h3>
+              </div>
+              <div className="amazon-field-protocol" aria-label="Field probe protocol">
+                <div>
+                  <span>CONTEXTS</span>
+                  <strong>{amazonField.execution.completedConditionCount}</strong>
+                  <small>isolated and signed out</small>
+                </div>
+                <div>
+                  <span>CUMULATIVE NAVIGATIONS</span>
+                  <strong>{amazonField.execution.researchCumulativeNavigations}</strong>
+                  <small>frozen budget exhausted</small>
+                </div>
+                <div>
+                  <span>ACCOUNT ACTIONS</span>
+                  <strong>0</strong>
+                  <small>no login, checkout, or purchase</small>
+                </div>
+                <div>
+                  <span>CART AFTER CLEANUP</span>
+                  <strong>
+                    {amazonField.observations.find(
+                      (row) => row.condition === "cart-stage"
+                    )?.cleanup.cartCountAfter ?? "-"}
+                  </strong>
+                  <small>anonymous item removed</small>
+                </div>
+              </div>
+            </div>
+
+            <div className="amazon-condition-grid" aria-label="Observed field conditions">
+              {amazonField.observations.map((row) => {
+                const positiveTokens = Object.entries(row.taskTokenDelta).filter(
+                  ([, value]) => value > 0
+                );
+                return (
+                  <article
+                    className={`amazon-condition ${
+                      row.condition === "product-view" ? "is-signal" : ""
+                    }`}
+                    key={row.condition}
+                  >
+                    <header>
+                      <span>{row.condition.replaceAll("-", " ")}</span>
+                      <strong>{row.asinJaccard.toFixed(3)}</strong>
+                      <small>baseline/post ASIN Jaccard</small>
+                    </header>
+                    <div>
+                      <p className="amazon-condition-count">
+                        <b>{row.moduleDelta.length}</b> new known module
+                        {row.moduleDelta.length === 1 ? "" : "s"}
+                      </p>
+                      {row.moduleDelta.length > 0 ? (
+                        <ul>
+                          {row.moduleDelta.map((module) => (
+                            <li key={module}>{module}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="amazon-condition-empty">No predefined module appeared.</p>
+                      )}
+                    </div>
+                    <footer>
+                      {positiveTokens.length > 0
+                        ? positiveTokens
+                            .map(([token, value]) => `${token} +${value}`)
+                            .join(" / ")
+                        : "task-token deltas: all zero"}
+                    </footer>
+                  </article>
+                );
+              })}
+            </div>
+
+            <AmazonEvidenceSlices summary={amazonField} />
+
+            <div className="amazon-controlled">
+              <header>
+                <span className="mono-label">CONTROLLED LIFECYCLE REPLAY</span>
+                <h3>Same actions. Six rules for what is allowed to remain.</h3>
+                <p>
+                  The local replay isolates provisional exposure from final persistence.
+                  All task-bearing traces end as abandoned; values are executable evidence
+                  mass, not Amazon scores.
+                </p>
+              </header>
+              <div className="amazon-lifecycle">
+                <div className="amazon-lifecycle-legend">
+                  <span>FAILED-TASK RESIDUAL</span>
+                  <span>PROVISIONAL EXPOSURE</span>
+                </div>
+                {amazonControlled.conditions.map((row) => (
+                  <div className="amazon-lifecycle-row" key={row.condition}>
+                    <span>{row.condition.replaceAll("-", " ")}</span>
+                    <i aria-hidden="true">
+                      <b
+                        style={{
+                          transform: `scaleX(${row.totalFailedResidualMass / 1.33})`
+                        }}
+                      />
+                    </i>
+                    <output>{row.totalFailedResidualMass.toFixed(4)}</output>
+                    <em>{row.totalProvisionalProfileMass.toFixed(4)}</em>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="amazon-claim-boundary">
+              <div>
+                <span className="mono-label">OBSERVED</span>
+                <p>
+                  Product-view sessions introduced explicit browsing-history and
+                  related-items headings plus positive task-token deltas. Idle and
+                  search-only sessions did not in this run.
+                </p>
+              </div>
+              <div>
+                <span className="mono-label">NOT ESTABLISHED</span>
+                <p>
+                  An internal profile update, an account-level effect, or a monotonic
+                  order in which stronger actions produce stronger personalization.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {crossTaskExposure && (
+          <section
+            aria-labelledby="cross-task-title"
+            className="cross-task-section section-shell"
+          >
+            <header className="section-header">
+              <div>
+                <span className="section-kicker">Controlled cross-task experiment</span>
+                <h2 id="cross-task-title">
+                  The task ended. Its recommendations did not.
+                </h2>
+              </div>
+              <p>
+                Five temporary briefs were followed by eight rounds of unrelated
+                personal shopping. The same 40 paired seeds were replayed through
+                six lifecycle rules, producing {crossTaskExposure.design.runCount.toLocaleString()} controlled runs.
+              </p>
+            </header>
+
+            <div className="cross-task-results">
+              {[
+                [
+                  crossTaskExposure.conditions.find(
+                    (row) => row.condition === "persist-all"
+                  )?.meanPostTaskExposureCount.toFixed(2) ?? "-",
+                  "later recommendation slots",
+                  "when every temporary action persists"
+                ],
+                [
+                  crossTaskExposure.conditions.find(
+                    (row) => row.condition === "intent-weighted"
+                  )?.meanPostTaskExposureCount.toFixed(3) ?? "-",
+                  "later recommendation slots",
+                  "after intent weighting"
+                ],
+                [
+                  crossTaskExposure.observedComparisons
+                    .rollbackVsQuarantineProvisionalExposureDifference.toFixed(2),
+                  "extra provisional slots",
+                  "rollback exposed before removal"
+                ],
+                [
+                  `${(
+                    crossTaskExposure.observedComparisons
+                      .currentTaskShareGainQuarantineVsPersist * 100
+                  ).toFixed(1)}%`,
+                  "current-task share gained",
+                  "hold-before-activation versus persist-all"
+                ]
+              ].map(([value, label, note], index) => (
+                <article className="cross-task-result" key={label + note}>
+                  <span>0{index + 1}</span>
+                  <strong>{value}</strong>
+                  <h3>{label}</h3>
+                  <p>{note}</p>
+                </article>
+              ))}
+            </div>
+
+            {externalValidity && (
+              <ExternalValidationPanel summary={externalValidity} />
+            )}
+
+            {amazonSasrec && (
+              <LearnedCommercePanel summary={amazonSasrec} />
+            )}
+
+            {amazonCrossCategory && (
+              <CrossCategoryReplicationPanel summary={amazonCrossCategory} />
+            )}
+
+            {delegatedActivation && (
+              <DelegatedActivationPanel summary={delegatedActivation} />
+            )}
+
+            {crossTaskSensitivity && (
+              <PollutionPhaseMap summary={crossTaskSensitivity} />
+            )}
+
+            <div className="cross-task-instrument-heading">
+              <span className="mono-label">INTERACTIVE RESEARCH INSTRUMENT</span>
+              <h3>Decide when a temporary task is allowed to become a preference.</h3>
+              <p>
+                Change the task, lifecycle rule, outcome, and timeline. The shelf
+                below is recomputed from the same deterministic model used in the
+                experiment.
+              </p>
+            </div>
+            <CrossTaskControlLab summary={crossTaskExposure} />
           </section>
         )}
 

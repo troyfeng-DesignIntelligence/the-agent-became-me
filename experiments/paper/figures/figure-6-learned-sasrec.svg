@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="840" viewBox="0 0 1340 840">
+  <style>.kicker{font:700 13px Arial,sans-serif;letter-spacing:2px;fill:#9f574b}.title{font:500 48px Georgia,serif;fill:#211f1c}.subtitle{font:400 17px Arial,sans-serif;fill:#68635c}.panel{font:650 17px Arial,sans-serif;letter-spacing:1px;fill:#282521}.label{font:600 15px Arial,sans-serif;fill:#35312d;text-transform:capitalize}.value{font:700 13px monospace;fill:#514d48}.note{font:400 13px Arial,sans-serif;fill:#6a655d}.metric{font:500 29px Georgia,serif;fill:#282521}</style>
+  <rect width="100%" height="100%" fill="#eee9de" />
+  <text x="50" y="48" class="kicker">FIGURE 6 / LEARNED COMMERCE SEQUENCE VALIDATION</text>
+  <text x="50" y="104" class="title">The model learned. The temporary task travelled with it.</text>
+  <text x="50" y="140" class="subtitle">Amazon Luxury Beauty; 3,811 histories; three SASRec seeds; held-out next item plus 99 fixed negatives.</text>
+  <line x1="670" y1="190" x2="670" y2="650" stroke="#b8b1a7"/>
+  <text x="70" y="205" class="panel">NEXT-ITEM NDCG@10</text>
+  <text x="760" y="205" class="panel">EXCESS TARGET-FAMILY SLOTS @10</text>
+  <text x="70" y="272" class="label">Popularity</text><rect x="280" y="250" width="166.6152" height="34" fill="#aaa69e"/><text x="456.61519999999996" y="274" class="value">0.185</text><text x="70" y="384" class="label">First-order transition</text><rect x="280" y="362" width="383.5419" height="34" fill="#74858b"/><text x="673.5418999999999" y="386" class="value">0.426</text><text x="70" y="496" class="label">SASRec</text><rect x="280" y="474" width="417.7746" height="34" fill="#a56659"/><text x="707.7746" y="498" class="value">0.464</text>
+  <text x="760" y="272" class="label">persist all</text><rect x="990" y="250" width="327.99999999999994" height="34" fill="#a56659"/><text x="1328" y="274" class="value">+0.410</text><text x="760" y="384" class="label">outcome commit</text><rect x="990" y="362" width="266.5184" height="34" fill="#a56659"/><text x="1266.5184" y="386" class="value">+0.333</text><text x="760" y="496" class="label">outcome quarantine</text><rect x="990" y="474" width="0" height="34" fill="#74858b"/><text x="1000" y="498" class="value">0.000</text>
+  <text x="70" y="690" class="metric">97.2% of reversed histories changed top-10</text>
+  <text x="760" y="690" class="metric">Quarantine mismatches: 0</text>
+  <text x="50" y="775" class="note">Reviews are real interaction chronologies; temporary delegation is counterfactual. Product-family tokens define evaluation only and are not model inputs.</text>
+</svg>

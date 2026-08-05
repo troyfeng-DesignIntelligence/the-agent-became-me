@@ -126,6 +126,409 @@ export interface ProjectSummary {
   representative: RepresentativeReplay;
 }
 
+export interface WebArenaSummary {
+  schemaVersion: "webarena-released-trajectory-replay.v1";
+  studyMode: "released-webarena-trajectory-replay";
+  evidenceStatus: "pilot-observation";
+  corpus: {
+    shoppingTaskCount: number;
+    uniqueTemplateCount: number;
+    parseRate: number;
+    auditedStepCount: number;
+    mappedEvidenceEventCount: number;
+    tracesWithMappedEvidence: number;
+    successfulTaskCount: number;
+    failedTaskCount: number;
+  };
+  results: Array<{
+    condition: string;
+    runCount: number;
+    meanPersistentEvidenceMass: number;
+    meanNonCommitPersistentMass: number;
+  }>;
+  outcomeStrata: Array<{
+    outcome: string;
+    taskCount: number;
+    tracesWithMappedEvidence: number;
+    totalMappedEvidenceEvents: number;
+    meanAuditedSteps: number;
+  }>;
+  observedComparisons: {
+    loggingOnlyMassDifference: number;
+    provenanceVsMatchedMassDifference: number;
+    scopeGatedNonCommitMass: number;
+    scopeGatedMassReductionVsActorBlind: number;
+  };
+}
+
+export interface WebArenaFailureSummary {
+  schemaVersion: "webarena-failure-lifecycle.v1";
+  evidenceStatus: "released-trajectory-observation";
+  corpus: {
+    traceCount: number;
+    auditedStepCount: number;
+    mappedEventCount: number;
+    successfulTraceCount: number;
+    failedTraceCount: number;
+  };
+  mapperValidation: {
+    ocrAvailabilityRate: number;
+    ocrCorroborationRate: number;
+    knownUiControlEventCount: number;
+  };
+  screenshotValidation: {
+    status: string;
+    recordCount: number;
+    boundaryCount: number;
+    controlCount: number;
+    visibleCount: number;
+    validEvidenceTargetCount: number;
+  };
+  loopAnalysis: {
+    conservativeExactTarget: {
+      repeatedCount: number;
+      repeatedShare: number;
+      tracesWithRepeats: number;
+    };
+    labelOnlySensitivity: {
+      repeatedCount: number;
+      repeatedShare: number;
+      tracesWithRepeats: number;
+    };
+  };
+  conditions: Array<{
+    condition: string;
+    runCount: number;
+    meanProvisionalProfileMass: number;
+    meanFinalPersistentMass: number;
+    totalFailedResidualMass: number;
+    totalRollbackMass: number;
+    successfulEvidenceRetention: number;
+  }>;
+  observedComparisons: {
+    quarantineRollbackFinalDifference: number;
+    quarantineProvisionalMass: number;
+    rollbackProvisionalMass: number;
+    rollbackRemovedMass: number;
+    failedResidualReductionUnderQuarantine: number;
+    labelOnlyDedupFailedResidualMass: number;
+    labelOnlyDedupFailedResidualReduction: number;
+    labelOnlyDedupSuccessfulEvidenceRetention: number;
+  };
+}
+
+export interface AmazonFieldSummary {
+  schemaVersion: "amazon-signed-out-field-probe.v1";
+  evidenceStatus: "live-interface-observation";
+  executedAt: string;
+  design: {
+    task: string;
+    conditions: string[];
+    signedOut: boolean;
+    isolatedContexts: boolean;
+    maximumNavigations: number;
+    minimumNavigationIntervalMs: number;
+    prohibitedActions: string[];
+  };
+  execution: {
+    totalNavigations: number;
+    researchCumulativeNavigations: number;
+    completedConditionCount: number;
+    stopped: boolean;
+    stop: string | null;
+    fatal: string | null;
+  };
+  observations: Array<{
+    condition: string;
+    asinJaccard: number;
+    taskTokenDelta: Record<string, number>;
+    moduleDelta: string[];
+    baselineAsinCount: number;
+    postAsinCount: number;
+    cleanup: {
+      attempted: boolean;
+      cartCountAfter: number | null;
+    };
+  }>;
+  claims: {
+    permitted: string[];
+    notEstablished: string[];
+  };
+}
+
+export interface AmazonControlledSummary {
+  schemaVersion: "amazon-field-controlled-lifecycle.v1";
+  evidenceStatus: "controlled-counterfactual-replay";
+  fieldArtifactSha256: string;
+  sourceFieldExecutedAt: string;
+  design: {
+    traceCount: number;
+    conditions: string[];
+    rowCount: number;
+    outcome: string;
+    awsStatus: string;
+  };
+  conditions: Array<{
+    condition: string;
+    runCount: number;
+    totalProvisionalProfileMass: number;
+    totalStagedEvidenceMass: number;
+    totalFinalPersistentMass: number;
+    totalRollbackMass: number;
+    totalFailedResidualMass: number;
+  }>;
+  observedComparisons: {
+    quarantineRollbackFinalDifference: number;
+    quarantineProvisionalMass: number;
+    rollbackProvisionalMass: number;
+    rollbackRemovedMass: number;
+  };
+  claims: {
+    observed: string[];
+    notEstablished: string[];
+  };
+}
+
+export interface CrossTaskSensitivitySummary {
+  schemaVersion: "cross-task-pollution-sensitivity.v1";
+  evidenceStatus: "controlled-synthetic-sensitivity-experiment";
+  generatedAt: string;
+  design: {
+    scenarioCount: number;
+    seedsPerScenario: number;
+    conditions: string[];
+    profileWeights: number[];
+    decayRates: number[];
+    taskSimilarities: number[];
+    followUpRoundCount: number;
+    recommendationSlotsPerRound: number;
+    cellCount: number;
+    runsPerCell: number;
+    runCount: number;
+    pollutionDefinition: string;
+  };
+  cells: Array<{
+    condition: string;
+    profileWeight: number;
+    decayRate: number;
+    taskSimilarity: number;
+    runCount: number;
+    meanPostTaskExcessExposureCount: number;
+    meanPostTaskExcessExposureRounds: number;
+    pollutionRunRate: number;
+    meanCurrentTaskRecommendationShare: number;
+    meanFinalTemporaryProfileMass: number;
+  }>;
+  observedComparisons: {
+    zeroPollutionCellShare: number;
+    positivePollutionCellShare: number;
+    peakCell: {
+      condition: string;
+      profileWeight: number;
+      decayRate: number;
+      taskSimilarity: number;
+      meanPostTaskExcessExposureCount: number;
+    };
+    highVsLowProfileWeightDifference: number;
+    noVsFastDecayDifference: number;
+    persistVsIntentDifference: number;
+  };
+  claims: { observed: string[]; notEstablished: string[] };
+}
+
+export interface ExternalValiditySummary {
+  schemaVersion: "external-validity-cross-task.v1";
+  evidenceStatus: "real-history-counterfactual-injection";
+  dataset: {
+    name: string;
+    ratingCount: number;
+    itemCount: number;
+    eligibleUserCount: number;
+    positiveDefinition: string;
+    chronologicalSplit: string;
+    rawRedistributed: boolean;
+  };
+  design: {
+    algorithmCount: number;
+    algorithms: string[];
+    personalizedAlgorithmCount: number;
+    lifecycles: string[];
+    similarityBands: string[];
+    rowCount: number;
+    pairedDefinition: string;
+    similarityDefinition: string;
+    domainBoundary: string;
+  };
+  algorithmLifecycle: Array<{
+    algorithm: string;
+    lifecycle: string;
+    pairedCaseCount: number;
+    meanMeasuredTaskSimilarity: number;
+    meanExcessTargetSlotsAt10: number;
+    spilloverRate: number;
+    meanRankingDisplacementAt10: number;
+    meanRecallDeltaAt10: number;
+  }>;
+  observedComparisons: {
+    positivePersistAlgorithms: string[];
+    positivePersistAlgorithmCount: number;
+    personalizedPersistMeanExcess: number;
+    personalizedIntentMeanExcess: number;
+    quarantineMaxExcess: number;
+    quarantineMaxDisplacement: number;
+    popularityMaxDisplacement: number;
+  };
+  claims: { observed: string[]; notEstablished: string[] };
+}
+
+export interface AmazonSasrecSummary {
+  schemaVersion: "amazon-sasrec-sequence-validation.v1";
+  dataset: {
+    source: string;
+    reviewCount: number;
+    retainedEventCount: number;
+    userCount: number;
+    itemCount: number;
+    minimumSequenceLength: number;
+  };
+  model: {
+    name: "SASRec";
+    trainingRuns: Array<{
+      seed: number;
+      initialTrainingLoss: number;
+      finalTrainingLoss: number;
+      test: {
+        sasrec: { hitRateAt10: number; ndcgAt10: number };
+        popularity: { hitRateAt10: number; ndcgAt10: number };
+        firstOrderTransition: { hitRateAt10: number; ndcgAt10: number };
+        orderSensitivity: {
+          changedTop10Rate: number;
+          meanTop10Displacement: number;
+        };
+      };
+    }>;
+  };
+  taskBoundary: {
+    lifecycle: Array<{
+      lifecycle: string;
+      rowCount: number;
+      meanExcessTargetSlotsAt10: number;
+      meanRankingDisplacementAt10: number;
+      spilloverRate: number;
+      meanNextItemHitDeltaAt10: number;
+    }>;
+    observedComparisons: {
+      positivePersistSeedCount: number;
+      quarantineMaxExcess: number;
+      quarantineMaxDisplacement: number;
+    };
+  };
+}
+
+export interface EstimateInterval {
+  estimate: number;
+  lower95: number;
+  upper95: number;
+  positiveProbability: number;
+}
+
+export interface AmazonCrossCategorySummary {
+  schemaVersion: "amazon-cross-category-sasrec.v1";
+  design: {
+    categories: string[];
+    modelSeeds: number[];
+    taskUserLimitPerCategory: number;
+  };
+  categories: Array<{
+    slug: string;
+    label: string;
+    dataset: {
+      reviewCount: number;
+      retainedEventCount: number;
+      userCount: number;
+      itemCount: number;
+    };
+    taskUserCount: number;
+    performanceUncertainty: {
+      ndcgGainVsPopularity: EstimateInterval;
+      sasrecHitRateAt10: EstimateInterval;
+      orderChangedTop10Rate: EstimateInterval;
+    };
+    uncertainty: {
+      persistExcess: EstimateInterval;
+      commitExcess: EstimateInterval;
+      persistMinusCommit: EstimateInterval;
+    };
+  }>;
+  inference: {
+    unit: string;
+    replicates: number;
+    fixedSetEqualCategoryPooledPersistExcess: EstimateInterval;
+    categoryResampledPooledPersistExcess: EstimateInterval;
+    leaveOneCategoryOut: Array<EstimateInterval & { omittedCategory: string }>;
+    betweenCategoryDescriptive: { range: number };
+  };
+  observedComparisons: {
+    positivePersistIntervalCategoryCount: number;
+    attenuatedPointEstimateCategoryCount: number;
+    learnedModelBeatsPopularityCategoryCount: number;
+    allQuarantineInvariant: boolean;
+    allLeaveOneOutPositive: boolean;
+  };
+}
+
+export interface DelegatedActivationSummary {
+  schemaVersion: "delegated-activation-timing.v1";
+  evidenceStatus: string;
+  design: {
+    categories: string[];
+    taskCount: number;
+    taskCountPerCategory: number;
+    modelSeeds: number[];
+    model: string;
+    agent: string;
+    agentActions: string[];
+    lifecycleConditions: string[];
+    timepoints: string[];
+    pairedDefinition: string;
+    taskLocalContract: string;
+  };
+  categories: Array<{
+    slug: string;
+    label: string;
+    taskCount: number;
+    selectedTaskCount: number;
+    abandonedTaskCount: number;
+    taskLocalRecommendationUseRate: number;
+    meanSelectedUtility: number;
+    noLocalMeanSelectedUtility: number;
+    maxStagedMinusImmediateTaskUtility: number;
+    maxOutcomeResolvedDisplacement: number;
+    maxNextTaskDisplacement: number;
+    uncertainty: {
+      provisionalExposureAuc: EstimateInterval;
+      inProgressDisplacementAt10: EstimateInterval;
+      inProgressExcessTargetSlotsAt10: EstimateInterval;
+    };
+  }>;
+  pooledUncertainty: {
+    provisionalExposureAuc: EstimateInterval;
+    inProgressDisplacementAt10: EstimateInterval;
+    inProgressExcessTargetSlotsAt10: EstimateInterval;
+  };
+  observedComparisons: {
+    positiveInProgressIntervalCategoryCount: number;
+    allResolvedFinalStatesMatched: boolean;
+    allNextTaskStatesMatched: boolean;
+    taskUtilityIdenticalAcrossLifecycleArms: boolean;
+    allAgentsConsumedTaskLocalRecommendations: boolean;
+  };
+  claims: {
+    observed: string[];
+    notEstablished: string[];
+  };
+}
+
 const MetricSummarySchema = RunMetricsSchema.extend({
   condition: z.string(),
   runCount: z.number().int().nonnegative(),
@@ -245,8 +648,497 @@ const ProjectSummarySchema = z.object({
   representative: RepresentativeReplaySchema
 });
 
+const WebArenaSummarySchema = z.object({
+  schemaVersion: z.literal("webarena-released-trajectory-replay.v1"),
+  studyMode: z.literal("released-webarena-trajectory-replay"),
+  evidenceStatus: z.literal("pilot-observation"),
+  corpus: z.object({
+    shoppingTaskCount: z.number().int().positive(),
+    uniqueTemplateCount: z.number().int().positive(),
+    parseRate: z.number().min(0).max(1),
+    auditedStepCount: z.number().int().nonnegative(),
+    mappedEvidenceEventCount: z.number().int().nonnegative(),
+    tracesWithMappedEvidence: z.number().int().nonnegative(),
+    successfulTaskCount: z.number().int().nonnegative(),
+    failedTaskCount: z.number().int().nonnegative()
+  }),
+  results: z.array(
+    z.object({
+      condition: z.string(),
+      runCount: z.number().int().positive(),
+      meanPersistentEvidenceMass: z.number().nonnegative(),
+      meanNonCommitPersistentMass: z.number().nonnegative()
+    })
+  ),
+  outcomeStrata: z.array(
+    z.object({
+      outcome: z.string(),
+      taskCount: z.number().int().nonnegative(),
+      tracesWithMappedEvidence: z.number().int().nonnegative(),
+      totalMappedEvidenceEvents: z.number().int().nonnegative(),
+      meanAuditedSteps: z.number().nonnegative()
+    })
+  ),
+  observedComparisons: z.object({
+    loggingOnlyMassDifference: z.number(),
+    provenanceVsMatchedMassDifference: z.number(),
+    scopeGatedNonCommitMass: z.number().nonnegative(),
+    scopeGatedMassReductionVsActorBlind: z.number()
+  })
+});
+
+const WebArenaFailureSummarySchema = z.object({
+  schemaVersion: z.literal("webarena-failure-lifecycle.v1"),
+  evidenceStatus: z.literal("released-trajectory-observation"),
+  corpus: z.object({
+    traceCount: z.number().int().positive(),
+    auditedStepCount: z.number().int().nonnegative(),
+    mappedEventCount: z.number().int().nonnegative(),
+    successfulTraceCount: z.number().int().nonnegative(),
+    failedTraceCount: z.number().int().nonnegative()
+  }),
+  mapperValidation: z.object({
+    ocrAvailabilityRate: z.number().min(0).max(1),
+    ocrCorroborationRate: z.number().min(0).max(1),
+    knownUiControlEventCount: z.number().int().nonnegative()
+  }),
+  screenshotValidation: z.object({
+    status: z.string(),
+    recordCount: z.number().int().nonnegative(),
+    boundaryCount: z.number().int().nonnegative(),
+    controlCount: z.number().int().nonnegative(),
+    visibleCount: z.number().int().nonnegative(),
+    validEvidenceTargetCount: z.number().int().nonnegative()
+  }),
+  loopAnalysis: z.object({
+    conservativeExactTarget: z.object({
+      repeatedCount: z.number().int().nonnegative(),
+      repeatedShare: z.number().min(0).max(1),
+      tracesWithRepeats: z.number().int().nonnegative()
+    }),
+    labelOnlySensitivity: z.object({
+      repeatedCount: z.number().int().nonnegative(),
+      repeatedShare: z.number().min(0).max(1),
+      tracesWithRepeats: z.number().int().nonnegative()
+    })
+  }),
+  conditions: z.array(
+    z.object({
+      condition: z.string(),
+      runCount: z.number().int().positive(),
+      meanProvisionalProfileMass: z.number().nonnegative(),
+      meanFinalPersistentMass: z.number().nonnegative(),
+      totalFailedResidualMass: z.number().nonnegative(),
+      totalRollbackMass: z.number().nonnegative(),
+      successfulEvidenceRetention: z.number().min(0).max(1)
+    })
+  ),
+  observedComparisons: z.object({
+    quarantineRollbackFinalDifference: z.number(),
+    quarantineProvisionalMass: z.number().nonnegative(),
+    rollbackProvisionalMass: z.number().nonnegative(),
+    rollbackRemovedMass: z.number().nonnegative(),
+    failedResidualReductionUnderQuarantine: z.number().min(0).max(1),
+    labelOnlyDedupFailedResidualMass: z.number().nonnegative(),
+    labelOnlyDedupFailedResidualReduction: z.number().min(0).max(1),
+    labelOnlyDedupSuccessfulEvidenceRetention: z.number().min(0).max(1)
+  })
+});
+
+const AmazonFieldSummarySchema = z.object({
+  schemaVersion: z.literal("amazon-signed-out-field-probe.v1"),
+  evidenceStatus: z.literal("live-interface-observation"),
+  executedAt: z.string(),
+  design: z.object({
+    task: z.string(),
+    conditions: z.array(z.string()),
+    signedOut: z.boolean(),
+    isolatedContexts: z.boolean(),
+    maximumNavigations: z.number().int().positive(),
+    minimumNavigationIntervalMs: z.number().int().nonnegative(),
+    prohibitedActions: z.array(z.string())
+  }),
+  execution: z.object({
+    totalNavigations: z.number().int().nonnegative(),
+    researchCumulativeNavigations: z.number().int().nonnegative(),
+    completedConditionCount: z.number().int().nonnegative(),
+    stopped: z.boolean(),
+    stop: z.string().nullable(),
+    fatal: z.string().nullable()
+  }),
+  observations: z.array(
+    z.object({
+      condition: z.string(),
+      asinJaccard: z.number().min(0).max(1),
+      taskTokenDelta: z.record(z.string(), z.number()),
+      moduleDelta: z.array(z.string()),
+      baselineAsinCount: z.number().int().nonnegative(),
+      postAsinCount: z.number().int().nonnegative(),
+      cleanup: z.object({
+        attempted: z.boolean(),
+        cartCountAfter: z.number().int().nonnegative().nullable()
+      })
+    })
+  ),
+  claims: z.object({
+    permitted: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+const AmazonControlledSummarySchema = z.object({
+  schemaVersion: z.literal("amazon-field-controlled-lifecycle.v1"),
+  evidenceStatus: z.literal("controlled-counterfactual-replay"),
+  fieldArtifactSha256: z.string().length(64),
+  sourceFieldExecutedAt: z.string(),
+  design: z.object({
+    traceCount: z.number().int().positive(),
+    conditions: z.array(z.string()),
+    rowCount: z.number().int().positive(),
+    outcome: z.string(),
+    awsStatus: z.string()
+  }),
+  conditions: z.array(
+    z.object({
+      condition: z.string(),
+      runCount: z.number().int().positive(),
+      totalProvisionalProfileMass: z.number().nonnegative(),
+      totalStagedEvidenceMass: z.number().nonnegative(),
+      totalFinalPersistentMass: z.number().nonnegative(),
+      totalRollbackMass: z.number().nonnegative(),
+      totalFailedResidualMass: z.number().nonnegative()
+    })
+  ),
+  observedComparisons: z.object({
+    quarantineRollbackFinalDifference: z.number(),
+    quarantineProvisionalMass: z.number().nonnegative(),
+    rollbackProvisionalMass: z.number().nonnegative(),
+    rollbackRemovedMass: z.number().nonnegative()
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+const CrossTaskExposureSummarySchema = z.object({
+  schemaVersion: z.literal("cross-task-recommendation-exposure.v1"),
+  evidenceStatus: z.literal("controlled-synthetic-experiment"),
+  fieldArtifactSha256: z.string().length(64),
+  generatedAt: z.string(),
+  design: z.object({
+    scenarioCount: z.number().int().positive(),
+    seedsPerScenario: z.number().int().positive(),
+    conditionCount: z.number().int().positive(),
+    runCount: z.number().int().positive(),
+    provisionalSurfaceCount: z.number().int().positive(),
+    followUpRoundCount: z.number().int().positive(),
+    recommendationSlotsPerRound: z.number().int().positive(),
+    outcome: z.string(),
+    frozenCurrentTaskTopic: z.string()
+  }),
+  scenarios: z.array(
+    z.object({
+      id: z.string(),
+      label: z.string(),
+      temporaryBrief: z.string(),
+      temporaryTopic: z.string(),
+      followUpBrief: z.string()
+    })
+  ),
+  conditions: z.array(
+    z.object({
+      condition: z.string(),
+      runCount: z.number().int().positive(),
+      meanProvisionalExposureCount: z.number().nonnegative(),
+      meanProvisionalExcessExposureCount: z.number().nonnegative(),
+      meanPostTaskExposureCount: z.number().nonnegative(),
+      meanPostTaskExposureRounds: z.number().nonnegative(),
+      meanFirstCleanRound: z.number().positive(),
+      meanCurrentTaskRecommendationShare: z.number().min(0).max(1),
+      meanTemporaryEvidenceMass: z.number().nonnegative()
+    })
+  ),
+  observedComparisons: z.object({
+    persistVsIntentPostExposureDifference: z.number(),
+    quarantineRollbackPostExposureDifference: z.number(),
+    rollbackVsQuarantineProvisionalExposureDifference: z.number(),
+    quarantinePostTaskExposureCount: z.number().nonnegative(),
+    scopePostTaskExposureCount: z.number().nonnegative(),
+    currentTaskShareGainQuarantineVsPersist: z.number()
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+const CrossTaskSensitivitySummarySchema = z.object({
+  schemaVersion: z.literal("cross-task-pollution-sensitivity.v1"),
+  evidenceStatus: z.literal("controlled-synthetic-sensitivity-experiment"),
+  generatedAt: z.string(),
+  design: z.object({
+    scenarioCount: z.number().int().positive(),
+    seedsPerScenario: z.number().int().positive(),
+    conditions: z.array(z.string()),
+    profileWeights: z.array(z.number()),
+    decayRates: z.array(z.number().min(0).max(1)),
+    taskSimilarities: z.array(z.number().min(0).max(1)),
+    followUpRoundCount: z.number().int().positive(),
+    recommendationSlotsPerRound: z.number().int().positive(),
+    cellCount: z.number().int().positive(),
+    runsPerCell: z.number().int().positive(),
+    runCount: z.number().int().positive(),
+    pollutionDefinition: z.string()
+  }),
+  cells: z.array(
+    z.object({
+      condition: z.string(),
+      profileWeight: z.number(),
+      decayRate: z.number().min(0).max(1),
+      taskSimilarity: z.number().min(0).max(1),
+      runCount: z.number().int().positive(),
+      meanPostTaskExcessExposureCount: z.number().nonnegative(),
+      meanPostTaskExcessExposureRounds: z.number().nonnegative(),
+      pollutionRunRate: z.number().min(0).max(1),
+      meanCurrentTaskRecommendationShare: z.number().min(0).max(1),
+      meanFinalTemporaryProfileMass: z.number().nonnegative()
+    })
+  ),
+  observedComparisons: z.object({
+    zeroPollutionCellShare: z.number().min(0).max(1),
+    positivePollutionCellShare: z.number().min(0).max(1),
+    peakCell: z.object({
+      condition: z.string(),
+      profileWeight: z.number(),
+      decayRate: z.number(),
+      taskSimilarity: z.number(),
+      meanPostTaskExcessExposureCount: z.number().nonnegative()
+    }),
+    highVsLowProfileWeightDifference: z.number(),
+    noVsFastDecayDifference: z.number(),
+    persistVsIntentDifference: z.number()
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+const ExternalValiditySummarySchema = z.object({
+  schemaVersion: z.literal("external-validity-cross-task.v1"),
+  evidenceStatus: z.literal("real-history-counterfactual-injection"),
+  dataset: z.object({
+    name: z.string(),
+    ratingCount: z.number().int().positive(),
+    itemCount: z.number().int().positive(),
+    eligibleUserCount: z.number().int().positive(),
+    positiveDefinition: z.string(),
+    chronologicalSplit: z.string(),
+    rawRedistributed: z.boolean()
+  }).passthrough(),
+  design: z.object({
+    algorithmCount: z.number().int().positive(),
+    algorithms: z.array(z.string()),
+    personalizedAlgorithmCount: z.number().int().positive(),
+    lifecycles: z.array(z.string()),
+    similarityBands: z.array(z.string()),
+    rowCount: z.number().int().positive(),
+    pairedDefinition: z.string(),
+    similarityDefinition: z.string(),
+    domainBoundary: z.string()
+  }).passthrough(),
+  algorithmLifecycle: z.array(z.object({
+    algorithm: z.string(),
+    lifecycle: z.string(),
+    pairedCaseCount: z.number().int().positive(),
+    meanMeasuredTaskSimilarity: z.number().min(0).max(1),
+    meanExcessTargetSlotsAt10: z.number().nonnegative(),
+    spilloverRate: z.number().min(0).max(1),
+    meanRankingDisplacementAt10: z.number().min(0).max(1),
+    meanRecallDeltaAt10: z.number()
+  })),
+  observedComparisons: z.object({
+    positivePersistAlgorithms: z.array(z.string()),
+    positivePersistAlgorithmCount: z.number().int().nonnegative(),
+    personalizedPersistMeanExcess: z.number().nonnegative(),
+    personalizedIntentMeanExcess: z.number().nonnegative(),
+    quarantineMaxExcess: z.number().nonnegative(),
+    quarantineMaxDisplacement: z.number().min(0).max(1),
+    popularityMaxDisplacement: z.number().min(0).max(1)
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+const AmazonSasrecSummarySchema = z.object({
+  schemaVersion: z.literal("amazon-sasrec-sequence-validation.v1"),
+  dataset: z.object({
+    source: z.string(),
+    reviewCount: z.number().int().positive(),
+    retainedEventCount: z.number().int().positive(),
+    userCount: z.number().int().positive(),
+    itemCount: z.number().int().positive(),
+    minimumSequenceLength: z.number().int().positive()
+  }).passthrough(),
+  model: z.object({
+    name: z.literal("SASRec"),
+    trainingRuns: z.array(z.object({
+      seed: z.number().int(),
+      initialTrainingLoss: z.number().positive(),
+      finalTrainingLoss: z.number().positive(),
+      test: z.object({
+        sasrec: z.object({ hitRateAt10: z.number(), ndcgAt10: z.number() }),
+        popularity: z.object({ hitRateAt10: z.number(), ndcgAt10: z.number() }),
+        firstOrderTransition: z.object({ hitRateAt10: z.number(), ndcgAt10: z.number() }),
+        orderSensitivity: z.object({
+          changedTop10Rate: z.number(),
+          meanTop10Displacement: z.number()
+        })
+      })
+    }).passthrough())
+  }).passthrough(),
+  taskBoundary: z.object({
+    lifecycle: z.array(z.object({
+      lifecycle: z.string(),
+      rowCount: z.number().int().positive(),
+      meanExcessTargetSlotsAt10: z.number(),
+      meanRankingDisplacementAt10: z.number(),
+      spilloverRate: z.number(),
+      meanNextItemHitDeltaAt10: z.number()
+    })),
+    observedComparisons: z.object({
+      positivePersistSeedCount: z.number().int(),
+      quarantineMaxExcess: z.number(),
+      quarantineMaxDisplacement: z.number()
+    })
+  }).passthrough()
+});
+
+const EstimateIntervalSchema = z.object({
+  estimate: z.number(),
+  lower95: z.number(),
+  upper95: z.number(),
+  positiveProbability: z.number().min(0).max(1)
+});
+
+const AmazonCrossCategorySummarySchema = z.object({
+  schemaVersion: z.literal("amazon-cross-category-sasrec.v1"),
+  design: z.object({
+    categories: z.array(z.string()).length(4),
+    modelSeeds: z.array(z.number().int()).length(3),
+    taskUserLimitPerCategory: z.number().int().positive()
+  }).passthrough(),
+  categories: z.array(z.object({
+    slug: z.string(),
+    label: z.string(),
+    dataset: z.object({
+      reviewCount: z.number().int().positive(),
+      retainedEventCount: z.number().int().positive(),
+      userCount: z.number().int().positive(),
+      itemCount: z.number().int().positive()
+    }).passthrough(),
+    taskUserCount: z.number().int().positive(),
+    performanceUncertainty: z.object({
+      ndcgGainVsPopularity: EstimateIntervalSchema,
+      sasrecHitRateAt10: EstimateIntervalSchema,
+      orderChangedTop10Rate: EstimateIntervalSchema
+    }),
+    uncertainty: z.object({
+      persistExcess: EstimateIntervalSchema,
+      commitExcess: EstimateIntervalSchema,
+      persistMinusCommit: EstimateIntervalSchema
+    })
+  }).passthrough()).length(4),
+  inference: z.object({
+    unit: z.string(),
+    replicates: z.number().int().positive(),
+    fixedSetEqualCategoryPooledPersistExcess: EstimateIntervalSchema,
+    categoryResampledPooledPersistExcess: EstimateIntervalSchema,
+    leaveOneCategoryOut: z.array(
+      EstimateIntervalSchema.extend({ omittedCategory: z.string() })
+    ).length(4),
+    betweenCategoryDescriptive: z.object({ range: z.number().nonnegative() }).passthrough()
+  }).passthrough(),
+  observedComparisons: z.object({
+    positivePersistIntervalCategoryCount: z.number().int(),
+    attenuatedPointEstimateCategoryCount: z.number().int(),
+    learnedModelBeatsPopularityCategoryCount: z.number().int(),
+    allQuarantineInvariant: z.boolean(),
+    allLeaveOneOutPositive: z.boolean()
+  })
+});
+
+const DelegatedActivationSummarySchema = z.object({
+  schemaVersion: z.literal("delegated-activation-timing.v1"),
+  evidenceStatus: z.string(),
+  design: z.object({
+    categories: z.array(z.string()).length(4),
+    taskCount: z.number().int().positive(),
+    taskCountPerCategory: z.number().int().positive(),
+    modelSeeds: z.array(z.number().int()).nonempty(),
+    model: z.string(),
+    agent: z.string(),
+    agentActions: z.array(z.string()).nonempty(),
+    lifecycleConditions: z.array(z.string()).length(2),
+    timepoints: z.array(z.string()).length(4),
+    pairedDefinition: z.string(),
+    taskLocalContract: z.string()
+  }).passthrough(),
+  categories: z.array(z.object({
+    slug: z.string(),
+    label: z.string(),
+    taskCount: z.number().int().positive(),
+    selectedTaskCount: z.number().int().nonnegative(),
+    abandonedTaskCount: z.number().int().nonnegative(),
+    taskLocalRecommendationUseRate: z.number().min(0).max(1),
+    meanSelectedUtility: z.number().min(0).max(1),
+    noLocalMeanSelectedUtility: z.number().min(0).max(1),
+    maxStagedMinusImmediateTaskUtility: z.number(),
+    maxOutcomeResolvedDisplacement: z.number().nonnegative(),
+    maxNextTaskDisplacement: z.number().nonnegative(),
+    uncertainty: z.object({
+      provisionalExposureAuc: EstimateIntervalSchema,
+      inProgressDisplacementAt10: EstimateIntervalSchema,
+      inProgressExcessTargetSlotsAt10: EstimateIntervalSchema
+    })
+  }).passthrough()).length(4),
+  pooledUncertainty: z.object({
+    provisionalExposureAuc: EstimateIntervalSchema,
+    inProgressDisplacementAt10: EstimateIntervalSchema,
+    inProgressExcessTargetSlotsAt10: EstimateIntervalSchema
+  }),
+  observedComparisons: z.object({
+    positiveInProgressIntervalCategoryCount: z.number().int(),
+    allResolvedFinalStatesMatched: z.boolean(),
+    allNextTaskStatesMatched: z.boolean(),
+    taskUtilityIdenticalAcrossLifecycleArms: z.boolean(),
+    allAgentsConsumedTaskLocalRecommendations: z.boolean()
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+export type CrossTaskExposureSummary = z.infer<
+  typeof CrossTaskExposureSummarySchema
+>;
+
 interface ProjectDataState {
   summary: ProjectSummary | null;
+  webarena: WebArenaSummary | null;
+  webarenaFailure: WebArenaFailureSummary | null;
+  amazonField: AmazonFieldSummary | null;
+  amazonControlled: AmazonControlledSummary | null;
+  crossTaskExposure: CrossTaskExposureSummary | null;
+  crossTaskSensitivity: CrossTaskSensitivitySummary | null;
+  externalValidity: ExternalValiditySummary | null;
+  amazonSasrec: AmazonSasrecSummary | null;
+  amazonCrossCategory: AmazonCrossCategorySummary | null;
+  delegatedActivation: DelegatedActivationSummary | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -255,6 +1147,16 @@ interface ProjectDataState {
 export function useProjectData(): ProjectDataState {
   const [state, setState] = useState<ProjectDataState>({
     summary: null,
+    webarena: null,
+    webarenaFailure: null,
+    amazonField: null,
+    amazonControlled: null,
+    crossTaskExposure: null,
+    crossTaskSensitivity: null,
+    externalValidity: null,
+    amazonSasrec: null,
+    amazonCrossCategory: null,
+    delegatedActivation: null,
     catalog: null,
     error: null,
     loading: true
@@ -272,17 +1174,133 @@ export function useProjectData(): ProjectDataState {
       fetch(`${base}data/open-food-facts.snapshot.json`).then(async (response) => {
         if (!response.ok) throw new Error("Could not load product snapshot.");
         return CatalogSchema.parse(await response.json());
-      })
-    ])
-      .then(([summary, catalog]) => {
-        if (!cancelled) {
-          setState({ summary, catalog, error: null, loading: false });
+      }),
+      fetch(`${base}results/webarena-pilot/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load WebArena replay.");
+          return WebArenaSummarySchema.parse(await response.json());
         }
-      })
+      ),
+      fetch(`${base}results/webarena-failure/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load WebArena failure replay.");
+          }
+          return WebArenaFailureSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/amazon-field-probe/v1/field-summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load Amazon field probe.");
+          return AmazonFieldSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/amazon-field-probe/v1/controlled-summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load Amazon controlled replay.");
+          }
+          return AmazonControlledSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/cross-task-exposure/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load cross-task exposure experiment.");
+          }
+          return CrossTaskExposureSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/cross-task-sensitivity/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load cross-task sensitivity experiment.");
+          }
+          return CrossTaskSensitivitySummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/external-validity/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load external-validity experiment.");
+          }
+          return ExternalValiditySummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/amazon-sasrec/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load Amazon SASRec experiment.");
+          }
+          return AmazonSasrecSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/amazon-cross-category/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load Amazon cross-category experiment.");
+          }
+          return AmazonCrossCategorySummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/delegated-activation/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load delegated-activation experiment.");
+          }
+          return DelegatedActivationSummarySchema.parse(await response.json());
+        }
+      )
+    ])
+      .then(
+        ([
+          summary,
+          catalog,
+          webarena,
+          webarenaFailure,
+          amazonField,
+          amazonControlled,
+          crossTaskExposure,
+          crossTaskSensitivity,
+          externalValidity,
+          amazonSasrec,
+          amazonCrossCategory,
+          delegatedActivation
+        ]) => {
+        if (!cancelled) {
+          setState({
+            summary,
+            webarena,
+            webarenaFailure,
+            amazonField,
+            amazonControlled,
+            crossTaskExposure,
+            crossTaskSensitivity,
+            externalValidity,
+            amazonSasrec,
+            amazonCrossCategory,
+            delegatedActivation,
+            catalog,
+            error: null,
+            loading: false
+          });
+        }
+        }
+      )
       .catch((error: unknown) => {
         if (!cancelled) {
           setState({
             summary: null,
+            webarena: null,
+            webarenaFailure: null,
+            amazonField: null,
+            amazonControlled: null,
+            crossTaskExposure: null,
+            crossTaskSensitivity: null,
+            externalValidity: null,
+            amazonSasrec: null,
+            amazonCrossCategory: null,
+            delegatedActivation: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

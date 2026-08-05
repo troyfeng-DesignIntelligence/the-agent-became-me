@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "online-storefront-pilot.v1",
+  "generatedAt": "2026-08-05T09:25:46.904Z",
+  "sourceUrl": "http://127.0.0.1:4173/",
+  "evidenceStatus": "browser-agent experiment on a research-owned storefront",
+  "design": {
+    "taskCount": 8,
+    "armCount": 2,
+    "snapshotCount": 64,
+    "arms": [
+      "immediate",
+      "held"
+    ],
+    "phases": [
+      "task-start",
+      "task-in-progress",
+      "outcome-resolved",
+      "next-task"
+    ],
+    "agent": "deterministic browser shopping agent",
+    "productSource": "frozen Open Food Facts snapshot",
+    "prohibitedCapabilities": [
+      "account",
+      "cart",
+      "checkout",
+      "payment",
+      "external product navigation"
+    ]
+  },
+  "phaseMetrics": [
+    {
+      "phase": "task-start",
+      "meanPlatformDisplacementAt10": 0,
+      "maxTaskLocalDisplacementAt10": 0,
+      "matchedTraceCount": 8
+    },
+    {
+      "phase": "task-in-progress",
+      "meanPlatformDisplacementAt10": 0.5375,
+      "maxTaskLocalDisplacementAt10": 0,
+      "matchedTraceCount": 8
+    },
+    {
+      "phase": "outcome-resolved",
+      "meanPlatformDisplacementAt10": 0,
+      "maxTaskLocalDisplacementAt10": 0,
+      "matchedTraceCount": 8
+    },
+    {
+      "phase": "next-task",
+      "meanPlatformDisplacementAt10": 0,
+      "maxTaskLocalDisplacementAt10": 0,
+      "matchedTraceCount": 8
+    }
+  ],
+  "observedComparisons": {
+    "allFixedTracesMatched": true,
+    "allTaskLocalRecommendationsMatched": true,
+    "allStartStatesMatched": true,
+    "allResolvedStatesMatched": true,
+    "allNextTaskStatesMatched": true,
+    "inProgressChangedTaskCount": 8,
+    "consoleErrorCount": 0,
+    "popupCount": 0
+  },
+  "claims": {
+    "observed": [
+      "The browser agent completed search, product-view, outcome-resolution, and next-task actions on the deployed research storefront.",
+      "Both activation arms used identical fixed traces and identical task-local recommendations.",
+      "The research-owned platform state differed only while delegated evidence was pending and was matched after resolution."
+    ],
+    "notEstablished": [
+      "No third-party commerce platform or production recommender was manipulated.",
+      "No purchase, account, human preference, trust, welfare, or real shopping utility was measured.",
+      "The agent is deterministic and the product catalog is a frozen open-data snapshot."
+    ]
+  }
+}

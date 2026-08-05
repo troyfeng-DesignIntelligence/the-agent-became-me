@@ -1,0 +1,7 @@
+iteration	metric_value	delta	delta_pct	status	description	evaluator_source	timestamp
+0	0.200	-	-	baseline	Design and compliance gate frozen; no live or controlled evidence	mechanical baseline	2026-08-04T20:10:00+08:00
+1	0.350	0.150	75.0%	keep	Signed-out homepage accessible without guard signals or evasion	mechanical preflight	2026-08-04T20:12:00+08:00
+2	0.450	0.100	28.6%	discard	Partial screenshots existed but checkpoint and final artifact were missing	mechanical artifact gate	2026-08-04T20:15:00+08:00
+3	0.700	0.250	55.6%	keep	Four signed-out contexts completed; product views introduced task-related modules	mechanical live-evidence gate	2026-08-04T20:21:00+08:00
+4	0.900	0.200	28.6%	discard	View and cart controls collided under one target key	target-identity gate	2026-08-04T20:28:00+08:00
+5	1.000	0.100	11.1%	keep	Action-control target keys, six lifecycle policies, export, tests, and calibrated claims	mechanical evaluator	2026-08-04T20:30:00+08:00

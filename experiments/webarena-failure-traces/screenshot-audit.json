@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "webarena-screenshot-audit.v1",
+  "assessor": "Codex visual inspection",
+  "status": "supplementary-nonhuman-review",
+  "selection": "all four OCR-noncorroborated primary events plus one OCR-corroborated control per action",
+  "records": [
+    {
+      "taskId": 160,
+      "imageId": "160_4",
+      "stratum": "ocr-boundary",
+      "action": "view",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "The full Nintendo game-cartridge holder title is visible on the product grid; OCR token recall fell just below the frozen threshold.",
+      "sha256": "e2387d10fa68229322333df9ac8c94ecdcc87d66fe43f2d5d1f03bf65a55487e"
+    },
+    {
+      "taskId": 165,
+      "imageId": "165_0",
+      "stratum": "ocr-boundary",
+      "action": "compare",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "The product detail page visibly contains the 4 Reviews link.",
+      "sha256": "b84289632f939e10ddda64e5ee519bcd89fcd9042e2536bd57d0f1797eb1270a"
+    },
+    {
+      "taskId": 673,
+      "imageId": "673_2",
+      "stratum": "ocr-boundary",
+      "action": "compare",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "The product grid visibly contains the 12 Reviews link beside the first steering wheel.",
+      "sha256": "f5e643a16d7ce9d9a128d1b657cc0cd6423c009c0950069a3c03c55095eed6c4"
+    },
+    {
+      "taskId": 793,
+      "imageId": "793_4",
+      "stratum": "ocr-boundary",
+      "action": "shortlist",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "Multiple Add to Cart buttons are visible; the accessibility node id is required to disambiguate the clicked product.",
+      "sha256": "7eac48d21739d7fdecb9e57d33dfa2a906ce2493901707d7ed9666fe11b21701"
+    },
+    {
+      "taskId": 25,
+      "imageId": "25_1",
+      "stratum": "ocr-control",
+      "action": "view",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "The Details product-information tab is visible beside the Reviews tab.",
+      "sha256": "a69a42da3c5e3c0c918fcc88e191fe001f19a0907cfaabdeda6a51262794efe2"
+    },
+    {
+      "taskId": 21,
+      "imageId": "21_0",
+      "stratum": "ocr-control",
+      "action": "compare",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "The 12 Reviews link is visible on the product detail page.",
+      "sha256": "d0a783b058022514345b1b007002103ba98c7441526c1fb87136eb88101e96ed"
+    },
+    {
+      "taskId": 465,
+      "imageId": "465_2",
+      "stratum": "ocr-control",
+      "action": "shortlist",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "Wish-list heart controls are visible beside the Add to Cart buttons.",
+      "sha256": "171102f37e3fba8f49f6621e18a5ea16b42a55238ad32c54ff1d7a7089061f99"
+    },
+    {
+      "taskId": 144,
+      "imageId": "144_7",
+      "stratum": "ocr-control",
+      "action": "purchase",
+      "targetVisible": true,
+      "validEvidenceTarget": true,
+      "note": "Reorder links are visibly paired with order rows in My Orders.",
+      "sha256": "2bdb97731f864776d242a35c67a7fdcbd01a740f26030b056afefa5807f80384"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+USER_ID,ITEM_ID,TIMESTAMP,EVENT_TYPE
+search-only,phone-task-results,1785844800,SEARCH_RESULT_EXPOSURE
+product-view,phone-task-results,1785844800,SEARCH_RESULT_EXPOSURE
+product-view,phone-result-1,1785844805,VIEW
+product-view,phone-result-2,1785844810,VIEW
+cart-stage,phone-task-results,1785844800,SEARCH_RESULT_EXPOSURE
+cart-stage,phone-result-1,1785844805,VIEW
+cart-stage,phone-result-1,1785844810,ADD_TO_CART

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "cross-task-recommendation-exposure.v1",
+  "evidenceStatus": "controlled-synthetic-experiment",
+  "fieldArtifactSha256": "b415ea4a0fc236dcba1f9ac2b4ff8df740eea27929a1fcbb8752bf6dd77aeeff",
+  "generatedAt": "2026-08-04T15:58:45.656Z",
+  "design": {
+    "scenarioCount": 5,
+    "seedsPerScenario": 40,
+    "conditionCount": 6,
+    "runCount": 1200,
+    "provisionalSurfaceCount": 4,
+    "followUpRoundCount": 8,
+    "recommendationSlotsPerRound": 6,
+    "outcome": "abandoned temporary task",
+    "frozenCurrentTaskTopic": "everyday-home"
+  },
+  "scenarios": [
+    {
+      "id": "senior-phone",
+      "label": "Phone for an older relative",
+      "temporaryBrief": "Find a large-button corded phone for an older relative.",
+      "temporaryTopic": "accessible-phone",
+      "followUpBrief": "Return to ordinary household shopping for yourself."
+    },
+    {
+      "id": "newborn-gift",
+      "label": "Gift for a newborn",
+      "temporaryBrief": "Compare practical newborn gifts for a colleague.",
+      "temporaryTopic": "baby-care",
+      "followUpBrief": "Return to ordinary household shopping for yourself."
+    },
+    {
+      "id": "cat-sitting",
+      "label": "Supplies while cat-sitting",
+      "temporaryBrief": "Buy short-term cat supplies while pet-sitting for a friend.",
+      "temporaryTopic": "cat-care",
+      "followUpBrief": "Return to ordinary household shopping for yourself."
+    },
+    {
+      "id": "first-aid-research",
+      "label": "First-aid research",
+      "temporaryBrief": "Research first-aid supplies for an office kit.",
+      "temporaryTopic": "first-aid",
+      "followUpBrief": "Return to ordinary household shopping for yourself."
+    },
+    {
+      "id": "office-party",
+      "label": "Office party supplies",
+      "temporaryBrief": "Compare disposable party supplies for a one-off office event.",
+      "temporaryTopic": "office-party",
+      "followUpBrief": "Return to ordinary household shopping for yourself."
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "persist-all",
+      "runCount": 200,
+      "meanProvisionalExposureCount": 24,
+      "meanProvisionalExcessExposureCount": 2.56,
+      "meanPostTaskExposureCount": 24.17,
+      "meanPostTaskExposureRounds": 4.04,
+      "meanFirstCleanRound": 5.04,
+      "meanCurrentTaskRecommendationShare": 0.496458,
+      "meanTemporaryEvidenceMass": 0.99
+    },
+    {
+      "condition": "deduplicate-target",
+      "runCount": 200,
+      "meanProvisionalExposureCount": 24,
+      "meanProvisionalExcessExposureCount": 2.56,
+      "meanPostTaskExposureCount": 24.17,
+      "meanPostTaskExposureRounds": 4.04,
+      "meanFirstCleanRound": 5.04,
+      "meanCurrentTaskRecommendationShare": 0.496458,
+      "meanTemporaryEvidenceMass": 0.99
+    },
+    {
+      "condition": "intent-weighted",
+      "runCount": 200,
+      "meanProvisionalExposureCount": 23.95,
+      "meanProvisionalExcessExposureCount": 2.51,
+      "meanPostTaskExposureCount": 3.775,
+      "meanPostTaskExposureRounds": 0.685,
+      "meanFirstCleanRound": 1.685,
+      "meanCurrentTaskRecommendationShare": 0.921354,
+      "meanTemporaryEvidenceMass": 0.3993
+    },
+    {
+      "condition": "outcome-quarantine",
+      "runCount": 200,
+      "meanProvisionalExposureCount": 21.44,
+      "meanProvisionalExcessExposureCount": 0,
+      "meanPostTaskExposureCount": 0,
+      "meanPostTaskExposureRounds": 0,
+      "meanFirstCleanRound": 1,
+      "meanCurrentTaskRecommendationShare": 1,
+      "meanTemporaryEvidenceMass": 0.99
+    },
+    {
+      "condition": "rollback-on-failure",
+      "runCount": 200,
+      "meanProvisionalExposureCount": 24,
+      "meanProvisionalExcessExposureCount": 2.56,
+      "meanPostTaskExposureCount": 0,
+      "meanPostTaskExposureRounds": 0,
+      "meanFirstCleanRound": 1,
+      "meanCurrentTaskRecommendationShare": 1,
+      "meanTemporaryEvidenceMass": 0.99
+    },
+    {
+      "condition": "scope-gated",
+      "runCount": 200,
+      "meanProvisionalExposureCount": 21.44,
+      "meanProvisionalExcessExposureCount": 0,
+      "meanPostTaskExposureCount": 0,
+      "meanPostTaskExposureRounds": 0,
+      "meanFirstCleanRound": 1,
+      "meanCurrentTaskRecommendationShare": 1,
+      "meanTemporaryEvidenceMass": 0
+    }
+  ],
+  "observedComparisons": {
+    "persistVsIntentPostExposureDifference": 20.395,
+    "quarantineRollbackPostExposureDifference": 0,
+    "rollbackVsQuarantineProvisionalExposureDifference": 2.56,
+    "quarantinePostTaskExposureCount": 0,
+    "scopePostTaskExposureCount": 0,
+    "currentTaskShareGainQuarantineVsPersist": 0.503542
+  },
+  "claims": {
+    "observed": [
+      "In the controlled recommender, temporary-task profile evidence produced measurable recommendation exposure during later unrelated tasks.",
+      "Quarantine and rollback removed post-outcome spillover for abandoned tasks, but rollback allowed provisional recommendation exposure before outcome resolution.",
+      "Intent weighting reduced exposure relative to persist-all without guaranteeing zero spillover."
+    ],
+    "notEstablished": [
+      "The exposure counts estimate Amazon.com or another commercial platform.",
+      "People would notice, dislike, or be harmed by the simulated recommendations.",
+      "The hand-authored ranking weights are behaviorally or commercially calibrated."
+    ]
+  }
+}

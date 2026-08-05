@@ -1,0 +1,373 @@
+{
+  "schemaVersion": "delegated-activation-timing.v1",
+  "generatedAt": "2026-08-05T08:19:18.528891+00:00",
+  "evidenceStatus": "autonomous-agent-trajectory computational experiment",
+  "design": {
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "taskCount": 320,
+    "taskCountPerCategory": 80,
+    "modelSeeds": [
+      7,
+      17,
+      29
+    ],
+    "model": "SASRec checkpoints trained on Amazon Reviews 2018 chronological implicit-feedback sequences",
+    "agent": "deterministic retrieval-and-planning shopping agent over a frozen local storefront",
+    "agentActions": [
+      "search",
+      "product-view",
+      "request-task-recommendations",
+      "compare",
+      "select-or-abandon"
+    ],
+    "lifecycleConditions": [
+      "immediate-then-resolve",
+      "hold-until-resolved"
+    ],
+    "timepoints": [
+      "task-start",
+      "task-in-progress",
+      "outcome-resolved",
+      "next-task"
+    ],
+    "pairedDefinition": "same principal history, task, storefront, agent observations, realized action trace, model checkpoint, candidate mask, and final stored state; only pre-outcome platform activation differs",
+    "taskLocalContract": "both lifecycle arms retain identical task-local recommendation state; staged events are withheld only from the principal platform profile",
+    "outcomeResolution": "selected tasks collapse to the selected item in both arms; abandoned tasks remove or discard all task events in both arms",
+    "nextTaskCheckpoint": "both arms append the same held-out next historical event after resolution",
+    "bootstrap": {
+      "replicates": 2000,
+      "seed": 20260805,
+      "unit": "delegated task",
+      "method": "model seeds and tasks resampled separately within category; categories equally weighted for pooled estimates"
+    }
+  },
+  "categories": [
+    {
+      "slug": "luxury-beauty",
+      "label": "Luxury Beauty",
+      "taskCount": 80,
+      "selectedTaskCount": 40,
+      "abandonedTaskCount": 40,
+      "feasibleDecisionAccuracy": 1.0,
+      "infeasibleDecisionAccuracy": 1.0,
+      "taskLocalRecommendationUseRate": 1.0,
+      "meanSelectedUtility": 1.0,
+      "noLocalMeanSelectedUtility": 1.0,
+      "maxStagedMinusImmediateTaskUtility": 0.0,
+      "maxOutcomeResolvedDisplacement": 0.0,
+      "maxNextTaskDisplacement": 0.0,
+      "uncertainty": {
+        "provisionalExposureAuc": {
+          "estimate": 0.727551,
+          "lower95": 0.673227,
+          "upper95": 0.779896,
+          "positiveProbability": 1.0
+        },
+        "inProgressDisplacementAt10": {
+          "estimate": 0.763023,
+          "lower95": 0.702917,
+          "upper95": 0.82126,
+          "positiveProbability": 1.0
+        },
+        "inProgressExcessTargetSlotsAt10": {
+          "estimate": 0.588013,
+          "lower95": 0.225,
+          "upper95": 1.070937,
+          "positiveProbability": 1.0
+        }
+      }
+    },
+    {
+      "slug": "software",
+      "label": "Software",
+      "taskCount": 80,
+      "selectedTaskCount": 39,
+      "abandonedTaskCount": 41,
+      "feasibleDecisionAccuracy": 0.975,
+      "infeasibleDecisionAccuracy": 0.95,
+      "taskLocalRecommendationUseRate": 1.0,
+      "meanSelectedUtility": 0.975,
+      "noLocalMeanSelectedUtility": 0.425,
+      "maxStagedMinusImmediateTaskUtility": 0.0,
+      "maxOutcomeResolvedDisplacement": 0.0,
+      "maxNextTaskDisplacement": 0.0,
+      "uncertainty": {
+        "provisionalExposureAuc": {
+          "estimate": 0.656598,
+          "lower95": 0.600617,
+          "upper95": 0.713443,
+          "positiveProbability": 1.0
+        },
+        "inProgressDisplacementAt10": {
+          "estimate": 0.632823,
+          "lower95": 0.565406,
+          "upper95": 0.699594,
+          "positiveProbability": 1.0
+        },
+        "inProgressExcessTargetSlotsAt10": {
+          "estimate": 0.224144,
+          "lower95": -0.091667,
+          "upper95": 0.55,
+          "positiveProbability": 0.9205
+        }
+      }
+    },
+    {
+      "slug": "industrial-and-scientific",
+      "label": "Industrial and Scientific",
+      "taskCount": 80,
+      "selectedTaskCount": 38,
+      "abandonedTaskCount": 42,
+      "feasibleDecisionAccuracy": 1.0,
+      "infeasibleDecisionAccuracy": 1.0,
+      "taskLocalRecommendationUseRate": 1.0,
+      "meanSelectedUtility": 0.95,
+      "noLocalMeanSelectedUtility": 0.725,
+      "maxStagedMinusImmediateTaskUtility": 0.0,
+      "maxOutcomeResolvedDisplacement": 0.0,
+      "maxNextTaskDisplacement": 0.0,
+      "uncertainty": {
+        "provisionalExposureAuc": {
+          "estimate": 0.786602,
+          "lower95": 0.749375,
+          "upper95": 0.818859,
+          "positiveProbability": 1.0
+        },
+        "inProgressDisplacementAt10": {
+          "estimate": 0.800105,
+          "lower95": 0.7625,
+          "upper95": 0.83375,
+          "positiveProbability": 1.0
+        },
+        "inProgressExcessTargetSlotsAt10": {
+          "estimate": 0.404042,
+          "lower95": 0.2125,
+          "upper95": 0.6,
+          "positiveProbability": 1.0
+        }
+      }
+    },
+    {
+      "slug": "prime-pantry",
+      "label": "Prime Pantry",
+      "taskCount": 80,
+      "selectedTaskCount": 39,
+      "abandonedTaskCount": 41,
+      "feasibleDecisionAccuracy": 0.975,
+      "infeasibleDecisionAccuracy": 1.0,
+      "taskLocalRecommendationUseRate": 1.0,
+      "meanSelectedUtility": 0.975,
+      "noLocalMeanSelectedUtility": 0.9,
+      "maxStagedMinusImmediateTaskUtility": 0.0,
+      "maxOutcomeResolvedDisplacement": 0.0,
+      "maxNextTaskDisplacement": 0.0,
+      "uncertainty": {
+        "provisionalExposureAuc": {
+          "estimate": 0.87017,
+          "lower95": 0.84375,
+          "upper95": 0.895635,
+          "positiveProbability": 1.0
+        },
+        "inProgressDisplacementAt10": {
+          "estimate": 0.869514,
+          "lower95": 0.835406,
+          "upper95": 0.900417,
+          "positiveProbability": 1.0
+        },
+        "inProgressExcessTargetSlotsAt10": {
+          "estimate": 0.136585,
+          "lower95": 0.004063,
+          "upper95": 0.3,
+          "positiveProbability": 0.975
+        }
+      }
+    }
+  ],
+  "pooledUncertainty": {
+    "provisionalExposureAuc": {
+      "estimate": 0.76023,
+      "lower95": 0.73872,
+      "upper95": 0.781616,
+      "positiveProbability": 1.0
+    },
+    "inProgressDisplacementAt10": {
+      "estimate": 0.766366,
+      "lower95": 0.741352,
+      "upper95": 0.791771,
+      "positiveProbability": 1.0
+    },
+    "inProgressExcessTargetSlotsAt10": {
+      "estimate": 0.338196,
+      "lower95": 0.203125,
+      "upper95": 0.492708,
+      "positiveProbability": 1.0
+    }
+  },
+  "representativeCases": [
+    {
+      "category": "prime-pantry",
+      "taskId": "fee2851c115c57b3",
+      "modelSeed": 29,
+      "outcome": "selected",
+      "inProgressDisplacementAt10": 1.0,
+      "publicSlates": {
+        "immediate-then-resolve": {
+          "task-start": [
+            "B992B701",
+            "C5FE0E3F",
+            "580093EB",
+            "DBFC1B20",
+            "CA1B16A6"
+          ],
+          "task-in-progress": [
+            "9279E186",
+            "B5527C03",
+            "5CEFB504",
+            "C06338A7",
+            "623EDC92"
+          ],
+          "outcome-resolved": [
+            "C5FE0E3F",
+            "C89E2BF9",
+            "F6206304",
+            "9BFC7D92",
+            "CA1B16A6"
+          ],
+          "next-task": [
+            "580093EB",
+            "B992B701",
+            "C5FE0E3F",
+            "FF37601E",
+            "DBFC1B20"
+          ]
+        },
+        "hold-until-resolved": {
+          "task-start": [
+            "B992B701",
+            "C5FE0E3F",
+            "580093EB",
+            "DBFC1B20",
+            "CA1B16A6"
+          ],
+          "task-in-progress": [
+            "B992B701",
+            "C5FE0E3F",
+            "580093EB",
+            "DBFC1B20",
+            "CA1B16A6"
+          ],
+          "outcome-resolved": [
+            "C5FE0E3F",
+            "C89E2BF9",
+            "F6206304",
+            "9BFC7D92",
+            "CA1B16A6"
+          ],
+          "next-task": [
+            "580093EB",
+            "B992B701",
+            "C5FE0E3F",
+            "FF37601E",
+            "DBFC1B20"
+          ]
+        }
+      }
+    },
+    {
+      "category": "software",
+      "taskId": "ffdf693a1e660bc3",
+      "modelSeed": 17,
+      "outcome": "abandoned",
+      "inProgressDisplacementAt10": 1.0,
+      "publicSlates": {
+        "immediate-then-resolve": {
+          "task-start": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "CE964BA2"
+          ],
+          "task-in-progress": [
+            "51CE7D3F",
+            "95870415",
+            "33A073E5",
+            "2F5B19F7",
+            "BCA88C19"
+          ],
+          "outcome-resolved": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "CE964BA2"
+          ],
+          "next-task": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "DE00A591"
+          ]
+        },
+        "hold-until-resolved": {
+          "task-start": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "CE964BA2"
+          ],
+          "task-in-progress": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "CE964BA2"
+          ],
+          "outcome-resolved": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "CE964BA2"
+          ],
+          "next-task": [
+            "F68D047C",
+            "6D8D6E17",
+            "2D42C168",
+            "8446C53E",
+            "DE00A591"
+          ]
+        }
+      }
+    }
+  ],
+  "observedComparisons": {
+    "positiveInProgressIntervalCategoryCount": 4,
+    "allResolvedFinalStatesMatched": true,
+    "allNextTaskStatesMatched": true,
+    "taskUtilityIdenticalAcrossLifecycleArms": true,
+    "allAgentsConsumedTaskLocalRecommendations": true
+  },
+  "claims": {
+    "observed": [
+      "The shopping agent generated action traces by searching, viewing, consuming task-local recommendations, comparing, and selecting or abandoning products in a frozen local storefront.",
+      "Immediate activation and hold-until-resolved replay the identical realized agent trace and reach the same outcome-resolved stored state.",
+      "The experiment measures top-10 recommendation differences while task outcome is pending and verifies equality after resolution and at the next-task checkpoint.",
+      "Task-local recommendation state remains available in both lifecycle arms, allowing platform-profile staging to be evaluated without disabling within-task adaptation."
+    ],
+    "notEstablished": [
+      "The agent is deterministic and is not evidence about the behavior of frontier LLM or commercial shopping agents.",
+      "The storefront is a frozen offline research environment, not Amazon.com or Amazon's deployed recommender.",
+      "Review histories are real public sequences, but the delegated task and agent are generated for this experiment.",
+      "Exact final-state equality is an inference-context replay property, not trained-model unlearning.",
+      "No human preference change, experienced harm, comprehension, trust, or control preference is measured."
+    ]
+  }
+}

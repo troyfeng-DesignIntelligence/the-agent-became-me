@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "webarena-source-manifest.v1",
+  "capturedAt": "2026-08-04T16:12:00+08:00",
+  "repository": {
+    "url": "https://github.com/web-arena-x/webarena",
+    "commit": "dce04686a56253aefba7b18a4fa0937cf1dc987b",
+    "commitDate": "2025-11-26T21:15:59Z",
+    "license": "Apache-2.0"
+  },
+  "files": [
+    {
+      "name": "test.raw.json",
+      "url": "https://raw.githubusercontent.com/web-arena-x/webarena/dce04686a56253aefba7b18a4fa0937cf1dc987b/config_files/test.raw.json",
+      "sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+      "bytes": 880776
+    },
+    {
+      "name": "RESOURCES.md",
+      "url": "https://raw.githubusercontent.com/web-arena-x/webarena/dce04686a56253aefba7b18a4fa0937cf1dc987b/resources/README.md",
+      "sha256": "a1d6c28ee704c5fc59696fa42723c35829d67391fc6943e8d3361f2f8cf6883e",
+      "bytes": 2883
+    },
+    {
+      "name": "LICENSE",
+      "url": "https://raw.githubusercontent.com/web-arena-x/webarena/dce04686a56253aefba7b18a4fa0937cf1dc987b/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    }
+  ],
+  "trajectoryAcquisition": {
+    "status": "released-agent-traces-acquired",
+    "humanOfficialDrive": "https://drive.google.com/drive/folders/1NrN_sawtYK2V_uHnmmS8ugmGIKUAsPgt?usp=sharing",
+    "agentOfficialDrive": "https://drive.google.com/drive/folders/1H4wkzDkY2ufiC63DISMXllri0j-ipWcs?usp=sharing",
+    "attempts": [
+      {
+        "source": "official-human-drive",
+        "observed": "TCP connection to drive.google.com:443 timed out"
+      },
+      {
+        "source": "Agent-Eval-Refine Hugging Face mirror",
+        "observed": "Canonical huggingface.co endpoint timed out; hf-mirror.com exposed a byte-range-readable archive"
+      }
+    ],
+    "mirror": {
+      "repository": "https://huggingface.co/datasets/Agent-Eval-Refine/Agent-Trajectories",
+      "repositoryCommit": "ef1d8b4467e83ad54f119fe82a137169600a2679",
+      "archive": "trajectories.zip",
+      "archiveBytes": 2887680098,
+      "linkedEtag": "bbfd1a42ecab49e8aa9267860f9ef3db1d8602d0eae586508a124963831ead30",
+      "declaredContents": "GPT-4 CoT baseline extracted from the WebArena official release",
+      "licenseNote": "No dataset license was declared on the mirror card at acquisition time; raw members remain ignored and are not redistributed."
+    },
+    "extractedMembers": [
+      {
+        "name": "AgentTrajectories/webarena/webarena-gpt4cot-release2/trajectory_log.json",
+        "bytes": 2216100,
+        "crc32": "f2f0413b",
+        "sha256": "9c191ae840beaad88ca5ebfb4fb41920dd6ce683b3a031732ec9ba2a22d63aa4"
+      },
+      {
+        "name": "AgentTrajectories/webarena/webarena-gpt4cot-release2/evals/v0.jsonl",
+        "bytes": 119512,
+        "crc32": "2ecc83ad",
+        "sha256": "3eaf7c9af9d45747e5fe49ded982b03eafd77b3ba81be6652e88a4d6c86512f8"
+      },
+      {
+        "name": "AgentTrajectories/webarena/webarena-gpt4cot-release2/captions/ocr-sft-qwenvl-v2.json",
+        "bytes": 13811800,
+        "crc32": "92423504",
+        "sha256": "c73ed9557dd49a08f298d1ac2f3b57938ed1dc44063cb4a7f8f544e6ce237c62"
+      }
+    ]
+  },
+  "claimBoundary": "Derived outputs replay released GPT-4 CoT action traces through a local profile-evidence mapper. They are not a live WebArena run, a human-agent comparison, or evidence about a commercial recommender."
+}

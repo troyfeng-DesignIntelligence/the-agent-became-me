@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="850" viewBox="0 0 1340 850">
+  <style>.kicker{font:700 13px Arial,sans-serif;letter-spacing:2px;fill:#9f574b}.title{font:500 48px Georgia,serif;fill:#211f1c}.subtitle{font:400 17px Arial,sans-serif;fill:#68635c}.label{font:600 17px Arial,sans-serif;fill:#35312d}.label.pooled{font-weight:800}.value{font:700 13px monospace;fill:#514d48}.axis{font:600 12px monospace;fill:#79736a}.note{font:400 13px Arial,sans-serif;fill:#6a655d}</style>
+  <rect width="100%" height="100%" fill="#eee9de"/>
+  <text x="50" y="48" class="kicker">FIGURE 7 / CROSS-CATEGORY REPLICATION</text>
+  <text x="50" y="104" class="title">The direction held. The size did not.</text>
+  <text x="50" y="140" class="subtitle">Persist-all excess target-family slots @10; 2,000 hierarchical user/seed bootstrap replicates.</text>
+  <line x1="410" y1="205" x2="410" y2="690" stroke="#d6cfc4"/><text x="410" y="720" text-anchor="middle" class="axis">0.0</text><line x1="590" y1="205" x2="590" y2="690" stroke="#d6cfc4"/><text x="590" y="720" text-anchor="middle" class="axis">0.2</text><line x1="770" y1="205" x2="770" y2="690" stroke="#d6cfc4"/><text x="770" y="720" text-anchor="middle" class="axis">0.4</text><line x1="949.9999999999999" y1="205" x2="949.9999999999999" y2="690" stroke="#d6cfc4"/><text x="949.9999999999999" y="720" text-anchor="middle" class="axis">0.6</text><line x1="1130" y1="205" x2="1130" y2="690" stroke="#d6cfc4"/><text x="1130" y="720" text-anchor="middle" class="axis">0.8</text><line x1="70" y1="293" x2="1260" y2="293" stroke="#cbc4b9" stroke-width="1"/>
+      <text x="70" y="266" class="label">Luxury Beauty</text>
+      <line x1="704.9803999999999" y1="258" x2="918.4154" y2="258" stroke="#74858b" stroke-width="8"/>
+      <circle cx="801.4415" cy="258" r="8" fill="#a56659"/>
+      <text x="1190" y="263" class="value" text-anchor="end">0.435 [0.328, 0.565]</text><line x1="70" y1="387" x2="1260" y2="387" stroke="#cbc4b9" stroke-width="1"/>
+      <text x="70" y="360" class="label">Software</text>
+      <line x1="423.7754" y1="352" x2="615.2153000000001" y2="352" stroke="#74858b" stroke-width="8"/>
+      <circle cx="517.3367" cy="352" r="8" fill="#a56659"/>
+      <text x="1190" y="357" class="value" text-anchor="end">0.119 [0.015, 0.228]</text><line x1="70" y1="481" x2="1260" y2="481" stroke="#cbc4b9" stroke-width="1"/>
+      <text x="70" y="454" class="label">Industrial and Scientific</text>
+      <line x1="866.5754" y1="446" x2="1046.8102999999999" y2="446" stroke="#74858b" stroke-width="8"/>
+      <circle cx="960.4436" cy="446" r="8" fill="#a56659"/>
+      <text x="1190" y="451" class="value" text-anchor="end">0.612 [0.507, 0.708]</text><line x1="70" y1="575" x2="1260" y2="575" stroke="#cbc4b9" stroke-width="1"/>
+      <text x="70" y="548" class="label">Prime Pantry</text>
+      <line x1="487.99490000000003" y1="540" x2="547.2049999999999" y2="540" stroke="#74858b" stroke-width="8"/>
+      <circle cx="517.1170999999999" cy="540" r="8" fill="#a56659"/>
+      <text x="1190" y="545" class="value" text-anchor="end">0.119 [0.087, 0.152]</text><line x1="70" y1="669" x2="1260" y2="669" stroke="#6b665f" stroke-width="2"/>
+      <text x="70" y="642" class="label pooled">Equal-category pooled</text>
+      <line x1="655.3004000000001" y1="634" x2="741.9533" y2="634" stroke="#273a40" stroke-width="11"/>
+      <circle cx="699.0844999999999" cy="634" r="11" fill="#273a40"/>
+      <text x="1190" y="639" class="value" text-anchor="end">0.321 [0.273, 0.369]</text>
+  <text x="770" y="760" text-anchor="middle" class="axis">EXCESS TARGET-FAMILY SLOTS @10</text>
+  <text x="50" y="815" class="note">Four public Amazon review categories; one SASRec protocol; category-specific and fixed-set equal-category 95% intervals. Temporary delegation remains counterfactual.</text>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://troyfeng-designintelligence.github.io/the-agent-became-me/sitemap.xml

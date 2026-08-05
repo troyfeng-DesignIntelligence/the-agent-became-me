@@ -1,0 +1,4 @@
+iteration	metric_value	delta	delta_pct	status	description	evaluator_source	timestamp
+0	0.250	-	-	baseline	Released traces available; OCR and failure lifecycle analysis absent	mechanical baseline	2026-08-04T17:45:00+08:00
+1	0.700	0.450	180.0%	discard	OCR audit exposed UI-control false positives in broad mapper	strengthened mechanical evaluator	2026-08-04T19:40:00+08:00
+2	1.000	0.300	42.9%	keep	Strict taxonomy, source-verified screenshot audit, lifecycle replay, and dedup sensitivity	mechanical evaluator	2026-08-04T19:51:00+08:00

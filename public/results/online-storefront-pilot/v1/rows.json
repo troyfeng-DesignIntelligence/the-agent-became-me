@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "online-storefront-rows.v1",
+  "rows": [
+    {
+      "taskId": "T190BEDC760",
+      "taskLabel": "cereal-selected",
+      "outcome": "selected",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T190BEDC760",
+      "taskLabel": "cereal-selected",
+      "outcome": "selected",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.5,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T190BEDC760",
+      "taskLabel": "cereal-selected",
+      "outcome": "selected",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T190BEDC760",
+      "taskLabel": "cereal-selected",
+      "outcome": "selected",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TE4791A6D58",
+      "taskLabel": "snack-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TE4791A6D58",
+      "taskLabel": "snack-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.6,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TE4791A6D58",
+      "taskLabel": "snack-abandoned",
+      "outcome": "abandoned",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TE4791A6D58",
+      "taskLabel": "snack-abandoned",
+      "outcome": "abandoned",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA6C9EC7C82",
+      "taskLabel": "drink-selected",
+      "outcome": "selected",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA6C9EC7C82",
+      "taskLabel": "drink-selected",
+      "outcome": "selected",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.6,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA6C9EC7C82",
+      "taskLabel": "drink-selected",
+      "outcome": "selected",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA6C9EC7C82",
+      "taskLabel": "drink-selected",
+      "outcome": "selected",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T6D3092BF7B",
+      "taskLabel": "bar-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T6D3092BF7B",
+      "taskLabel": "bar-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.7,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T6D3092BF7B",
+      "taskLabel": "bar-abandoned",
+      "outcome": "abandoned",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T6D3092BF7B",
+      "taskLabel": "bar-abandoned",
+      "outcome": "abandoned",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA4FFC5F471",
+      "taskLabel": "yogurt-selected",
+      "outcome": "selected",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA4FFC5F471",
+      "taskLabel": "yogurt-selected",
+      "outcome": "selected",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.2,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA4FFC5F471",
+      "taskLabel": "yogurt-selected",
+      "outcome": "selected",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TA4FFC5F471",
+      "taskLabel": "yogurt-selected",
+      "outcome": "selected",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T92F7C1F7B1",
+      "taskLabel": "cereal-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T92F7C1F7B1",
+      "taskLabel": "cereal-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.5,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T92F7C1F7B1",
+      "taskLabel": "cereal-abandoned",
+      "outcome": "abandoned",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T92F7C1F7B1",
+      "taskLabel": "cereal-abandoned",
+      "outcome": "abandoned",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T1438887C6A",
+      "taskLabel": "snack-selected",
+      "outcome": "selected",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T1438887C6A",
+      "taskLabel": "snack-selected",
+      "outcome": "selected",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.6,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T1438887C6A",
+      "taskLabel": "snack-selected",
+      "outcome": "selected",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "T1438887C6A",
+      "taskLabel": "snack-selected",
+      "outcome": "selected",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TEDDD90FC7C",
+      "taskLabel": "drink-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-start",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TEDDD90FC7C",
+      "taskLabel": "drink-abandoned",
+      "outcome": "abandoned",
+      "phase": "task-in-progress",
+      "platformDisplacementAt10": 0.6,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TEDDD90FC7C",
+      "taskLabel": "drink-abandoned",
+      "outcome": "abandoned",
+      "phase": "outcome-resolved",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    },
+    {
+      "taskId": "TEDDD90FC7C",
+      "taskLabel": "drink-abandoned",
+      "outcome": "abandoned",
+      "phase": "next-task",
+      "platformDisplacementAt10": 0,
+      "taskLocalDisplacementAt10": 0,
+      "traceMatched": true
+    }
+  ]
+}

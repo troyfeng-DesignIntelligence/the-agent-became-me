@@ -1,0 +1,2805 @@
+{
+  "schemaVersion": "online-storefront-traces.v1",
+  "runs": [
+    {
+      "taskId": "T190BEDC760",
+      "taskLabel": "cereal-selected",
+      "arm": "immediate",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P202E46BDC5",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD3A8EF2B21",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PB4979AE954",
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9",
+            "P4E74995981"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "266cacd9e83235d93075151ae25ea6dd19419cc02690c3ddb6dfb40222b0604f"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC0B9995D3F",
+            "PC75DC8D313",
+            "P6A20F94359",
+            "P85D979746A",
+            "P2FE3D53CCF",
+            "P4E74995981",
+            "PFEBCBE053D",
+            "P1180BBDACF",
+            "P9D9E207CA8"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "e510924181b39c5079812393a00c1294271f6961ecef37fec09db8d9d313ce62"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC0B9995D3F",
+            "P1180BBDACF",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PB4979AE954",
+            "P6A20F94359",
+            "PC75DC8D313",
+            "P881A2ADF48",
+            "PA23BC57709"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "fe0179522994f767cfbe6dc90a28e3db1c2f2168610e88caa3283fa61a208ddc"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC0B9995D3F",
+            "PDD9E4C1AC0",
+            "P6A20F94359",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC75DC8D313",
+            "PB4979AE954",
+            "P2FE3D53CCF",
+            "P1180BBDACF",
+            "PA23BC57709"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "dfb6c7c6318463fda5d1a8c6097d78fa9c0bf7c9d56f0dd9d4e15d02d8d5b8af"
+        }
+      ]
+    },
+    {
+      "taskId": "T190BEDC760",
+      "taskLabel": "cereal-selected",
+      "arm": "held",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P202E46BDC5",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD3A8EF2B21",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PB4979AE954",
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9",
+            "P4E74995981"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "edd9c1a6208b85fd9a9d6b48c9112c111171e139a2706e75d12c68f64f89641f"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "00dcc2d40d7b702ba391da63ca3408fd234fae1bb90aea0277e77ca5a1efd879"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC0B9995D3F",
+            "P1180BBDACF",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PB4979AE954",
+            "P6A20F94359",
+            "PC75DC8D313",
+            "P881A2ADF48",
+            "PA23BC57709"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "fc9557b27acd8e5f0c3a3c601053809864d12fce4f16c93ecbe117a8d6a4c9bb"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC0B9995D3F",
+            "PDD9E4C1AC0",
+            "P6A20F94359",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC75DC8D313",
+            "PB4979AE954",
+            "P2FE3D53CCF",
+            "P1180BBDACF",
+            "PA23BC57709"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "b05331a6061605ab796c6808dc7d4c0dbe19e89f353fa7994ccbcab07369d2ff"
+        }
+      ]
+    },
+    {
+      "taskId": "TE4791A6D58",
+      "taskLabel": "snack-abandoned",
+      "arm": "immediate",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P2CF4F02010",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD2C5BFDB26",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P992EDE941F",
+            "P257F5AD2EB",
+            "P26F9AA2E5D",
+            "P6A20F94359",
+            "P2CF4F02010",
+            "P0938FE01DC",
+            "PD2C5BFDB26"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "f8b1d90676cf7d99a65e1977e8a002a89ff6cb3c6607f4c47eb02bb43ebe607d"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PECCFB0553D",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P3E6683AA46",
+            "P881A2ADF48",
+            "PC75DC8D313",
+            "PD2C5BFDB26",
+            "PC0B9995D3F",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "8006305d20f3946de8db4a3152b23e82a04d5d53c83c3905c6e2968531b84da2"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "defc7538e7e9b35fbe5abddf2e8f25c75ae31ac0fe031ce8cb8d5b3a8c961e51"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC75DC8D313",
+            "P6A20F94359",
+            "PC0B9995D3F",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P401F89D6F4",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PFEDAA5157A"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "af182b79993d1d1b277ba11ab90b9e4dab7d6c07b8b6ed81f625fad0ea218188"
+        }
+      ]
+    },
+    {
+      "taskId": "TE4791A6D58",
+      "taskLabel": "snack-abandoned",
+      "arm": "held",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P2CF4F02010",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD2C5BFDB26",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P992EDE941F",
+            "P257F5AD2EB",
+            "P26F9AA2E5D",
+            "P6A20F94359",
+            "P2CF4F02010",
+            "P0938FE01DC",
+            "PD2C5BFDB26"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "cb46321f264c4b6cc62901660c3946eb59351547dc7fc4022dac475fd9613c2d"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "8c3d9fa1465346fefce7f34c00840c47eadc00d5ca34a78931dfb73b421fb294"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "ac46ec680fd7d3be07df8bce1c6c77d912ae2fc8aa4c3975534b97748c538154"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC75DC8D313",
+            "P6A20F94359",
+            "PC0B9995D3F",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P401F89D6F4",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PFEDAA5157A"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "07cf37819ddbaf7d91f821a8b58d8260282a91634c0fcdfaff37da9fa400178c"
+        }
+      ]
+    },
+    {
+      "taskId": "TA6C9EC7C82",
+      "taskLabel": "drink-selected",
+      "arm": "immediate",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PDBEED5BB69",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PDD9E4C1AC0",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P2B49BDCFED",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "PDBEED5BB69",
+            "P6227895339",
+            "P30BA68FD35",
+            "P82DF39C2A4",
+            "P964F671CFB",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "39b65608890f26847fd45c596b1495516acf0e01e1843e6c62e26c8641afbfb0"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PDD9E4C1AC0",
+            "P1180BBDACF",
+            "PC0B9995D3F",
+            "PB4979AE954",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PA23BC57709",
+            "PB7CFACD0D6",
+            "P070CEF6C08",
+            "P202E46BDC5"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "98aa8ac34102d3978377879aed55ed5a872e92d539eebb5d2ab357f2020280c1"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC0B9995D3F",
+            "PC75DC8D313",
+            "P3E6683AA46",
+            "PECCFB0553D",
+            "P2FE3D53CCF",
+            "P992EDE941F",
+            "P881A2ADF48",
+            "P6A20F94359"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "e996c9ac4a8589109ff1daa873a5fbc395ab8983edf7e9b5babcc276252ca4be"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "P881A2ADF48",
+            "P3E6683AA46",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P7A3D0B1CC8",
+            "P202E46BDC5",
+            "P992EDE941F",
+            "P1180BBDACF",
+            "P388B83D7BC",
+            "PB4979AE954"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "038df8706c70ec0e172080a31ac5df86e7db80220430768bc7bde1e0f6d1b3ab"
+        }
+      ]
+    },
+    {
+      "taskId": "TA6C9EC7C82",
+      "taskLabel": "drink-selected",
+      "arm": "held",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PDBEED5BB69",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PDD9E4C1AC0",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P2B49BDCFED",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "PDBEED5BB69",
+            "P6227895339",
+            "P30BA68FD35",
+            "P82DF39C2A4",
+            "P964F671CFB",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "dd508c550bcda70ce1096cd32537799acede28558fc90046073a99f0341b8431"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "1289a76d9b4e939a6294c6819a9a07e7d1ff23b3855f1c230e02a365cd73da26"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC0B9995D3F",
+            "PC75DC8D313",
+            "P3E6683AA46",
+            "PECCFB0553D",
+            "P2FE3D53CCF",
+            "P992EDE941F",
+            "P881A2ADF48",
+            "P6A20F94359"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "3621a647de0634a2e6c8048a2fe28ba5f022f42b2c7b0312489bc8025b6aef37"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "P881A2ADF48",
+            "P3E6683AA46",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P7A3D0B1CC8",
+            "P202E46BDC5",
+            "P992EDE941F",
+            "P1180BBDACF",
+            "P388B83D7BC",
+            "PB4979AE954"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "5cd0725a996cb2f8c0b361be07e637d56ec8ca172a69592e447f3bbbf9104b14"
+        }
+      ]
+    },
+    {
+      "taskId": "T6D3092BF7B",
+      "taskLabel": "bar-abandoned",
+      "arm": "immediate",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P2B49BDCFED",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PAF5E49852C",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "P3E39B20ED5",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452",
+            "P1FF7FCEF25",
+            "P9081009346",
+            "PD51806A228"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "a25bc2f9f49607bca1a7fc901da6670171e465395ea881db5d873cd55354057d"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "P881A2ADF48",
+            "P1180BBDACF",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P7A3D0B1CC8",
+            "PDD9E4C1AC0",
+            "P3E6683AA46",
+            "P82DF39C2A4",
+            "PECCFB0553D",
+            "P964F671CFB"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "P2B49BDCFED",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "PB2832BA329",
+            "P8364D95460",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452"
+          ],
+          "viewedIds": [
+            "P2B49BDCFED",
+            "PAF5E49852C",
+            "P3E39B20ED5"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "3e684f028218c663f6ea86d97f9e22a0ecb0f0a24d710060296e222aad84f57e"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "P2B49BDCFED",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "PB2832BA329",
+            "P8364D95460",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452"
+          ],
+          "viewedIds": [
+            "P2B49BDCFED",
+            "PAF5E49852C",
+            "P3E39B20ED5"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "0b839c7a7c9c25de5f6254e6c55e2e1044d01f251e0f59763a0be6344e814d13"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC75DC8D313",
+            "PC0B9995D3F",
+            "P2FE3D53CCF",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "P1180BBDACF",
+            "P401F89D6F4",
+            "P881A2ADF48"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "P2B49BDCFED",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "PB2832BA329",
+            "P8364D95460",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452"
+          ],
+          "viewedIds": [
+            "P2B49BDCFED",
+            "PAF5E49852C",
+            "P3E39B20ED5"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "0312edc724e8c5f293259c5b46f7be9ff627a350f0bde0bfec5644c2041e8f7b"
+        }
+      ]
+    },
+    {
+      "taskId": "T6D3092BF7B",
+      "taskLabel": "bar-abandoned",
+      "arm": "held",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P2B49BDCFED",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PAF5E49852C",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "P3E39B20ED5",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452",
+            "P1FF7FCEF25",
+            "P9081009346",
+            "PD51806A228"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "e47366487f608b96da61c9749d48b5d8957cd02536a08b19214153fa704aa14c"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "P2B49BDCFED",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "PB2832BA329",
+            "P8364D95460",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452"
+          ],
+          "viewedIds": [
+            "P2B49BDCFED",
+            "PAF5E49852C",
+            "P3E39B20ED5"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "c953ad58aff5764614f68948604e06112b4e28cd129c2d24168de82a2c6ce1c3"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "P2B49BDCFED",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "PB2832BA329",
+            "P8364D95460",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452"
+          ],
+          "viewedIds": [
+            "P2B49BDCFED",
+            "PAF5E49852C",
+            "P3E39B20ED5"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "49b5ffdd697f300717fbc9b137fcd712c7f21714307650900a4b1543dc68177b"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC75DC8D313",
+            "PC0B9995D3F",
+            "P2FE3D53CCF",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "P1180BBDACF",
+            "P401F89D6F4",
+            "P881A2ADF48"
+          ],
+          "taskLocal": [
+            "P3E39B20ED5",
+            "P2B49BDCFED",
+            "PE634E8D114",
+            "P1F33657ECA",
+            "P2377E6AA35",
+            "PB2832BA329",
+            "P8364D95460",
+            "P46EDB1CD46",
+            "P3DD85CAD8E",
+            "P688F3DF452"
+          ],
+          "viewedIds": [
+            "P2B49BDCFED",
+            "PAF5E49852C",
+            "P3E39B20ED5"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "5e366fecefcfcb253466954ea38866eafff6f057a681aa93a8212c928c702b5c"
+        }
+      ]
+    },
+    {
+      "taskId": "TA4FFC5F471",
+      "taskLabel": "yogurt-selected",
+      "arm": "immediate",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PC0B9995D3F",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "P3C6CAEB7CC",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC0B9995D3F",
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "P401F89D6F4",
+            "P33BB4A22DF",
+            "P31B9ECE94D",
+            "P3C6CAEB7CC",
+            "P9995452465"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "656f6f8ffdd9d1241aabc62ea9c891e19ab421e3cb2f4e58dc703c0ea59b3322"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC0B9995D3F",
+            "P6A20F94359",
+            "PC75DC8D313",
+            "PABCEE49A79",
+            "P2FE3D53CCF",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P401F89D6F4",
+            "P3C6CAEB7CC"
+          ],
+          "taskLocal": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PC75DC8D313",
+            "PF720D69638",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P3C6CAEB7CC",
+            "P401F89D6F4",
+            "P6A20F94359",
+            "P33BB4A22DF"
+          ],
+          "viewedIds": [
+            "P3285EA2464",
+            "PC0B9995D3F",
+            "P3C6CAEB7CC"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "c9d367c94cbb67515e94ea3b6e568462157868cb8a01572bccd0d3166804a2a1"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "P6A20F94359",
+            "PC0B9995D3F",
+            "P3285EA2464",
+            "PC75DC8D313",
+            "PABCEE49A79",
+            "PFA3F105CB3",
+            "P2FE3D53CCF",
+            "P109A61D0D2",
+            "P7DCFE7E579",
+            "PDD9E4C1AC0"
+          ],
+          "taskLocal": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PC75DC8D313",
+            "PF720D69638",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P3C6CAEB7CC",
+            "P401F89D6F4",
+            "P6A20F94359",
+            "P33BB4A22DF"
+          ],
+          "viewedIds": [
+            "P3285EA2464",
+            "PC0B9995D3F",
+            "P3C6CAEB7CC"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "7b8159eb5f4fa82c8c3a0919e85bd1bf80da555cb37dfaded57c0862350c40dd"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P6A20F94359",
+            "P401F89D6F4",
+            "PABCEE49A79",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PDD9E4C1AC0",
+            "P31B9ECE94D"
+          ],
+          "taskLocal": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PC75DC8D313",
+            "PF720D69638",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P3C6CAEB7CC",
+            "P401F89D6F4",
+            "P6A20F94359",
+            "P33BB4A22DF"
+          ],
+          "viewedIds": [
+            "P3285EA2464",
+            "PC0B9995D3F",
+            "P3C6CAEB7CC"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "2e6fb563034e9ceb65c4665b9dc30c34f2088df8b8cd32df8948b650b2d13dba"
+        }
+      ]
+    },
+    {
+      "taskId": "TA4FFC5F471",
+      "taskLabel": "yogurt-selected",
+      "arm": "held",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PC0B9995D3F",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "P3C6CAEB7CC",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC0B9995D3F",
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "P401F89D6F4",
+            "P33BB4A22DF",
+            "P31B9ECE94D",
+            "P3C6CAEB7CC",
+            "P9995452465"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "a08e088331ffeeca6fcf8da8c9712021efd8aeca8c65723e294695be4ecccbb0"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PC75DC8D313",
+            "PF720D69638",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P3C6CAEB7CC",
+            "P401F89D6F4",
+            "P6A20F94359",
+            "P33BB4A22DF"
+          ],
+          "viewedIds": [
+            "P3285EA2464",
+            "PC0B9995D3F",
+            "P3C6CAEB7CC"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "e0b110cd121f019dafbffb16a5a62139af6a609ddfe088ffd46b628578f216d5"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "P6A20F94359",
+            "PC0B9995D3F",
+            "P3285EA2464",
+            "PC75DC8D313",
+            "PABCEE49A79",
+            "PFA3F105CB3",
+            "P2FE3D53CCF",
+            "P109A61D0D2",
+            "P7DCFE7E579",
+            "PDD9E4C1AC0"
+          ],
+          "taskLocal": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PC75DC8D313",
+            "PF720D69638",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P3C6CAEB7CC",
+            "P401F89D6F4",
+            "P6A20F94359",
+            "P33BB4A22DF"
+          ],
+          "viewedIds": [
+            "P3285EA2464",
+            "PC0B9995D3F",
+            "P3C6CAEB7CC"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "8cc574e659604d581972043a2e53183d5408efd3d92c9fefcf41094f65ed073a"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P6A20F94359",
+            "P401F89D6F4",
+            "PABCEE49A79",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PDD9E4C1AC0",
+            "P31B9ECE94D"
+          ],
+          "taskLocal": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PC75DC8D313",
+            "PF720D69638",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P3C6CAEB7CC",
+            "P401F89D6F4",
+            "P6A20F94359",
+            "P33BB4A22DF"
+          ],
+          "viewedIds": [
+            "P3285EA2464",
+            "PC0B9995D3F",
+            "P3C6CAEB7CC"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "10e0c44e8fbf56c025ef0ae0388ea9b8e3cb2ff67ca2cc3ce0812bd4f5bf33c8"
+        }
+      ]
+    },
+    {
+      "taskId": "T92F7C1F7B1",
+      "taskLabel": "cereal-abandoned",
+      "arm": "immediate",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P202E46BDC5",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD3A8EF2B21",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P2B49BDCFED",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PB4979AE954",
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9",
+            "P4E74995981"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "36b20b35cf08c1f251817a29947150e240c61faa98ab3afd5b1c1e7262cfdcfd"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC0B9995D3F",
+            "PC75DC8D313",
+            "P6A20F94359",
+            "P85D979746A",
+            "P2FE3D53CCF",
+            "P4E74995981",
+            "PFEBCBE053D",
+            "P1180BBDACF",
+            "P9D9E207CA8"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "fd44cdb67ac2efbc90475cefa6ef3167264d1b8a6d6d1b036f0ef81435ee51bf"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "782d269dcee7c228fcff774a59d6b5bca1917a30e05d4f34f867d87df00be815"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC75DC8D313",
+            "P881A2ADF48",
+            "P1180BBDACF",
+            "P2FE3D53CCF",
+            "PAF5E49852C",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC0B9995D3F",
+            "P7A3D0B1CC8"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "e7165c6f1a73f2489cc37d8054035d0a484c24bbf76590491b1bc9ac479d0e58"
+        }
+      ]
+    },
+    {
+      "taskId": "T92F7C1F7B1",
+      "taskLabel": "cereal-abandoned",
+      "arm": "held",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB4979AE954",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P202E46BDC5",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD3A8EF2B21",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P2B49BDCFED",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PB4979AE954",
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9",
+            "P4E74995981"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "804779b242c27c6b0c5dc580311e3a064578d7938cab098bd94782086e9f53e4"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "ae648187a41bd1991fa6b2009530217ddbf1b924d66f095df95071d8e4a43c91"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "778a1024f71cccbdaf8c1034a6f026454a4da08d51b9a9b7a69ebb6f5b6ae5a8"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PDD9E4C1AC0",
+            "PC75DC8D313",
+            "P881A2ADF48",
+            "P1180BBDACF",
+            "P2FE3D53CCF",
+            "PAF5E49852C",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC0B9995D3F",
+            "P7A3D0B1CC8"
+          ],
+          "taskLocal": [
+            "PFEBCBE053D",
+            "P9D9E207CA8",
+            "PB4979AE954",
+            "PA23BC57709",
+            "P070CEF6C08",
+            "P4E74995981",
+            "P3ABF08AAAC",
+            "P6696C25573",
+            "PDD9E4C1AC0",
+            "P53BB5704D9"
+          ],
+          "viewedIds": [
+            "PB4979AE954",
+            "P202E46BDC5",
+            "PD3A8EF2B21"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "f42ed5711be6b3b1b20ce224d53d0bcd7c8b0a73738954906e24ac16d63f9b81"
+        }
+      ]
+    },
+    {
+      "taskId": "T1438887C6A",
+      "taskLabel": "snack-selected",
+      "arm": "immediate",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P2CF4F02010",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD2C5BFDB26",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P992EDE941F",
+            "P257F5AD2EB",
+            "P26F9AA2E5D",
+            "P6A20F94359",
+            "P2CF4F02010",
+            "P0938FE01DC",
+            "PD2C5BFDB26"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "659bb9a976f449252ac776c701eaad636a52a739000726c922dc22e071299035"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PECCFB0553D",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P3E6683AA46",
+            "P881A2ADF48",
+            "PC75DC8D313",
+            "PD2C5BFDB26",
+            "PC0B9995D3F",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "0044cdfeacb71d934f39c4887f56001eafddb5b775014d7b0b9085e88ad77dd2"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC0B9995D3F",
+            "P6A20F94359",
+            "PC75DC8D313",
+            "PABCEE49A79",
+            "P2FE3D53CCF",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "P401F89D6F4",
+            "PF720D69638",
+            "P5E954EE6FE"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "d20a842c2df71481792ae25fa5bbd08a6c102faa9d52c72fd53dfecb7a7de158"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC75DC8D313",
+            "P6A20F94359",
+            "P2FE3D53CCF",
+            "PDD9E4C1AC0",
+            "P401F89D6F4",
+            "P5E954EE6FE",
+            "P128C970351"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "946abdf0ac3e9581f5f4cd68097cfb5d9cd61ead73c3c81b930c7206d90d69a2"
+        }
+      ]
+    },
+    {
+      "taskId": "T1438887C6A",
+      "taskLabel": "snack-selected",
+      "arm": "held",
+      "outcome": "selected",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "P2CF4F02010",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PD2C5BFDB26",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "select",
+          "productId": "P6A20F94359",
+          "eligibleForPlatform": true,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P992EDE941F",
+            "P257F5AD2EB",
+            "P26F9AA2E5D",
+            "P6A20F94359",
+            "P2CF4F02010",
+            "P0938FE01DC",
+            "PD2C5BFDB26"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "ddbc8d8cc1dc671805f6db6d89b4aeffdea3f5eb9a7b6f4df31dba22bd4c3049"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "7c9148bfcc35aa3cd57ecae30d350fd8dc6a046e88272ca404dd3e4260a05c70"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC0B9995D3F",
+            "P6A20F94359",
+            "PC75DC8D313",
+            "PABCEE49A79",
+            "P2FE3D53CCF",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "P401F89D6F4",
+            "PF720D69638",
+            "P5E954EE6FE"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "7ee6e6298ab264acc7dafaac58571c5a1ec07717a7a0a0acfdbd569755d0dadb"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC0B9995D3F",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PC75DC8D313",
+            "P6A20F94359",
+            "P2FE3D53CCF",
+            "PDD9E4C1AC0",
+            "P401F89D6F4",
+            "P5E954EE6FE",
+            "P128C970351"
+          ],
+          "taskLocal": [
+            "P3E6683AA46",
+            "P992EDE941F",
+            "P26F9AA2E5D",
+            "P5E954EE6FE",
+            "P128C970351",
+            "P2CF4F02010",
+            "P257F5AD2EB",
+            "PD2C5BFDB26",
+            "PD5EA0F0CB4",
+            "P94623A2713"
+          ],
+          "viewedIds": [
+            "P6A20F94359",
+            "P2CF4F02010",
+            "PD2C5BFDB26"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "d3a826fc6f048516c288e2843dd011a649f0eccbf5a8bc495d93f856861592fa"
+        }
+      ]
+    },
+    {
+      "taskId": "TEDDD90FC7C",
+      "taskLabel": "drink-abandoned",
+      "arm": "immediate",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": true,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PDBEED5BB69",
+          "eligibleForPlatform": true,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PDD9E4C1AC0",
+          "eligibleForPlatform": true,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "PDBEED5BB69",
+            "P6227895339",
+            "P30BA68FD35",
+            "P82DF39C2A4",
+            "P964F671CFB",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "922e6ad837825530c8360361dc17a5e03856f550eefdbf1a05e538a103f3bb4d"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PDD9E4C1AC0",
+            "P1180BBDACF",
+            "PC0B9995D3F",
+            "PB4979AE954",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PA23BC57709",
+            "PB7CFACD0D6",
+            "P070CEF6C08",
+            "P202E46BDC5"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "7b3af367d2340343cefd055e1d81d37b63b7941c9fa29398cd476d6b14876f6c"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "0d292567aef72354fc593cef29ea4a1bdc36435820762ca7b0e46aed7385b662"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC75DC8D313",
+            "P6A20F94359",
+            "PC0B9995D3F",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P401F89D6F4",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PFEDAA5157A"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "a16fbbfd74ccda48b2f3cbbdce8583adc75c5c88208060b25a46003af81f13af"
+        }
+      ]
+    },
+    {
+      "taskId": "TEDDD90FC7C",
+      "taskLabel": "drink-abandoned",
+      "arm": "held",
+      "outcome": "abandoned",
+      "status": "completed",
+      "consoleErrorCount": 0,
+      "popupCount": 0,
+      "trace": [
+        {
+          "action": "view",
+          "productId": "PB50CAAA446",
+          "eligibleForPlatform": false,
+          "sequence": 0
+        },
+        {
+          "action": "view",
+          "productId": "PDBEED5BB69",
+          "eligibleForPlatform": false,
+          "sequence": 1
+        },
+        {
+          "action": "view",
+          "productId": "PDD9E4C1AC0",
+          "eligibleForPlatform": false,
+          "sequence": 2
+        },
+        {
+          "action": "abandon",
+          "productId": null,
+          "eligibleForPlatform": false,
+          "sequence": 3
+        },
+        {
+          "action": "next-task",
+          "productId": "P3285EA2464",
+          "eligibleForPlatform": true,
+          "sequence": 4
+        }
+      ],
+      "snapshots": [
+        {
+          "phase": "task-start",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "PDBEED5BB69",
+            "P6227895339",
+            "P30BA68FD35",
+            "P82DF39C2A4",
+            "P964F671CFB",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "536b6d1b97e98bb00fd03ade465d5f46a3d9459d96f71c4c8d47811552edc00e"
+        },
+        {
+          "phase": "task-in-progress",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 3,
+          "screenshotSha256": "5dd46d9b1a35eace8bf983f91ea5c7c3dfa3c1ca23d427fd6fd4252dfdd148a8"
+        },
+        {
+          "phase": "outcome-resolved",
+          "platform": [
+            "PC75DC8D313",
+            "P2FE3D53CCF",
+            "PC0B9995D3F",
+            "P401F89D6F4",
+            "P31B9ECE94D",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "P6A20F94359",
+            "PAF5E49852C"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "2676fe4050313c7642c7ac7b98e30a50825cedce53f3424b790b76924deec086"
+        },
+        {
+          "phase": "next-task",
+          "platform": [
+            "PC75DC8D313",
+            "P6A20F94359",
+            "PC0B9995D3F",
+            "P2FE3D53CCF",
+            "PABCEE49A79",
+            "P401F89D6F4",
+            "PDD9E4C1AC0",
+            "PE68FFF78D4",
+            "PF720D69638",
+            "PFEDAA5157A"
+          ],
+          "taskLocal": [
+            "PDD9E4C1AC0",
+            "PDBEED5BB69",
+            "P1180BBDACF",
+            "PC316F2A3EE",
+            "P82DF39C2A4",
+            "P6227895339",
+            "P964F671CFB",
+            "P30BA68FD35",
+            "PB7CFACD0D6",
+            "P9522F12159"
+          ],
+          "viewedIds": [
+            "PB50CAAA446",
+            "PDBEED5BB69",
+            "PDD9E4C1AC0"
+          ],
+          "heldEvidenceCount": 0,
+          "screenshotSha256": "41d1ab609fe810f6d936016f68a37156128b7af7632e8677f6d73a735e95db42"
+        }
+      ]
+    }
+  ]
+}

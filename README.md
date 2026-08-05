@@ -21,6 +21,32 @@ The repository combines:
 No API key is required. There are no human participants, real user profiles, or
 LLM-generated evaluation scores in the committed baseline.
 
+## Install and quickstart
+
+Requires Node.js 24 and pnpm 11.9.0.
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Open `http://127.0.0.1:5173/` for the portfolio narrative or
+`http://127.0.0.1:5173/?view=storefront&task=cereal-selected&arm=held` for the
+online research storefront.
+
+Run the production checks and browser-agent experiment with:
+
+```powershell
+pnpm check
+pnpm build
+pnpm online:pilot
+pnpm online:evaluate
+```
+
+The online storefront is a research-owned static web application. It has no
+account, cart, checkout, payment, or external product navigation. See the
+[online storefront guide](docs/ONLINE_STOREFRONT.md).
+
 The visual system treats the site as an evidence exhibition rather than an AI
 product landing page: carbon-black rooms, bone-white documents, cobalt and
 vermilion trace colors, physical specimen imagery, and data-led transitions.
@@ -66,6 +92,160 @@ state:
 These are deterministic outputs from a synthetic testbed, not estimates of
 human behavior or commercial platform effects.
 
+### Released WebArena failure-trace check
+
+The repository also parses all 192 released GPT-4 CoT WebArena shopping
+trajectories. A strict, screenshot-audited mapper retained 84 preference-facing
+actions from 1,740 steps; 66 occurred in failed trajectories. This does not show
+that failure causes more evidence because failures dominate the release and the
+outcome groups differ.
+
+The lifecycle replay found that holding before activation and rollback both remove all
+final failed-task evidence mass, but rollback first exposes a mean provisional
+mass of 0.179. Exact-target deduplication changed failed residual mass by only
+0.7%. A broader label-only sensitivity reduced it by 39.2% but also removed
+14.6% of successful evidence. See the
+[failure-trace report](experiments/webarena-failure-traces/RELEASED_FAILURE_TRACE_REPORT.md).
+
+### Bounded signed-out Amazon field probe
+
+The repository now also contains one small ecological probe on Amazon.com. Four
+isolated, signed-out contexts ran the same temporary accessibility-oriented
+phone-shopping task under idle, search-only, product-view, and cart-stage
+conditions. Across the preflight, one discarded runner attempt, and the final
+run, the study used exactly its frozen budget of 24 document navigations.
+
+The product-view condition introduced two explicit browsing-history or
+related-item headings and positive deltas for all four predefined task tokens.
+Idle and search-only introduced neither in this run. Cart staging introduced a
+related-items heading but no task-token increase on the sampled home surface;
+the anonymous cart was then emptied and verified at zero.
+
+This is a page-level observation with one context per condition. It does not
+show that Amazon changed an internal, account-level, or long-term profile, and
+it does not establish a monotonic ordering from stronger actions to stronger
+personalization. A linked local replay compares six evidence-lifecycle rules:
+persist-all and exact deduplication leave 1.33 failed-task mass; intent
+weighting leaves 0.4741; staged hold, rollback, and commit-only scope gating end
+at zero. Rollback nevertheless exposes 1.33 provisionally before removing it,
+while staged hold exposes zero. See the [field-probe report](experiments/amazon-field-probe/REPORT.md).
+
+### Cross-task evidence and recommendation exposure
+
+A controlled extension follows five abandoned temporary tasks with eight rounds
+of unrelated personal shopping. Forty paired seeds and six lifecycle rules
+produce 1,200 runs. Persist-all places an average of 24.17 temporary-task items
+into the 48 later recommendation slots and takes 5.04 rounds to reach the first
+clean surface. Intent weighting reduces this to 3.775 slots. Holding until outcome,
+rollback, and commit-only scope gating produce zero post-outcome spillover, but
+rollback first permits 2.56 profile-driven excess slots while task outcome is
+pending; staged hold permits zero.
+
+The website includes an interactive research instrument for changing task,
+lifecycle rule, outcome, and timeline. It is not a validated control interface.
+See the [cross-task exposure report](experiments/cross-task-exposure/REPORT.md).
+
+### Exposure sensitivity and evidence slices
+
+The follow-up sensitivity experiment varies profile weight, per-round evidence
+decay, and follow-up task similarity over 250 cells. Each cell contains 100
+paired runs, for 25,000 runs total. A paired no-temporary-profile counterfactual
+prevents task-similar content from being counted as task-boundary exposure. 53.6% of
+cells have zero mean excess exposure; the remaining 46.4% define a bounded
+positive-exposure region. The website exposes this surface as an interactive map.
+
+The field section also includes eight fixed before/after crops from the signed-out
+Amazon probe. Product-bearing pixels are softened, the full-page extraction is
+reported separately from what is visible in each crop, and source/output hashes
+plus crop coordinates are stored in
+[`public/evidence/amazon-field/v1/manifest.json`](public/evidence/amazon-field/v1/manifest.json).
+See the [sensitivity report](experiments/cross-task-sensitivity/REPORT.md) and
+the [paper core](experiments/paper/PAPER_CORE.md).
+
+### Real-history, multi-recommender validation
+
+The largest reviewer risk in the original cross-task result was its dependence
+on one hand-authored ranker and a supplied similarity scalar. The replacement
+experiment uses 703 chronological MovieLens histories, three within-user
+similarity bands derived from genre profiles, three personalized recommender
+families, and a global-popularity negative control. Four counterfactual
+temporary-task events are activated against identical candidate sets and
+global models, producing 25,308 paired rows.
+
+Persist-all spillover appeared in 19.7% of content-profile cases, 19.8% of
+item-neighborhood cases, and 50.2% of sequential-transition cases. Intent
+weighting reduced the first two rates to 4.4% and 7.7%, but the sequential
+family remained at 49.1%. Holding before activation exactly reproduced the no-injection
+ranking, and global popularity remained invariant. This supports algorithm
+heterogeneity, not algorithm independence. MovieLens supplies real histories,
+but the delegated task is counterfactual and movies are not commerce. See the
+[external-validity report](experiments/external-validity/REPORT.md) and the
+[updated collision review](docs/COLLISION_REVIEW_2026-08-05.md).
+
+### Learned sequence model on real commerce histories
+
+The remaining domain and model proxies are now replaced by a standard learned
+baseline. Three SASRec models were trained from scratch on Amazon Reviews 2018
+`Luxury_Beauty_5`: 3,811 chronological histories, 34,246 retained interaction
+events, and 1,581 products. On a fixed one-positive/99-negative test, mean
+NDCG@10 was `0.464`, versus `0.185` for popularity and `0.426` for a first-order
+transition control. Reversing histories changed the top 10 in 97.2% of cases.
+
+In the paired task-boundary test, retaining four temporary-task items added
+`0.410` mean target-family slots at 10 and reduced next-item hits by `0.1411`.
+Committing only the selected outcome attenuated exposure to `0.333`; staged hold
+reproduced the original ranking exactly. The histories are real, but delegation
+is counterfactual, reviews are not purchases, title-token families are proxies,
+and the model is not Amazon's production system. See the
+[learned SASRec report](experiments/amazon-sasrec/REPORT.md).
+
+### Cross-category replication and uncertainty
+
+The learned test now uses the same architecture, split, task-family rule, and
+hyperparameters in four Amazon 5-core categories: Luxury Beauty, Software,
+Industrial and Scientific, and Prime Pantry. Across 30,838 histories, 261,836
+retained events, and 12 checkpoints, SASRec beat popularity in held-out NDCG@10
+in every category.
+
+Statistical intervals use 2,000 hierarchical bootstrap replicates. Model seeds
+and users are resampled separately, while the three repeated task-similarity
+conditions stay attached to each user. Persist-all excess target-family slots
+were positive in all four category-specific 95% intervals. The equal-category
+estimate was `+0.321 [0.273, 0.369]`, and every leave-one-category-out lower
+bound remained positive. Category estimates ranged from `+0.119` to `+0.612`,
+so the result supports recurrence with domain heterogeneity, not a universal
+effect size. See the [cross-category report](experiments/amazon-cross-category/REPORT.md).
+
+### Shopping-agent activation timing
+
+The latest experiment generates 320 shopping-agent tasks over the same four
+Amazon sequence datasets. The deterministic agent searches, opens products,
+requests task-local recommendations, compares candidates, and either selects or
+abandons. Each realized trace is replayed under immediate platform activation
+followed by removal or outcome commit, and under a hold that commits only the
+selected outcome or discards an abandoned task.
+
+Recommendations are captured at task start, in progress, after outcome
+resolution, and at the next-task checkpoint. Pooled in-progress top-10
+displacement was `0.766 [0.741, 0.792]`; all four category intervals were
+positive. The resolved and next-task rankings matched exactly. Both lifecycle
+arms retained identical task-local recommendation state, every trace used it,
+and the maximum task-utility difference was zero. This is an offline
+computational result, not a live Amazon.com or human study. See the
+[activation-timing report](experiments/delegated-activation/REPORT.md).
+
+### Deployed research storefront pilot
+
+The research-owned storefront turns the activation contract into a real browser
+interaction. A deterministic shopping agent completed eight tasks under both
+immediate and held activation, recording four snapshots per arm. Across the 64
+browser snapshots, fixed behavior traces and task-local recommendations matched
+exactly. Mean in-progress platform-shelf displacement was `0.538`; T0, resolved,
+and next-task shelves matched exactly. This validates the deployed instrument,
+not a commercial recommender. Open it with
+`?view=storefront&task=cereal-selected&arm=held` or see the
+[online storefront guide](docs/ONLINE_STOREFRONT.md).
+
 ## Claim boundary
 
 The title is deliberately provocative. The implementation measures distance
@@ -82,6 +262,8 @@ Results in this repository do not establish:
   preferable;
 - that the Study B proxy is a real impact preview, approval flow, or repair
   interaction.
+- that the Amazon field probe reveals Amazon's internal recommender or profile
+  implementation.
 
 See [Claim Boundaries](docs/CLAIM_BOUNDARIES.md) and the
 [Experimental Protocol](docs/PROTOCOL.md) before quoting a result.
@@ -112,9 +294,9 @@ Study B separates two implementation changes:
 | --- | --- |
 | Action only | Baseline product ranking and provenance-aware persistence |
 | Impact proxy | Adds a deterministic product-to-disclosed-profile distance penalty to ranking |
-| Proxy + quarantine | Reuses the proxy trace, then excludes non-commit evidence from persistent updates |
+| Proxy + staged hold | Reuses the proxy trace, then excludes non-commit evidence from persistent updates |
 
-The proxy and proxy-plus-quarantine conditions have identical paired traces.
+The proxy and proxy-plus-staged-hold conditions have identical paired traces.
 Their difference isolates persistence. The action-only comparison may change the
 trace and therefore does not isolate logging.
 
@@ -122,7 +304,7 @@ trace and therefore does not isolate logging.
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Action only | 480 | 0.187 | 0.006 | 0.434 | 0 |
 | Impact proxy | 480 | 0.180 | 0.006 | 0.432 | 3 |
-| Proxy + quarantine | 480 | **0.131** | **0.004** | 0.432 | 8 |
+| Proxy + staged hold | 480 | **0.131** | **0.004** | 0.432 | 8 |
 
 The cost index is hand-authored simulator metadata—not measured time, effort,
 or cognitive load.
@@ -148,6 +330,10 @@ The current `protocol.v1` artifact contains:
 - 720 Study C rows;
 - 9,600 sensitivity-analysis rows;
 - 6 representative replays over the same 17-event trace.
+- 192 released WebArena shopping trajectories, 1,740 audited steps, 84 strict
+  mapped events, and 1,152 failure-lifecycle replay rows.
+- 4 signed-out Amazon field contexts within a 24-navigation cumulative budget,
+  plus 24 controlled lifecycle rows and 7 interaction-export records.
 
 Primary outcomes:
 
@@ -202,6 +388,12 @@ It runs:
 pnpm typecheck
 pnpm test
 pnpm verify:artifacts
+pnpm amazon:evaluate
+pnpm cross-task:evaluate
+pnpm sensitivity:evaluate
+pnpm external:evaluate
+pnpm amazon:sasrec:evaluate
+pnpm amazon:cross-category:evaluate
 pnpm build
 ```
 
@@ -254,6 +446,7 @@ src/recommender/        Ranking and profile-update contracts
 src/experiments/        Replay, metrics, and experiment runner
 src/components/         Interactive trace and editorial evidence components
 src/visualizations/     Accessible React/D3 analytical figures
+src/amazon/             Controlled field-action lifecycle contracts
 scripts/                Generation, artifact verification, and browser QA
 public/data/            Versioned product-metadata snapshot
 public/results/v1/      Full rows, aggregates, and representative replay
@@ -268,9 +461,17 @@ Useful review documents:
 - [Analytical Chart Map](docs/CHART_MAP.md)
 - [Trace Schema](docs/TRACE_SCHEMA.md)
 - [Collision Review](docs/COLLISION_REVIEW.md)
+- [Collision Review Delta](docs/COLLISION_REVIEW_2026-08-05.md)
 - [Data and Reuse](docs/DATA_AND_REUSE.md)
 - [AI Use Disclosure](docs/AI_USE.md)
 - [Art Direction and Image Provenance](docs/ART_DIRECTION.md)
+- [Amazon Field-Probe Report](experiments/amazon-field-probe/REPORT.md)
+- [Cross-Task Exposure Report](experiments/cross-task-exposure/REPORT.md)
+- [Cross-Task Sensitivity Report](experiments/cross-task-sensitivity/REPORT.md)
+- [External-Validity Report](experiments/external-validity/REPORT.md)
+- [Learned Amazon SASRec Report](experiments/amazon-sasrec/REPORT.md)
+- [Cross-category Amazon Replication](experiments/amazon-cross-category/REPORT.md)
+- [Paper Core: RQs, Results, and Figures](experiments/paper/PAPER_CORE.md)
 
 ## Data, reuse, and licenses
 

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "amazon-field-preflight.v1",
+  "target": "amazon.com signed-out homepage",
+  "attemptedAt": "2026-08-04T12:11:23.332Z",
+  "browser": "Microsoft Edge via Playwright; default automation signals retained",
+  "navigationCount": 1,
+  "responseStatus": 202,
+  "finalOrigin": "https://www.amazon.com",
+  "pageTitle": "Amazon.com. Spend less. Smile more.",
+  "bodyTextSha256": "d49ea72da810eab8d39eaeec4ca76d380bb9e1341da4ddf6a271cea3a5d84441",
+  "screenshotSha256": "b31a4374659e66cf46d856d991f6edf2ced833e2922b7f3901178a05ccf1c07a",
+  "guardSignals": {
+    "captcha": false,
+    "robotCheck": false,
+    "signInRequired": false,
+    "throttled": false
+  },
+  "blocked": false,
+  "fieldProbeDecision": "go-bounded-probe",
+  "failure": null
+}

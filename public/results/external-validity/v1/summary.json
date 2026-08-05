@@ -1,0 +1,604 @@
+{
+  "schemaVersion": "external-validity-cross-task.v1",
+  "evidenceStatus": "real-history-counterfactual-injection",
+  "generatedAt": "2026-08-05T03:48:01.454Z",
+  "dataset": {
+    "name": "MovieLens 100K",
+    "sourcePage": "https://grouplens.org/datasets/movielens/100k/",
+    "ratingCount": 100000,
+    "itemCount": 1682,
+    "eligibleUserCount": 703,
+    "positiveDefinition": "rating >= 4",
+    "chronologicalSplit": "70% observed prefix with at least 5 positive events held out",
+    "rawRedistributed": false,
+    "files": {
+      "README": {
+        "url": "https://files.grouplens.org/datasets/movielens/ml-100k/README",
+        "bytes": 6748,
+        "sha256": "fc0be8d2cd0f597d904bcf74f792c58ae547f8588286f5f0f794c68578353310"
+      },
+      "u.data": {
+        "url": "https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
+        "bytes": 1979173,
+        "sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490"
+      },
+      "u.item": {
+        "url": "https://files.grouplens.org/datasets/movielens/ml-100k/u.item",
+        "bytes": 236344,
+        "sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701"
+      }
+    }
+  },
+  "design": {
+    "algorithmCount": 4,
+    "algorithms": [
+      "content-centroid",
+      "item-neighborhood",
+      "sequential-transition",
+      "global-popularity"
+    ],
+    "personalizedAlgorithmCount": 3,
+    "lifecycles": [
+      "persist-all",
+      "intent-weighted",
+      "outcome-quarantine"
+    ],
+    "similarityBands": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "taskCountPerUser": 3,
+    "injectedEventsPerTask": 4,
+    "topK": 10,
+    "rowCount": 25308,
+    "pairedDefinition": "Same real history, candidate set, held-out future, global model, and tie-breaking; only activation weight of four counterfactual temporary-task events changes.",
+    "similarityDefinition": "Cosine between the observed-history genre centroid and the one-hot injected target genre; bands are within-user quantiles.",
+    "domainBoundary": "Real movie-rating histories with counterfactual delegated-task injection; not observed agent behavior and not an e-commerce estimate."
+  },
+  "cells": [
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "persist-all",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0.243243,
+      "spilloverRate": 0.112376,
+      "meanRankingDisplacementAt10": 0.157895,
+      "meanRecallDeltaAt10": -0.002653
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "persist-all",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0.992888,
+      "spilloverRate": 0.398293,
+      "meanRankingDisplacementAt10": 0.28293,
+      "meanRecallDeltaAt10": -0.004733
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "persist-all",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0.170697,
+      "spilloverRate": 0.081081,
+      "meanRankingDisplacementAt10": 0.24936,
+      "meanRecallDeltaAt10": 0.002232
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0.004267,
+      "spilloverRate": 0.002845,
+      "meanRankingDisplacementAt10": 0.035846,
+      "meanRecallDeltaAt10": -0.001402
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0.1266,
+      "spilloverRate": 0.082504,
+      "meanRankingDisplacementAt10": 0.075391,
+      "meanRecallDeltaAt10": -0.000869
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0.068279,
+      "spilloverRate": 0.045519,
+      "meanRankingDisplacementAt10": 0.06899,
+      "meanRecallDeltaAt10": -0.000992
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "persist-all",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0.153627,
+      "spilloverRate": 0.102418,
+      "meanRankingDisplacementAt10": 0.137411,
+      "meanRecallDeltaAt10": -0.009336
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "persist-all",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0.241821,
+      "spilloverRate": 0.207681,
+      "meanRankingDisplacementAt10": 0.142959,
+      "meanRecallDeltaAt10": -0.005305
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "persist-all",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0.342817,
+      "spilloverRate": 0.284495,
+      "meanRankingDisplacementAt10": 0.130441,
+      "meanRecallDeltaAt10": -0.006438
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0.039829,
+      "spilloverRate": 0.035562,
+      "meanRankingDisplacementAt10": 0.048933,
+      "meanRecallDeltaAt10": -0.002454
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0.073969,
+      "spilloverRate": 0.072546,
+      "meanRankingDisplacementAt10": 0.047368,
+      "meanRecallDeltaAt10": -0.000085
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0.128023,
+      "spilloverRate": 0.123755,
+      "meanRankingDisplacementAt10": 0.043243,
+      "meanRecallDeltaAt10": -0.00059
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "persist-all",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0.920341,
+      "spilloverRate": 0.485064,
+      "meanRankingDisplacementAt10": 0.934139,
+      "meanRecallDeltaAt10": -0.07749
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "persist-all",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0.947368,
+      "spilloverRate": 0.496444,
+      "meanRankingDisplacementAt10": 0.938834,
+      "meanRecallDeltaAt10": -0.078605
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "persist-all",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 1.251778,
+      "spilloverRate": 0.523471,
+      "meanRankingDisplacementAt10": 0.930583,
+      "meanRecallDeltaAt10": -0.075124
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0.826458,
+      "spilloverRate": 0.480797,
+      "meanRankingDisplacementAt10": 0.857752,
+      "meanRecallDeltaAt10": -0.068822
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0.857752,
+      "spilloverRate": 0.485064,
+      "meanRankingDisplacementAt10": 0.838407,
+      "meanRecallDeltaAt10": -0.066313
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 1.174964,
+      "spilloverRate": 0.506401,
+      "meanRankingDisplacementAt10": 0.835846,
+      "meanRecallDeltaAt10": -0.066178
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "persist-all",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "persist-all",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "persist-all",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "intent-weighted",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "low",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.000823,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "medium",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.084561,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "outcome-quarantine",
+      "similarityBand": "high",
+      "pairedCaseCount": 703,
+      "meanMeasuredTaskSimilarity": 0.654141,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    }
+  ],
+  "algorithmLifecycle": [
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "persist-all",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0.468943,
+      "spilloverRate": 0.19725,
+      "meanRankingDisplacementAt10": 0.230062,
+      "meanRecallDeltaAt10": -0.001718
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "intent-weighted",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0.066382,
+      "spilloverRate": 0.043623,
+      "meanRankingDisplacementAt10": 0.060076,
+      "meanRecallDeltaAt10": -0.001088
+    },
+    {
+      "algorithm": "content-centroid",
+      "lifecycle": "outcome-quarantine",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "persist-all",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0.246088,
+      "spilloverRate": 0.198198,
+      "meanRankingDisplacementAt10": 0.136937,
+      "meanRecallDeltaAt10": -0.007026
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "intent-weighted",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0.080607,
+      "spilloverRate": 0.077288,
+      "meanRankingDisplacementAt10": 0.046515,
+      "meanRecallDeltaAt10": -0.001043
+    },
+    {
+      "algorithm": "item-neighborhood",
+      "lifecycle": "outcome-quarantine",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "persist-all",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 1.039829,
+      "spilloverRate": 0.50166,
+      "meanRankingDisplacementAt10": 0.934519,
+      "meanRecallDeltaAt10": -0.077073
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "intent-weighted",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0.953058,
+      "spilloverRate": 0.490754,
+      "meanRankingDisplacementAt10": 0.844002,
+      "meanRecallDeltaAt10": -0.067105
+    },
+    {
+      "algorithm": "sequential-transition",
+      "lifecycle": "outcome-quarantine",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "persist-all",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "intent-weighted",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    },
+    {
+      "algorithm": "global-popularity",
+      "lifecycle": "outcome-quarantine",
+      "pairedCaseCount": 2109,
+      "meanMeasuredTaskSimilarity": 0.246508,
+      "meanExcessTargetSlotsAt10": 0,
+      "spilloverRate": 0,
+      "meanRankingDisplacementAt10": 0,
+      "meanRecallDeltaAt10": 0
+    }
+  ],
+  "observedComparisons": {
+    "positivePersistAlgorithms": [
+      "content-centroid",
+      "item-neighborhood",
+      "sequential-transition"
+    ],
+    "positivePersistAlgorithmCount": 3,
+    "personalizedPersistMeanExcess": 0.584953,
+    "personalizedIntentMeanExcess": 0.366682,
+    "quarantineMaxExcess": 0,
+    "quarantineMaxDisplacement": 0,
+    "popularityMaxDisplacement": 0
+  },
+  "claims": {
+    "observed": [
+      "The paired injection effect was evaluated on real chronological histories across three personalized recommender families.",
+      "Pre-activation quarantine reproduced the no-injection ranking exactly by construction and verification.",
+      "A global-popularity negative control remained invariant because user-history activation cannot affect its scores."
+    ],
+    "notEstablished": [
+      "MovieLens users performed delegated tasks or interacted through AI agents.",
+      "Movie genres transfer directly to shopping intent, commerce, or commercial ranking systems.",
+      "Recommendation displacement implies human attention, preference change, annoyance, or harm."
+    ]
+  }
+}

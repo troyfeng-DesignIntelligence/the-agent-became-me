@@ -1,0 +1,4 @@
+iteration	metric_value	delta	delta_pct	status	description	evaluator_source	timestamp
+0	0.200	-	-	baseline	Frozen design without executable exposure outcome	mechanical baseline	2026-08-04T21:05:00+08:00
+1	0.850	0.650	325.0%	discard	Total provisional topic slots conflated context relevance and profile influence	provisional-distinction gate	2026-08-04T21:57:00+08:00
+2	1.000	0.150	17.6%	keep	Paired baseline subtraction isolated profile-driven excess exposure	mechanical evaluator	2026-08-04T22:01:00+08:00

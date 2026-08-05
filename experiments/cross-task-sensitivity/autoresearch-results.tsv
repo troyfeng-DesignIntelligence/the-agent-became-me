@@ -1,0 +1,3 @@
+iteration	score	pass	change	status
+0	0.200	false	Frozen design without executable grid	baseline
+1	1.000	true	Paired counterfactual three-factor sensitivity grid	kept

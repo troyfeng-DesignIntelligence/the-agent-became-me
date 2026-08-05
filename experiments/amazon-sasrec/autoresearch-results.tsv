@@ -1,0 +1,4 @@
+iteration	timestamp	metric	status	description
+0	2026-08-05T14:00:00+08:00	0.200	baseline	MovieLens histories and count-based transition proxy
+1	2026-08-05T14:20:00+08:00	0.910	discard	all analytic gates passed except frozen real-commerce user scale after pair deduplication
+2	2026-08-05T14:45:00+08:00	1.000	keep	standard event retention; three learned SASRec seeds; real commerce histories; paired lifecycle invariance
