@@ -1,51 +1,51 @@
-# When the Agent Became Me
+# When Deletion Is Too Late
 
 ## Working subtitle
 
-Task-Boundary Activation Across Recommender Memory Models
+Recommendation Exposure and Behavioral Path Dependence in Shopping Agents
 
 ## One-sentence version
 
-A temporary delegated task can change recommendations before its outcome is
-known even when its evidence is later removed; the relevant design choice is
-when that evidence is allowed to become platform-profile input.
+Allowing temporary-task activity into a platform recommender can change what
+an autonomous agent sees and chooses; deleting that activity afterward cannot
+rewind an action that has already changed the resolved interaction history.
 
 ## Core phenomenon
 
-Personalization systems use interaction history as evidence about a person. A
-software delegate complicates that assumption because its actions may serve a
-temporary recipient, role, or one-off task. Prior work already separates
-transient intent, durable preference, and exposure memory. This paper does not
-claim that separation as new.
+Personalization systems treat interaction history as input to future rankings.
+An autonomous shopping agent closes a feedback loop around that assumption:
+its browsing changes the recommender, the changed recommender changes what the
+agent sees, and that exposure can change the action the agent commits. A later
+deletion may restore stored task evidence while leaving the altered action and
+its downstream ranking consequences intact.
 
-We study a narrower **task-boundary activation** problem: when events produced
-by a known delegate are allowed to affect recommendations before or after the
-delegated task is resolved. The outcome is a system-level ranking change, not a
-claim about human identity or preference change.
+We call this narrower phenomenon **recommendation-mediated behavioral path
+dependence**. It is not a claim that a human preference changed or that a model
+parameter is permanently contaminated. “Persistent” means that, within a
+paired research-system replay, the immediate and held trajectories reach
+different resolved actions or next-task rankings after temporary browsing
+evidence has been handled. The study asks when this path dependence appears,
+when it disappears, and whether outcome-gated platform activation prevents it
+without removing useful task-local personalization.
 
 ## Core research questions
 
-### RQ1 — Evidence lifecycle
+### RQ1 — Exposure-mediated behavioral path dependence
 
-How do lifecycle contracts change the provisional and residual evidence
-produced by temporary delegated tasks, including abandoned or failed tasks?
+Beyond divergence caused by repeated stochastic model calls, when does
+immediate platform-recommender activation change an agent's action trace and
+leave a different protocol-defined next-task ranking after outcome handling?
 
-### RQ2 — Task-boundary exposure
+### RQ2 — Boundary conditions
 
-When does retained evidence from an ended temporary task alter recommendation
-slots during a subsequent task?
+How does the adjusted behavioral-feedback effect vary across LLM families,
+agent policies, recommender sequence encoders, and product categories?
 
-### RQ3 — Recommender memory assumptions
+### RQ3 — Task-local preservation
 
-How does the same temporary-task injection affect later rankings under
-content-profile, collaborative-neighborhood, sequential-transition, and
-history-invariant recommendation rules?
-
-### RQ4 — Activation timing and task-local utility
-
-Under identical shopping-agent traces and matched final stored state, how does
-holding delegated evidence until outcome resolution affect recommendations
-shown during the task and the agent's current-task personalization?
+Can outcome-gated platform activation preserve current-task decision accuracy
+and selected-item utility when both conditions retain the same task-local
+retrieval channel?
 
 The control interface is a design artifact derived from these results. Without
 a human study, the paper has no RQ about usability, trust, comprehension, or
@@ -65,6 +65,8 @@ control preference.
 | Shopping-agent activation-timing experiment | 320 generated tasks; 960 task-seed rows; 4 categories; 12 SASRec checkpoints; four recommendation snapshots | Immediate activation changes pending-task rankings under a matched resolved state; holding platform activation preserves identical task-local utility | Amazon.com behavior, frontier-agent behavior, human response, or trained-model unlearning |
 | Online storefront v2 | 460 tasks; 22,080 condition rows; four contracts; fixed traces and two free-running policies; frozen SASRec checkpoints | Separates logging from ranking activation, tests deletion timing, and measures recommendation-mediated trajectory divergence with preregistered uncertainty gates | Frontier-LLM behavior, human response, commercial deployment, or model-state unlearning |
 | Sequence-encoder robustness | Same 460 tasks and protocol; SASRec versus GRU recurrent encoders; 44,160 condition rows and 11,040 paired contrasts | Tests whether activation timing recurs when the learned sequential architecture changes | Architecture independence, production behavior, or canonical reproduction of every GRU4Rec optimization detail |
+| MiMo free-running pilot | 32 tasks; two prompt policies; two sequence encoders; 256 condition trajectories; 64 immediate-versus-held contrasts | Shows that frontier-model action traces can diverge after recommendation exposure while held activation preserves aggregate task-local accuracy and utility | Cross-LLM recurrence or separation of exposure effects from independent-call stochastic divergence |
+| Frozen confirmatory study | 360 planned tasks fully crossed with MiMo, DeepSeek V4 Flash, SASRec, GRU, and two agent policies; independent held-exposure sham pairs | Tests exposure-adjusted persistent behavioral feedback and cross-LLM recurrence | Human behavior, production-retailer effects, or indefinite model persistence |
 
 ## Results
 
@@ -275,27 +277,56 @@ therefore claim recurrence of the timing effect across two learned sequence
 encoders, together with model dependence in how shelf differences propagate
 into trajectories—not architecture independence.
 
+### R10 — A frontier LLM followed changed recommendations, but stochastic divergence remains a rival explanation
+
+The MiMo v2.5 pilot crossed 32 tasks with constraint-first and
+exploration-first prompts, SASRec and GRU sequence encoders, and four activation
+contracts. It produced 256 condition trajectories and 64 paired
+immediate-versus-held contrasts. MiMo returned valid structured actions on
+99.63% of attempts after the frozen retry rule, with no timeouts.
+
+Immediate activation changed the in-task Top-10 by `0.686` on average. Nine of
+64 paired action traces diverged, and mean displacement remained `0.084` after
+outcome resolution and `0.042` at the standardized next task. The descriptive
+divergence was concentrated in the exploration-first policy: 3/16 SASRec and
+5/16 GRU contrasts diverged, compared with 0/16 and 1/16 under the
+constraint-first policy. Logged-but-ranking-inert and no-memory traces matched
+in all 64 contrasts.
+
+Immediate and held activation both achieved `96.88%` decision accuracy and
+`0.5625` mean selected utility, compared with `87.5%` and `0.4688` for both
+conditions without task-local retrieval. Holding platform activation therefore
+preserved the useful task-local channel in this pilot.
+
+These observations are consistent with recommendation exposure changing an
+LLM agent's action and carrying that difference into the resolved history. They
+do not yet identify all 9 divergences as exposure effects: content-addressed
+cache reuse made the inert-log control deterministic and did not measure the
+divergence between two independent calls under identical exposure. The frozen
+confirmatory design adds a held-versus-held sham pair and defines the primary
+effect as persistent behavioral feedback above that stochastic baseline. A
+DeepSeek V4 Flash pilot is planned before confirmatory scaling.
+
 ## Contribution statement
 
-1. A lifecycle account of temporary delegation that separates provisional
-   activation from final persistence.
-2. A task-boundary spillover metric based on paired no-injection
-   counterfactuals.
-3. A real-history validation that reveals heterogeneous effects across three
-   personalized recommender families and an invariant negative control.
-4. A trained SASRec validation over real e-commerce histories showing that
-   outcome-only commit attenuates, while holding before activation eliminates paired exposure.
-5. A four-category replication with hierarchical user- and model-level
-   uncertainty, equal-category pooling, and leave-one-category-out checks.
-6. A preregistered four-contract online experiment that separates logging from
-   ranking activation and distinguishes fixed-trace causal effects from
-   recommendation-mediated trajectory divergence under two agent policies.
-7. A paired shopping-agent experiment separating platform-profile activation
-   from task-local personalization across four task checkpoints.
-8. An interaction prototype that makes task scope, activation, outcome, and
-   removal inspectable; its usability remains unevaluated.
-9. A controlled sequence-encoder replication showing recurrence under SASRec
-   and a GRU family while exposing model-dependent trajectory amplification.
+1. **Empirical.** We characterize recommendation-mediated behavioral path
+   dependence in a research shopping system, separating in-task ranking
+   exposure, agent-trace divergence, and downstream consequences across task
+   checkpoints. The current MiMo result is a pilot; cross-LLM recurrence remains
+   a planned confirmatory claim.
+2. **Conceptual.** We distinguish stored-state reversibility from interaction-
+   path reversibility: removing temporary evidence can restore a profile input
+   while failing to restore the action that would have occurred without the
+   earlier recommendation exposure.
+3. **Methodological.** We introduce a paired four-arm protocol that separates
+   platform activation from task-local retrieval and calibrates LLM stochastic
+   divergence with two independent held-exposure sham trajectories. Real
+   commerce histories, two learned sequence encoders, four categories, fixed
+   candidate masks, and explicit failure accounting bound the comparison.
+4. **Design.** We translate the mechanism into outcome-gated platform
+   activation with a separate task-local channel and an inspectable control
+   prototype. The design implication follows from computational evidence; the
+   interface's usability and human interpretation remain unevaluated.
 
 ## Figure set
 
@@ -313,6 +344,7 @@ into trajectories—not architecture independence.
 | Fig. 10 | `public/evidence/delegated-activation/v1/selected-timeline.png` and `abandoned-timeline.png` | Four-checkpoint agent-trajectory comparison under matched resolved state |
 | Fig. 11 | `?view=storefront-v2&mode=free-running&phase=task-in-progress` plus v2 contrast intervals | Four-contract model-backed replay and fixed-versus-free-running estimands |
 | Fig. 12 | SASRec-versus-GRU fixed displacement and free trace-divergence intervals | Recurrence and model-dependent trajectory amplification |
+| Fig. 13 | Immediate-versus-held trace pair with the held-versus-held sham calibration | Makes exposure-adjusted behavioral path dependence visible |
 
 ## Claim discipline
 
@@ -326,32 +358,30 @@ into trajectories—not architecture independence.
 - Say “interaction prototype,” not “validated control.”
 - Say “frozen model-backed replay,” not “live SASRec service” or “Amazon test.”
 - Say “deterministic autonomous policies,” not “frontier LLM agents.”
+- Say “behavioral path dependence within the paired replay,” not “permanent
+  contamination,” “irreversible preference change,” or “unlearning failure.”
+- Say “MiMo pilot consistent with exposure-mediated divergence,” not
+  “cross-LLM replication,” until the DeepSeek sham-calibrated study is complete.
 
 ## Most defensible paper story
 
-The strongest story is not that transient and durable preferences should be
-separated; that claim is occupied. Temporary delegation creates a narrower
-**time-of-activation problem**: a system can later remove the right evidence and
-still have already changed a ranking. Following the same injected events across
-a task boundary shows that the consequence depends on the recommender's memory
-assumption. Profile and neighborhood models attenuate under lower weights; the
-short-horizon sequential model remains highly exposed. This motivates controls
-that operate before activation rather than assuming downweighting or a later
-profile editor will behave uniformly across models.
+The strongest story is not that transient evidence can “pollute” a profile.
+Prior work already motivates transient intent and editable personalization.
+The less visible problem appears earlier in the loop: temporary activity changes
+a recommendation, the recommendation changes an agent's action, and the action
+becomes part of the resolved history. At that point deletion can repair stored
+evidence without restoring the counterfactual interaction path.
 
-The online v2 fixed-trace contrast is now the strongest direct mechanism test:
-it separates recording from activation, compares deletion with holding, uses
-trained SASRec outputs, and freezes its inferential gates before generation.
-Its free-running extension then shows that a shelf difference can propagate
-into different agent trajectories, with substantial policy heterogeneity.
-The cross-category learned result supplies broader model and domain support;
-MovieLens remains an algorithm-family bridge, while the synthetic grid explains
-mechanism sensitivity. None of these layers turns the injected task into
-observed commercial delegation, the deterministic policies into frontier
-agents, or the prototype into a validated human-facing control.
+The fixed-trace experiments establish the first link: immediate activation,
+not event logging, changes the recommendation slate. Free-running policies and
+the MiMo pilot expose the second link: changed slates can propagate into changed
+actions, with strong policy and recommender heterogeneity. The held condition
+keeps the same task-local retrieval channel, so preventing platform activation
+does not require making the current agent task-blind.
 
-The sequence-encoder extension strengthens recurrence but also narrows the
-claim: recommendation displacement was similar across the two families, while
-trajectory divergence was lower under the GRU encoder. The paper should treat
-this heterogeneity as a result, not average it into an architecture-independent
-effect.
+The confirmatory study must now distinguish exposure-mediated divergence from
+ordinary LLM non-determinism. Its held-versus-held sham contrast is therefore
+central, not a robustness appendix. If the adjusted effect recurs under MiMo
+and DeepSeek, the paper can claim cross-family behavioral path dependence under
+the research protocol. If it does not, the defensible contribution contracts to
+the ranking-exposure mechanism and its model-contingent propagation boundary.

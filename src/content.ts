@@ -24,28 +24,28 @@ export const hero = {
   eyebrow: "An agent-computer interaction experiment",
   title: "The Agent Became Me",
   subtitle:
-    "A shopping agent gets one temporary assignment. Should its actions update the person who delegated it?",
+    "A temporary task changes what a shopping agent sees. If that exposure changes what it chooses, deletion may already be too late.",
   summary:
-    "I built four synthetic shopping scenarios, then replayed each trace under six profile-update rules. The controls test whether provenance adds anything beyond simply reducing how much the system learns.",
+    "I pair immediate recommendation activation with an outcome-gated hold, then follow the agent from the changed shelf to its resolved action and next task. Independent held-exposure calls separate recommendation-mediated feedback from ordinary LLM variation.",
   status:
-    "Generated evidence · protocol.v1 · 4 synthetic scenarios · 3 policies · paired controls · no human participants",
+    "4 Amazon-derived categories · 2 learned recommenders · fixed and free-running agents · MiMo pilot · DeepSeek replication prepared · no human participants",
   disclosure:
-    "All principals, task briefs, behaviors, and outcomes are synthetic. The catalog uses public Open Food Facts metadata. It contains no user records.",
+    "Shopping tasks are generated over public, pseudonymized review histories. Public artifacts exclude original user IDs, item IDs, titles, reviews, and raw model responses.",
   primaryAction: "Inspect the evidence",
   secondaryAction: "Read the protocol"
 } as const;
 
 export const researchQuestion = {
   label: "Research question",
-  headline: "Who owns the trace left by a delegated task?",
+  headline: "Can deletion restore a path the agent has already left?",
   question:
-    "When an AI agent operates a personalized system, how should provenance and update controls decide whether task-driven behavior enters the human principal's long-term profile?",
+    "Beyond repeated-call randomness, when does immediate recommender activation change an agent's action path and leave a different protocol-defined next-task ranking after temporary evidence is removed?",
   framing:
-    "The project studies attribution inside a simulated recommender pipeline. It does not treat profile movement as a change in a person’s identity or underlying preferences.",
+    "The project studies behavioral path dependence inside a research-owned recommender pipeline. It does not treat ranking movement as human preference change, permanent model contamination, or production-platform harm.",
   contribution:
-    "I built an executable benchmark for delegated-action attribution. It includes matched update mass, a no-update baseline, a stale-profile stress case, event-level provenance, and inspectable receipts.",
+    "The paired protocol separates logging, platform activation, task-local retrieval, LLM stochastic divergence, resolved action, and downstream ranking consequences.",
   noveltyBoundary:
-    "Recommendation agents, editable profiles, dynamic memories, and provenance standards already exist. My claim is narrower: this project tests how known delegate actions enter a simulated user profile."
+    "Transient intent, editable profiles, recommendation agents, and exposure feedback already exist. The narrower claim concerns when early recommendation exposure changes an autonomous agent's committed path before a later deletion can act."
 } as const;
 
 export const studyA = {
@@ -240,7 +240,7 @@ export const limitations = [
   "There were no human participants. The project does not measure trust, satisfaction, identity, authorship, perceived control, willingness to use, or cognitive load.",
   "All principals, delegation briefs, behaviors, and outcomes are synthetic. Results characterize this implemented testbed, not commercial recommenders or real shopping behavior.",
   "The profile is a five-axis test representation over 90 food products. It is intentionally inspectable and cannot represent the breadth, instability, or social meaning of a person’s preferences.",
-  "Three deterministic, transparent policies stand in for shopping agents. The baseline does not model open-ended LLM reasoning, prompt injection, latency, tool failure, or strategic platform behavior.",
+  "Most large experiments use deterministic, transparent policies. A 32-task MiMo pilot adds open-ended model decisions, but cross-LLM recurrence and sham-adjusted stochastic divergence remain unconfirmed until the frozen DeepSeek replication is complete.",
   "The serialized field `profileContamination` is a reference-profile distance, not independently established harm. It depends on hand-authored vectors, update equations, learning rates, and one relevance model.",
   "Matched shrinkage slightly outperformed provenance-aware updating. The benchmark therefore does not establish a provenance-specific benefit.",
   "Matched shrinkage is oracle-calibrated per trace from provenance-aware observed-intent weights. It is a non-selective mechanism control, not a deployable policy wholly independent of intent metadata.",

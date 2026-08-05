@@ -297,7 +297,7 @@ function Hero() {
           <div className="synthetic-disclosure">
             <span className="synthetic-dot" aria-hidden="true" />
             <span>
-              <strong>Synthetic scenarios</strong>
+              <strong>Pseudonymous research tasks</strong>
               No human participant data
             </span>
           </div>
@@ -305,16 +305,16 @@ function Hero() {
       </div>
       <div className="hero-ledger" aria-label="Representative trace summary">
         <span>
-          <strong>01</strong>
-          temporary request
+          <strong>32</strong>
+          LLM pilot tasks
         </span>
         <span>
-          <strong>17</strong>
-          trace events
+          <strong>64</strong>
+          paired contrasts
         </span>
         <span>
-          <strong>01</strong>
-          altered profile
+          <strong>09</strong>
+          diverged traces
         </span>
       </div>
       <a className="scroll-cue" href="#question">
@@ -1370,7 +1370,7 @@ export function App() {
 
             <div className="cross-task-instrument-heading">
               <span className="mono-label">INTERACTIVE RESEARCH INSTRUMENT</span>
-              <h3>Decide when a temporary task is allowed to become a preference.</h3>
+              <h3>Decide when a temporary task can enter the platform recommender.</h3>
               <p>
                 Change the task, lifecycle rule, outcome, and timeline. The shelf
                 below is recomputed from the same deterministic model used in the

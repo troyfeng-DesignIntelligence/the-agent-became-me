@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "online-storefront-cross-llm-pilot-protocol.v1",
+  "status": "frozen-before-any-deepseek-call-and-before-any-sham-call",
+  "frozenDate": "2026-08-06",
+  "purpose": "Estimate exposure-adjusted persistent behavioral feedback under two independent LLM families before confirmatory scaling.",
+  "taskSource": "Reuse the 32 task hashes frozen in the MiMo v3 pilot: eight per category.",
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "llmFamilies": [
+    {
+      "id": "mimo-v2.5",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    }
+  ],
+  "recommenderFamilies": ["sasrec", "gru4rec"],
+  "recommenderAllocation": "The same balanced task-to-recommender-and-seed assignment is reused across LLM providers.",
+  "agentPolicies": ["constraint-first", "exploration-first"],
+  "conditions": [
+    "immediate-remove",
+    "held-outcome",
+    "held-sham-a",
+    "held-sham-b"
+  ],
+  "shamSemantics": "held-sham-a and held-sham-b receive identical semantic task state and held recommendation activation but use independent provider calls and separate local cache scopes.",
+  "generation": {
+    "jsonMode": true,
+    "maximumOutputTokens": 180,
+    "maximumRetries": 2,
+    "requestTimeoutSeconds": 90,
+    "maximumCallsPerTrajectory": 3,
+    "temperature": 0,
+    "privacy": "Send pseudonymous candidate IDs and derived constraint, utility, rank, and novelty features only."
+  },
+  "pilotEstimands": {
+    "persistentBehavioralFeedback": "trace divergence and T3 Top-10 displacement greater than zero",
+    "adjustedPersistentFeedback": "persistent feedback in immediate-versus-held minus persistent feedback in held-sham-a-versus-held-sham-b",
+    "adjustedTraceDivergence": "trace divergence in immediate-versus-held minus trace divergence in held-sham-a-versus-held-sham-b",
+    "taskLocalGuardrails": [
+      "held-minus-immediate decision accuracy",
+      "held-minus-immediate selected utility"
+    ]
+  },
+  "goGates": {
+    "validActionRateMinimum": 0.95,
+    "timeoutRateMaximum": 0.05,
+    "shamPersistentFeedbackUpperDescriptiveThreshold": 0.05,
+    "privacyViolationCount": 0
+  },
+  "claimBoundary": "This 32-task study is a cross-provider pilot. It can estimate reliability, stochastic divergence, and direction; it cannot establish confirmatory cross-LLM recurrence."
+}

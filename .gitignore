@@ -7,5 +7,6 @@ artifacts/
 __pycache__/
 .env
 .env.local
+.env.deepseek
 .DS_Store
 *.log

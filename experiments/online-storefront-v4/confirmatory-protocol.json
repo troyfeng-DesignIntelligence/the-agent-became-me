@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "online-storefront-confirmatory-protocol.v1",
+  "status": "analysis-frozen-before-deepseek-pilot-and-before-confirmatory-calls",
+  "frozenDate": "2026-08-06",
+  "phenomenon": "recommendation exposure can alter an agent's action path before temporary task evidence is removed, leaving downstream consequences that deletion cannot rewind",
+  "primaryResearchQuestion": "Does immediate platform-recommender activation increase downstream behavioral path dependence beyond the divergence produced by repeated calls under identical held exposure, and does that adjusted effect recur across independent LLM families?",
+  "pilotInputs": {
+    "protocol": "experiments/online-storefront-v3/llm-pilot-protocol.json",
+    "protocolSha256": "91a8e0fa775a1ba11f6876a88e041fefd7480cc3f80f38e44aceb10abe987942",
+    "summary": "public/results/online-storefront-llm-pilot/v1/summary.json",
+    "summarySha256": "29d4142516ce4376a122626196786ea1f26f22fe82d91a284740456e4639f690",
+    "contrastsSha256": "58f12f80e2b58d3d7ffed08040b2615da770eafe038217cc099dec7b71b46129",
+    "largestObservedCellSd": 0.478714,
+    "unconstrainedTasksPerCellFor005HalfWidth": 353
+  },
+  "models": {
+    "llmFamilies": [
+      {
+        "family": "xiaomi-mimo",
+        "model": "mimo-v2.5",
+        "thinking": "disabled",
+        "jsonMode": true
+      },
+      {
+        "family": "deepseek",
+        "model": "deepseek-v4-flash",
+        "thinking": "disabled",
+        "jsonMode": true,
+        "versionBoundary": "The provider exposes a rolling alias rather than a dated snapshot. Record response model and system_fingerprint for every call and finish each replication in one bounded run window."
+      }
+    ],
+    "recommenderFamilies": ["sasrec", "gru4rec"],
+    "agentPolicies": ["constraint-first", "exploration-first"]
+  },
+  "sampling": {
+    "unit": "shopping task",
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "minimumValidTasksPerLlmRecommenderPolicyCell": 353,
+    "plannedTasksPerCell": 360,
+    "plannedTasksPerCategory": 90,
+    "crossing": "Every selected task is crossed with both LLM families, both recommender families, and both agent policies.",
+    "selectionRule": "Use the lowest stable eligible task hashes after applying only outcome-blind catalog and history validity checks.",
+    "replacementRule": "No task is replaced after any LLM response or outcome is observed."
+  },
+  "conditions": [
+    {
+      "id": "immediate-remove",
+      "role": "exposure arm",
+      "platformActivation": "during-task",
+      "taskLocalRetrieval": true,
+      "outcomeCommit": "selected-only"
+    },
+    {
+      "id": "held-outcome",
+      "role": "held counterfactual",
+      "platformActivation": "after-success-only",
+      "taskLocalRetrieval": true,
+      "outcomeCommit": "selected-only"
+    },
+    {
+      "id": "held-sham-a",
+      "role": "stochastic-divergence calibration A",
+      "platformActivation": "after-success-only",
+      "taskLocalRetrieval": true,
+      "independentCall": true
+    },
+    {
+      "id": "held-sham-b",
+      "role": "stochastic-divergence calibration B",
+      "platformActivation": "after-success-only",
+      "taskLocalRetrieval": true,
+      "independentCall": true
+    }
+  ],
+  "generation": {
+    "temperature": 0,
+    "thinking": "disabled",
+    "maximumRetries": 2,
+    "maximumOutputTokens": 180,
+    "maximumBrowseDecisions": 2,
+    "maximumTerminalDecisions": 1,
+    "cachePolicy": "Exposure and held counterfactual calls are content-addressed within provider. Sham calls bypass cross-arm cache reuse and carry a locally recorded replicate identifier that is not included in the semantic task state.",
+    "privacy": "Send only pseudonymous candidate IDs and derived constraint, utility, rank, and novelty features; never send titles, reviews, original IDs, or histories."
+  },
+  "estimands": {
+    "primaryEvent": {
+      "name": "persistentBehavioralFeedback",
+      "definition": "1 when paired action traces differ and protocol-defined next-task Top-10 displacement is greater than zero; otherwise 0. Each arm retains the exclusion mask produced by its realized trace, so the outcome includes downstream availability changes caused by different browsing.",
+      "exposureContrast": "immediate-remove versus held-outcome",
+      "shamContrast": "held-sham-a versus held-sham-b"
+    },
+    "primaryAdjustedEstimand": "Within each task and LLM family, average persistentBehavioralFeedback over the four recommender-by-policy cells for the exposure contrast, subtract the corresponding sham average, then average task-level differences with equal category weight.",
+    "secondary": [
+      "unadjusted trace-divergence risk and sham-adjusted trace-divergence risk",
+      "T1, T2, and T3 Top-10 displacement",
+      "held-minus-immediate decision-accuracy difference",
+      "held-minus-immediate selected-utility difference",
+      "heterogeneity by recommender family, agent policy, and category"
+    ]
+  },
+  "inference": {
+    "familyReplicationTest": "For each LLM family, use a category-stratified task-cluster bootstrap with 10000 replicates and seed 20260806. Replication requires the Bonferroni-adjusted one-sided 97.5% lower confidence bound for the primary adjusted estimand to exceed zero in both LLM families.",
+    "pairedRandomizationCheck": "Use 100000 task-level sign-flip permutations with seed 20260807 for each LLM-family primary estimand.",
+    "cellSpecificTests": "Treat recommender-by-policy cells as secondary. Report all estimates and Holm-adjust one-sided paired permutation p-values within each LLM family.",
+    "equivalence": {
+      "decisionAccuracyMargin": 0.05,
+      "selectedUtilityMargin": 0.05,
+      "method": "paired TOST at alpha 0.05 using category-stratified task bootstrap confidence intervals"
+    },
+    "manipulationGate": "The equal-category T1 displacement lower 95% bound must exceed 0.15 in each LLM family.",
+    "shamGate": "The one-sided 95% upper bound for sham persistentBehavioralFeedback must be at most 0.05; otherwise stochastic generation is too large for the causal interpretation and the study is redesigned.",
+    "reliabilityGate": "Valid structured action rate must be at least 0.95 and timeout rate below 0.05 for each LLM family."
+  },
+  "missingness": {
+    "emptySlates": "Retain as observed zeros where the estimand is defined.",
+    "invalidOrTimeoutAfterRetries": "Retain the task in the attempted denominator, report complete-pair estimates, and run a worst-case sensitivity assigning exposure-arm missing events to 0 and sham missing events to 1. A positive claim requires the direction to survive this sensitivity.",
+    "reporting": "Report all failures, retries, timeouts, content filters, empty responses, empty slates, and missing pairs by provider and cell."
+  },
+  "decisionRules": {
+    "confirm": "Both LLM-family replication tests pass, reliability and sham gates pass, and task-local accuracy and utility meet equivalence margins.",
+    "heterogeneous": "Exactly one LLM family passes or adjusted effects differ materially; report model-contingent behavioral feedback rather than cross-family recurrence.",
+    "mechanismOnly": "T1 manipulation passes but neither LLM family has positive adjusted persistent feedback; retain the ranking-exposure mechanism and drop the irreversible-behavior claim.",
+    "noGo": "Sham divergence exceeds its gate, reliability fails, or adjusted effects are non-positive under the worst-case sensitivity."
+  },
+  "costAndAuthorizationGate": "Run the 32-task DeepSeek replication first. Do not start the 360-task confirmatory study until the DeepSeek pilot passes reliability, a new dry-run cost is accepted, and the operator explicitly authorizes the same pseudonymous Amazon-derived features to be sent to DeepSeek."
+}
