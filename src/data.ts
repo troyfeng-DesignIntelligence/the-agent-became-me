@@ -1233,6 +1233,63 @@ const OnlineStorefrontV2SummarySchema = z.object({
   })
 });
 
+const MiMoLlmPilotSummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-llm-pilot-summary.v1"),
+  design: z.object({
+    taskCount: z.number().int().positive(),
+    trajectoryCount: z.number().int().positive(),
+    pairedContrastCount: z.number().int().positive(),
+    model: z.string()
+  }).passthrough(),
+  api: z.object({
+    validActionRate: z.number().min(0).max(1),
+    observedCostRmbAtPublishedRates: z.number().nonnegative()
+  }).passthrough(),
+  descriptive: z.object({
+    meanT1Displacement: z.number().min(0).max(1),
+    traceDivergenceRate: z.number().min(0).max(1),
+    decisionAccuracy: z.number().min(0).max(1)
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+const CrossLlmPilotSummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-cross-llm-pilot-summary.v1"),
+  design: z.object({
+    provider: z.string(),
+    model: z.string(),
+    taskCount: z.number().int().positive(),
+    trajectoryCount: z.number().int().positive(),
+    pairedContrastCount: z.number().int().positive()
+  }).passthrough(),
+  api: z.object({
+    validActionRate: z.number().min(0).max(1),
+    observedCostAtPublishedRates: z.number().nonnegative(),
+    currency: z.string(),
+    systemFingerprints: z.array(z.string())
+  }).passthrough(),
+  descriptive: z.object({
+    meanExposureT1: z.number().min(0).max(1),
+    exposureTraceDivergenceRate: z.number().min(0).max(1),
+    shamTraceDivergenceRate: z.number().min(0).max(1),
+    persistentBehavioralFeedbackRate: z.number().min(0).max(1),
+    shamPersistentBehavioralFeedbackRate: z.number().min(0).max(1),
+    adjustedPersistentFeedback: z.number().min(-1).max(1),
+    heldMinusImmediateDecisionAccuracy: z.number().min(-1).max(1),
+    heldMinusImmediateSelectedUtility: z.number().min(-1).max(1)
+  }),
+  claims: z.object({
+    observed: z.array(z.string()),
+    notEstablished: z.array(z.string())
+  })
+});
+
+export type MiMoLlmPilotSummary = z.infer<typeof MiMoLlmPilotSummarySchema>;
+export type CrossLlmPilotSummary = z.infer<typeof CrossLlmPilotSummarySchema>;
+
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
 >;
@@ -1250,6 +1307,8 @@ interface ProjectDataState {
   amazonCrossCategory: AmazonCrossCategorySummary | null;
   delegatedActivation: DelegatedActivationSummary | null;
   onlineStorefrontV2: OnlineStorefrontV2Summary | null;
+  mimoLlmPilot: MiMoLlmPilotSummary | null;
+  deepseekLlmPilot: CrossLlmPilotSummary | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1269,6 +1328,8 @@ export function useProjectData(): ProjectDataState {
     amazonCrossCategory: null,
     delegatedActivation: null,
     onlineStorefrontV2: null,
+    mimoLlmPilot: null,
+    deepseekLlmPilot: null,
     catalog: null,
     error: null,
     loading: true
@@ -1370,6 +1431,18 @@ export function useProjectData(): ProjectDataState {
           }
           return OnlineStorefrontV2SummarySchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-llm-pilot/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load MiMo LLM pilot.");
+          return MiMoLlmPilotSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/online-storefront-cross-llm-pilot/v1/deepseek/summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load DeepSeek LLM pilot.");
+          return CrossLlmPilotSummarySchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1386,7 +1459,9 @@ export function useProjectData(): ProjectDataState {
           amazonSasrec,
           amazonCrossCategory,
           delegatedActivation,
-          onlineStorefrontV2
+          onlineStorefrontV2,
+          mimoLlmPilot,
+          deepseekLlmPilot
         ]) => {
         if (!cancelled) {
           setState({
@@ -1402,6 +1477,8 @@ export function useProjectData(): ProjectDataState {
             amazonCrossCategory,
             delegatedActivation,
             onlineStorefrontV2,
+            mimoLlmPilot,
+            deepseekLlmPilot,
             catalog,
             error: null,
             loading: false
@@ -1424,6 +1501,8 @@ export function useProjectData(): ProjectDataState {
             amazonCrossCategory: null,
             delegatedActivation: null,
             onlineStorefrontV2: null,
+            mimoLlmPilot: null,
+            deepseekLlmPilot: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

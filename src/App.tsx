@@ -24,6 +24,7 @@ import { LearnedCommercePanel } from "./components/LearnedCommercePanel";
 import { CrossCategoryReplicationPanel } from "./components/CrossCategoryReplicationPanel";
 import { DelegatedActivationPanel } from "./components/DelegatedActivationPanel";
 import { OnlineStorefrontV2Panel } from "./components/OnlineStorefrontV2Panel";
+import { LLMBehaviorFeedbackPanel } from "./components/LLMBehaviorFeedbackPanel";
 import { useProjectData, type MetricSummary } from "./data";
 import {
   AttributionMatrix,
@@ -381,6 +382,8 @@ export function App() {
     amazonCrossCategory,
     delegatedActivation,
     onlineStorefrontV2,
+    mimoLlmPilot,
+    deepseekLlmPilot,
     catalog,
     error,
     loading
@@ -1362,6 +1365,10 @@ export function App() {
 
             {onlineStorefrontV2 && (
               <OnlineStorefrontV2Panel summary={onlineStorefrontV2} />
+            )}
+
+            {mimoLlmPilot && deepseekLlmPilot && (
+              <LLMBehaviorFeedbackPanel mimo={mimoLlmPilot} deepseek={deepseekLlmPilot} />
             )}
 
             {crossTaskSensitivity && (
