@@ -63,6 +63,7 @@
     "online:interaction-depth:evaluate": "node scripts/evaluate-online-storefront-interaction-depth.mjs",
     "online:forced-inspection:preflight": "node scripts/evaluate-online-storefront-forced-inspection.mjs --preflight",
     "online:forced-inspection:evaluate": "node scripts/evaluate-online-storefront-forced-inspection.mjs",
+    "online:candidate-margin:evaluate": "python scripts/evaluate-online-storefront-candidate-margin.py",
     "paper:figures": "node scripts/generate-paper-figures.mjs",
     "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",

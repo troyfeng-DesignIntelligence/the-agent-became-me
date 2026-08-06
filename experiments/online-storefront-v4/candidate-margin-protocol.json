@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "online-storefront-candidate-margin-protocol.v1",
+  "status": "frozen-before-first-candidate-margin-computation",
+  "frozenDate": "2026-08-06",
+  "sourceRuns": [
+    "mimo-forced-inspection-t0",
+    "deepseek-forced-inspection-t0"
+  ],
+  "unit": "one of the 32 frozen task and recommender assignments",
+  "predictor": {
+    "name": "minimumTopTwoEligibleUtilityMargin",
+    "definition": "After the controller-required platform inspection and before the LLM call, compute the task-utility gap between the best and second-best hard-constraint-matching candidates in each exposure arm; use the smaller arm-specific gap.",
+    "missingRule": "A task is not margin-analyzable if either arm has fewer than two hard-constraint-matching candidates. Do not impute a margin."
+  },
+  "primaryOutcome": "persistentResolvedActionFeedback in immediate-remove versus held-outcome",
+  "primaryProvider": "deepseek",
+  "negativeBoundaryProvider": "mimo",
+  "analysis": {
+    "rankingStatistic": "AUC that a randomly drawn resolved-divergence task has a smaller margin than a randomly drawn non-divergence task; ties count as one half.",
+    "permutation": "One-sided 100000-label permutation test with seed 2026080603.",
+    "concentration": "Report the fraction of resolved-divergence events in the bottom margin tertile, with the tertile threshold computed over all analyzable tasks.",
+    "opportunityAudit": "Report whether the immediate and held arms force inspection of different items, whether their post-inspection candidate sets differ, and whether their best eligible candidate differs.",
+    "shamAudit": "Apply the same descriptive margin tabulation to sham persistent resolved-action events but do not claim a sham association from fewer than five events."
+  },
+  "decisionRules": {
+    "go": "At least 90% of tasks are analyzable; DeepSeek margin AUC is at least 0.70; the one-sided permutation p-value is at most 0.10; at least two thirds of DeepSeek events fall in the bottom margin tertile; and every event has an exposure opportunity change.",
+    "pivot": "The margin gate fails but resolved events are confined to tasks with changed inspected items or changed post-inspection candidate sets. Reframe the mechanism as candidate-state opportunity rather than near-tie sensitivity before confirmatory calls.",
+    "noGo": "The primary AUC is at most 0.50, events occur without any candidate-state opportunity change, fewer than 90% of tasks are analyzable, or the reconstructed task hashes do not match the frozen public contrasts."
+  },
+  "privacy": "Public output contains task hashes, derived gaps, overlap statistics, and event flags only; it excludes original IDs, item IDs, titles, reviews, prompts, and model responses.",
+  "claimBoundary": "This is a frozen mechanism diagnostic over an already observed 32-task pilot. It can choose between two mechanistic framings but cannot confirm a population effect."
+}

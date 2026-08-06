@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "online-storefront-resolved-action-confirmatory-protocol.v1",
+  "status": "analysis-frozen-before-candidate-margin-analysis-and-before-any-confirmatory-call",
+  "frozenDate": "2026-08-06",
+  "temperature": 0,
+  "primaryResearchQuestion": "When recommendation exposure is held apart from repeated-call variation, does it change an agent's resolved item-or-abandon outcome and leave a downstream ranking consequence?",
+  "families": {
+    "deepseek": {
+      "role": "prospective positive replication",
+      "modelBoundary": "Record the returned model and system fingerprint for every call because the configured API may expose a rolling alias."
+    },
+    "mimo": {
+      "role": "prospective near-zero boundary replication",
+      "modelBoundary": "Use the same MiMo family and disabled reasoning configuration as the matched pilot."
+    },
+    "thirdIndependentFamily": {
+      "role": "prospective cross-family recurrence test",
+      "eligibility": "Freeze one independently developed LLM family, exact model identifier, API, pricing, and JSON reliability preflight before any task outcome is observed.",
+      "status": "provider-not-yet-selected"
+    }
+  },
+  "sampling": {
+    "unit": "one frozen shopping task evaluated in four paired arms",
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "tasksPerCategory": 90,
+    "uniqueTasksPerFamily": 360,
+    "selectionRule": "Use the lowest stable eligible task hashes after outcome-blind catalog and history validity checks.",
+    "recommenderAllocation": "Balance SASRec and GRU4Rec within category using the frozen task-hash assignment rule.",
+    "agentPolicy": "forced-inspection",
+    "replacementRule": "Do not replace a task after any provider response or outcome is observed."
+  },
+  "conditions": [
+    "immediate-remove",
+    "held-outcome",
+    "held-sham-a",
+    "held-sham-b"
+  ],
+  "primaryEvent": {
+    "resolvedActionDivergence": "The final selected pseudonymous item or select-versus-abandon outcome differs between a pair of arms.",
+    "persistentResolvedActionFeedback": "Resolved action diverges and the protocol-defined next-task Top-10 displacement is greater than zero.",
+    "taskDifference": "persistent resolved-action feedback in immediate-remove versus held-outcome minus the same event in held-sham-a versus held-sham-b"
+  },
+  "primaryEstimand": "Within each LLM family, take the equal-category mean of the paired task differences. The task, not a trajectory or API call, is the unit of analysis.",
+  "primaryInference": {
+    "positiveFamilies": "DeepSeek and the third independent family each receive a one-sided exact paired sign test over non-zero task differences. Holm correction controls familywise alpha 0.05 across these two prospective positive tests.",
+    "mimoBoundary": "For MiMo, use paired TOST with equivalence bounds -0.05 and 0.05. Equivalence requires the category-stratified 90% confidence interval to fall wholly inside the bounds.",
+    "interval": "Report a 10000-replicate category-stratified task bootstrap interval with seed 2026080601 for every family.",
+    "randomization": "Report a 100000-draw task-level sign-flip check with seed 2026080602 as a robustness analysis.",
+    "heterogeneity": "Recommender and category estimates are secondary and receive no confirmatory claim."
+  },
+  "secondaryOutcomes": [
+    "whole-trace divergence",
+    "T1 and T3 Top-10 displacement",
+    "selected utility",
+    "decision accuracy",
+    "model-initiated view count",
+    "empty slate, abandon, invalid response, retry, timeout, and content-filter counts"
+  ],
+  "guardrails": {
+    "manipulation": "The equal-category T1 displacement lower 95% bound must exceed 0.15.",
+    "sham": "The one-sided 95% upper bound for sham persistent resolved-action feedback must be at most 0.05.",
+    "reliability": "Valid structured action rate must be at least 0.95 and timeout rate below 0.05 per family.",
+    "currentTask": "Held-minus-immediate decision accuracy and selected utility must each meet paired TOST equivalence margins of plus or minus 0.05.",
+    "missingness": "Report complete pairs and a worst-case sensitivity that sets missing exposure events to zero and missing sham events to one."
+  },
+  "decisionRules": {
+    "recurrence": "DeepSeek and the third independent family pass their positive tests and all family-specific guardrails; MiMo may remain equivalent to zero.",
+    "modelContingent": "DeepSeek replicates but the third family does not, or family effects are materially heterogeneous.",
+    "thirdFamilyOnly": "The third family passes but DeepSeek does not replicate; report instability rather than recurrence.",
+    "rankingOnly": "T1 manipulation passes but no positive family has a positive resolved-action effect.",
+    "noGo": "Reliability, sham, privacy, or worst-case missingness gates fail."
+  },
+  "executionGate": "Do not make confirmatory API calls until the frozen offline candidate-margin diagnostic reaches go or pivot, the third family is frozen, privacy is revalidated, and a provider-specific cost cap is recorded.",
+  "claimBoundary": "A positive result concerns resolved behavior in this research-owned shopping controller. It does not establish human preference change, production-retailer persistence, or architecture-level properties of a provider."
+}

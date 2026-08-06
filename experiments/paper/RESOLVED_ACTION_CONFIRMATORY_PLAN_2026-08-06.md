@@ -1,0 +1,53 @@
+# Resolved-action confirmatory plan
+
+Status: frozen before the first candidate-margin computation and before any new
+confirmatory API call.
+
+## What is primary now
+
+The primary event is no longer a different browsing trace. It is a different
+resolved item-or-abandon outcome that also produces non-zero next-task ranking
+displacement. Each task contributes the exposure event minus its independently
+generated held-sham event. The task is the unit of analysis.
+
+This change is necessary because the forced-inspection pilot changed 24 of 32
+MiMo browsing traces while changing zero MiMo resolved actions. A required
+intermediate view is therefore not evidence that the agent made a different
+decision.
+
+## Planned three-family temperature-zero study
+
+- 360 unique tasks per LLM family, balanced as 90 per Amazon-derived category.
+- Balanced SASRec and GRU4Rec assignment within category.
+- Four paired arms: immediate-remove, held-outcome, held-sham-a, held-sham-b.
+- One frozen forced-inspection policy and temperature 0.
+- DeepSeek is the prospective positive replication.
+- MiMo is the prospective near-zero equivalence boundary.
+- One independently developed third LLM family is the prospective recurrence
+  test; its exact provider and model must be frozen before calls.
+
+DeepSeek and the third family receive Holm-corrected one-sided exact paired sign
+tests. MiMo receives a paired equivalence test with a plus-or-minus 0.05 margin.
+All families receive category-stratified bootstrap intervals, reliability and
+sham gates, current-task equivalence checks, and worst-case missingness analysis.
+
+## Offline mechanism gate before spending
+
+The first gate asks whether DeepSeek's six resolved-action events are
+concentrated on tasks where the top two eligible candidates have nearly equal
+task utility after the required recommendation inspection. The predictor,
+permutation test, AUC threshold, bottom-tertile concentration rule, candidate-
+state opportunity audit, and stop rules are frozen in
+`candidate-margin-protocol.json`.
+
+If the near-tie gate passes, the larger study retains decision margin as a
+pre-specified moderator. If only candidate-state opportunity passes, the paper
+pivots from near-tie sensitivity to exposure-created decision opportunity. If
+neither passes, no new confirmatory API calls are justified.
+
+## Claim boundary
+
+The study can establish a resolved-action effect inside this research shopping
+controller. It cannot establish human preference change, permanent model
+contamination, production-retailer harm, or a proprietary model architecture
+mechanism.
