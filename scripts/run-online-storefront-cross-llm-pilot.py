@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL_PATH = ROOT / "experiments/online-storefront-v4/cross-llm-pilot-protocol.json"
 V2_PROTOCOL_PATH = ROOT / "experiments/online-storefront-v2/protocol.json"
 GRU_CHECKPOINTS = ROOT / "artifacts/models/amazon-gru4rec"
+RUN_TEMPERATURE = 0.0
 
 
 def load_module(name: str, path: Path):
@@ -126,7 +127,7 @@ def request_payload(
             "max_output_tokens": max_tokens(env, provider),
             "stream": False,
             "reasoning": {"effort": "none"},
-            "temperature": 0,
+            "temperature": RUN_TEMPERATURE,
             "text": {"format": {"type": "json_object"}},
         }
     return {
@@ -143,7 +144,7 @@ def request_payload(
         "max_tokens": max_tokens(env, provider),
         "stream": False,
         "thinking": {"type": "disabled"},
-        "temperature": 0,
+        "temperature": RUN_TEMPERATURE,
         "response_format": {"type": "json_object"},
     }
 
@@ -585,17 +586,34 @@ def dry_run(protocol: dict, env: dict[str, str], provider: str) -> dict:
 
 
 def main() -> None:
+    global RUN_TEMPERATURE
     parser = argparse.ArgumentParser()
     parser.add_argument("--provider", choices=["mimo", "deepseek"], required=True)
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--accept-cost-cap", type=float)
+    parser.add_argument(
+        "--protocol",
+        default=str(PROTOCOL_PATH.relative_to(ROOT)),
+        help="Repository-relative frozen protocol path.",
+    )
+    parser.add_argument(
+        "--variant",
+        help="Optional isolated output/cache variant, for example temperature-0p3.",
+    )
     args = parser.parse_args()
 
-    protocol_text = PROTOCOL_PATH.read_text(encoding="utf-8").replace("\r\n", "\n")
+    protocol_path = (ROOT / args.protocol).resolve()
+    if ROOT not in protocol_path.parents:
+        raise RuntimeError("Protocol path must remain inside the repository")
+    protocol_text = protocol_path.read_text(encoding="utf-8").replace("\r\n", "\n")
     protocol = json.loads(protocol_text)
     env = provider_env(args.provider)
     spec = provider_spec(protocol, args.provider)
+    RUN_TEMPERATURE = float(spec.get("temperature", protocol.get("generation", {}).get("temperature", 0)))
     estimate = dry_run(protocol, env, args.provider)
+    estimate["temperature"] = RUN_TEMPERATURE
+    estimate["protocol"] = str(protocol_path.relative_to(ROOT)).replace("\\", "/")
+    estimate["variant"] = args.variant
     print(json.dumps(estimate, indent=2), flush=True)
     if not args.execute:
         return
@@ -606,8 +624,20 @@ def main() -> None:
     if args.accept_cost_cap < estimate["recommendedHardCap"]:
         raise RuntimeError("Accepted cap is below the dry-run recommended hard cap")
 
-    output = ROOT / "public/results/online-storefront-cross-llm-pilot/v1" / args.provider
-    artifact_root = ROOT / "artifacts/online-storefront-cross-llm-pilot" / args.provider
+    if args.variant:
+        output = (
+            ROOT
+            / "public/results/online-storefront-decoding-sensitivity/v1"
+            / f"{args.provider}-{args.variant}"
+        )
+        artifact_root = (
+            ROOT
+            / "artifacts/online-storefront-decoding-sensitivity"
+            / f"{args.provider}-{args.variant}"
+        )
+    else:
+        output = ROOT / "public/results/online-storefront-cross-llm-pilot/v1" / args.provider
+        artifact_root = ROOT / "artifacts/online-storefront-cross-llm-pilot" / args.provider
     v2_protocol = json.loads(V2_PROTOCOL_PATH.read_text(encoding="utf-8"))
     condition_specs = {row["id"]: row for row in v2_protocol["conditions"]}
     public_rows = []
@@ -703,6 +733,7 @@ def main() -> None:
         "design": {
             "provider": spec["provider"],
             "model": model_id(env, args.provider),
+            "temperature": RUN_TEMPERATURE,
             "taskCount": len({(row["category"], row["taskId"]) for row in contrasts}),
             "trajectoryCount": len(public_rows),
             "pairedContrastCount": len(contrasts),

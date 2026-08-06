@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "online-storefront-decoding-sensitivity-protocol.v1",
+  "status": "frozen-before-any-temperature-0.3-provider-call",
+  "frozenDate": "2026-08-06",
+  "purpose": "Test whether the MiMo-DeepSeek behavioral propagation boundary changes under the same mildly stochastic decoding temperature while retaining independent sham calibration.",
+  "taskSource": "Reuse the same 32 task hashes and balanced recommender allocation as the matched temperature-0 pilot.",
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "llmFamilies": [
+    {
+      "id": "mimo-v2.5-temperature-0.3",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0.3,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    },
+    {
+      "id": "deepseek-v4-flash-temperature-0.3",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0.3,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    }
+  ],
+  "recommenderFamilies": ["sasrec", "gru4rec"],
+  "recommenderAllocation": "Reuse the exact temperature-0 task-to-recommender-and-seed assignment.",
+  "agentPolicies": ["constraint-first", "exploration-first"],
+  "conditions": [
+    "immediate-remove",
+    "held-outcome",
+    "held-sham-a",
+    "held-sham-b"
+  ],
+  "shamSemantics": "held-sham-a and held-sham-b receive identical semantic held-exposure states through independent calls and cache scopes at temperature 0.3.",
+  "generation": {
+    "jsonMode": true,
+    "maximumOutputTokens": 180,
+    "maximumRetries": 2,
+    "requestTimeoutSeconds": 90,
+    "maximumCallsPerTrajectory": 3,
+    "temperature": 0.3,
+    "privacy": "Send pseudonymous candidate IDs and derived constraint, utility, rank, and novelty features only."
+  },
+  "primaryEstimands": {
+    "adjustedPersistentFeedback": "persistent feedback in immediate-versus-held minus persistent feedback in held-sham-a-versus-held-sham-b",
+    "adjustedTraceDivergence": "trace divergence in immediate-versus-held minus trace divergence in held-sham-a-versus-held-sham-b",
+    "temperatureChange": "temperature-0.3 adjusted effect minus the already frozen temperature-0 adjusted effect within provider"
+  },
+  "decisionRules": {
+    "decodingSensitive": "MiMo adjusted trace divergence becomes positive at temperature 0.3 while its sham-adjusted rate remains positive and the DeepSeek direction does not reverse.",
+    "providerContingent": "MiMo adjusted trace divergence remains zero or non-positive while DeepSeek remains positive after sham adjustment.",
+    "stochasticityDominated": "held-sham trace divergence equals or exceeds a positive exposure trace-divergence rate, or sham persistent feedback exceeds 0.05, in either provider.",
+    "noGo": "valid action rate falls below 0.95, timeout rate reaches 0.05, or privacy validation fails."
+  },
+  "claimBoundary": "This 32-task mechanism pilot can discriminate decoding sensitivity from the observed provider boundary; it cannot estimate a production or population effect."
+}
