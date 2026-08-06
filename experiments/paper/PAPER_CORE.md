@@ -65,8 +65,8 @@ control preference.
 | Shopping-agent activation-timing experiment | 320 generated tasks; 960 task-seed rows; 4 categories; 12 SASRec checkpoints; four recommendation snapshots | Immediate activation changes pending-task rankings under a matched resolved state; holding platform activation preserves identical task-local utility | Amazon.com behavior, frontier-agent behavior, human response, or trained-model unlearning |
 | Online storefront v2 | 460 tasks; 22,080 condition rows; four contracts; fixed traces and two free-running policies; frozen SASRec checkpoints | Separates logging from ranking activation, tests deletion timing, and measures recommendation-mediated trajectory divergence with preregistered uncertainty gates | Frontier-LLM behavior, human response, commercial deployment, or model-state unlearning |
 | Sequence-encoder robustness | Same 460 tasks and protocol; SASRec versus GRU recurrent encoders; 44,160 condition rows and 11,040 paired contrasts | Tests whether activation timing recurs when the learned sequential architecture changes | Architecture independence, production behavior, or canonical reproduction of every GRU4Rec optimization detail |
-| MiMo free-running pilot | 32 tasks; two prompt policies; two sequence encoders; 256 condition trajectories; 64 immediate-versus-held contrasts | Shows that frontier-model action traces can diverge after recommendation exposure while held activation preserves aggregate task-local accuracy and utility | Cross-LLM recurrence or separation of exposure effects from independent-call stochastic divergence |
-| Frozen confirmatory study | 360 planned tasks fully crossed with MiMo, DeepSeek V4 Flash, SASRec, GRU, and two agent policies; independent held-exposure sham pairs | Tests exposure-adjusted persistent behavioral feedback and cross-LLM recurrence | Human behavior, production-retailer effects, or indefinite model persistence |
+| Matched LLM boundary pilot | 32 frozen tasks per provider; MiMo v2.5 and DeepSeek V4 Flash; two prompt policies; two sequence encoders; independent held-exposure sham pairs | Shows that equally displaced shelves changed DeepSeek traces but not MiMo traces under the matched decoding protocol | A provider-general effect or a stable provider interaction estimate |
+| Revised confirmatory gate | A new provider-sensitivity design is required before scaling; the previously frozen 360-task cross-family recurrence study is paused | Tests which model or policy properties make recommendation changes behaviorally consequential | Human behavior, production-retailer effects, or indefinite model persistence |
 
 ## Results
 
@@ -277,54 +277,53 @@ therefore claim recurrence of the timing effect across two learned sequence
 encoders, together with model dependence in how shelf differences propagate
 into trajectories—not architecture independence.
 
-### R10 — The behavioral path recurred under DeepSeek after a stochastic sham calibration
+### R10 — Equal shelf displacement did not produce cross-provider behavioral recurrence
 
-The MiMo v2.5 pilot crossed 32 tasks with constraint-first and
+The original MiMo v2.5 pilot crossed 32 tasks with constraint-first and
 exploration-first prompts, SASRec and GRU sequence encoders, and four activation
 contracts. It produced 256 condition trajectories and 64 paired
-immediate-versus-held contrasts. MiMo returned valid structured actions on
-99.63% of attempts after the frozen retry rule, with no timeouts.
+immediate-versus-held contrasts. Under its original decoding configuration,
+nine of 64 action traces diverged and eight met the protocol-defined persistent-
+feedback event. That run lacked independent held-versus-held sham trajectories.
 
-Immediate activation changed the in-task Top-10 by `0.686` on average. Nine of
-64 paired action traces diverged, and mean displacement remained `0.084` after
-outcome resolution and `0.042` at the standardized next task. The descriptive
-divergence was concentrated in the exploration-first policy: 3/16 SASRec and
-5/16 GRU contrasts diverged, compared with 0/16 and 1/16 under the
-constraint-first policy. Logged-but-ranking-inert and no-memory traces matched
-in all 64 contrasts.
+We then froze a matched four-arm protocol before running either provider:
+immediate-remove, held-outcome, and two independently called held-sham arms.
+Tasks, pseudonymous candidate features, agent policies, recommender outputs,
+temperature, retry rules, and primary event definitions were fixed. This
+separates recommendation-mediated divergence from repeated-call stochasticity.
 
-Immediate and held activation both achieved `96.88%` decision accuracy and
-`0.5625` mean selected utility, compared with `87.5%` and `0.4688` for both
-conditions without task-local retrieval. Holding platform activation therefore
-preserved the useful task-local channel in this pilot.
+Both matched provider runs had `0.696875` mean in-task Top-10 displacement. The
+recommender intervention was therefore equally strong at the shelf level.
+DeepSeek traces diverged in 11/64 exposure contrasts, versus 0/64 sham
+contrasts; 9/64 exposure contrasts also changed the protocol-defined next-task
+ranking, for a sham-adjusted persistent-feedback estimate of `+0.140625`.
 
-These MiMo observations are consistent with recommendation exposure changing
-an LLM agent's action and carrying that difference into the resolved history.
-They do not identify all divergence as exposure-mediated because
-content-addressed cache reuse made the inert-log control deterministic.
+MiMo produced 0/64 exposure trace divergences and 0/64 sham trace divergences
+under the same matched protocol. Its accuracy and selected-utility contrasts
+were also exactly zero. The earlier MiMo divergence therefore did not recur
+under the controlled decoding configuration.
 
-We therefore froze a four-arm replication before calling DeepSeek V4 Flash.
-Two independent held-exposure sham trajectories measured repeated-call
-variation without cache reuse. Across 64 contrasts, immediate-versus-held
-traces diverged in 11 cases and produced a different protocol-defined next-task
-ranking in 9; held-versus-held sham traces diverged in 0 cases. The resulting
-sham-adjusted persistent-feedback estimate was `+0.141`. All 483 API actions
-were valid, no request timed out, and the provider fingerprint was retained.
+Reliability does not explain the contrast. DeepSeek returned 483/483 valid
+actions with no retries or timeouts. The completed MiMo run returned 256/256
+valid actions with no retries or timeouts. Both providers passed the frozen
+sham, privacy, and protocol-integrity gates.
 
-The earlier MiMo run contained 8/64 persistent-feedback events and DeepSeek
-contained 9/64. This directional recurrence is not yet a matched cross-family
-confirmation: MiMo has not run the frozen independent sham arms and used a
-different decoding configuration. The next gate is the sham-calibrated MiMo
-pilot, followed—only if reliability and stochasticity gates pass—by the frozen
-360-task confirmatory design.
+The cross-family recurrence gate failed. The narrow defensible conclusion is
+that recommendation exposure can propagate into later behavior for one tested
+provider configuration, while an equally large recommendation change was
+behaviorally inert for another. The former 360-task confirmation plan should
+not be scaled unchanged. The next study must first isolate whether this boundary
+comes from provider family, decoding configuration, action-margin sensitivity,
+or an interaction between policy wording and model behavior.
 
 ## Contribution statement
 
 1. **Empirical.** We characterize recommendation-mediated behavioral path
    dependence in a research shopping system, separating in-task ranking
    exposure, agent-trace divergence, and downstream consequences across task
-   checkpoints. MiMo and DeepSeek pilots show the same direction, but matched
-   sham-calibrated cross-LLM recurrence remains a planned confirmatory claim.
+   checkpoints. Matched MiMo and DeepSeek pilots show that equally displaced
+   shelves need not produce equally changed behavior; the propagation step is
+   model-contingent in the current evidence.
 2. **Conceptual.** We distinguish stored-state reversibility from interaction-
    path reversibility: removing temporary evidence can restore a profile input
    while failing to restore the action that would have occurred without the
@@ -371,8 +370,8 @@ pilot, followed—only if reliability and stochasticity gates pass—by the froz
 - Say “deterministic autonomous policies,” not “frontier LLM agents.”
 - Say “behavioral path dependence within the paired replay,” not “permanent
   contamination,” “irreversible preference change,” or “unlearning failure.”
-- Say “MiMo pilot consistent with exposure-mediated divergence,” not
-  “cross-LLM replication,” until the DeepSeek sham-calibrated study is complete.
+- Say “DeepSeek-only behavioral propagation under the matched pilot,” not
+  “cross-LLM replication” or “provider-general agent feedback.”
 
 ## Most defensible paper story
 
@@ -384,15 +383,15 @@ becomes part of the resolved history. At that point deletion can repair stored
 evidence without restoring the counterfactual interaction path.
 
 The fixed-trace experiments establish the first link: immediate activation,
-not event logging, changes the recommendation slate. Free-running policies and
-the MiMo pilot expose the second link: changed slates can propagate into changed
-actions, with strong policy and recommender heterogeneity. The held condition
-keeps the same task-local retrieval channel, so preventing platform activation
-does not require making the current agent task-blind.
+not event logging, changes the recommendation slate. The matched LLM pilot now
+shows that the second link is conditional: the same mean shelf displacement
+propagated into DeepSeek actions but not MiMo actions. The held condition keeps
+the same task-local retrieval channel, so preventing platform activation does
+not require making the current agent task-blind.
 
-The confirmatory study must now distinguish exposure-mediated divergence from
-ordinary LLM non-determinism. Its held-versus-held sham contrast is therefore
-central, not a robustness appendix. If the adjusted effect recurs under MiMo
-and DeepSeek, the paper can claim cross-family behavioral path dependence under
-the research protocol. If it does not, the defensible contribution contracts to
-the ranking-exposure mechanism and its model-contingent propagation boundary.
+The sham contrast ruled out observed repeated-call divergence in both matched
+provider runs, but the exposure effect recurred only in DeepSeek. This triggers
+the prespecified contraction: the defensible contribution is the ranking-
+exposure mechanism plus a model-contingent propagation boundary. Before a large
+confirmation, a smaller diagnostic study should vary decoding and action-margin
+sensitivity within each provider while retaining the same paired sham design.

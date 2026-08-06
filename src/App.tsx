@@ -383,6 +383,7 @@ export function App() {
     delegatedActivation,
     onlineStorefrontV2,
     mimoLlmPilot,
+    mimoMatchedLlmPilot,
     deepseekLlmPilot,
     catalog,
     error,
@@ -1367,8 +1368,12 @@ export function App() {
               <OnlineStorefrontV2Panel summary={onlineStorefrontV2} />
             )}
 
-            {mimoLlmPilot && deepseekLlmPilot && (
-              <LLMBehaviorFeedbackPanel mimo={mimoLlmPilot} deepseek={deepseekLlmPilot} />
+            {mimoLlmPilot && mimoMatchedLlmPilot && deepseekLlmPilot && (
+              <LLMBehaviorFeedbackPanel
+                originalMimo={mimoLlmPilot}
+                matchedMimo={mimoMatchedLlmPilot}
+                deepseek={deepseekLlmPilot}
+              />
             )}
 
             {crossTaskSensitivity && (

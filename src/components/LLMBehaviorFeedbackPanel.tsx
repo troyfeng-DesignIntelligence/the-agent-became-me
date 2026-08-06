@@ -5,36 +5,38 @@ function percent(value: number, digits = 1) {
 }
 
 export function LLMBehaviorFeedbackPanel({
-  mimo,
+  originalMimo,
+  matchedMimo,
   deepseek
 }: {
-  mimo: MiMoLlmPilotSummary;
+  originalMimo: MiMoLlmPilotSummary;
+  matchedMimo: CrossLlmPilotSummary;
   deepseek: CrossLlmPilotSummary;
 }) {
   const metrics = [
     {
-      label: "MiMo exposure pair",
-      value: mimo.descriptive.traceDivergenceRate,
-      display: percent(mimo.descriptive.traceDivergenceRate),
-      note: "trace divergence · original pilot · no independent sham"
+      label: "Changed shelf / both models",
+      value: matchedMimo.descriptive.meanExposureT1,
+      display: percent(matchedMimo.descriptive.meanExposureT1),
+      note: "mean in-task Top-10 displacement under immediate activation"
     },
     {
-      label: "DeepSeek exposure pair",
+      label: "MiMo matched trace",
+      value: matchedMimo.descriptive.exposureTraceDivergenceRate,
+      display: percent(matchedMimo.descriptive.exposureTraceDivergenceRate),
+      note: "0/64 immediate-versus-held trajectories diverged"
+    },
+    {
+      label: "DeepSeek matched trace",
       value: deepseek.descriptive.exposureTraceDivergenceRate,
       display: percent(deepseek.descriptive.exposureTraceDivergenceRate),
-      note: "trace divergence · immediate activation versus held"
+      note: "11/64 immediate-versus-held trajectories diverged"
     },
     {
-      label: "DeepSeek held sham",
-      value: deepseek.descriptive.shamTraceDivergenceRate,
-      display: percent(deepseek.descriptive.shamTraceDivergenceRate),
-      note: "independent held calls · identical semantic exposure"
-    },
-    {
-      label: "Persistent feedback",
+      label: "DeepSeek persistent path",
       value: deepseek.descriptive.adjustedPersistentFeedback,
       display: percent(deepseek.descriptive.adjustedPersistentFeedback),
-      note: "DeepSeek exposure event minus held-sham event"
+      note: "9/64 exposure events minus 0/64 held-sham events"
     }
   ];
 
@@ -42,11 +44,11 @@ export function LLMBehaviorFeedbackPanel({
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
       <header>
         <span className="mono-label">FRONTIER LLM PILOTS / 32 FROZEN TASKS</span>
-        <h3 id="llm-feedback-title">The changed shelf became a changed path.</h3>
+        <h3 id="llm-feedback-title">Same changed shelf. Different agent response.</h3>
         <p>
-          Immediate activation and outcome-gated activation began from the same task.
-          DeepSeek then ran two additional held trajectories without cache reuse, exposing
-          how much divergence came from the model itself.
+          MiMo and DeepSeek received the same frozen tasks, policies, and recommender
+          contrasts. Both saw equally displaced shelves. Only DeepSeek changed its action
+          path, making provider dependence part of the result rather than a footnote.
         </p>
       </header>
 
@@ -63,25 +65,26 @@ export function LLMBehaviorFeedbackPanel({
         ))}
       </div>
 
-      <div className="llm-feedback-chain" aria-label="Observed mechanism chain">
-        <span>temporary activity</span>
+      <div className="llm-feedback-chain" aria-label="Observed boundary chain">
+        <span>same task protocol</span>
         <b>→</b>
-        <span>changed recommendation</span>
+        <span>same shelf displacement</span>
         <b>→</b>
-        <span>changed agent action</span>
+        <span>different model response</span>
         <b>→</b>
-        <span>different next-task output</span>
+        <span>provider-contingent path</span>
       </div>
 
       <footer>
         <p>
-          <strong>Observed:</strong> DeepSeek produced 11/64 exposed trace divergences,
-          0/64 sham divergences, and 9/64 sham-adjusted persistent-feedback events.
+          <strong>Observed:</strong> MiMo produced 0/64 exposed trace divergences and
+          DeepSeek produced 11/64, despite the same 69.7% mean shelf displacement. Both
+          held-versus-held sham rates were 0/64.
         </p>
         <p>
-          <strong>Boundary:</strong> MiMo shows the same descriptive direction, but it
-          has not yet completed the matched sham arms. This is cross-provider pilot
-          evidence, not the 360-task confirmatory result.
+          <strong>Boundary:</strong> The earlier MiMo pilot's {percent(originalMimo.descriptive.traceDivergenceRate)}
+          trace divergence did not recur under the matched decoding protocol. The evidence
+          supports a model-contingent boundary, not cross-LLM replication.
         </p>
       </footer>
     </section>

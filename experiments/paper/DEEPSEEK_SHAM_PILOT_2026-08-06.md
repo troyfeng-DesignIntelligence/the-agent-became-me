@@ -1,7 +1,7 @@
 # DeepSeek V4 Flash sham-calibrated replication pilot
 
 Date: 2026-08-06 (Asia/Shanghai)  
-Status: completed cross-provider pilot; not confirmatory evidence
+Status: completed provider-specific pilot; matched MiMo recurrence failed
 
 ## Purpose
 
@@ -62,14 +62,14 @@ The aggregate held-minus-immediate difference was -0.015625 for both decision ac
 
 ## Cross-family interpretation
 
-The earlier MiMo pilot had 9/64 exposure trace divergences and 8/64 persistent-feedback events under its original decoding configuration. DeepSeek had 11/64 and 9/64 respectively. The directional similarity is encouraging, but it is not yet a matched cross-family replication: the MiMo run did not contain independent held sham calls and used provider-default temperature.
+The later matched MiMo run completed the same four-arm protocol. Its mean in-task shelf displacement was also 0.696875, but it produced 0/64 exposure trace divergences, 0/64 sham divergences, and 0/64 persistent-feedback events. DeepSeek produced 11/64, 0/64, and 9/64 respectively.
 
-The next valid comparison is the already frozen MiMo sham-calibrated pilot. Only after both providers share the same four-arm protocol can the paper estimate cross-family adjusted effects. The 360-task study remains gated on that result and a separate cost authorization.
+The earlier MiMo pilot's 9/64 trace divergences therefore did not recur under the matched decoding configuration. The provider-general recurrence gate failed, and the 360-task study should not be scaled unchanged. The next experiment must diagnose whether the boundary comes from model family, decoding, action-margin sensitivity, or policy wording.
 
 ## Claim boundary
 
 Observed: under DeepSeek V4 Flash and the frozen research protocol, recommendation activation changed agent traces and protocol-defined next-task outputs beyond the observed held-versus-held stochastic baseline.
 
-Not established: confirmatory cross-LLM recurrence, a stable provider-model effect size, human behavioral feedback, production-retailer consequences, or indefinite irreversibility.
+Not established: cross-LLM recurrence, a stable provider-model interaction, human behavioral feedback, production-retailer consequences, or indefinite irreversibility.
 
 Official references: [DeepSeek models and pricing](https://api-docs.deepseek.com/quick_start/pricing), [DeepSeek JSON Output](https://api-docs.deepseek.com/guides/json_mode/).

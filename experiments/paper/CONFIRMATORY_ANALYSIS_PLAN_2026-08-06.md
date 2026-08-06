@@ -2,6 +2,13 @@
 
 Status: statistical core frozen before any DeepSeek call and before any confirmatory-scale call.
 
+Post-freeze decision (2026-08-06): the matched 32-task pilot produced 9/64
+persistent-feedback events for DeepSeek and 0/64 for MiMo, with 0/64 sham
+events for both providers. This satisfies the plan's **model-contingent
+feedback** outcome rather than cross-family recurrence. The frozen document is
+retained as an audit record, but its 360-task execution is paused and should
+not be run unchanged. See `CROSS_LLM_SHAM_PILOT_2026-08-06.md`.
+
 ## Narrow claim
 
 The paper no longer treats broad “profile pollution” as its central phenomenon. The confirmatory target is narrower: allowing temporary-task activity into a platform recommender can change what an autonomous agent sees, the changed exposure can alter the agent's action path, and later deletion cannot rewind an action that has already changed the resolved history.

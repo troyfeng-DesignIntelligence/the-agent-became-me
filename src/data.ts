@@ -1308,6 +1308,7 @@ interface ProjectDataState {
   delegatedActivation: DelegatedActivationSummary | null;
   onlineStorefrontV2: OnlineStorefrontV2Summary | null;
   mimoLlmPilot: MiMoLlmPilotSummary | null;
+  mimoMatchedLlmPilot: CrossLlmPilotSummary | null;
   deepseekLlmPilot: CrossLlmPilotSummary | null;
   catalog: Catalog | null;
   error: string | null;
@@ -1329,6 +1330,7 @@ export function useProjectData(): ProjectDataState {
     delegatedActivation: null,
     onlineStorefrontV2: null,
     mimoLlmPilot: null,
+    mimoMatchedLlmPilot: null,
     deepseekLlmPilot: null,
     catalog: null,
     error: null,
@@ -1438,6 +1440,12 @@ export function useProjectData(): ProjectDataState {
           return MiMoLlmPilotSummarySchema.parse(await response.json());
         }
       ),
+      fetch(`${base}results/online-storefront-cross-llm-pilot/v1/mimo/summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load matched MiMo LLM pilot.");
+          return CrossLlmPilotSummarySchema.parse(await response.json());
+        }
+      ),
       fetch(`${base}results/online-storefront-cross-llm-pilot/v1/deepseek/summary.json`).then(
         async (response) => {
           if (!response.ok) throw new Error("Could not load DeepSeek LLM pilot.");
@@ -1461,6 +1469,7 @@ export function useProjectData(): ProjectDataState {
           delegatedActivation,
           onlineStorefrontV2,
           mimoLlmPilot,
+          mimoMatchedLlmPilot,
           deepseekLlmPilot
         ]) => {
         if (!cancelled) {
@@ -1478,6 +1487,7 @@ export function useProjectData(): ProjectDataState {
             delegatedActivation,
             onlineStorefrontV2,
             mimoLlmPilot,
+            mimoMatchedLlmPilot,
             deepseekLlmPilot,
             catalog,
             error: null,
@@ -1502,6 +1512,7 @@ export function useProjectData(): ProjectDataState {
             delegatedActivation: null,
             onlineStorefrontV2: null,
             mimoLlmPilot: null,
+            mimoMatchedLlmPilot: null,
             deepseekLlmPilot: null,
             catalog: null,
             error:
