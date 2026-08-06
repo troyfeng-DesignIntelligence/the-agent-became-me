@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "online-storefront-repair-pilot-task-selection-protocol.v1",
+  "status": "frozen-before-full-pool-opportunity-screen",
+  "frozenDate": "2026-08-06",
+  "reason": "The first-eight-per-category task set had a non-degenerate dominance predictor but only 1/32 tasks changed structural class or top eligible candidate between arms.",
+  "studyRole": "Outcome-blind mechanism stress-test sampling; it does not estimate the population prevalence of recommendation-induced action divergence.",
+  "sourcePool": {
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "tasksPerCategory": 115,
+    "totalCandidateTasks": 460,
+    "taskOrder": "Sort eligible tasks by frozen taskId within category.",
+    "modelFamily": "Assign SASRec to even full-pool task indices and GRU4Rec to odd indices.",
+    "modelSeed": "Assign seeds 7, 17, and 29 cyclically by full-pool task index."
+  },
+  "stateAndMetric": {
+    "conditions": [
+      "immediate-remove",
+      "held-outcome"
+    ],
+    "agentPolicy": "forced-inspection",
+    "metricProtocol": "experiments/online-storefront-v4/dominance-margin-protocol.json",
+    "allowedSelectionInputs": [
+      "category",
+      "modelFamily",
+      "modelSeed",
+      "minimumArmDecisionSeparation",
+      "opportunityChanged",
+      "taskId as deterministic tie-break only"
+    ],
+    "forbiddenSelectionInputs": [
+      "LLM provider",
+      "prompt",
+      "response",
+      "selected item",
+      "trace",
+      "confidence",
+      "outcome",
+      "resolved-action divergence"
+    ]
+  },
+  "selectionAlgorithm": {
+    "strata": "Eight category-by-modelFamily strata.",
+    "targetPerStratum": 4,
+    "opportunityPriority": "Within each stratum, select up to two opportunityChanged tasks, ordered by ascending minimumArmDecisionSeparation and then taskId.",
+    "coverageFill": "Until four tasks are selected, choose the remaining task that maximizes its minimum absolute predictor distance from already selected tasks; if no task is yet selected, choose the smallest predictor. Break ties by taskId.",
+    "finalOrder": "Category order from the protocol, then modelFamily, then taskId."
+  },
+  "selectionGates": {
+    "balance": "Exactly 32 tasks, 8 per category, and 4 per category-by-modelFamily stratum.",
+    "opportunity": "At least 8/32 selected tasks must change structural class or top eligible candidate between arms.",
+    "distinctValues": "At least 12 distinct minimumArmDecisionSeparation values after rounding to six decimals.",
+    "largestPointMass": "No predictor value may cover more than 50% of selected tasks.",
+    "dispersion": "Selected-task predictor population standard deviation must be at least 0.15.",
+    "determinism": "All 460 models must be in evaluation mode, every state must pass three-call repeatability, and the selected manifest plus aggregate state hash must match across fresh processes."
+  },
+  "decisionRules": {
+    "go": "All selection gates pass. Freeze and commit the generated public task manifest before any LLM call.",
+    "noGo": "Any selection gate fails. Do not call an LLM and do not relax the gate after seeing the screen.",
+    "pilotClaimBoundary": "A passing repair pilot can establish the proposed mechanism on opportunity-enriched tasks, not its frequency in the original task population."
+  },
+  "privacy": "Public pool and selected rows contain frozen task hashes and derived state metrics only; no original item IDs, candidate aliases, titles, reviews, prompts, responses, or outcomes."
+}
