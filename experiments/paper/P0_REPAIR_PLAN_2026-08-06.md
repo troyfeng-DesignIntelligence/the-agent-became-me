@@ -81,3 +81,12 @@ study would be required before the control prototype becomes an HCI result.
    calls begin.
 5. After calls begin, primary definitions do not change. Failures and timeouts
    remain in the denominator under the frozen missing-data policy.
+
+## Completion status
+
+All v6 execution gates passed. The preflight covered 920/920 task-model units;
+all four layouts matched, every inspected item remained selectable, and the
+quality score varied. DeepSeek and MiMo each returned 3,680 valid calls with no
+terminal failures. The DeepSeek overall interval excluded zero, MiMo replicated
+the direction with an interval that also excluded zero, and both quality lower
+bounds remained above -0.05.

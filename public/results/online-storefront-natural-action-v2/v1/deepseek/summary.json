@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "online-storefront-natural-action-run-summary.v1",
+  "generatedAt": "2026-08-06T19:03:38.083790+00:00",
+  "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "taskModelUnitCount": 920,
+  "naturalOpportunityRate": 0.043478,
+  "overallActionDistributionDistance": 0.126087,
+  "conditionalActionDistributionDistance": 0.6,
+  "meanHeldMinusImmediateDecisionQuality": -0.000614,
+  "api": {
+    "requestCount": 3680,
+    "cacheHitCount": 0,
+    "attemptCount": 3680,
+    "validActionCount": 3680,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 3074936,
+    "outputTokens": 74986,
+    "currency": "USD",
+    "observedCostAtPublishedRates": 0.451487,
+    "systemFingerprints": [
+      "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+    ]
+  },
+  "callOrderCounts": {
+    "immediate-a / held-a / immediate-b / held-b": 224,
+    "immediate-b / held-b / immediate-a / held-a": 224,
+    "held-a / immediate-b / held-b / immediate-a": 243,
+    "held-b / immediate-a / held-a / immediate-b": 229
+  },
+  "claimBoundary": "The study concerns model choices in a research storefront. It does not identify human preference change, production-retailer effects, trained-model deletion, or an actor-provenance effect."
+}

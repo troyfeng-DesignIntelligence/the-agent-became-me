@@ -1,119 +1,128 @@
 import type {
   CandidateMarginSummary,
   DeterministicRepairSummary,
-  ForcedInspectionSummary
+  ForcedInspectionSummary,
+  NaturalActionEvaluation
 } from "../data";
+
+function interval(value: { estimate: number; ci95: [number, number] }) {
+  return `${value.estimate.toFixed(3)} [${value.ci95[0].toFixed(3)}, ${value.ci95[1].toFixed(3)}]`;
+}
 
 export function LLMBehaviorFeedbackPanel({
   repair,
   forced,
-  historicalMargin
+  historicalMargin,
+  natural
 }: {
   repair: DeterministicRepairSummary;
   forced: ForcedInspectionSummary;
   historicalMargin: CandidateMarginSummary;
+  natural: NaturalActionEvaluation;
 }) {
+  const mimo = natural.providers.mimo;
+  const deepseek = natural.providers.deepseek;
   const oldProviderEvents =
     repair.providers.mimo.persistentResolvedActionEventCount +
     repair.providers.deepseek.persistentResolvedActionEventCount;
+  const validCalls = mimo.runApi.validActionCount + deepseek.runApi.validActionCount;
 
   return (
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
       <header>
-        <span className="mono-label">P0 METHOD AUDIT / CLAIM WITHDRAWN</span>
+        <span className="mono-label">CONFIRMATORY V6 / NATURAL 460-TASK FRAME</span>
         <h3 id="llm-feedback-title">
-          The 32-task pilot cannot support the action claim.
+          Changed exposure shifted model action distributions.
         </h3>
         <p>
-          A source audit found three coupled problems: the required inspection
-          removed that item from the next candidate list, tasks were enriched on
-          the proposed mechanism, and the next-task outcome included consequences
-          of different selected items. The old result is retained as an audit,
-          not evidence.
+          Every task was evaluated with SASRec and GRU. Immediate and held arms
+          received the same candidate IDs in the same order, and the inspected
+          product remained selectable. Two independent calls per arm measured
+          repeated-call variation.
         </p>
       </header>
 
       <div className="llm-feedback-repair">
         <header>
-          <span className="mono-label">WHY IT FAILED</span>
-          <h4>The treatment changed more than recommendation exposure.</h4>
+          <span className="mono-label">PRIMARY RESULT</span>
+          <h4>The bounded action effect recurred in both LLM families.</h4>
           <p>
-            Once the controller marked a recommendation as viewed, the legacy
-            candidate builder excluded it. Immediate and held agents therefore
-            did not receive the same selectable action set. That is a design
-            confound, not a cosmetic implementation detail.
+            The estimator subtracts within-arm disagreement from cross-arm
+            disagreement. DeepSeek was the frozen primary provider; MiMo was the
+            prespecified replication. Both task-clustered intervals exclude zero.
           </p>
         </header>
 
         <div className="llm-feedback-repair__grid">
           <article>
-            <span>Old provider-events</span>
-            <strong>{oldProviderEvents}</strong>
-            <p>recorded, but no longer used as a result</p>
+            <span>DeepSeek</span>
+            <strong>{deepseek.estimates.overallActionDistributionDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {deepseek.estimates.overallActionDistributionDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
           </article>
           <article>
-            <span>Within-opportunity AUC</span>
-            <strong>0.313</strong>
-            <p>DeepSeek; exact one-sided p = 0.892</p>
+            <span>MiMo</span>
+            <strong>{mimo.estimates.overallActionDistributionDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {mimo.estimates.overallActionDistributionDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
           </article>
           <article>
-            <span>Natural task frame</span>
-            <strong>460</strong>
-            <p>all frozen tasks, without mechanism enrichment</p>
+            <span>Natural opportunity</span>
+            <strong>{(deepseek.estimates.naturalOpportunityRate.estimate * 100).toFixed(2)}%</strong>
+            <p>40 of 920 task-model units</p>
           </article>
           <article>
-            <span>New task-model units</span>
-            <strong>920</strong>
-            <p>SASRec and GRU on every task</p>
+            <span>Valid provider calls</span>
+            <strong>{validCalls.toLocaleString()}</strong>
+            <p>zero terminal failures</p>
           </article>
         </div>
 
         <p className="llm-feedback-repair__note">
-          The reported dominance association disappears inside the 15 enriched
-          opportunity tasks: DeepSeek AUC 0.313, p = 0.892; MiMo AUC 0.231,
-          p = 0.961. The mechanism claim has been removed rather than reworded.
+          Conditional on a natural actionable opportunity, the estimate was {interval(deepseek.estimates.conditionalActionDistributionDistance)} for DeepSeek and {interval(mimo.estimates.conditionalActionDistributionDistance)} for MiMo. This conditional result is reported beside its 4.35% prevalence, not as a population-wide rate.
         </p>
       </div>
 
       <div className="llm-feedback-boundary-grid">
         <article>
-          <span className="mono-label">REPLACEMENT STUDY</span>
-          <h4>Matched choices, symmetric repeats.</h4>
+          <span className="mono-label">CONTROL CHECK</span>
+          <h4>Repeated-call variation stayed below the arm contrast.</h4>
           <p>
-            The v6 protocol sends identical candidate IDs in an identical order
-            to all four calls. The inspected product remains selectable. Two
-            byte-matched calls per arm and a frozen Latin-square call order
-            separate an arm effect from repeated-call variation.
+            DeepSeek within-arm disagreement was 1.52% for immediate and 0.65%
+            for held calls. MiMo was 1.74% and 2.28%. The mean same-layout
+            immediate-versus-held divergence was about 7.5% in both families.
           </p>
           <dl>
             <div>
-              <dt>Calls per unit</dt>
-              <dd>4</dd>
+              <dt>DeepSeek quality Δ</dt>
+              <dd>{deepseek.estimates.worstCaseQualityDifference.estimate.toFixed(4)}</dd>
             </div>
             <div>
-              <dt>Selectable inspections</dt>
-              <dd>1,840/1,840</dd>
+              <dt>MiMo quality Δ</dt>
+              <dd>+{mimo.estimates.worstCaseQualityDifference.estimate.toFixed(4)}</dd>
             </div>
           </dl>
         </article>
 
         <article>
-          <span className="mono-label">MEASUREMENT BOUNDARY</span>
-          <h4>Restored input state is not restored behavior.</h4>
+          <span className="mono-label">P0 AUDIT</span>
+          <h4>The old 32-task result remains withdrawn.</h4>
           <p>
-            The new primary endpoint is resolved-action distribution distance.
-            It does not require next-task displacement. If two arms select
-            different items, their later histories are expected to differ and
-            cannot be used as evidence that removal failed.
+            The legacy forced inspection changed candidate availability, and
+            its pooled dominance AUC was driven by enriched sampling. A first
+            natural-frame run also changed layout between A/B controls; it was
+            invalidated and rerun with one shared layout.
           </p>
           <dl>
             <div>
-              <dt>Old trace-only change</dt>
-              <dd>{Math.round(forced.providers.mimo.wholeTraceDivergenceRate * 32)}/32</dd>
+              <dt>Old provider-events</dt>
+              <dd>{oldProviderEvents}</dd>
             </div>
             <div>
               <dt>Old margin support</dt>
               <dd>{historicalMargin.providers.deepseek.analyzableCount}/32</dd>
+            </div>
+            <div>
+              <dt>Old trace-only change</dt>
+              <dd>{Math.round(forced.providers.mimo.wholeTraceDivergenceRate * 32)}/32</dd>
             </div>
           </dl>
         </article>
@@ -121,9 +130,9 @@ export function LLMBehaviorFeedbackPanel({
 
       <footer>
         <p>
-          Agent-mediated shopping is the setting, not an identified provenance
-          mechanism. No usability, trust, human preference, production-retailer,
-          deletion, or unlearning claim is made.
+          The result concerns model choices from pseudonymous features in a
+          research storefront. It does not identify human preference change,
+          production-retailer effects, deletion, unlearning, or actor provenance.
         </p>
         <p>
           Raw prompts, responses, item titles, reviews, and original identifiers

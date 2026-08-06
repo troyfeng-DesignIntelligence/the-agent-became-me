@@ -5,9 +5,9 @@
 One result is established: activating temporary task evidence changed learned
 rankings in the research storefront, while inert logging did not.
 
-One question remains open: whether that exposure changes an LLM shopping
-agent's selected item or abandon decision when both arms can choose from the
-same candidates.
+The confirmatory v6 study also found a model-action effect when both arms could
+choose from the same candidates in the same order. The result recurred in
+DeepSeek and MiMo after within-arm variation was subtracted.
 
 The old 32-task pilot no longer answers the second question. Its action set
 changed after forced inspection, its mechanism sample was enriched, and its
@@ -19,8 +19,8 @@ are audit material, not findings.
 | Step | Question | Current evidence |
 |---|---|---|
 | Shelf | Does activation rather than logging change recommendations? | Complete: four-contract replay, four categories, SASRec and GRU |
-| Action | Does changed exposure alter the resolved action? | Open: v6 protocol and 920-unit preflight complete; provider results pending |
-| Guardrail | Does holding reduce current-task decision quality? | Open: nondegenerate score frozen; paired analysis pending |
+| Action | Does changed exposure alter the resolved action? | Complete: DeepSeek 0.126 [0.093, 0.161]; MiMo 0.111 [0.079, 0.144] |
+| Guardrail | Does holding reduce current-task decision quality? | Complete: both provider intervals near zero and above the -0.05 margin |
 | Interface | How might a system expose activation timing? | Implemented prototype without participant evaluation |
 
 ## P0 corrections
@@ -39,11 +39,12 @@ are audit material, not findings.
 
 ## Contribution boundary
 
-The empirical contribution currently concerns ranking activation. The action
-study contributes a prospective method until its gates pass. The interface is a
-design response, not evidence about trust, control, comprehension, or human
-preference. Agent-mediated shopping is the setting; provenance is not a causal
-treatment in this study.
+The empirical contribution concerns ranking activation and a bounded model-
+action distribution effect in a research storefront. Natural actionable
+opportunity occurred in 4.35% [2.93%, 5.98%] of task-model units, so conditional
+estimates are reported beside prevalence. The interface is a design response,
+not evidence about trust, control, comprehension, or human preference. Agent-
+mediated shopping is the setting; provenance is not a causal treatment.
 
 ## Writing rule
 

@@ -47,8 +47,8 @@ async function checkViewport(browser, viewport, name) {
   check((await page.locator(".cross-task-control-lab").count()) === 1, `${name}: the control prototype is missing.`);
   check((await page.locator('.artifact-links a[href*="archive=1"]').count()) === 1, `${name}: the development archive link is missing.`);
   check(
-    (await page.locator(".llm-feedback-repair").innerText()).includes("WHY IT FAILED"),
-    `${name}: the invalidated LLM claim is still presented as a result.`
+    (await page.locator(".llm-feedback-repair").innerText()).includes("7,360"),
+    `${name}: the confirmatory natural-frame action result is missing.`
   );
 
   const overflow = await page.evaluate(() => ({

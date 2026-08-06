@@ -399,6 +399,7 @@ export function App() {
     forcedInspection,
     candidateMargin,
     deterministicRepairPilot,
+    naturalActionEvaluation,
     catalog,
     error,
     loading
@@ -1391,11 +1392,13 @@ export function App() {
 
             {forcedInspection &&
               candidateMargin &&
-              deterministicRepairPilot && (
+              deterministicRepairPilot &&
+              naturalActionEvaluation && (
               <LLMBehaviorFeedbackPanel
                 forced={forcedInspection}
                 repair={deterministicRepairPilot}
                 historicalMargin={candidateMargin}
+                natural={naturalActionEvaluation}
               />
             )}
 
@@ -1420,7 +1423,7 @@ export function App() {
           <header className="section-header">
             <div>
               <span className="section-kicker">Evidence status</span>
-              <h2>One result, two audits, and one prospective guardrail.</h2>
+              <h2>Two results, one audit, and one current-task guardrail.</h2>
             </div>
             <p>
               Measured outcomes stay separate from design implications. No

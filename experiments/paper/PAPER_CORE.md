@@ -12,11 +12,11 @@ the agent sees. In a research storefront, activating temporary evidence changed
 learned recommendation rankings; recording the same event without activating
 it did not.
 
-That is the completed empirical claim. Whether the changed shelf also changes
-the model's selected item or abandon decision is a separate question. The first
-LLM experiment cannot answer it, so its action and mechanism claims have been
-withdrawn. A replacement study is frozen and has passed its local preflight,
-but its provider results are not yet reported.
+The confirmatory action study also found a bounded model-action effect. With the
+candidate IDs and order fixed, immediate versus held activation changed the
+selected-item or abandon distribution after repeated-call variation was
+subtracted. The result recurred in DeepSeek and MiMo over the natural 460-task
+frame. Earlier 32-task and layout-confounded runs remain withdrawn.
 
 The paper does not claim trained-model deletion, irreversible platform state,
 human preference change, or production-retailer effects.
@@ -31,16 +31,17 @@ candidate masks constant while activation timing changes.
 
 ### RQ2. Does the changed exposure alter the agent's resolved action?
 
-The prospective action study compares selected-item or abandon distributions
+The confirmatory action study compares selected-item or abandon distributions
 under immediate and held activation. Matched arms receive the same candidate
-IDs, and the inspected candidate remains selectable. This question is open
-until both provider runs and the frozen analysis are complete.
+IDs in the same order, and the inspected candidate remains selectable. Two
+independent calls per arm estimate repeated-call variation.
 
 ### RQ3. Does holding platform activation reduce current-task decision quality?
 
 Both timing arms retain task-local retrieval. The new guardrail uses a
 continuous, frozen score over offered candidates. The previous binary utility
-measure was too coarse to support a non-inferiority claim.
+measure was too coarse to support a non-inferiority claim. Both providers passed
+the frozen -0.05 guardrail.
 
 ## Evidence retained in the paper
 
@@ -49,7 +50,7 @@ measure was too coarse to support a non-inferiority claim.
 | Four-contract fixed replay over 460 tasks | Complete | Activation changes in-task rankings; inert logging does not |
 | SASRec and GRU replication across four Amazon Reviews categories | Complete | The ranking effect is not confined to one category or encoder in this testbed |
 | Free-running deterministic policies | Descriptive | Ranking movement can alter scripted trajectories; policy estimates are not LLM action effects |
-| Natural-frame LLM action study | Protocol and preflight complete | No action claim until provider calls and clustered analysis finish |
+| Natural-frame LLM action study | Complete: 7,360 valid calls | Immediate versus held activation changed model action distributions in both LLM families |
 | Control interface | Implemented design response | No usability, trust, comprehension, or preference claim |
 
 ## Completed result: activation changed rankings
@@ -66,8 +67,8 @@ interval from +0.273 to +0.369. Category estimates ranged from +0.119 to +0.612.
 Holding reproduced the paired baseline under the frozen protocol.
 
 These results concern recommendation exposure in research-owned models. They do
-not show that a production retailer behaves the same way, and they do not show
-that a changed shelf changes an LLM's final action.
+not show that a production retailer behaves the same way. The separate action
+study below tests model choices under pseudonymous derived features.
 
 ## Why the 32-task action pilot was invalidated
 
@@ -92,6 +93,12 @@ state.
 
 The recorded 7 DeepSeek and 6 MiMo provider-events remain in the repository as
 an audit trail. They are not paper results.
+
+A first natural-frame implementation was also invalidated. Replicates A and B
+used different candidate orders, so within-arm disagreement combined provider
+variation with layout sensitivity. DeepSeek completed under that protocol and
+MiMo was stopped when the problem was detected. The v6 replacement used one
+candidate order for all four calls and an independent output path.
 
 ## Replacement action study
 
@@ -121,6 +128,29 @@ selectable. Post-resolution platform-input hashes agreed in 920 of 920 units.
 The decision-quality score had 323 distinct feasible-candidate values. No API
 call was needed for these checks.
 
+## Confirmatory action results
+
+All 7,360 v6 provider calls returned valid actions. There were no terminal
+failures or timeouts. DeepSeek's overall action-distribution distance was 0.126,
+with a task-clustered 95% interval from 0.093 to 0.161. MiMo's prespecified
+replication estimate was 0.111, with an interval from 0.079 to 0.144.
+
+Actionable opportunity was uncommon in the natural frame. The highest-ranked
+constraint-matching platform candidate differed between arms in 40 of 920
+task-model units, or 4.35%, with a 95% interval from 2.93% to 5.98%. Conditional
+on those units, the action-distribution estimate was 0.600 [0.348, 0.850] for
+DeepSeek and 0.400 [0.143, 0.703] for MiMo. The conditional estimates are
+reported beside prevalence; they are not population event rates.
+
+The shared-layout control behaved as intended. DeepSeek within-arm disagreement
+was 1.52% in immediate and 0.65% in held calls; MiMo was 1.74% and 2.28%.
+Same-layout immediate-versus-held divergence was about 7.5% in both families.
+
+The held-minus-immediate decision-quality difference was -0.0006
+[-0.0028, 0.0015] for DeepSeek and +0.0008 [-0.0012, 0.0028] for MiMo. Both
+lower bounds remained above the frozen -0.05 guardrail. This score is a
+protocol-defined surrogate over offered candidates, not human utility.
+
 ## State and behavior are different estimands
 
 The implementation uses the term temporary task evidence activation. It does
@@ -141,21 +171,20 @@ ranking displacement is not part of the primary behavioral event.
    activation in a learned research storefront.
 2. A measurement distinction between shelf displacement, trace divergence, and
    resolved action.
-3. A prospective method for estimating an LLM action-distribution effect while
+3. A confirmatory estimate of an LLM action-distribution effect while
    holding the selectable candidates fixed and measuring repeated-call
-   variation symmetrically.
+   variation symmetrically, replicated in two LLM families.
 4. An outcome-gated interface as an unevaluated design response.
 
-The third contribution is methodological until the provider study passes its
-frozen gates. Agent provenance is not manipulated, so the paper does not claim
-an ACI-specific causal mechanism.
+All frozen action and guardrail gates passed. Agent provenance is not
+manipulated, so the paper does not claim an ACI-specific causal mechanism.
 
 ## Design implication
 
 Task-local recommendation and platform activation can be separate system
 operations. The prototype makes that separation visible and lets platform
-activation wait for a task outcome. This design follows from the ranking result
-and the unresolved action question. It has not been evaluated with people.
+activation wait for a task outcome. This design follows from the ranking and
+model-action results. It has not been evaluated with people.
 
 ## Limits
 
@@ -164,17 +193,18 @@ and the unresolved action question. It has not been evaluated with people.
   are not records of delegated shopping.
 - Models and candidate construction belong to a research storefront, not a
   retailer's production system.
+- LLMs received pseudonymous derived features, not rendered commerce pages or
+  natural-language product descriptions.
 - The old 32-task LLM pilot is invalidated and supplies no action estimate.
 - The new quality score is a protocol-defined surrogate over offered candidates,
   not human utility.
 - The interface has not been tested for comprehension, trust, control, or use.
 
-## Next claim gate
+## Claim decision
 
-An action claim is eligible only if the DeepSeek overall action-distribution
-interval excludes zero, MiMo has a positive prespecified replication estimate,
-provider failures stay below 5%, and the worst-case decision-quality interval
-remains above the frozen -0.05 margin. The natural opportunity rate and the
-conditional estimate must be reported beside the overall estimate. Failing any
-gate leaves the paper as a ranking-timing paper with a registered null or
-inconclusive action study.
+The DeepSeek interval excluded zero, MiMo produced a same-direction estimate
+whose interval also excluded zero, provider failures were 0%, and both
+worst-case decision-quality intervals remained above -0.05. The study is
+therefore eligible for the bounded model-action claim stated above. It is not
+eligible for claims about people, Amazon, trained-model deletion, irreversible
+platform state, or actor provenance.

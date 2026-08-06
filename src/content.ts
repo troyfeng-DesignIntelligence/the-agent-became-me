@@ -26,9 +26,9 @@ export const hero = {
   subtitle:
     "I tested what happens when a temporary shopping task reaches the recommender before its outcome is known.",
   summary:
-    "The completed experiment establishes an in-task ranking effect. A source audit invalidated the first LLM action test, so a new natural-frame study now holds the selectable candidates fixed and estimates action effects separately from repeated-call variation.",
+    "The experiments separate an in-task ranking effect from a resolved-action effect. The confirmatory study holds selectable candidates and their order fixed, then subtracts repeated-call variation across 920 task-model units per LLM family.",
   status:
-    "4 Amazon-derived categories · 2 learned recommenders · 460-task ranking experiment · 920-unit action protocol",
+    "4 Amazon-derived categories · 2 learned recommenders · 460 tasks · 2 LLM families · 7,360 valid confirmatory calls",
   disclosure:
     "Shopping tasks are generated over public, pseudonymized review histories. Public artifacts exclude original user IDs, item IDs, titles, reviews, and raw model responses.",
   primaryAction: "Inspect the evidence",
@@ -41,9 +41,9 @@ export const researchQuestion = {
   question:
     "Does immediate activation of temporary task evidence change a shopping agent's action distribution when both arms can select the same candidates?",
   framing:
-    "The completed studies measure ranking movement. The prospective v6 study measures selected-item or abandon outcomes over the natural task frame; it does not use later history as proof that deletion failed.",
+    "Ranking movement, browsing movement, and selected-item or abandon outcomes are measured separately. Later history is not used as proof that deletion failed.",
   contribution:
-    "Four activation contracts separate recording from ranking. The action study uses two immediate and two held calls, a common candidate universe, and task-clustered uncertainty.",
+    "Four activation contracts separate recording from ranking. The action study uses two immediate and two held calls, one common candidate layout, and task-clustered uncertainty.",
   noveltyBoundary:
     "Agent-mediated shopping is the setting, not a manipulated provenance effect. The project does not claim trained-model deletion, human preference change, or production-retailer behavior."
 } as const;
@@ -177,33 +177,33 @@ export const findings: readonly Finding[] = [
       "The diagnostic came from the invalidated runner and is retained only to explain the measurement change."
   },
   {
-    id: "action-audit",
-    kicker: "P0 audit · claim withdrawn",
-    title: "The first action result did not survive source review.",
+    id: "action-distribution",
+    kicker: "Confirmatory v6 · 920 units per LLM family",
+    title: "The action-distribution effect recurred in both LLM families.",
     body:
-      "The forced inspection removed the inspected item from the next candidate list, so the two arms did not share an action set. The dominance association was also driven by the enriched sampling split and disappeared within the opportunity subset.",
+      "Immediate and held arms received the same candidate IDs in the same order. After subtracting within-arm disagreement, the overall action-distribution estimate was positive for DeepSeek and MiMo. Both task-clustered intervals excluded zero.",
     evidence: [
-      "DeepSeek within-opportunity AUC: 0.313; exact p = 0.892",
-      "MiMo within-opportunity AUC: 0.231; exact p = 0.961",
-      "Old provider-events are not used as confirmatory evidence",
-      "v6 preflight: 920/920 common candidate sets and layouts matched"
+      "DeepSeek: 0.126 [0.093, 0.161]",
+      "MiMo: 0.111 [0.079, 0.144]",
+      "Natural actionable opportunity: 4.35% [2.93%, 5.98%]",
+      "7,360/7,360 valid v6 calls; zero terminal failures"
     ],
     boundary:
-      "The old 32-task files remain reproducible audit material. They do not support an action or mechanism contribution."
+      "This is a model-action result in a research storefront, not evidence about people, a production retailer, deletion, unlearning, or actor provenance."
   },
   {
     id: "task-local-preservation",
-    kicker: "Prospective current-task guardrail",
-    title: "Task-local help remains available; performance is not yet established.",
+    kicker: "Current-task guardrail",
+    title: "Holding did not meaningfully reduce the frozen decision-quality score.",
     body:
-      "Immediate and held conditions use the same task-local recommender by construction. The old binary utility measure was too coarse for a non-inferiority claim, so v6 freezes a continuous offered-candidate quality score and a paired interval before new calls.",
+      "Immediate and held conditions used the same task-local recommender. The v6 analysis used a continuous offered-candidate quality score that was frozen before calls. Held-minus-immediate differences stayed close to zero in both LLM families.",
     evidence: [
-      "Common task-local retrieval in both timing arms",
-      "323 distinct feasible-candidate quality values in preflight",
-      "Frozen held-minus-immediate guardrail margin: -0.05"
+      "DeepSeek quality Δ: -0.0006 [-0.0028, 0.0015]",
+      "MiMo quality Δ: +0.0008 [-0.0012, 0.0028]",
+      "Frozen guardrail margin: -0.05; both lower bounds passed"
     ],
     boundary:
-      "This is a registered guardrail, not a passed result. The interface has not been tested with people."
+      "The score is a protocol-defined surrogate over offered candidates, not human utility. The interface has not been tested with people."
   }
 ] as const;
 
@@ -221,7 +221,7 @@ export const designImplications = [
   {
     title: "Wait for the task outcome",
     body:
-      "Outcome-gated activation is the design hypothesis tested by the new action protocol. Its behavioral benefit is not assumed from ranking displacement alone."
+      "Outcome-gated activation reduced the measured model-action difference without removing task-local help in this testbed. Human use of the control remains untested."
   },
   {
     title: "Be precise about undo",
@@ -235,7 +235,7 @@ export const limitations = [
   "The shopping tasks and agent outcomes were generated over public, pseudonymized review histories. They are not records of delegated shopping.",
   "The 32-task LLM pilot is invalidated by an action-set confound and selection-confounded mechanism analysis; its event counts are not paper results.",
   "The storefront uses research-owned SASRec and GRU models. It does not reproduce a production retailer's recommender.",
-  "The new action protocol is frozen, but no action-effect result is reported until both provider runs and the task-clustered analysis are complete.",
+  "The action effect recurred in MiMo and DeepSeek, but both models acted on pseudonymous derived features rather than rendered product pages or natural-language product descriptions.",
   "The first LLM runner had dropout active during recommendation inference. Those historical comparisons remain in the audit trail and are not combined with the repaired pilot.",
   "The control interface is implemented but has not been evaluated with users.",
   "The literature review was scoped rather than systematic."

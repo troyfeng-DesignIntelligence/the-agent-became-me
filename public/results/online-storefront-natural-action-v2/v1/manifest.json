@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "online-storefront-natural-action-manifest.v1",
+  "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
+  "files": {
+    "evaluation.json": {
+      "bytes": 5356,
+      "sha256": "5d6cf528d59d0705295d86a1a89bcb19d382105dae02c0f15b2aea158de5f536"
+    },
+    "preflight.json": {
+      "bytes": 1033,
+      "sha256": "08375a457c74ed6d18830b7afbf7550ce9f9232d7e4d04bb4d87f03e03c10017"
+    },
+    "deepseek/rows.json": {
+      "bytes": 1059396,
+      "sha256": "64283c783ef9069188002ec4e0762bba5ede5d4f9e05be258ca10bbb0fed90d8"
+    },
+    "deepseek/summary.json": {
+      "bytes": 1376,
+      "sha256": "d9231a6ae77b77538b4645b5a9cd0a07405aecc57e5dfbc688e31e3310172978"
+    },
+    "mimo/rows.json": {
+      "bytes": 1055523,
+      "sha256": "1a89cfc2f9fc94e4d9acce20d441ccc29c7d2023285f36698b4eb81c450ac9af"
+    },
+    "mimo/summary.json": {
+      "bytes": 1305,
+      "sha256": "f1844340618e87e688d51a9117c75b20aad37250a1d9d7413349ad34578c31fc"
+    }
+  }
+}

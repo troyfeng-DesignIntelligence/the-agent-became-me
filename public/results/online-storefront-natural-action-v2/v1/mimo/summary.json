@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "online-storefront-natural-action-run-summary.v1",
+  "generatedAt": "2026-08-06T19:42:36.458302+00:00",
+  "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
+  "provider": "mimo",
+  "model": "mimo-v2.5",
+  "taskModelUnitCount": 920,
+  "naturalOpportunityRate": 0.043478,
+  "overallActionDistributionDistance": 0.11087,
+  "conditionalActionDistributionDistance": 0.4,
+  "meanHeldMinusImmediateDecisionQuality": 0.000779,
+  "api": {
+    "requestCount": 3680,
+    "cacheHitCount": 0,
+    "attemptCount": 3680,
+    "validActionCount": 3680,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 2984660,
+    "outputTokens": 90996,
+    "currency": "CNY",
+    "observedCostAtPublishedRates": 3.166652,
+    "systemFingerprints": []
+  },
+  "callOrderCounts": {
+    "immediate-a / held-a / immediate-b / held-b": 231,
+    "immediate-b / held-b / immediate-a / held-a": 223,
+    "held-a / immediate-b / held-b / immediate-a": 244,
+    "held-b / immediate-a / held-a / immediate-b": 222
+  },
+  "claimBoundary": "The study concerns model choices in a research storefront. It does not identify human preference change, production-retailer effects, trained-model deletion, or an actor-provenance effect."
+}

@@ -1403,6 +1403,53 @@ export type DeterministicRepairSummary = z.infer<
   typeof DeterministicRepairSummarySchema
 >;
 
+const NaturalActionEstimateSchema = z.object({
+  estimate: z.number(),
+  ci95: z.tuple([z.number(), z.number()])
+});
+
+const NaturalActionProviderSchema = z.object({
+  provider: z.string(),
+  taskCount: z.number().int().positive(),
+  taskModelUnitCount: z.number().int().positive(),
+  estimates: z.object({
+    exposureManipulationRate: NaturalActionEstimateSchema,
+    naturalOpportunityRate: NaturalActionEstimateSchema,
+    overallActionDistributionDistance: NaturalActionEstimateSchema,
+    conditionalActionDistributionDistance: NaturalActionEstimateSchema,
+    sameLayoutDivergence: NaturalActionEstimateSchema,
+    immediateWithinDivergence: NaturalActionEstimateSchema,
+    heldWithinDivergence: NaturalActionEstimateSchema,
+    completeCaseQualityDifference: NaturalActionEstimateSchema,
+    worstCaseQualityDifference: NaturalActionEstimateSchema,
+    protocolFailureRate: NaturalActionEstimateSchema
+  }),
+  runApi: z.object({
+    requestCount: z.number().int().nonnegative(),
+    validActionCount: z.number().int().nonnegative(),
+    terminalFailureCount: z.number().int().nonnegative(),
+    observedCostAtPublishedRates: z.number().nonnegative(),
+    currency: z.string()
+  }).passthrough()
+});
+
+const NaturalActionEvaluationSchema = z.object({
+  schemaVersion: z.literal("online-storefront-natural-action-evaluation.v1"),
+  protocolSha256: z.string(),
+  providers: z.object({
+    mimo: NaturalActionProviderSchema,
+    deepseek: NaturalActionProviderSchema
+  }),
+  gates: z.record(z.string(), z.boolean()),
+  claimDecision: z.string(),
+  withdrawnAnalyses: z.array(z.string()),
+  claimBoundary: z.string()
+});
+
+export type NaturalActionEvaluation = z.infer<
+  typeof NaturalActionEvaluationSchema
+>;
+
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
 >;
@@ -1427,6 +1474,7 @@ interface ProjectDataState {
   forcedInspection: ForcedInspectionSummary | null;
   candidateMargin: CandidateMarginSummary | null;
   deterministicRepairPilot: DeterministicRepairSummary | null;
+  naturalActionEvaluation: NaturalActionEvaluation | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1453,6 +1501,7 @@ export function useProjectData(): ProjectDataState {
     forcedInspection: null,
     candidateMargin: null,
     deterministicRepairPilot: null,
+    naturalActionEvaluation: null,
     catalog: null,
     error: null,
     loading: true
@@ -1598,6 +1647,14 @@ export function useProjectData(): ProjectDataState {
           }
           return DeterministicRepairSummarySchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-natural-action-v2/v1/evaluation.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load natural-frame action study.");
+          }
+          return NaturalActionEvaluationSchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1621,7 +1678,8 @@ export function useProjectData(): ProjectDataState {
           decodingDoseResponse,
           forcedInspection,
           candidateMargin,
-          deterministicRepairPilot
+          deterministicRepairPilot,
+          naturalActionEvaluation
         ]) => {
         if (!cancelled) {
           setState({
@@ -1644,6 +1702,7 @@ export function useProjectData(): ProjectDataState {
             forcedInspection,
             candidateMargin,
             deterministicRepairPilot,
+            naturalActionEvaluation,
             catalog,
             error: null,
             loading: false
@@ -1673,6 +1732,7 @@ export function useProjectData(): ProjectDataState {
             forcedInspection: null,
             candidateMargin: null,
             deterministicRepairPilot: null,
+            naturalActionEvaluation: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",
