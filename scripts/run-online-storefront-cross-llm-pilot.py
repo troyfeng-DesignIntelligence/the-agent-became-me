@@ -592,6 +592,11 @@ def main() -> None:
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--accept-cost-cap", type=float)
     parser.add_argument(
+        "--temperature",
+        type=float,
+        help="Optional temperature selected from a frozen protocol temperatureGrid.",
+    )
+    parser.add_argument(
         "--protocol",
         default=str(PROTOCOL_PATH.relative_to(ROOT)),
         help="Repository-relative frozen protocol path.",
@@ -609,7 +614,18 @@ def main() -> None:
     protocol = json.loads(protocol_text)
     env = provider_env(args.provider)
     spec = provider_spec(protocol, args.provider)
-    RUN_TEMPERATURE = float(spec.get("temperature", protocol.get("generation", {}).get("temperature", 0)))
+    frozen_grid = protocol.get("generation", {}).get("temperatureGrid")
+    if args.temperature is not None:
+        if not isinstance(frozen_grid, list) or not any(
+            math.isclose(float(value), args.temperature, abs_tol=1e-9)
+            for value in frozen_grid
+        ):
+            raise RuntimeError("Requested temperature is not in the frozen protocol grid")
+        RUN_TEMPERATURE = args.temperature
+    else:
+        RUN_TEMPERATURE = float(
+            spec.get("temperature", protocol.get("generation", {}).get("temperature", 0))
+        )
     estimate = dry_run(protocol, env, args.provider)
     estimate["temperature"] = RUN_TEMPERATURE
     estimate["protocol"] = str(protocol_path.relative_to(ROOT)).replace("\\", "/")

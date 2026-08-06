@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "online-storefront-decoding-dose-response-protocol.v1",
+  "status": "frozen-before-any-temperature-0.1-or-0.2-provider-call",
+  "frozenDate": "2026-08-06",
+  "purpose": "Map the intermediate decoding-temperature response after temperature 0 was provider-contingent and temperature 0.3 crossed the DeepSeek sham gate.",
+  "taskSource": "Reuse the exact 32 tasks, recommender allocation, policies, conditions, and outcome definitions used at temperatures 0 and 0.3.",
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "llmFamilies": [
+    {
+      "id": "mimo-v2.5-dose-response",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0.1,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    },
+    {
+      "id": "deepseek-v4-flash-dose-response",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0.1,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    }
+  ],
+  "recommenderFamilies": ["sasrec", "gru4rec"],
+  "recommenderAllocation": "Reuse the exact frozen task-to-recommender-and-seed assignment.",
+  "agentPolicies": ["constraint-first", "exploration-first"],
+  "conditions": [
+    "immediate-remove",
+    "held-outcome",
+    "held-sham-a",
+    "held-sham-b"
+  ],
+  "generation": {
+    "jsonMode": true,
+    "maximumOutputTokens": 180,
+    "maximumRetries": 2,
+    "requestTimeoutSeconds": 90,
+    "maximumCallsPerTrajectory": 3,
+    "temperatureGrid": [0.1, 0.2],
+    "privacy": "Send pseudonymous candidate IDs and derived constraint, utility, rank, and novelty features only."
+  },
+  "primaryEstimands": {
+    "adjustedPersistentFeedback": "persistent feedback in immediate-versus-held minus persistent feedback in held-sham-a-versus-held-sham-b at each provider-temperature cell",
+    "adjustedTraceDivergence": "trace divergence in immediate-versus-held minus trace divergence in held-sham-a-versus-held-sham-b at each provider-temperature cell",
+    "cleanExposureCell": "adjusted persistent feedback is positive and sham persistent feedback is at most 0.05"
+  },
+  "decisionRules": {
+    "sharedDecodingSensitivity": "MiMo has at least one clean positive cell at temperature 0.1 or 0.2 while DeepSeek retains at least one clean positive cell from temperature 0 through 0.2.",
+    "providerContingentLowTemperature": "MiMo has no clean positive cell from temperature 0 through 0.2 while DeepSeek has at least one.",
+    "stochasticityObscuresLowTemperature": "Either provider exceeds 0.05 sham persistent feedback at temperature 0.1 or 0.2.",
+    "noGo": "valid action rate falls below 0.95, timeout rate reaches 0.05, or privacy validation fails."
+  },
+  "reporting": "Report all four temperatures 0, 0.1, 0.2, and 0.3. Do not select one temperature as the headline estimate.",
+  "claimBoundary": "The grid is a bounded mechanism diagnostic over one frozen task sample, not a confirmatory dose-response estimate or proprietary architecture audit."
+}
