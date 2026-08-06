@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "online-storefront-dominance-margin-protocol.v1",
+  "status": "frozen-before-first-dominance-margin-computation",
+  "frozenDate": "2026-08-06",
+  "purpose": "Decide whether the repaired deterministic storefront has a non-degenerate, outcome-blind pre-decision margin before any new LLM call.",
+  "taskSet": {
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "tasksPerCategory": 8,
+    "taskOrder": "First eight eligible tasks after sorting by frozen taskId within category.",
+    "recommenderAllocation": "Alternate SASRec and GRU4Rec by frozen within-category task order; use seeds 7, 17, and 29 cyclically.",
+    "conditions": [
+      "immediate-remove",
+      "held-outcome"
+    ],
+    "agentPolicy": "forced-inspection",
+    "temperature": 0
+  },
+  "eligibleCandidateRule": "A candidate is eligible only when constraintMatch=true. All score inputs are computed after the controller-required platform inspection and before the first LLM request.",
+  "candidateDominanceScore": {
+    "name": "equalWeightPredecisionDominance",
+    "formula": "0.25 * (taskUtility + platformSupport + taskLocalSupport + novelty)",
+    "taskUtility": "Use the existing taskUtility value, clipped to [0,1].",
+    "platformSupport": "Use 1/platformRank when platformRank is present and positive; otherwise 0.",
+    "taskLocalSupport": "Use 1/taskLocalRank when taskLocalRank is present and positive; otherwise 0.",
+    "novelty": "Use the existing novelty value, clipped to [0,1].",
+    "weights": {
+      "taskUtility": 0.25,
+      "platformSupport": 0.25,
+      "taskLocalSupport": 0.25,
+      "novelty": 0.25
+    },
+    "tieBreak": "For reporting a winner only, break exact score ties by the pseudonymous candidate alias. The numeric margin remains zero."
+  },
+  "armMargin": {
+    "name": "lexicographicDecisionSeparation",
+    "zeroEligible": "Set margin to 1.0 because the hard constraint structurally determines abandon.",
+    "oneEligible": "Set margin to 0.5 + 0.5 * the eligible candidate's dominance score. This lexicographically separates a unique feasible option from competitive slates.",
+    "multipleEligible": "Set margin to 0.5 * (highest dominance score - second-highest dominance score).",
+    "range": "[0,1]; smaller values indicate a less separated pre-decision state."
+  },
+  "taskPredictor": {
+    "name": "minimumArmDecisionSeparation",
+    "formula": "min(immediateRemoveArmMargin, heldOutcomeArmMargin)",
+    "opportunityAudit": "Report whether the structural outcome class (abandon-only, unique-feasible, competitive) or the top eligible pseudonymous candidate differs between arms."
+  },
+  "offlineSupportGates": {
+    "coverage": "All 32 tasks must have a finite predictor.",
+    "distinctValues": "At least 8 distinct task-predictor values after rounding to six decimals.",
+    "largestPointMass": "No single rounded predictor value may cover more than 50% of tasks.",
+    "dispersion": "The population standard deviation across 32 predictors must be at least 0.15.",
+    "competitiveSupport": "At least 12 tasks must contain at least two eligible candidates in both arms.",
+    "componentSupport": "Among competitive arm states, at least two of the four score components must distinguish the top two candidates in at least 50% of states.",
+    "opportunitySupport": "At least 4 of 32 tasks must change structural outcome class or top eligible candidate between arms.",
+    "determinism": "All models must report training=false, three uncached scores per state must be byte-identical, and a fresh-process aggregate shelf hash must match the prior completed preflight."
+  },
+  "decisionRules": {
+    "go": "Every offline support gate passes. Freeze the generated 32-task state manifest, then run the repair pilot without changing this metric.",
+    "noGo": "Any support, leakage, privacy, or determinism gate fails. Do not call an LLM; redesign the instrument without consulting resolved-action labels.",
+    "pilotInterpretation": "The repair pilot is prospective for this metric. Historical resolved-action labels may not be used to select weights, thresholds, or candidate features."
+  },
+  "pilotGate": {
+    "primaryOutcome": "persistentResolvedActionFeedback in immediate-remove versus held-outcome, sham-calibrated with held-sham-a versus held-sham-b.",
+    "primaryProvider": "deepseek",
+    "negativeBoundaryProvider": "mimo",
+    "mechanismStatistic": "AUC that a randomly drawn DeepSeek exposure event has a smaller frozen predictor than a non-event; ties count as one half.",
+    "go": "Valid-action rate at least 0.95 for each provider; timeout rate below 0.05; DeepSeek sham event rate at most 0.05; at least 4 DeepSeek exposure events; AUC at least 0.70; one-sided exact label-permutation p at most 0.10; and at least two thirds of DeepSeek events in the bottom predictor tertile.",
+    "stop": "If the pilot gate fails, do not add a third family or scale beyond 32 tasks."
+  },
+  "leakageBoundary": "Allowed inputs are constraintMatch, taskUtility, platformRank, taskLocalRank, and novelty from the pre-request candidate state. Candidate IDs may only break exact reporting ties. Responses, selected items, confidence, traces, outcomes, and resolved-action labels are forbidden inputs.",
+  "privacy": "Public outputs may contain frozen task hashes, aggregate shelf hashes, derived component values, counts, and event flags after the pilot. They must exclude original item IDs, titles, reviews, prompts, responses, and candidate aliases.",
+  "claimBoundary": "Passing the offline gate establishes measurement support, not a mechanism. The mechanism is supported only if the prospectively frozen 32-task repair pilot passes its separate pilot gate."
+}
