@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "online-storefront-forced-inspection-protocol.v1",
+  "status": "frozen-before-any-forced-inspection-provider-call",
+  "frozenDate": "2026-08-06",
+  "purpose": "Test whether the provider boundary is explained by MiMo's lack of model-initiated recommendation inspection.",
+  "taskSource": "Reuse the exact 32 matched task hashes and recommender allocation from the temperature experiments.",
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "llmFamilies": [
+    {
+      "id": "mimo-v2.5-forced-inspection",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    },
+    {
+      "id": "deepseek-v4-flash-forced-inspection",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    }
+  ],
+  "recommenderFamilies": ["sasrec", "gru4rec"],
+  "recommenderAllocation": "Reuse the exact frozen task-to-recommender-and-seed assignment.",
+  "agentPolicies": ["forced-inspection"],
+  "conditions": [
+    "immediate-remove",
+    "held-outcome",
+    "held-sham-a",
+    "held-sham-b"
+  ],
+  "intervention": {
+    "controllerAction": "Before the first LLM call, view the highest-ranked platform item available in the frozen candidate set.",
+    "temperature": 0,
+    "traceConsequence": "The controller-required view is retained in the realized trace and exclusion mask.",
+    "primaryOutcomeExclusion": "Whole-trace divergence is not primary because the controller action can mechanically differ across exposure arms."
+  },
+  "shamSemantics": "Both held sham arms receive the same deterministic required platform inspection and then independent LLM calls.",
+  "generation": {
+    "jsonMode": true,
+    "maximumOutputTokens": 180,
+    "maximumRetries": 2,
+    "requestTimeoutSeconds": 90,
+    "maximumCallsPerTrajectory": 2,
+    "temperature": 0,
+    "privacy": "Send pseudonymous candidate IDs and derived constraint, utility, rank, and novelty features only."
+  },
+  "primaryEstimands": {
+    "resolvedActionDivergence": "the final selected item or abandon outcome differs between immediate and held arms",
+    "persistentResolvedActionFeedback": "resolved action diverges and next-task Top-10 displacement is greater than zero",
+    "adjustedPersistentResolvedActionFeedback": "persistent resolved-action feedback in immediate-versus-held minus held-sham-a-versus-held-sham-b"
+  },
+  "decisionRules": {
+    "interactionDepthMediates": "MiMo adjusted persistent resolved-action feedback is positive, its sham persistent resolved-action rate is at most 0.05, and reliability gates pass.",
+    "interactionDepthInsufficient": "MiMo adjusted persistent resolved-action feedback is zero or negative while reliability and sham gates pass.",
+    "stochasticityDominated": "Either provider's sham persistent resolved-action rate exceeds 0.05.",
+    "noGo": "valid action rate falls below 0.95, timeout rate reaches 0.05, or privacy validation fails."
+  },
+  "claimBoundary": "A positive result would identify required recommendation inspection as a causal contributor within this controller-model system, not as a general property of either provider or production shopping agents."
+}

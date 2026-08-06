@@ -117,7 +117,19 @@ def timeout_seconds(env: dict[str, str], provider: str) -> int:
 def request_payload(
     env: dict[str, str], provider: str, policy: str, phase: str, task_state: dict
 ) -> dict:
-    instructions = pilot.policy_instructions(policy, phase)
+    if policy == "forced-inspection":
+        allowed = "view, select, or abandon" if phase == "browse" else "select or abandon"
+        instructions = (
+            "You control a shopping agent in a research storefront. "
+            "The controller has already completed one required platform-recommendation inspection. "
+            "Now satisfy hard constraints first, then maximize task utility. "
+            f"Choose exactly one allowed action: {allowed}. "
+            "Use only candidateId values present in the input. "
+            "Return only compact JSON with keys action, candidateId, and confidence. "
+            "candidateId must be null for abandon. Do not add explanation or markdown."
+        )
+    else:
+        instructions = pilot.policy_instructions(policy, phase)
     state = json.dumps(task_state, sort_keys=True, separators=(",", ":"))
     if provider == "mimo":
         return {
@@ -371,6 +383,17 @@ def llm_trace(
         alias_to_item = {
             pilot.item_alias(category, task["taskId"], item): item for item in candidates
         }
+        if policy == "forced-inspection" and step == 0:
+            chosen = next((item for item in platform if item in candidates), candidates[0])
+            viewed.append(chosen)
+            actions.append(
+                {
+                    "action": "product-view",
+                    "product": chosen,
+                    "source": "controller-required-platform-inspection",
+                }
+            )
+            continue
         state = {
             "phase": "browse",
             "step": step + 1,
@@ -496,6 +519,20 @@ def extended_contrast(
     )
     persistent = bool(exposure_trace and exposure["next-task"] > 0)
     sham_persistent = bool(sham_trace and sham["next-task"] > 0)
+    exposure_resolved_action = (
+        immediate["trace"]["selected"] != held["trace"]["selected"]
+        or immediate["trace"]["outcome"] != held["trace"]["outcome"]
+    )
+    sham_resolved_action = (
+        sham_a["trace"]["selected"] != sham_b["trace"]["selected"]
+        or sham_a["trace"]["outcome"] != sham_b["trace"]["outcome"]
+    )
+    persistent_resolved_action = bool(
+        exposure_resolved_action and exposure["next-task"] > 0
+    )
+    sham_persistent_resolved_action = bool(
+        sham_resolved_action and sham["next-task"] > 0
+    )
     return {
         "category": category,
         "taskId": task["taskId"],
@@ -517,6 +554,12 @@ def extended_contrast(
         "shamPersistentBehavioralFeedback": sham_persistent,
         "adjustedPersistentFeedback": int(persistent) - int(sham_persistent),
         "adjustedTraceDivergence": int(exposure_trace) - int(sham_trace),
+        "exposureResolvedActionDiverged": exposure_resolved_action,
+        "shamResolvedActionDiverged": sham_resolved_action,
+        "persistentResolvedActionFeedback": persistent_resolved_action,
+        "shamPersistentResolvedActionFeedback": sham_persistent_resolved_action,
+        "adjustedPersistentResolvedActionFeedback": int(persistent_resolved_action)
+        - int(sham_persistent_resolved_action),
         "heldMinusImmediateDecisionAccuracy": round(
             float(held["trace"]["decisionCorrect"])
             - float(immediate["trace"]["decisionCorrect"]),
@@ -806,6 +849,30 @@ def main() -> None:
             ),
             "adjustedTraceDivergence": round(
                 float(np.mean([row["adjustedTraceDivergence"] for row in contrasts])),
+                6,
+            ),
+            "exposureResolvedActionDivergenceRate": round(
+                float(np.mean([row["exposureResolvedActionDiverged"] for row in contrasts])),
+                6,
+            ),
+            "shamResolvedActionDivergenceRate": round(
+                float(np.mean([row["shamResolvedActionDiverged"] for row in contrasts])),
+                6,
+            ),
+            "persistentResolvedActionFeedbackRate": round(
+                float(np.mean([row["persistentResolvedActionFeedback"] for row in contrasts])),
+                6,
+            ),
+            "shamPersistentResolvedActionFeedbackRate": round(
+                float(np.mean([row["shamPersistentResolvedActionFeedback"] for row in contrasts])),
+                6,
+            ),
+            "adjustedPersistentResolvedActionFeedback": round(
+                float(
+                    np.mean(
+                        [row["adjustedPersistentResolvedActionFeedback"] for row in contrasts]
+                    )
+                ),
                 6,
             ),
             "heldMinusImmediateDecisionAccuracy": round(
