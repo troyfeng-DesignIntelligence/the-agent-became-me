@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "online-storefront-repair-pilot-selection-summary.v1",
+  "generatedAt": "2026-08-06T08:18:32.446006Z",
+  "protocolSha256": "04428cbf4b6fa22e2ad79422eef2861af89ca2e22d48fed9a3b8202b190ea48d",
+  "metricProtocolSha256": "779185be987d5340e831a969bad18f3ce93fc762f9b6cd95bc01069b532cd312",
+  "pool": {
+    "taskCount": 460,
+    "opportunityChangedTaskCount": 37,
+    "opportunityChangedRate": 0.080435
+  },
+  "selected": {
+    "taskCount": 32,
+    "categoryCounts": {
+      "industrial-and-scientific": 8,
+      "luxury-beauty": 8,
+      "prime-pantry": 8,
+      "software": 8
+    },
+    "stratumCounts": {
+      "industrial-and-scientific|gru4rec": 4,
+      "industrial-and-scientific|sasrec": 4,
+      "luxury-beauty|gru4rec": 4,
+      "luxury-beauty|sasrec": 4,
+      "prime-pantry|gru4rec": 4,
+      "prime-pantry|sasrec": 4,
+      "software|gru4rec": 4,
+      "software|sasrec": 4
+    },
+    "opportunityChangedTaskCount": 15,
+    "distinctValueCount": 17,
+    "largestPointMass": 0.25,
+    "populationStandardDeviation": 0.426337,
+    "minimum": 0.008046,
+    "median": 0.71875,
+    "maximum": 1.0
+  },
+  "determinism": {
+    "evaluationModePassCount": 460,
+    "withinProcessRepeatabilityPassCount": 460,
+    "aggregatePoolStateSha256": "9cbb5d306a0b05d93ab8b98550bcbc8935ed4f375ab2fadd7dc5e5a052136716",
+    "previousAggregatePoolStateSha256": "9cbb5d306a0b05d93ab8b98550bcbc8935ed4f375ab2fadd7dc5e5a052136716",
+    "selectedManifestSha256": "e60f374f39ca72a2905199991e4056c80fa255da02cd8452e9eecd9ade33db5c",
+    "previousSelectedManifestSha256": "e60f374f39ca72a2905199991e4056c80fa255da02cd8452e9eecd9ade33db5c",
+    "freshProcessMatch": true
+  },
+  "gates": {
+    "balance": true,
+    "opportunity": true,
+    "distinctValues": true,
+    "largestPointMass": true,
+    "dispersion": true,
+    "evaluationMode": true,
+    "withinProcessRepeatability": true,
+    "freshProcessMatch": true,
+    "outcomeBlindSelection": true,
+    "privacy": true
+  },
+  "decision": "go-freeze-repair-pilot",
+  "selectionInputAudit": {
+    "allowedInputs": [
+      "category",
+      "modelFamily",
+      "modelSeed",
+      "minimumArmDecisionSeparation",
+      "opportunityChanged",
+      "taskId as deterministic tie-break only"
+    ],
+    "forbiddenInputsRead": []
+  },
+  "claimBoundary": "A passing repair pilot can establish the proposed mechanism on opportunity-enriched tasks, not its frequency in the original task population."
+}

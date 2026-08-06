@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "online-storefront-dominance-support-summary.v1",
+  "generatedAt": "2026-08-06T08:12:16.608212Z",
+  "protocolSha256": "779185be987d5340e831a969bad18f3ce93fc762f9b6cd95bc01069b532cd312",
+  "taskCount": 32,
+  "predictor": {
+    "name": "minimumArmDecisionSeparation",
+    "formula": "min(immediateRemoveArmMargin, heldOutcomeArmMargin)",
+    "opportunityAudit": "Report whether the structural outcome class (abandon-only, unique-feasible, competitive) or the top eligible pseudonymous candidate differs between arms."
+  },
+  "support": {
+    "finiteCount": 32,
+    "distinctValueCount": 17,
+    "largestPointMass": 0.40625,
+    "populationStandardDeviation": 0.450489,
+    "minimum": 0.008937,
+    "median": 0.78125,
+    "maximum": 1.0,
+    "competitiveTaskCount": 13,
+    "competitiveArmStateCount": 27,
+    "opportunityChangedTaskCount": 1,
+    "componentTopPairDistinguishingRates": {
+      "taskUtility": 0.0,
+      "platformSupport": 0.0,
+      "taskLocalSupport": 1.0,
+      "novelty": 0.814815
+    },
+    "supportedComponentCount": 2
+  },
+  "determinism": {
+    "evaluationModePassCount": 32,
+    "withinProcessRepeatabilityPassCount": 32,
+    "aggregateStateSha256": "c10d8c3f261fa484153147c89ac791bb38835971fc2202239d2cda5be2022f4d",
+    "previousAggregateStateSha256": "c10d8c3f261fa484153147c89ac791bb38835971fc2202239d2cda5be2022f4d",
+    "freshProcessMatch": true
+  },
+  "gates": {
+    "coverage": true,
+    "distinctValues": true,
+    "largestPointMass": true,
+    "dispersion": true,
+    "competitiveSupport": true,
+    "componentSupport": true,
+    "opportunitySupport": false,
+    "evaluationMode": true,
+    "withinProcessRepeatability": true,
+    "freshProcessMatch": true,
+    "leakageAllowlist": true,
+    "privacy": true
+  },
+  "decision": "no-go",
+  "leakageAudit": {
+    "allowedInputs": [
+      "constraintMatch",
+      "taskUtility",
+      "platformRank",
+      "taskLocalRank",
+      "novelty"
+    ],
+    "outcomeFieldsRead": []
+  },
+  "claimBoundary": "Passing the offline gate establishes measurement support, not a mechanism. The mechanism is supported only if the prospectively frozen 32-task repair pilot passes its separate pilot gate."
+}

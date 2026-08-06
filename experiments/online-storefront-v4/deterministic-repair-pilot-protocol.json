@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "online-storefront-deterministic-repair-pilot-protocol.v1",
+  "status": "frozen-before-any-repair-pilot-provider-call",
+  "frozenDate": "2026-08-06",
+  "purpose": "Prospectively test whether low pre-decision separation predicts sham-calibrated resolved-action divergence when learned-recommender shelves are deterministic and treatment opportunity is present.",
+  "studyRole": "Outcome-blind, opportunity-enriched mechanism stress test; not a population-prevalence estimate.",
+  "taskSource": "Use the committed 32-task manifest selected without reading LLM responses or resolved-action outcomes.",
+  "taskSelection": {
+    "path": "public/results/online-storefront-repair-pilot-selection/v1/selected-tasks.json",
+    "selectionSha256": "e60f374f39ca72a2905199991e4056c80fa255da02cd8452e9eecd9ade33db5c",
+    "taskCount": 32,
+    "tasksPerCategory": 8,
+    "opportunityChangedTaskCount": 15,
+    "selectionProtocol": "experiments/online-storefront-v4/repair-pilot-task-selection-protocol.json"
+  },
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "llmFamilies": [
+    {
+      "id": "mimo-v2.5-deterministic-repair",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    },
+    {
+      "id": "deepseek-v4-flash-deterministic-repair",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    }
+  ],
+  "recommenderFamilies": [
+    "sasrec",
+    "gru4rec"
+  ],
+  "recommenderAllocation": "Use modelFamily and modelSeed from the committed selected-task manifest.",
+  "agentPolicies": [
+    "forced-inspection"
+  ],
+  "conditions": [
+    "immediate-remove",
+    "held-outcome",
+    "held-sham-a",
+    "held-sham-b"
+  ],
+  "generation": {
+    "jsonMode": true,
+    "maximumOutputTokens": 180,
+    "maximumRetries": 2,
+    "requestTimeoutSeconds": 90,
+    "maximumCallsPerTrajectory": 2,
+    "temperature": 0,
+    "temperatureScan": false,
+    "privacy": "Send pseudonymous candidate IDs and derived constraint, utility, rank, and novelty features only."
+  },
+  "instrument": {
+    "metricProtocol": "experiments/online-storefront-v4/dominance-margin-protocol.json",
+    "determinismPreflight": "public/results/online-storefront-repair-pilot-selection/v1/summary.json",
+    "requiredSelectionDecision": "go-freeze-repair-pilot",
+    "predictor": "minimumArmDecisionSeparation frozen before provider calls"
+  },
+  "primaryEstimands": {
+    "resolvedActionDivergence": "Final selected item or abandon outcome differs between immediate-remove and held-outcome.",
+    "persistentResolvedActionFeedback": "Resolved action diverges and next-task Top-10 displacement is greater than zero.",
+    "shamPersistentResolvedActionFeedback": "The same event in held-sham-a versus held-sham-b.",
+    "mechanismAuc": "Probability that an exposure event has a smaller frozen predictor than a non-event; ties count as one half."
+  },
+  "pilotGate": {
+    "reliability": "Valid-action rate at least 0.95 and timeout rate below 0.05 for each provider.",
+    "sham": "DeepSeek sham persistent resolved-action rate at most 0.05.",
+    "eventSupport": "At least four DeepSeek persistent resolved-action exposure events.",
+    "discrimination": "DeepSeek mechanism AUC at least 0.70 and one-sided exact label-permutation p at most 0.10.",
+    "concentration": "At least two thirds of DeepSeek exposure events fall in the bottom predictor tertile.",
+    "mimoBoundary": "Report MiMo descriptively as the prospective near-zero boundary; do not require a positive MiMo effect.",
+    "stop": "If any primary DeepSeek gate fails, do not add a third LLM family or scale beyond 32 tasks."
+  },
+  "outputs": {
+    "publicRoot": "public/results/online-storefront-deterministic-repair-pilot/v1",
+    "artifactRoot": "artifacts/online-storefront-deterministic-repair-pilot"
+  },
+  "privacy": "Public output excludes original item IDs, titles, reviews, prompts, provider responses, and pseudonymous candidate aliases.",
+  "claimBoundary": "A passing result supports the proposed mechanism on an opportunity-enriched research-storefront task set. It does not estimate natural prevalence, human behavior, or production-retailer effects."
+}

@@ -86,6 +86,22 @@ def provider_spec(protocol: dict, provider: str) -> dict:
     return next(row for row in protocol["llmFamilies"] if row["provider"] == expected)
 
 
+def task_selection(protocol: dict) -> list[dict] | None:
+    specification = protocol.get("taskSelection")
+    if not specification:
+        return None
+    path = (ROOT / specification["path"]).resolve()
+    if ROOT not in path.parents:
+        raise RuntimeError("Task-selection path must remain inside the repository")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("selectionSha256") != specification["selectionSha256"]:
+        raise RuntimeError("Task-selection semantic hash does not match the protocol")
+    tasks = payload.get("tasks")
+    if not isinstance(tasks, list) or len(tasks) != specification["taskCount"]:
+        raise RuntimeError("Task-selection manifest has the wrong task count")
+    return tasks
+
+
 def provider_env(provider: str) -> dict[str, str]:
     return load_env(ROOT / (".env" if provider == "mimo" else ".env.deepseek"))
 
@@ -657,6 +673,7 @@ def main() -> None:
     protocol = json.loads(protocol_text)
     env = provider_env(args.provider)
     spec = provider_spec(protocol, args.provider)
+    selected_tasks = task_selection(protocol)
     frozen_grid = protocol.get("generation", {}).get("temperatureGrid")
     if args.temperature is not None:
         if not isinstance(frozen_grid, list) or not any(
@@ -695,8 +712,18 @@ def main() -> None:
             / f"{args.provider}-{args.variant}"
         )
     else:
-        output = ROOT / "public/results/online-storefront-cross-llm-pilot/v1" / args.provider
-        artifact_root = ROOT / "artifacts/online-storefront-cross-llm-pilot" / args.provider
+        output_root = protocol.get("outputs", {}).get(
+            "publicRoot", "public/results/online-storefront-cross-llm-pilot/v1"
+        )
+        artifact_output_root = protocol.get("outputs", {}).get(
+            "artifactRoot", "artifacts/online-storefront-cross-llm-pilot"
+        )
+        output_base = (ROOT / output_root).resolve()
+        artifact_base = (ROOT / artifact_output_root).resolve()
+        if ROOT not in output_base.parents or ROOT not in artifact_base.parents:
+            raise RuntimeError("Configured output roots must remain inside the repository")
+        output = output_base / args.provider
+        artifact_root = artifact_base / args.provider
     v2_protocol = json.loads(V2_PROTOCOL_PATH.read_text(encoding="utf-8"))
     condition_specs = {row["id"]: row for row in v2_protocol["conditions"]}
     public_rows = []
@@ -712,15 +739,38 @@ def main() -> None:
         data = cross.prepare_category(category)
         products = delegate.load_products(category, data)
         delegate.TASKS_PER_CATEGORY = 115
-        eligible = delegate.build_tasks(category, data, products)
-        tasks = sorted(eligible, key=lambda row: row["taskId"])[
-            : protocol["tasksPerCategory"]
-        ]
+        eligible = sorted(
+            delegate.build_tasks(category, data, products), key=lambda row: row["taskId"]
+        )
+        if selected_tasks is None:
+            task_pairs = [
+                (task, None) for task in eligible[: protocol["tasksPerCategory"]]
+            ]
+        else:
+            by_task_id = {task["taskId"]: task for task in eligible}
+            category_selection = [
+                row for row in selected_tasks if row["category"] == slug
+            ]
+            if len(category_selection) != protocol["tasksPerCategory"]:
+                raise RuntimeError("Selected task count does not match the category protocol")
+            task_pairs = []
+            for assignment in category_selection:
+                if assignment["taskId"] not in by_task_id:
+                    raise RuntimeError("Selected task is absent from the frozen task pool")
+                task_pairs.append((by_task_id[assignment["taskId"]], assignment))
         sas_models, _ = cross.load_or_train_models(data)
         gru_models, _ = gru.load_or_train_models(data, slug, GRU_CHECKPOINTS, sas)
-        for task_index, task in enumerate(tasks):
-            family = "sasrec" if task_index % 2 == 0 else "gru4rec"
-            seed = [7, 17, 29][task_index % 3]
+        for task_index, (task, assignment) in enumerate(task_pairs):
+            family = (
+                assignment["modelFamily"]
+                if assignment is not None
+                else ("sasrec" if task_index % 2 == 0 else "gru4rec")
+            )
+            seed = (
+                int(assignment["modelSeed"])
+                if assignment is not None
+                else [7, 17, 29][task_index % 3]
+            )
             model = sas_models[seed] if family == "sasrec" else gru_models[seed]
             scoring = sas.score_context_batch if family == "sasrec" else gru.score_context_batch
             model.eval()

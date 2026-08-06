@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "online-storefront-repair-pilot-selected-tasks.v1",
+  "protocolSha256": "04428cbf4b6fa22e2ad79422eef2861af89ca2e22d48fed9a3b8202b190ea48d",
+  "selectionSha256": "e60f374f39ca72a2905199991e4056c80fa255da02cd8452e9eecd9ade33db5c",
+  "tasks": [
+    {
+      "category": "luxury-beauty",
+      "taskId": "09de762fb8c9b01e",
+      "fullPoolIndex": 1,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "21d0782ad2531a1b",
+      "fullPoolIndex": 7,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.8,
+      "opportunityChanged": false
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "3e6dd1b7baa8e1a7",
+      "fullPoolIndex": 19,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.729162,
+      "opportunityChanged": false
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "e513ac84af512a68",
+      "fullPoolIndex": 109,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.060875,
+      "opportunityChanged": true
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "002dd69bd8d9834c",
+      "fullPoolIndex": 0,
+      "modelFamily": "sasrec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "25aa06bfbf1a02e8",
+      "fullPoolIndex": 8,
+      "modelFamily": "sasrec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 0.729162,
+      "opportunityChanged": false
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "7d0a00a311b70739",
+      "fullPoolIndex": 48,
+      "modelFamily": "sasrec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.008937,
+      "opportunityChanged": true
+    },
+    {
+      "category": "luxury-beauty",
+      "taskId": "a572f8738ba1d619",
+      "fullPoolIndex": 72,
+      "modelFamily": "sasrec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.019738,
+      "opportunityChanged": true
+    },
+    {
+      "category": "software",
+      "taskId": "0a456d3867b5bd64",
+      "fullPoolIndex": 3,
+      "modelFamily": "gru4rec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "software",
+      "taskId": "2c901159c8452e4d",
+      "fullPoolIndex": 25,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.061462,
+      "opportunityChanged": true
+    },
+    {
+      "category": "software",
+      "taskId": "3bb2bbfb9efc14c7",
+      "fullPoolIndex": 29,
+      "modelFamily": "gru4rec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 0.770838,
+      "opportunityChanged": false
+    },
+    {
+      "category": "software",
+      "taskId": "703e348b7a5a9261",
+      "fullPoolIndex": 49,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.020833,
+      "opportunityChanged": true
+    },
+    {
+      "category": "software",
+      "taskId": "030866ec25d395c9",
+      "fullPoolIndex": 0,
+      "modelFamily": "sasrec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "software",
+      "taskId": "1202e0fa4a620afa",
+      "fullPoolIndex": 10,
+      "modelFamily": "sasrec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.008046,
+      "opportunityChanged": true
+    },
+    {
+      "category": "software",
+      "taskId": "334f6e44f11091c4",
+      "fullPoolIndex": 26,
+      "modelFamily": "sasrec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 0.770838,
+      "opportunityChanged": false
+    },
+    {
+      "category": "software",
+      "taskId": "ad47ef8b84eb0bd1",
+      "fullPoolIndex": 76,
+      "modelFamily": "sasrec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.0375,
+      "opportunityChanged": true
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "08de9a4ee6552d08",
+      "fullPoolIndex": 5,
+      "modelFamily": "gru4rec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "0dd92698dfbc2c54",
+      "fullPoolIndex": 9,
+      "modelFamily": "gru4rec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.052775,
+      "opportunityChanged": true
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "6a19079663d5ce63",
+      "fullPoolIndex": 45,
+      "modelFamily": "gru4rec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.0524,
+      "opportunityChanged": true
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "ecf96d6a6a8c8e5f",
+      "fullPoolIndex": 105,
+      "modelFamily": "gru4rec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.7625,
+      "opportunityChanged": false
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "06f6f4e5a9013e75",
+      "fullPoolIndex": 2,
+      "modelFamily": "sasrec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "231275a7a5d6f4b2",
+      "fullPoolIndex": 14,
+      "modelFamily": "sasrec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 0.763162,
+      "opportunityChanged": false
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "f1bce2d40fa4de1c",
+      "fullPoolIndex": 108,
+      "modelFamily": "sasrec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.052775,
+      "opportunityChanged": true
+    },
+    {
+      "category": "industrial-and-scientific",
+      "taskId": "fccb128d37862159",
+      "fullPoolIndex": 112,
+      "modelFamily": "sasrec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.0375,
+      "opportunityChanged": true
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "1791304284d59915",
+      "fullPoolIndex": 9,
+      "modelFamily": "gru4rec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "21aea596c285339a",
+      "fullPoolIndex": 13,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.025562,
+      "opportunityChanged": true
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "41338b44e04eeb5a",
+      "fullPoolIndex": 25,
+      "modelFamily": "gru4rec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.71875,
+      "opportunityChanged": false
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "727185ba9ff3aaa0",
+      "fullPoolIndex": 45,
+      "modelFamily": "gru4rec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.025562,
+      "opportunityChanged": true
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "0a90cb7082141be5",
+      "fullPoolIndex": 4,
+      "modelFamily": "sasrec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 1.0,
+      "opportunityChanged": false
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "726e70ec8ae8b9b4",
+      "fullPoolIndex": 44,
+      "modelFamily": "sasrec",
+      "modelSeed": 29,
+      "minimumArmDecisionSeparation": 0.71875,
+      "opportunityChanged": false
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "b103825d1d093ac1",
+      "fullPoolIndex": 76,
+      "modelFamily": "sasrec",
+      "modelSeed": 17,
+      "minimumArmDecisionSeparation": 0.025562,
+      "opportunityChanged": true
+    },
+    {
+      "category": "prime-pantry",
+      "taskId": "d0d6cd7adf70cf76",
+      "fullPoolIndex": 96,
+      "modelFamily": "sasrec",
+      "modelSeed": 7,
+      "minimumArmDecisionSeparation": 0.025562,
+      "opportunityChanged": true
+    }
+  ]
+}

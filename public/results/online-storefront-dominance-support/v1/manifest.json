@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "online-storefront-dominance-support-manifest.v1",
+  "protocolSha256": "779185be987d5340e831a969bad18f3ce93fc762f9b6cd95bc01069b532cd312",
+  "files": {
+    "summary.json": {
+      "sha256": "eb12e1fbb373ecd070f402c146dc25fb01f44661ec865c3c7a41480af771a2e6",
+      "bytes": 2191
+    },
+    "rows.json": {
+      "sha256": "7765e2879e0830b3dc2549e2158d34c91504b6d05b702532af2f5ddc5495afd8",
+      "bytes": 11591
+    }
+  }
+}

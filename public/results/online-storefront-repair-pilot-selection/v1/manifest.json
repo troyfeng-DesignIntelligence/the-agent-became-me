@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "online-storefront-repair-pilot-selection-manifest.v1",
+  "protocolSha256": "04428cbf4b6fa22e2ad79422eef2861af89ca2e22d48fed9a3b8202b190ea48d",
+  "files": {
+    "summary.json": {
+      "sha256": "d5bf17caad226668822fcbd35d6c46dd3221eae12af9e64e75b81e4776d9af6c",
+      "bytes": 2443
+    },
+    "pool.json": {
+      "sha256": "202515b897019e07429a1cc6477baab0eef3779eccf2903fa4933f4a9fd1f5de",
+      "bytes": 141804
+    },
+    "selected-tasks.json": {
+      "sha256": "012bad5ea082040bce1198e913c14cda4210ec32e3d5526f6912c9733b9385dc",
+      "bytes": 8147
+    }
+  }
+}
