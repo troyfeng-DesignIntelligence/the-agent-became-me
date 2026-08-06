@@ -80,10 +80,10 @@ export function LLMBehaviorFeedbackPanel({
           <span className="mono-label">REPLACEMENT STUDY</span>
           <h4>Matched choices, symmetric repeats.</h4>
           <p>
-            The v5 protocol sends identical candidate IDs to immediate and held
-            arms. The inspected product remains selectable. Two calls per arm and
-            a frozen Latin-square order separate an arm effect from repeated-call
-            variation at temperature zero.
+            The v6 protocol sends identical candidate IDs in an identical order
+            to all four calls. The inspected product remains selectable. Two
+            byte-matched calls per arm and a frozen Latin-square call order
+            separate an arm effect from repeated-call variation.
           </p>
           <dl>
             <div>

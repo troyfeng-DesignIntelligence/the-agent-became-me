@@ -19,7 +19,7 @@ are audit material, not findings.
 | Step | Question | Current evidence |
 |---|---|---|
 | Shelf | Does activation rather than logging change recommendations? | Complete: four-contract replay, four categories, SASRec and GRU |
-| Action | Does changed exposure alter the resolved action? | Open: v5 protocol and 920-unit preflight complete; provider results pending |
+| Action | Does changed exposure alter the resolved action? | Open: v6 protocol and 920-unit preflight complete; provider results pending |
 | Guardrail | Does holding reduce current-task decision quality? | Open: nondegenerate score frozen; paired analysis pending |
 | Interface | How might a system expose activation timing? | Implemented prototype without participant evaluation |
 

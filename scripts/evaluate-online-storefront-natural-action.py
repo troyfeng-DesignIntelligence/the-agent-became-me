@@ -12,7 +12,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL_PATH = ROOT / "experiments/online-storefront-v5/natural-action-study-protocol.json"
+PROTOCOL_PATH = ROOT / "experiments/online-storefront-v6/natural-action-study-protocol.json"
 
 
 def canonical_protocol() -> tuple[dict, str]:
@@ -98,6 +98,7 @@ def evaluate_provider(protocol: dict, protocol_hash: str, provider: str) -> dict
         raise RuntimeError(f"{provider} has {len(rows)} rows; expected {expected}")
     if not all(
         row["candidateSetMatched"]
+        and row["allFourLayoutsMatched"]
         and row["inspectedSelectable"]
         and row["postResolutionInputMatched"]
         for row in rows

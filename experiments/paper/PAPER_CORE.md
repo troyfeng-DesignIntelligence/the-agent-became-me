@@ -95,14 +95,16 @@ an audit trail. They are not paper results.
 
 ## Replacement action study
 
-The v5 study uses all 460 frozen tasks, 115 per category, without selecting on
+The v6 study uses all 460 frozen tasks, 115 per category, without selecting on
 opportunity or a proposed mechanism. Every task is evaluated with SASRec and
 GRU, giving 920 task-model units per provider.
 
 Each unit has four calls: immediate A, immediate B, held A, and held B. A frozen
-Latin-square rotation varies call order. Immediate and held calls share a
-symmetric candidate universe constructed from both shelves, task-local
-retrieval, and search. The inspected item is marked but remains selectable.
+Latin-square rotation varies call order. All four calls use the same candidate
+order. Immediate A/B have byte-identical task states, as do held A/B; separate
+cache scopes force independent provider calls. The common candidate universe is
+constructed from both shelves, task-local retrieval, and search. The inspected
+item is marked but remains selectable.
 
 The primary estimator is
 
@@ -113,8 +115,8 @@ action distributions. It does not assume that temperature zero makes an API
 deterministic. DeepSeek is the primary provider; MiMo is the prespecified
 replication. Providers are analyzed separately.
 
-The preflight covered all 920 task-model units. Candidate IDs and matched
-layouts agreed in 920 of 920 units. All 1,840 inspected candidates remained
+The preflight covered all 920 task-model units. Candidate IDs and all four
+candidate orders agreed in 920 of 920 units. All 1,840 inspected candidates remained
 selectable. Post-resolution platform-input hashes agreed in 920 of 920 units.
 The decision-quality score had 323 distinct feasible-candidate values. No API
 call was needed for these checks.

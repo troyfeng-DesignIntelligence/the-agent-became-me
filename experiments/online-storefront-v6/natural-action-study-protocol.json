@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "online-storefront-natural-action-study-protocol.v2",
+  "status": "frozen-before-v6-provider-calls",
+  "frozenDate": "2026-08-07",
+  "purpose": "Estimate whether recommendation exposure changes a shopping agent's resolved action without changing selectable candidates or candidate order.",
+  "supersedes": "experiments/online-storefront-v5/natural-action-study-protocol.json",
+  "repairReason": "The v5 A/B repeats used different candidate orders and therefore confounded repeated-call variation with layout sensitivity. No v5 provider output is used in v6 inference.",
+  "claimBoundary": "The study concerns model choices in a research storefront. It does not identify human preference change, production-retailer effects, trained-model deletion, or an actor-provenance effect.",
+  "sampling": {
+    "frame": "All 460 previously generated tasks, 115 per category, without opportunity or margin enrichment.",
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "tasksPerCategory": 115,
+    "recommenderFamiliesPerTask": ["sasrec", "gru4rec"],
+    "modelSeeds": [7, 17, 29],
+    "seedAssignment": "sha256(category/taskId/modelFamily) modulo three; fixed before LLM calls",
+    "unit": "task by recommender-family",
+    "dependence": "Inference resamples tasks, keeping the two recommender-family observations for a task together."
+  },
+  "llmFamilies": [
+    {
+      "id": "mimo-v2.5-natural-action-v2",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    },
+    {
+      "id": "deepseek-v4-flash-natural-action-v2",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    }
+  ],
+  "conditions": ["immediate-a", "held-a", "immediate-b", "held-b"],
+  "conditionMeaning": {
+    "immediate-a": "temporary task views are active in platform ranking; provider replicate A",
+    "held-a": "temporary task views are excluded from platform ranking; provider replicate A",
+    "immediate-b": "the identical immediate prompt in an independent provider call; provider replicate B",
+    "held-b": "the identical held prompt in an independent provider call; provider replicate B"
+  },
+  "callOrder": {
+    "method": "four frozen Latin-square rotations selected by sha256(provider/category/taskId/modelFamily)",
+    "orders": [
+      ["immediate-a", "held-a", "immediate-b", "held-b"],
+      ["held-a", "immediate-b", "held-b", "immediate-a"],
+      ["immediate-b", "held-b", "immediate-a", "held-a"],
+      ["held-b", "immediate-a", "held-a", "immediate-b"]
+    ]
+  },
+  "decisionInstrument": {
+    "callsPerUnit": 4,
+    "maximumCallsPerTrajectory": 1,
+    "candidateLimit": 12,
+    "candidateUniverse": "A symmetric union of immediate shelf, held shelf, task-local retrieval, and search, truncated by a pooled rank that uses both arms. Identical candidate IDs are sent in both arms.",
+    "inspection": "The highest-ranked platform candidate is marked as inspected and remains selectable in the same decision call.",
+    "sharedLayout": "All four calls in a task-model unit use the same frozen candidate order. Immediate A/B have byte-identical task states, as do held A/B; cache scopes force independent calls.",
+    "allowedActions": ["select", "abandon"],
+    "maximumOutputTokens": 96,
+    "maximumRetries": 2,
+    "privacy": "Only pseudonymous candidate IDs and derived constraint, rank, utility, novelty, and inspection fields are sent."
+  },
+  "stateContract": {
+    "term": "temporary task evidence activation",
+    "notTerm": "model deletion or unlearning",
+    "matchedStateCheck": "After an abandoned task is resolved, both arms must hash to the same platform-input history before any next task is evaluated.",
+    "behaviorBoundary": "If actions differ, downstream committed histories are different by definition and are not treated as failed deletion."
+  },
+  "primaryEstimands": {
+    "exposureManipulationRate": "Fraction of task-model units for which any platform-rank field changes in the common candidate universe.",
+    "naturalOpportunityPrevalence": "Fraction of task-model units for which the highest-ranked constraint-matching platform candidate in the common universe differs between immediate and held arms.",
+    "overallActionDistributionDistance": "2 times mean cross-arm disagreement minus immediate within-arm disagreement minus held within-arm disagreement, averaged over the natural task frame.",
+    "conditionalActionDistributionDistance": "The same estimator among opportunity-positive task-model units.",
+    "sameLayoutDivergence": "Mean of immediate-a versus held-a and immediate-b versus held-b action disagreement; descriptive only.",
+    "decisionQualityDifference": "Held minus immediate difference in the frozen continuous decision-quality score; reported with a paired cluster-bootstrap interval."
+  },
+  "decisionQuality": {
+    "selectedCandidateScore": "zero for constraint violations; otherwise 0.40 taskUtility + 0.25 reciprocal task-local rank + 0.20 reciprocal search rank + 0.15 novelty",
+    "abandonScore": "one only when no constraint-matching candidate exists in the common candidate universe; otherwise zero",
+    "sentToProvider": false,
+    "guardrailMargin": -0.05,
+    "interpretation": "A protocol-defined surrogate over offered candidates, not human utility."
+  },
+  "uncertainty": {
+    "method": "paired cluster bootstrap over tasks",
+    "replicates": 5000,
+    "seed": 20260807,
+    "interval": "percentile 95%",
+    "providerPolicy": "Estimate each provider separately; do not pool providers as independent observations.",
+    "multiplicity": "DeepSeek is the primary provider for the action estimand. MiMo is a prespecified replication."
+  },
+  "mechanismPolicy": {
+    "dominance": "The old dominance AUC is withdrawn. Any replacement separation analysis is exploratory and must be evaluated only within opportunity-positive units.",
+    "actorProvenance": "Not manipulated and therefore not a causal contribution of this study."
+  },
+  "failureAccounting": [
+    "invalid provider response",
+    "timeout",
+    "empty common candidate universe",
+    "inspected candidate absent from offered candidates",
+    "candidate-ID mismatch between matched arms",
+    "candidate-order mismatch between any of the four calls",
+    "post-resolution platform-input hash mismatch",
+    "missing recommender checkpoint"
+  ],
+  "missingDataPolicy": "A provider failure after frozen retries is recorded as the action category __PROTOCOL_FAILURE__ and remains in the action denominator. Decision quality uses complete units, with a worst-case guardrail sensitivity that assigns held failures zero and immediate failures one.",
+  "outputs": {
+    "publicRoot": "public/results/online-storefront-natural-action-v2/v1",
+    "artifactRoot": "artifacts/online-storefront-natural-action-v2"
+  }
+}

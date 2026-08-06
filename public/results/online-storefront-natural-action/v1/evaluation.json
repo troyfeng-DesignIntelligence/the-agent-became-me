@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "online-storefront-natural-action-evaluation.v1",
+  "protocolSha256": "28ef4fd5c3261f41d86e47a80e35828d4eaa745d5e39118f585d667fc3022a8c",
+  "providers": {
+    "deepseek": {
+      "provider": "deepseek",
+      "taskCount": 460,
+      "taskModelUnitCount": 920,
+      "estimates": {
+        "exposureManipulationRate": {
+          "estimate": 0.981522,
+          "ci95": [
+            0.972826,
+            0.990217
+          ]
+        },
+        "naturalOpportunityRate": {
+          "estimate": 0.043478,
+          "ci95": [
+            0.029348,
+            0.058696
+          ]
+        },
+        "overallActionDistributionDistance": {
+          "estimate": -0.200543,
+          "ci95": [
+            -0.233152,
+            -0.167935
+          ]
+        },
+        "conditionalActionDistributionDistance": {
+          "estimate": -0.2875,
+          "ci95": [
+            -0.414634,
+            -0.147059
+          ]
+        },
+        "sameLayoutDivergence": {
+          "estimate": 0.085326,
+          "ci95": [
+            0.070652,
+            0.1
+          ]
+        },
+        "immediateWithinDivergence": {
+          "estimate": 0.278261,
+          "ci95": [
+            0.241304,
+            0.315217
+          ]
+        },
+        "heldWithinDivergence": {
+          "estimate": 0.290217,
+          "ci95": [
+            0.251087,
+            0.328261
+          ]
+        },
+        "completeCaseQualityDifference": {
+          "estimate": -0.001384,
+          "ci95": [
+            -0.003042,
+            0.000296
+          ]
+        },
+        "worstCaseQualityDifference": {
+          "estimate": -0.001384,
+          "ci95": [
+            -0.003042,
+            0.000296
+          ]
+        },
+        "protocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "runApi": {
+        "requestCount": 3680,
+        "cacheHitCount": 0,
+        "attemptCount": 3680,
+        "validActionCount": 3680,
+        "invalidOrFailedAttemptCount": 0,
+        "timeoutCount": 0,
+        "terminalFailureCount": 0,
+        "inputTokens": 3074936,
+        "outputTokens": 75044,
+        "currency": "USD",
+        "observedCostAtPublishedRates": 0.451503,
+        "systemFingerprints": [
+          "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+        ]
+      }
+    }
+  },
+  "gates": {
+    "deepseekOverallEffectLowerBoundAboveZero": false,
+    "deepseekWorstCaseQualityLowerBoundAboveMargin": true,
+    "allProviderFailureRatesBelow005": true
+  },
+  "claimDecision": "do-not-claim-confirmatory-action-effect",
+  "withdrawnAnalyses": [
+    "old dominance AUC",
+    "next-task displacement as evidence of persistent deletion failure",
+    "actor provenance as a causal mechanism"
+  ],
+  "claimBoundary": "The study concerns model choices in a research storefront. It does not identify human preference change, production-retailer effects, trained-model deletion, or an actor-provenance effect."
+}

@@ -41,7 +41,7 @@ export const researchQuestion = {
   question:
     "Does immediate activation of temporary task evidence change a shopping agent's action distribution when both arms can select the same candidates?",
   framing:
-    "The completed studies measure ranking movement. The prospective v5 study measures selected-item or abandon outcomes over the natural task frame; it does not use later history as proof that deletion failed.",
+    "The completed studies measure ranking movement. The prospective v6 study measures selected-item or abandon outcomes over the natural task frame; it does not use later history as proof that deletion failed.",
   contribution:
     "Four activation contracts separate recording from ranking. The action study uses two immediate and two held calls, a common candidate universe, and task-clustered uncertainty.",
   noveltyBoundary:
@@ -171,7 +171,7 @@ export const findings: readonly Finding[] = [
     evidence: [
       "Historical MiMo trace divergence: 24/32",
       "Historical MiMo resolved-action divergence: 0/32",
-      "The v5 primary estimator uses selected item or abandon only"
+      "The v6 primary estimator uses selected item or abandon only"
     ],
     boundary:
       "The diagnostic came from the invalidated runner and is retained only to explain the measurement change."
@@ -186,7 +186,7 @@ export const findings: readonly Finding[] = [
       "DeepSeek within-opportunity AUC: 0.313; exact p = 0.892",
       "MiMo within-opportunity AUC: 0.231; exact p = 0.961",
       "Old provider-events are not used as confirmatory evidence",
-      "v5 preflight: 920/920 common candidate sets matched"
+      "v6 preflight: 920/920 common candidate sets and layouts matched"
     ],
     boundary:
       "The old 32-task files remain reproducible audit material. They do not support an action or mechanism contribution."
@@ -196,7 +196,7 @@ export const findings: readonly Finding[] = [
     kicker: "Prospective current-task guardrail",
     title: "Task-local help remains available; performance is not yet established.",
     body:
-      "Immediate and held conditions use the same task-local recommender by construction. The old binary utility measure was too coarse for a non-inferiority claim, so v5 freezes a continuous offered-candidate quality score and a paired interval before new calls.",
+      "Immediate and held conditions use the same task-local recommender by construction. The old binary utility measure was too coarse for a non-inferiority claim, so v6 freezes a continuous offered-candidate quality score and a paired interval before new calls.",
     evidence: [
       "Common task-local retrieval in both timing arms",
       "323 distinct feasible-candidate quality values in preflight",

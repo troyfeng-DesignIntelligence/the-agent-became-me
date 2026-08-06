@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "online-storefront-natural-action-preflight.v1",
+  "generatedAt": "2026-08-06T17:52:35.875298+00:00",
+  "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
+  "passed": true,
+  "taskModelUnitCount": 920,
+  "opportunityCount": 40,
+  "naturalOpportunityRate": 0.043478,
+  "exposureManipulationCount": 903,
+  "exposureManipulationRate": 0.981522,
+  "inspectedIdentityChangeCount": 683,
+  "inspectedIdentityChangeRate": 0.742391,
+  "candidateSetMatchCount": 920,
+  "layoutMatchCount": 920,
+  "allFourLayoutMatchCount": 920,
+  "inspectedSelectableCount": 1840,
+  "postResolutionInputMatchCount": 920,
+  "decisionQualityDistinctValueCount": 323,
+  "decisionQualityStandardDeviation": 0.078138,
+  "callOrderCounts": {
+    "immediate-a / held-a / immediate-b / held-b": 455,
+    "immediate-b / held-b / immediate-a / held-a": 447,
+    "held-a / immediate-b / held-b / immediate-a": 487,
+    "held-b / immediate-a / held-a / immediate-b": 451
+  },
+  "failureCount": 0,
+  "failures": []
+}

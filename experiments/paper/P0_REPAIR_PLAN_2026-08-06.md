@@ -28,6 +28,18 @@ protocol and output path.
 
 ## Replacement estimand
 
+### Layout-control repair
+
+The first natural-frame implementation used different candidate orders for
+replicates A and B. DeepSeek's completed run showed that same-layout cross-arm
+disagreement was much lower than different-layout within-arm disagreement. The
+within-arm control therefore measured layout sensitivity as well as provider
+variation. MiMo was stopped, and no v5 provider output is used for inference.
+
+The v6 protocol uses one frozen candidate order for all four calls in a unit.
+Immediate A/B now have byte-identical task states, as do held A/B. The Latin
+square changes only condition call order across units.
+
 For an action category `a`, let `p_I(a)` and `p_H(a)` denote the model's action
 distributions under immediate and held activation. With two calls per arm, the
 unbiased disagreement estimator is:

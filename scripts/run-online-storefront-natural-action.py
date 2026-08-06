@@ -20,7 +20,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL_PATH = ROOT / "experiments/online-storefront-v5/natural-action-study-protocol.json"
+PROTOCOL_PATH = ROOT / "experiments/online-storefront-v6/natural-action-study-protocol.json"
 V2_PROTOCOL_PATH = ROOT / "experiments/online-storefront-v2/protocol.json"
 GRU_CHECKPOINTS = ROOT / "artifacts/models/amazon-gru4rec"
 
@@ -191,8 +191,8 @@ def prepared_unit(
             }
             for item, feature in zip(candidates, base_features, strict=True)
         }
+        ordered = frozen_layout(candidates, f"{category}/{task['taskId']}/shared")
         for replicate in ["a", "b"]:
-            ordered = frozen_layout(candidates, f"{category}/{task['taskId']}/{replicate}")
             condition = f"{arm}-{replicate}"
             states[condition] = {
                 "phase": "terminal",
@@ -257,6 +257,13 @@ def prepared_unit(
         == audits["held"]["candidateAliases"],
         "layoutsMatched": [row["candidateId"] for row in immediate_a]
         == [row["candidateId"] for row in held_a],
+        "allFourLayoutsMatched": len(
+            {
+                tuple(row["candidateId"] for row in states[condition]["candidates"])
+                for condition in ["immediate-a", "held-a", "immediate-b", "held-b"]
+            }
+        )
+        == 1,
         "postResolutionMatched": audits["immediate"]["postResolutionInputHash"]
         == audits["held"]["postResolutionInputHash"],
     }
@@ -337,8 +344,8 @@ def contrast_row(metadata: dict, opportunity: bool, actions: dict, qualities: di
     }
 
 
-def protocol_and_text() -> tuple[dict, str]:
-    text = PROTOCOL_PATH.read_text(encoding="utf-8").replace("\r\n", "\n")
+def protocol_and_text(path: Path = PROTOCOL_PATH) -> tuple[dict, str]:
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
     return json.loads(text), text
 
 
@@ -428,6 +435,7 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
         counts["inspectedIdentityChanged"] += int(unit["inspectedIdentityChanged"])
         counts["candidateSetMatched"] += int(unit["candidateSetMatched"])
         counts["layoutsMatched"] += int(unit["layoutsMatched"])
+        counts["allFourLayoutsMatched"] += int(unit["allFourLayoutsMatched"])
         counts["postResolutionMatched"] += int(unit["postResolutionMatched"])
         for arm in ["immediate", "held"]:
             inspected = unit["audits"][arm]["inspectedAlias"]
@@ -442,7 +450,12 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
             for row in unit["states"]["immediate-a"]["candidates"]
             if row["constraintMatch"]
         )
-        if not unit["candidateSetMatched"] or not unit["layoutsMatched"] or not unit["postResolutionMatched"]:
+        if (
+            not unit["candidateSetMatched"]
+            or not unit["layoutsMatched"]
+            or not unit["allFourLayoutsMatched"]
+            or not unit["postResolutionMatched"]
+        ):
             failures.append(f"paired-invariant:{slug}:{task['taskId']}:{family}:{seed}")
 
     expected = (
@@ -454,6 +467,7 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
         counts["units"] == expected
         and counts["candidateSetMatched"] == expected
         and counts["layoutsMatched"] == expected
+        and counts["allFourLayoutsMatched"] == expected
         and counts["postResolutionMatched"] == expected
         and counts["inspectedSelectable"] == expected * 2
         and len(set(quality_values)) > 1
@@ -473,6 +487,7 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
         "inspectedIdentityChangeRate": round(counts["inspectedIdentityChanged"] / max(1, counts["units"]), 6),
         "candidateSetMatchCount": counts["candidateSetMatched"],
         "layoutMatchCount": counts["layoutsMatched"],
+        "allFourLayoutMatchCount": counts["allFourLayoutsMatched"],
         "inspectedSelectableCount": counts["inspectedSelectable"],
         "postResolutionInputMatchCount": counts["postResolutionMatched"],
         "decisionQualityDistinctValueCount": len(set(quality_values)),
@@ -492,8 +507,16 @@ def main() -> None:
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--accept-cost-cap", type=float)
+    parser.add_argument(
+        "--protocol",
+        default=str(PROTOCOL_PATH.relative_to(ROOT)),
+        help="Repository-relative frozen protocol path.",
+    )
     args = parser.parse_args()
-    protocol, protocol_text = protocol_and_text()
+    protocol_path = (ROOT / args.protocol).resolve()
+    if ROOT not in protocol_path.parents:
+        raise RuntimeError("Protocol path must remain inside the repository")
+    protocol, protocol_text = protocol_and_text(protocol_path)
     protocol_hash = sha256(protocol_text.encode("utf-8"))
 
     if args.preflight:
@@ -531,7 +554,12 @@ def main() -> None:
     for unit_index, (slug, task, products, family, seed, scorer) in enumerate(study_units(protocol), 1):
         unit = prepared_unit(protocol, slug, task, products, scorer)
         if not all(
-            [unit["candidateSetMatched"], unit["layoutsMatched"], unit["postResolutionMatched"]]
+            [
+                unit["candidateSetMatched"],
+                unit["layoutsMatched"],
+                unit["allFourLayoutsMatched"],
+                unit["postResolutionMatched"],
+            ]
         ):
             raise RuntimeError("Paired invariant failed after preflight")
         order = call_order(protocol, args.provider, slug, task["taskId"], family)
@@ -600,6 +628,7 @@ def main() -> None:
                 "callOrder": order,
                 "responseHashes": response_hashes,
                 "candidateSetMatched": unit["candidateSetMatched"],
+                "allFourLayoutsMatched": unit["allFourLayoutsMatched"],
                 "inspectedSelectable": all(
                     unit["audits"][arm]["inspectedAlias"]
                     in unit["audits"][arm]["candidateAliases"]
