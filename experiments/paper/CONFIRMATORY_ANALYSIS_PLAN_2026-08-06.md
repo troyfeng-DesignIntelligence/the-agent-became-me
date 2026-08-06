@@ -2,6 +2,13 @@
 
 Status: statistical core frozen before any DeepSeek call and before any confirmatory-scale call.
 
+Superseding audit (2026-08-06): this plan must not be executed. The historical
+storefront runner left learned recommenders in training mode, so dropout was
+active during ranking inference. A later resolved-action plan also returned a
+frozen no-go on its candidate-margin gate. See
+`DATA_QUALITY_AUDIT_2026-08-06.md` and
+`RESOLVED_ACTION_CONFIRMATORY_PLAN_2026-08-06.md`.
+
 Post-freeze decision (2026-08-06): the matched 32-task pilot produced 9/64
 persistent-feedback events for DeepSeek and 0/64 for MiMo, with 0/64 sham
 events for both providers. This satisfies the plan's **model-contingent

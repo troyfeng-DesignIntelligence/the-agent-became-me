@@ -387,6 +387,7 @@ export function App() {
     deepseekLlmPilot,
     decodingDoseResponse,
     forcedInspection,
+    candidateMargin,
     catalog,
     error,
     loading
@@ -1374,13 +1375,15 @@ export function App() {
               mimoMatchedLlmPilot &&
               deepseekLlmPilot &&
               decodingDoseResponse &&
-              forcedInspection && (
+              forcedInspection &&
+              candidateMargin && (
               <LLMBehaviorFeedbackPanel
                 originalMimo={mimoLlmPilot}
                 matchedMimo={mimoMatchedLlmPilot}
                 deepseek={deepseekLlmPilot}
                 dose={decodingDoseResponse}
                 forced={forcedInspection}
+                margin={candidateMargin}
               />
             )}
 

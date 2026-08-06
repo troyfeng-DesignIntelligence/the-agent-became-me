@@ -346,25 +346,54 @@ Required inspection was therefore insufficient to explain the provider
 boundary. More importantly, the probe revealed that browsing-history path
 dependence and committed-decision path dependence are empirically separable.
 
+### R12 — The frozen margin mechanism failed, and the online instrument was not fully frozen
+
+Before scaling, we froze a diagnostic that asked whether DeepSeek's six
+resolved-action events occurred on tasks with small top-two eligible utility
+gaps. Only 13/32 tasks had at least two eligible candidates in both exposure
+arms, versus the frozen 90% support gate. All 13 observable gaps were zero.
+The resulting margin AUC was 0.50 with a one-sided 100,000-permutation
+`p = 1.00`. The near-tie explanation therefore received a frozen no-go.
+
+The failed reconstruction also exposed a more consequential implementation
+defect. The historical storefront runner loaded SASRec and GRU4Rec without
+calling `model.eval()`, leaving dropout active during recommendation scoring.
+A context cache stabilized identical states within one run, but provider,
+temperature, and fresh-process runs could receive different recommender
+realizations. The held sham arms calibrated LLM variation, not recommender
+dropout. We recovered a reproducible negative margin diagnostic from the
+pseudonymous candidate features actually sent to each provider, matching all
+32 exposure and 32 sham resolved-action contrasts per provider, but the
+historical provider-effect magnitudes no longer support same-shelf or clean
+exposure-causal wording.
+
+For future runs, we repaired the runner and added a preflight. Across 32 frozen
+tasks, every model reported evaluation mode, three uncached score calls were
+identical, and a second fresh process reproduced the canonical Top-10 shelf
+hash. This establishes a deterministic future instrument only. It does not
+rescue the failed margin mechanism or retrospectively repair the historical
+LLM contrasts.
+
 ## Contribution statement
 
-1. **Empirical.** We characterize recommendation-mediated behavioral path
-   dependence in a research shopping system, separating in-task ranking
-   exposure, agent-trace divergence, and downstream consequences across task
-   checkpoints. Matched LLM pilots and a forced-inspection intervention show
-   that equally displaced shelves—and even different realized browsing
-   histories—need not produce different resolved decisions.
+1. **Empirical.** We characterize how three candidate outcomes—ranking change,
+   browsing-trace change, and resolved-decision change—separate inside a
+   research shopping system. The forced-inspection runs show that a changed
+   realized browsing history need not become a changed resolved decision. The
+   historical provider contrast is retained as an observed controller outcome,
+   not as a clean same-shelf causal comparison.
 2. **Conceptual.** We distinguish stored-state, browsing-path, and resolved-
    decision reversibility. Removing temporary evidence can restore a profile
    input; a required inspection can still change browsing history; neither fact
    alone establishes that the agent's committed decision changed.
-3. **Methodological.** We introduce a paired four-arm protocol that separates
-   platform activation from task-local retrieval and calibrates LLM stochastic
-   divergence with two independent held-exposure sham trajectories. A
-   controller intervention and resolved-action estimand prevent mandated
-   intermediate actions from being misreported as changed task resolution.
-   Real commerce histories, two learned sequence encoders, four categories,
-   fixed candidate masks, and explicit failure accounting bound the comparison.
+3. **Methodological.** We show that a paired four-arm protocol must freeze two
+   stochastic layers, not one: independent held-exposure sham trajectories
+   calibrate LLM variation, while deterministic recommender-state hashes are
+   required to calibrate the shelf itself. A controller intervention and
+   resolved-action estimand prevent mandated intermediate actions from being
+   misreported as changed task resolution. The failed margin gate further shows
+   why a proposed moderator must have empirical support before confirmatory
+   scaling.
 4. **Design.** We translate the mechanism into outcome-gated platform
    activation with a separate task-local channel and an inspectable control
    prototype. The design implication follows from computational evidence; the
@@ -388,6 +417,7 @@ dependence and committed-decision path dependence are empirically separable.
 | Fig. 12 | SASRec-versus-GRU fixed displacement and free trace-divergence intervals | Recurrence and model-dependent trajectory amplification |
 | Fig. 13 | Immediate-versus-held trace pair with the held-versus-held sham calibration | Makes exposure-adjusted behavioral path dependence visible |
 | Fig. 14 | Temperature curves plus whole-trace versus resolved-action divergence | Shows when stochasticity enters and why trace change is not decision change |
+| Fig. 15 | Frozen margin gates versus observed support, with inference-mode audit | Explains why the larger LLM replication is paused |
 
 ## Claim discipline
 
@@ -407,29 +437,33 @@ dependence and committed-decision path dependence are empirically separable.
   “cross-LLM replication” or “provider-general agent feedback.”
 - Say “resolved-action divergence” when claiming changed task behavior; do not
   use a controller-mandated browsing-trace difference as equivalent evidence.
+- Say “historical provider-contingent controller outcomes,” not “same-shelf
+  cross-provider effects”; the learned recommenders were not in evaluation mode.
+- Say “LLM sham-calibrated but recommender-dropout-confounded,” not “clean causal
+  recommendation-exposure estimate,” for the historical LLM runs.
 
 ## Most defensible paper story
 
-The strongest story is not that transient evidence can “pollute” a profile.
-Prior work already motivates transient intent and editable personalization.
-The less visible problem appears earlier in the loop: temporary activity changes
-a recommendation, the recommendation changes an agent's action, and the action
-becomes part of the resolved history. At that point deletion can repair stored
-evidence without restoring the counterfactual interaction path.
+The strongest story is no longer that transient evidence already produced a
+confirmed irreversible feedback effect. The discovery is methodological and
+interactional: a system can record a different browsing history without
+reaching a different resolved decision, and an experiment can calibrate the
+agent's stochasticity while leaving the recommender's stochasticity uncontrolled.
 
-The fixed-trace experiments establish the first link: immediate activation,
-not event logging, changes the recommendation slate. The matched LLM pilot now
-shows that the second link is conditional: the same mean shelf displacement
-propagated into DeepSeek actions but not MiMo actions. The held condition keeps
-the same task-local retrieval channel, so preventing platform activation does
-not require making the current agent task-blind.
+The deterministic fixed-trace experiments establish that activation timing can
+change recommendation state without requiring task-blind retrieval. The LLM
+runs then make two measurement boundaries visible. First, whole-trace change
+overstates committed behavioral change: MiMo changed 24/32 forced-inspection
+traces but 0/32 resolved actions. Second, LLM sham controls are insufficient if
+the learned shelf itself is not frozen across contexts and runs.
 
-The sham contrast ruled out observed repeated-call divergence at temperature 0,
-but the exposure effect recurred only in DeepSeek. Temperature sweeps showed
-that stochasticity enters before a clean shared-provider effect appears. The
-forced-inspection probe then revealed the sharper phenomenon: a recommendation
-can change the realized browsing path without changing the resolved decision.
-The defensible contribution is therefore the ranking-exposure mechanism, its
-model-contingent propagation boundary, and a measurement distinction between
-provisional trace change and committed action change. A larger confirmation
-should be designed around resolved actions rather than whole-trace divergence.
+The frozen decision-margin diagnostic did not rescue the intended mechanism:
+support was 13/32, every observable gap tied at zero, and discrimination was at
+chance. Although the repaired recommender now passes a 32/32 within- and
+cross-process determinism preflight, that is an instrumentation result rather
+than evidence for the proposed mechanism. The defensible contribution is
+therefore a distinction among stored
+state, provisional trace, and resolved action, plus an audit requirement that
+both recommender and agent variation be independently controlled. A new study
+must repair the instrument and pass a small deterministic pilot before any
+third-family or confirmatory-scale claim.

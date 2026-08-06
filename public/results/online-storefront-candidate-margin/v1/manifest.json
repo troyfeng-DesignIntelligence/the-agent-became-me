@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "online-storefront-candidate-margin-manifest.v1",
+  "protocolSha256": "83ee0ccf8b9b64f5006dcbe4859c0f2653f2b924c258bb057d5426c7d08fb5f7",
+  "files": {
+    "summary.json": {
+      "sha256": "0afb1d54980bb25a9b68c1756a767425e8a072fd0097a07b826f8b53b236446e",
+      "bytes": 4479
+    },
+    "rows.json": {
+      "sha256": "317a5239568e21e8007548a85a7ad50821ab085ea01ddc4308f1b9ca6753b606",
+      "bytes": 37236
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "online-storefront-candidate-margin-summary.v1",
+  "generatedAt": "2026-08-06T06:24:40.398698Z",
+  "protocolSha256": "83ee0ccf8b9b64f5006dcbe4859c0f2653f2b924c258bb057d5426c7d08fb5f7",
+  "historicalStateSource": "actual pseudonymous candidate features sent to each provider",
+  "sourceFiles": {
+    "mimo": {
+      "contrastPath": "public/results/online-storefront-decoding-sensitivity/v1/mimo-forced-inspection-t0/contrasts.json",
+      "contrastSha256": "58ece52ffa8e2cd02d4e44d74fa2c074fcfa777f5535a045c1d66ddfba9dd6ef",
+      "responseFileCount": 128,
+      "directorySha256": "0ed5b4efb75fdb149bb131be030a81714b4056ed89ddb423d6289e9329f05973",
+      "componentCount": 32,
+      "resolvedActionValidationMatches": 32,
+      "shamResolvedActionValidationMatches": 32,
+      "aliasItemSearchLimit": 10000
+    },
+    "deepseek": {
+      "contrastPath": "public/results/online-storefront-decoding-sensitivity/v1/deepseek-forced-inspection-t0/contrasts.json",
+      "contrastSha256": "6176810cedbf0836ba0d7d71b55d860f7c204fdebf0b4bb639881fb44b3e4e79",
+      "responseFileCount": 174,
+      "directorySha256": "ffd57acec26232069a2faad5c136e6d6953229a44dbd3b1db6f6541e044fb91e",
+      "componentCount": 32,
+      "resolvedActionValidationMatches": 32,
+      "shamResolvedActionValidationMatches": 32,
+      "aliasItemSearchLimit": 10000
+    }
+  },
+  "predictor": {
+    "name": "minimumTopTwoEligibleUtilityMargin",
+    "definition": "After the controller-required platform inspection and before the LLM call, compute the task-utility gap between the best and second-best hard-constraint-matching candidates in each exposure arm; use the smaller arm-specific gap.",
+    "missingRule": "A task is not margin-analyzable if either arm has fewer than two hard-constraint-matching candidates. Do not impute a margin."
+  },
+  "permutationCount": 100000,
+  "permutationSeed": 2026080603,
+  "providers": {
+    "mimo": {
+      "taskCount": 32,
+      "analyzableCount": 13,
+      "analyzableRate": 0.40625,
+      "persistentResolvedActionEventCount": 0,
+      "analyzablePersistentResolvedActionEventCount": 0,
+      "shamPersistentResolvedActionEventCount": 0,
+      "marginAuc": null,
+      "oneSidedPermutationP": null,
+      "bottomTertileThreshold": 0.0,
+      "eventCountInBottomTertile": 0,
+      "eventFractionInBottomTertile": null,
+      "zeroMarginRateAmongAnalyzable": 1.0,
+      "allEventsHaveExposureOpportunityChange": false,
+      "candidateSetDifferentRate": 1.0,
+      "bestEligibleCandidateDifferentRate": 0.03125,
+      "bestEligibleCandidateDifferentEventCount": 0
+    },
+    "deepseek": {
+      "taskCount": 32,
+      "analyzableCount": 13,
+      "analyzableRate": 0.40625,
+      "persistentResolvedActionEventCount": 6,
+      "analyzablePersistentResolvedActionEventCount": 4,
+      "shamPersistentResolvedActionEventCount": 1,
+      "marginAuc": 0.5,
+      "oneSidedPermutationP": 1.0,
+      "bottomTertileThreshold": 0.0,
+      "eventCountInBottomTertile": 4,
+      "eventFractionInBottomTertile": 1.0,
+      "zeroMarginRateAmongAnalyzable": 1.0,
+      "allEventsHaveExposureOpportunityChange": true,
+      "candidateSetDifferentRate": 1.0,
+      "bestEligibleCandidateDifferentRate": 0.0625,
+      "bestEligibleCandidateDifferentEventCount": 1
+    }
+  },
+  "decision": "no-go",
+  "decisionRules": {
+    "go": "At least 90% of tasks are analyzable; DeepSeek margin AUC is at least 0.70; the one-sided permutation p-value is at most 0.10; at least two thirds of DeepSeek events fall in the bottom margin tertile; and every event has an exposure opportunity change.",
+    "pivot": "The margin gate fails but resolved events are confined to tasks with changed inspected items or changed post-inspection candidate sets. Reframe the mechanism as candidate-state opportunity rather than near-tie sensitivity before confirmatory calls.",
+    "noGo": "The primary AUC is at most 0.50, events occur without any candidate-state opportunity change, fewer than 90% of tasks are analyzable, or the reconstructed task hashes do not match the frozen public contrasts."
+  },
+  "dataQualityBoundary": "Historical storefront recommenders were inadvertently left in training mode. This diagnostic uses actual sent candidate states and does not reconstruct historical shelves.",
+  "claimBoundary": "This is a frozen mechanism diagnostic over an already observed 32-task pilot. It can choose between two mechanistic framings but cannot confirm a population effect."
+}

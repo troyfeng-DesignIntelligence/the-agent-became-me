@@ -1334,10 +1334,37 @@ const ForcedInspectionSummarySchema = z.object({
   claimBoundary: z.string()
 });
 
+const CandidateMarginProviderSchema = z.object({
+  taskCount: z.number().int().positive(),
+  analyzableCount: z.number().int().nonnegative(),
+  analyzableRate: z.number().min(0).max(1),
+  persistentResolvedActionEventCount: z.number().int().nonnegative(),
+  analyzablePersistentResolvedActionEventCount: z.number().int().nonnegative(),
+  shamPersistentResolvedActionEventCount: z.number().int().nonnegative(),
+  marginAuc: z.number().min(0).max(1).nullable(),
+  oneSidedPermutationP: z.number().min(0).max(1).nullable(),
+  zeroMarginRateAmongAnalyzable: z.number().min(0).max(1).nullable(),
+  candidateSetDifferentRate: z.number().min(0).max(1),
+  bestEligibleCandidateDifferentRate: z.number().min(0).max(1)
+}).passthrough();
+
+const CandidateMarginSummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-candidate-margin-summary.v1"),
+  historicalStateSource: z.string(),
+  providers: z.object({
+    mimo: CandidateMarginProviderSchema,
+    deepseek: CandidateMarginProviderSchema
+  }),
+  decision: z.string(),
+  dataQualityBoundary: z.string(),
+  claimBoundary: z.string()
+});
+
 export type MiMoLlmPilotSummary = z.infer<typeof MiMoLlmPilotSummarySchema>;
 export type CrossLlmPilotSummary = z.infer<typeof CrossLlmPilotSummarySchema>;
 export type DecodingDoseSummary = z.infer<typeof DecodingDoseSummarySchema>;
 export type ForcedInspectionSummary = z.infer<typeof ForcedInspectionSummarySchema>;
+export type CandidateMarginSummary = z.infer<typeof CandidateMarginSummarySchema>;
 
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
@@ -1361,6 +1388,7 @@ interface ProjectDataState {
   deepseekLlmPilot: CrossLlmPilotSummary | null;
   decodingDoseResponse: DecodingDoseSummary | null;
   forcedInspection: ForcedInspectionSummary | null;
+  candidateMargin: CandidateMarginSummary | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1385,6 +1413,7 @@ export function useProjectData(): ProjectDataState {
     deepseekLlmPilot: null,
     decodingDoseResponse: null,
     forcedInspection: null,
+    candidateMargin: null,
     catalog: null,
     error: null,
     loading: true
@@ -1516,6 +1545,12 @@ export function useProjectData(): ProjectDataState {
           if (!response.ok) throw new Error("Could not load forced-inspection probe.");
           return ForcedInspectionSummarySchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-candidate-margin/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load candidate-margin audit.");
+          return CandidateMarginSummarySchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1537,7 +1572,8 @@ export function useProjectData(): ProjectDataState {
           mimoMatchedLlmPilot,
           deepseekLlmPilot,
           decodingDoseResponse,
-          forcedInspection
+          forcedInspection,
+          candidateMargin
         ]) => {
         if (!cancelled) {
           setState({
@@ -1558,6 +1594,7 @@ export function useProjectData(): ProjectDataState {
             deepseekLlmPilot,
             decodingDoseResponse,
             forcedInspection,
+            candidateMargin,
             catalog,
             error: null,
             loading: false
@@ -1585,6 +1622,7 @@ export function useProjectData(): ProjectDataState {
             deepseekLlmPilot: null,
             decodingDoseResponse: null,
             forcedInspection: null,
+            candidateMargin: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

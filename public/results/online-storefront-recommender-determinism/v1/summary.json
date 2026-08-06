@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "online-storefront-recommender-determinism-summary.v1",
+  "generatedAt": "2026-08-06T06:45:59.302886Z",
+  "protocolSha256": "e4a6903dcf9661aae5a79c5ee81405cb7b7a35ba965a7059689b25b2b836fde7",
+  "taskCount": 32,
+  "evaluationModePassCount": 32,
+  "withinProcessPassCount": 32,
+  "shelfStateSha256": "93175ca18e5d9c46dfa7018bbb6fd23d8a545ad1dff810d2df9ca6d09cc023de",
+  "previousShelfStateSha256": "93175ca18e5d9c46dfa7018bbb6fd23d8a545ad1dff810d2df9ca6d09cc023de",
+  "freshProcessMatch": true,
+  "passed": true,
+  "claimBoundary": "This preflight verifies deterministic local recommender inference only; it does not validate the decision-margin mechanism or any LLM effect."
+}

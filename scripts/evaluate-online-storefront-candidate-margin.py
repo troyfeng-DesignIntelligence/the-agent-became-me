@@ -1,15 +1,16 @@
-"""Evaluate the frozen offline candidate-margin mechanism diagnostic.
+"""Evaluate the frozen candidate-margin diagnostic from actual sent states.
 
-The script reconstructs only derived candidate states from the frozen task
-catalogs and recommender checkpoints. Public outputs never include item IDs,
-titles, reviews, prompts, or provider responses.
+The ignored response cache preserves the pseudonymous derived candidate state
+that each provider actually received. This analysis never reconstructs a shelf
+from the recommender because historical storefront runs accidentally left
+recommender dropout active. Public outputs exclude prompts and responses.
 """
 
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -18,36 +19,13 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL_PATH = ROOT / "experiments/online-storefront-v4/candidate-margin-protocol.json"
-SOURCE_PROTOCOL_PATH = ROOT / "experiments/online-storefront-v4/forced-inspection-protocol.json"
-RUNNER_PATH = ROOT / "scripts/run-online-storefront-cross-llm-pilot.py"
 OUTPUT_ROOT = ROOT / "public/results/online-storefront-candidate-margin/v1"
-SOURCE_ROOT = ROOT / "public/results/online-storefront-decoding-sensitivity/v1"
-GRU_CHECKPOINTS = ROOT / "artifacts/models/amazon-gru4rec"
+CONTRAST_ROOT = ROOT / "public/results/online-storefront-decoding-sensitivity/v1"
+ARTIFACT_ROOT = ROOT / "artifacts/online-storefront-decoding-sensitivity"
 PERMUTATIONS = 100_000
 PERMUTATION_SEED = 2026080603
-
-
-def load_module(name: str, path: Path):
-    spec = importlib.util.spec_from_file_location(name, path)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Could not import {path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-runner = load_module("candidate_margin_runner", RUNNER_PATH)
-pilot = runner.pilot
-delegate = runner.delegate
-cross = runner.cross
-v2 = runner.v2
-sas = runner.sas
-gru = runner.gru
-models = runner.models
-
-
-def canonical(value: object) -> bytes:
-    return json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
+ALIAS_ITEM_SEARCH_LIMIT = 10_000
+SCOPES = ("immediate-remove", "held-outcome", "held-sham-a", "held-sham-b")
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -68,147 +46,278 @@ def write_json(path: Path, payload: object, pretty: bool = False) -> None:
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def item_alias(category: str, task_id: str, item: int) -> str:
+    digest = hashlib.sha256(
+        f"llm-pilot|{category}|{task_id}|{item}".encode("utf-8")
+    ).hexdigest()
+    return f"P-{digest[:8].upper()}"
+
+
 def load_contrasts(provider: str) -> tuple[list[dict], Path]:
-    path = SOURCE_ROOT / f"{provider}-forced-inspection-t0/contrasts.json"
+    path = CONTRAST_ROOT / f"{provider}-forced-inspection-t0/contrasts.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
-    rows = payload.get("contrasts")
-    if not isinstance(rows, list):
-        raise RuntimeError(f"Malformed contrast file: {path}")
+    rows = payload.get("contrasts", payload.get("rows"))
+    if not isinstance(rows, list) or len(rows) != 32:
+        raise RuntimeError(f"Expected 32 contrasts in {path}")
     return rows, path
 
 
-def post_inspection_state(
-    task: dict,
-    products: dict[int, dict],
-    scorer,
-    condition: dict,
-    category: str,
-) -> dict:
-    search = delegate.search_catalog(task, products)
-    viewed = list(search[:2])
-    context = v2.condition_context(
-        task, condition["id"], viewed, None, "task-in-progress"
-    )
-    platform = scorer.top(
-        context,
-        set(task["interacted"]) | set(viewed) | {task["nextTaskItem"]},
-    )
-    local = delegate.local_recommendations(
-        task, products, viewed, set(task["history"]) | set(viewed)
-    )
-    candidates = pilot.choose_candidates(task, products, viewed, platform, local, search)
-    if not candidates:
-        return {
-            "forcedItem": None,
-            "candidateItems": set(),
-            "bestEligibleItem": None,
-            "eligibleCount": 0,
-            "candidateCount": 0,
-            "margin": None,
-        }
+def request_state(record: dict, provider: str) -> dict:
+    request = record["request"]
+    if provider == "mimo":
+        text = request["input"]
+    else:
+        text = next(
+            message["content"]
+            for message in request["messages"]
+            if message["role"] == "user"
+        )
+    state = json.loads(text)
+    if state.get("phase") not in {"browse", "terminal"}:
+        raise RuntimeError("Unexpected candidate-state phase")
+    return state
 
-    forced_item = next((item for item in platform if item in candidates), candidates[0])
-    viewed.append(forced_item)
-    context = v2.condition_context(
-        task, condition["id"], viewed, None, "task-in-progress"
+
+def response_decision(record: dict, provider: str) -> dict:
+    if provider == "mimo":
+        text = record["response"]["output_text"]
+    else:
+        text = record["response"]["choices"][0]["message"]["content"]
+    decision = json.loads(text)
+    if decision.get("action") not in {"view", "select", "abandon"}:
+        raise RuntimeError("Unexpected provider action in validated cache")
+    return decision
+
+
+def directory_digest(paths: list[Path]) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(paths):
+        digest.update(path.name.encode("utf-8"))
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def load_requests(provider: str) -> tuple[list[dict], dict]:
+    directory = ARTIFACT_ROOT / f"{provider}-forced-inspection-t0/responses"
+    paths = sorted(directory.glob("*.json"))
+    records = []
+    for path in paths:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        state = request_state(payload, provider)
+        candidates = state.get("candidates")
+        if not isinstance(candidates, list) or not candidates:
+            raise RuntimeError(f"Missing candidate list in {path}")
+        records.append(
+            {
+                "file": path.name,
+                "scope": payload["cacheScope"],
+                "phase": state["phase"],
+                "candidates": candidates,
+                "candidateIds": {row["candidateId"] for row in candidates},
+                "decision": response_decision(payload, provider),
+            }
+        )
+    return records, {
+        "responseFileCount": len(paths),
+        "directorySha256": directory_digest(paths),
+    }
+
+
+def componentize(records: list[dict]) -> list[list[dict]]:
+    parents = list(range(len(records)))
+
+    def find(index: int) -> int:
+        while parents[index] != index:
+            parents[index] = parents[parents[index]]
+            index = parents[index]
+        return index
+
+    def union(left: int, right: int) -> None:
+        left_root, right_root = find(left), find(right)
+        if left_root != right_root:
+            parents[right_root] = left_root
+
+    owner = {}
+    for index, record in enumerate(records):
+        for candidate_id in record["candidateIds"]:
+            if candidate_id in owner:
+                union(index, owner[candidate_id])
+            else:
+                owner[candidate_id] = index
+    grouped = defaultdict(list)
+    for index, record in enumerate(records):
+        grouped[find(index)].append(record)
+    components = list(grouped.values())
+    if len(components) != 32:
+        raise RuntimeError(f"Expected 32 request components, found {len(components)}")
+    for component in components:
+        if {record["scope"] for record in component} != set(SCOPES):
+            raise RuntimeError("A request component does not contain all four arms")
+        for scope in SCOPES:
+            if sum(
+                record["scope"] == scope and record["phase"] == "browse"
+                for record in component
+            ) != 1:
+                raise RuntimeError("Each component-arm must contain one browse state")
+    return components
+
+
+def map_components_to_tasks(
+    components: list[list[dict]], contrasts: list[dict]
+) -> dict[int, tuple[str, str]]:
+    actual_aliases = {
+        candidate_id
+        for component in components
+        for record in component
+        for candidate_id in record["candidateIds"]
+    }
+    alias_owners = defaultdict(set)
+    task_keys = sorted({(row["category"], row["taskId"]) for row in contrasts})
+    for task_key in task_keys:
+        category, task_id = task_key
+        for item in range(1, ALIAS_ITEM_SEARCH_LIMIT + 1):
+            alias = item_alias(category, task_id, item)
+            if alias in actual_aliases:
+                alias_owners[alias].add(task_key)
+
+    mapping = {}
+    claimed_tasks = set()
+    for index, component in enumerate(components):
+        component_aliases = {
+            candidate_id for record in component for candidate_id in record["candidateIds"]
+        }
+        scores = defaultdict(int)
+        for alias in component_aliases:
+            for task_key in alias_owners.get(alias, ()):
+                scores[task_key] += 1
+        ranked = sorted(scores.items(), key=lambda row: (-row[1], row[0]))
+        if not ranked or ranked[0][1] < 2:
+            raise RuntimeError("Could not map a request component to a frozen task")
+        if len(ranked) > 1 and ranked[0][1] == ranked[1][1]:
+            raise RuntimeError("Ambiguous request-component task mapping")
+        task_key = ranked[0][0]
+        if task_key in claimed_tasks:
+            raise RuntimeError("Two request components mapped to the same task")
+        mapping[index] = task_key
+        claimed_tasks.add(task_key)
+    if claimed_tasks != set(task_keys):
+        raise RuntimeError("Request components do not cover the frozen task set")
+    return mapping
+
+
+def browse_state(component: list[dict], scope: str) -> dict:
+    return next(
+        record
+        for record in component
+        if record["scope"] == scope and record["phase"] == "browse"
     )
-    platform = scorer.top(
-        context,
-        set(task["interacted"]) | set(viewed) | {task["nextTaskItem"]},
-    )
-    local = delegate.local_recommendations(
-        task, products, viewed, set(task["history"]) | set(viewed)
-    )
-    candidates = pilot.choose_candidates(task, products, viewed, platform, local, search)
-    features = pilot.candidate_features(
-        task, products, candidates, platform, local, search, viewed, category
-    )
+
+
+def final_decision(component: list[dict], scope: str) -> tuple[str, str | None]:
+    scoped = [record for record in component if record["scope"] == scope]
+    terminal = next((record for record in scoped if record["phase"] == "terminal"), None)
+    record = terminal or next(record for record in scoped if record["phase"] == "browse")
+    decision = record["decision"]
+    if decision["action"] == "select":
+        return "selected", decision["candidateId"]
+    if decision["action"] == "abandon":
+        return "abandoned", None
+    raise RuntimeError("A final cached decision cannot remain a view")
+
+
+def state_metrics(record: dict) -> dict:
+    candidates = record["candidates"]
     eligible = sorted(
         (
-            (float(feature["taskUtility"]), item)
-            for item, feature in zip(candidates, features, strict=True)
-            if feature["constraintMatch"]
+            (float(candidate["taskUtility"]), candidate["candidateId"])
+            for candidate in candidates
+            if candidate["constraintMatch"]
         ),
         reverse=True,
     )
-    margin = None
-    if len(eligible) >= 2:
-        margin = round(eligible[0][0] - eligible[1][0], 6)
+    margin = round(eligible[0][0] - eligible[1][0], 6) if len(eligible) >= 2 else None
     return {
-        "forcedItem": forced_item,
-        "candidateItems": set(candidates),
-        "bestEligibleItem": eligible[0][1] if eligible else None,
+        "candidateIds": {candidate["candidateId"] for candidate in candidates},
+        "bestEligibleCandidate": eligible[0][1] if eligible else None,
         "eligibleCount": len(eligible),
         "candidateCount": len(candidates),
         "margin": margin,
     }
 
 
-def jaccard(left: set[int], right: set[int]) -> float:
+def jaccard(left: set[str], right: set[str]) -> float:
     union = left | right
     return 1.0 if not union else len(left & right) / len(union)
 
 
-def reconstruct_task_states(source_protocol: dict) -> list[dict]:
-    v2_protocol = json.loads(runner.V2_PROTOCOL_PATH.read_text(encoding="utf-8"))
-    condition_specs = {row["id"]: row for row in v2_protocol["conditions"]}
-    task_count = int(source_protocol["tasksPerCategory"])
-    reconstructed = []
-    for category in cross.CATEGORIES:
-        slug = category["slug"]
-        if slug not in source_protocol["categories"]:
-            continue
-        data = cross.prepare_category(category)
-        products = delegate.load_products(category, data)
-        delegate.TASKS_PER_CATEGORY = max(115, task_count)
-        eligible = delegate.build_tasks(category, data, products)
-        tasks = sorted(eligible, key=lambda row: row["taskId"])[:task_count]
-        sas_models, _ = cross.load_or_train_models(data)
-        gru_models, _ = gru.load_or_train_models(data, slug, GRU_CHECKPOINTS, sas)
-        for task_index, task in enumerate(tasks):
-            family = "sasrec" if task_index % 2 == 0 else "gru4rec"
-            seed = [7, 17, 29][task_index % 3]
-            model = sas_models[seed] if family == "sasrec" else gru_models[seed]
-            scoring = sas.score_context_batch if family == "sasrec" else gru.score_context_batch
-            scorer = models.ModelScorer(model, scoring)
-            immediate = post_inspection_state(
-                task, products, scorer, condition_specs["immediate-remove"], slug
-            )
-            held = post_inspection_state(
-                task, products, scorer, condition_specs["held-outcome"], slug
-            )
-            overlap = jaccard(immediate["candidateItems"], held["candidateItems"])
-            margins = [immediate["margin"], held["margin"]]
-            analyzable = all(value is not None for value in margins)
-            reconstructed.append(
-                {
-                    "category": slug,
-                    "taskId": task["taskId"],
-                    "modelFamily": family,
-                    "modelSeed": seed,
-                    "analyzable": analyzable,
-                    "immediateEligibleCount": immediate["eligibleCount"],
-                    "heldEligibleCount": held["eligibleCount"],
-                    "immediateCandidateCount": immediate["candidateCount"],
-                    "heldCandidateCount": held["candidateCount"],
-                    "immediateTopTwoEligibleUtilityMargin": immediate["margin"],
-                    "heldTopTwoEligibleUtilityMargin": held["margin"],
-                    "minimumTopTwoEligibleUtilityMargin": (
-                        round(min(margins), 6) if analyzable else None
-                    ),
-                    "forcedItemDifferent": immediate["forcedItem"] != held["forcedItem"],
-                    "postInspectionCandidateJaccard": round(overlap, 6),
-                    "postInspectionCandidateSetDifferent": overlap < 1.0,
-                    "bestEligibleCandidateDifferent": (
-                        immediate["bestEligibleItem"] != held["bestEligibleItem"]
-                    ),
-                    "exposureOpportunityChange": (
-                        immediate["forcedItem"] != held["forcedItem"] or overlap < 1.0
-                    ),
-                }
-            )
-        print(f"candidate-margin category={slug} reconstructed", flush=True)
-    return reconstructed
+def provider_rows(provider: str) -> tuple[list[dict], dict]:
+    contrasts, contrast_path = load_contrasts(provider)
+    contrast_by_task = {(row["category"], row["taskId"]): row for row in contrasts}
+    records, raw_source = load_requests(provider)
+    components = componentize(records)
+    component_tasks = map_components_to_tasks(components, contrasts)
+    rows = []
+    resolved_matches = 0
+    sham_matches = 0
+    for index, component in enumerate(components):
+        task_key = component_tasks[index]
+        contrast = contrast_by_task[task_key]
+        immediate = state_metrics(browse_state(component, "immediate-remove"))
+        held = state_metrics(browse_state(component, "held-outcome"))
+        margins = [immediate["margin"], held["margin"]]
+        analyzable = all(value is not None for value in margins)
+        overlap = jaccard(immediate["candidateIds"], held["candidateIds"])
+        immediate_final = final_decision(component, "immediate-remove")
+        held_final = final_decision(component, "held-outcome")
+        sham_a_final = final_decision(component, "held-sham-a")
+        sham_b_final = final_decision(component, "held-sham-b")
+        raw_resolved = immediate_final != held_final
+        raw_sham = sham_a_final != sham_b_final
+        expected_resolved = bool(contrast["exposureResolvedActionDiverged"])
+        expected_sham = bool(contrast["shamResolvedActionDiverged"])
+        if raw_resolved != expected_resolved or raw_sham != expected_sham:
+            raise RuntimeError("Raw final decision does not match public contrast")
+        resolved_matches += raw_resolved == expected_resolved
+        sham_matches += raw_sham == expected_sham
+        rows.append(
+            {
+                "provider": provider,
+                "category": task_key[0],
+                "taskId": task_key[1],
+                "modelFamily": contrast["modelFamily"],
+                "modelSeed": contrast["modelSeed"],
+                "analyzable": analyzable,
+                "immediateEligibleCount": immediate["eligibleCount"],
+                "heldEligibleCount": held["eligibleCount"],
+                "immediateCandidateCount": immediate["candidateCount"],
+                "heldCandidateCount": held["candidateCount"],
+                "immediateTopTwoEligibleUtilityMargin": immediate["margin"],
+                "heldTopTwoEligibleUtilityMargin": held["margin"],
+                "minimumTopTwoEligibleUtilityMargin": (
+                    round(min(margins), 6) if analyzable else None
+                ),
+                "postInspectionCandidateJaccard": round(overlap, 6),
+                "postInspectionCandidateSetDifferent": overlap < 1.0,
+                "bestEligibleCandidateDifferent": (
+                    immediate["bestEligibleCandidate"]
+                    != held["bestEligibleCandidate"]
+                ),
+                "exposureOpportunityChange": overlap < 1.0,
+                "event": bool(contrast["persistentResolvedActionFeedback"]),
+                "shamEvent": bool(contrast["shamPersistentResolvedActionFeedback"]),
+                "resolvedActionDiverged": expected_resolved,
+            }
+        )
+    source = {
+        "contrastPath": str(contrast_path.relative_to(ROOT)).replace("\\", "/"),
+        "contrastSha256": sha256_file(contrast_path),
+        **raw_source,
+        "componentCount": len(components),
+        "resolvedActionValidationMatches": resolved_matches,
+        "shamResolvedActionValidationMatches": sham_matches,
+        "aliasItemSearchLimit": ALIAS_ITEM_SEARCH_LIMIT,
+    }
+    return rows, source
 
 
 def margin_auc(rows: list[dict]) -> float | None:
@@ -216,34 +325,29 @@ def margin_auc(rows: list[dict]) -> float | None:
     controls = [row["minimumTopTwoEligibleUtilityMargin"] for row in rows if not row["event"]]
     if not events or not controls:
         return None
-    score = 0.0
-    for event in events:
-        for control in controls:
-            if event < control:
-                score += 1.0
-            elif event == control:
-                score += 0.5
+    score = sum(
+        1.0 if event < control else 0.5 if event == control else 0.0
+        for event in events
+        for control in controls
+    )
     return score / (len(events) * len(controls))
 
 
 def permutation_p(rows: list[dict], observed_auc: float | None) -> float | None:
     if observed_auc is None:
         return None
-    margins = np.array(
-        [row["minimumTopTwoEligibleUtilityMargin"] for row in rows], dtype=float
-    )
-    labels = np.array([bool(row["event"]) for row in rows], dtype=bool)
-    event_count = int(labels.sum())
-    if event_count == 0 or event_count == len(labels):
+    margins = np.array([row["minimumTopTwoEligibleUtilityMargin"] for row in rows])
+    event_count = sum(row["event"] for row in rows)
+    if event_count == 0 or event_count == len(rows):
         return None
     rng = np.random.default_rng(PERMUTATION_SEED)
-    extreme = 0
     indices = np.arange(len(rows))
+    extreme = 0
     for _ in range(PERMUTATIONS):
-        event_indices = set(rng.choice(indices, size=event_count, replace=False).tolist())
+        chosen = set(rng.choice(indices, size=event_count, replace=False).tolist())
         permuted = [
-            {"minimumTopTwoEligibleUtilityMargin": float(margins[index]), "event": index in event_indices}
-            for index in indices
+            {"minimumTopTwoEligibleUtilityMargin": float(margins[i]), "event": i in chosen}
+            for i in indices
         ]
         value = margin_auc(permuted)
         if value is not None and value >= observed_auc - 1e-12:
@@ -251,50 +355,54 @@ def permutation_p(rows: list[dict], observed_auc: float | None) -> float | None:
     return (extreme + 1) / (PERMUTATIONS + 1)
 
 
-def provider_summary(rows: list[dict], provider: str) -> dict:
-    provider_rows = [row for row in rows if row["provider"] == provider]
-    analyzable = [row for row in provider_rows if row["analyzable"]]
+def summarize(rows: list[dict], provider: str) -> dict:
+    provider_subset = [row for row in rows if row["provider"] == provider]
+    analyzable = [row for row in provider_subset if row["analyzable"]]
+    total_events = [row for row in provider_subset if row["event"]]
+    analyzable_events = [row for row in analyzable if row["event"]]
     auc = margin_auc(analyzable)
     p_value = permutation_p(analyzable, auc)
     margins = [row["minimumTopTwoEligibleUtilityMargin"] for row in analyzable]
     threshold = float(np.quantile(margins, 1 / 3, method="linear")) if margins else None
-    event_rows = [row for row in analyzable if row["event"]]
     bottom_events = (
-        sum(row["minimumTopTwoEligibleUtilityMargin"] <= threshold for row in event_rows)
+        sum(row["minimumTopTwoEligibleUtilityMargin"] <= threshold for row in analyzable_events)
         if threshold is not None
         else 0
     )
-    all_events_have_opportunity = bool(event_rows) and all(
-        row["exposureOpportunityChange"] for row in event_rows
-    )
     return {
-        "taskCount": len(provider_rows),
+        "taskCount": len(provider_subset),
         "analyzableCount": len(analyzable),
-        "analyzableRate": round(len(analyzable) / len(provider_rows), 6),
-        "persistentResolvedActionEventCount": len(event_rows),
-        "shamPersistentResolvedActionEventCount": sum(
-            row["shamEvent"] for row in provider_rows
-        ),
+        "analyzableRate": round(len(analyzable) / len(provider_subset), 6),
+        "persistentResolvedActionEventCount": len(total_events),
+        "analyzablePersistentResolvedActionEventCount": len(analyzable_events),
+        "shamPersistentResolvedActionEventCount": sum(row["shamEvent"] for row in provider_subset),
         "marginAuc": round(auc, 6) if auc is not None else None,
         "oneSidedPermutationP": round(p_value, 6) if p_value is not None else None,
         "bottomTertileThreshold": round(threshold, 6) if threshold is not None else None,
         "eventCountInBottomTertile": bottom_events,
         "eventFractionInBottomTertile": (
-            round(bottom_events / len(event_rows), 6) if event_rows else None
+            round(bottom_events / len(analyzable_events), 6) if analyzable_events else None
         ),
-        "allEventsHaveExposureOpportunityChange": all_events_have_opportunity,
-        "forcedItemDifferentRate": round(
-            sum(row["forcedItemDifferent"] for row in provider_rows) / len(provider_rows), 6
+        "zeroMarginRateAmongAnalyzable": (
+            round(sum(value == 0 for value in margins) / len(margins), 6)
+            if margins
+            else None
         ),
+        "allEventsHaveExposureOpportunityChange": bool(total_events)
+        and all(row["exposureOpportunityChange"] for row in total_events),
         "candidateSetDifferentRate": round(
-            sum(row["postInspectionCandidateSetDifferent"] for row in provider_rows)
-            / len(provider_rows),
+            sum(row["postInspectionCandidateSetDifferent"] for row in provider_subset)
+            / len(provider_subset),
             6,
         ),
         "bestEligibleCandidateDifferentRate": round(
-            sum(row["bestEligibleCandidateDifferent"] for row in provider_rows)
-            / len(provider_rows),
+            sum(row["bestEligibleCandidateDifferent"] for row in provider_subset)
+            / len(provider_subset),
             6,
+        ),
+        "bestEligibleCandidateDifferentEventCount": sum(
+            row["bestEligibleCandidateDifferent"] and row["event"]
+            for row in provider_subset
         ),
     }
 
@@ -302,63 +410,16 @@ def provider_summary(rows: list[dict], provider: str) -> dict:
 def main() -> None:
     protocol_bytes = PROTOCOL_PATH.read_bytes()
     protocol = json.loads(protocol_bytes)
-    source_protocol = json.loads(SOURCE_PROTOCOL_PATH.read_text(encoding="utf-8"))
-    reconstructed = reconstruct_task_states(source_protocol)
-    reconstructed_by_key = {
-        (row["category"], row["taskId"], row["modelFamily"]): row
-        for row in reconstructed
-    }
-    if len(reconstructed_by_key) != 32:
-        raise RuntimeError(
-            f"Expected 32 unique reconstructed tasks, found {len(reconstructed_by_key)}"
-        )
-
-    public_rows = []
+    all_rows = []
     source_files = {}
-    provider_keys = {}
     for provider in ("mimo", "deepseek"):
-        contrasts, source_path = load_contrasts(provider)
-        source_files[provider] = {
-            "path": str(source_path.relative_to(ROOT)).replace("\\", "/"),
-            "sha256": sha256_file(source_path),
-        }
-        keys = set()
-        for contrast in contrasts:
-            key = (
-                contrast["category"],
-                contrast["taskId"],
-                contrast["modelFamily"],
-            )
-            if key not in reconstructed_by_key:
-                raise RuntimeError(f"Unmatched frozen contrast key: {key}")
-            keys.add(key)
-            state = reconstructed_by_key[key]
-            public_rows.append(
-                {
-                    **state,
-                    "provider": provider,
-                    "event": bool(contrast["persistentResolvedActionFeedback"]),
-                    "shamEvent": bool(
-                        contrast["shamPersistentResolvedActionFeedback"]
-                    ),
-                    "resolvedActionDiverged": bool(
-                        contrast["exposureResolvedActionDiverged"]
-                    ),
-                }
-            )
-        provider_keys[provider] = keys
-    if provider_keys["mimo"] != provider_keys["deepseek"]:
-        raise RuntimeError("Provider task keys do not match exactly")
-
-    providers = {
-        provider: provider_summary(public_rows, provider)
-        for provider in ("mimo", "deepseek")
-    }
+        rows, source = provider_rows(provider)
+        all_rows.extend(rows)
+        source_files[provider] = source
+    providers = {provider: summarize(all_rows, provider) for provider in ("mimo", "deepseek")}
     deepseek = providers["deepseek"]
     analyzable_ok = deepseek["analyzableRate"] >= 0.90
-    direction_no_go = (
-        deepseek["marginAuc"] is None or deepseek["marginAuc"] <= 0.50
-    )
+    direction_no_go = deepseek["marginAuc"] is None or deepseek["marginAuc"] <= 0.50
     opportunity_ok = deepseek["allEventsHaveExposureOpportunityChange"]
     go = (
         analyzable_ok
@@ -376,13 +437,11 @@ def main() -> None:
         decision = "go-near-tie-margin"
     else:
         decision = "pivot-candidate-state-opportunity"
-
-    generated_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     summary = {
         "schemaVersion": "online-storefront-candidate-margin-summary.v1",
-        "generatedAt": generated_at,
+        "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "protocolSha256": sha256_bytes(protocol_bytes),
-        "sourceProtocolSha256": sha256_file(SOURCE_PROTOCOL_PATH),
+        "historicalStateSource": "actual pseudonymous candidate features sent to each provider",
         "sourceFiles": source_files,
         "predictor": protocol["predictor"],
         "permutationCount": PERMUTATIONS,
@@ -390,12 +449,13 @@ def main() -> None:
         "providers": providers,
         "decision": decision,
         "decisionRules": protocol["decisionRules"],
+        "dataQualityBoundary": "Historical storefront recommenders were inadvertently left in training mode. This diagnostic uses actual sent candidate states and does not reconstruct historical shelves.",
         "claimBoundary": protocol["claimBoundary"],
     }
     rows_payload = {
         "schemaVersion": "online-storefront-candidate-margin-rows.v1",
         "protocolSha256": summary["protocolSha256"],
-        "rows": public_rows,
+        "rows": all_rows,
     }
     write_json(OUTPUT_ROOT / "summary.json", summary, pretty=True)
     write_json(OUTPUT_ROOT / "rows.json", rows_payload)
@@ -403,12 +463,15 @@ def main() -> None:
     for name in ("summary.json", "rows.json"):
         path = OUTPUT_ROOT / name
         files[name] = {"sha256": sha256_file(path), "bytes": path.stat().st_size}
-    manifest = {
-        "schemaVersion": "online-storefront-candidate-margin-manifest.v1",
-        "protocolSha256": summary["protocolSha256"],
-        "files": files,
-    }
-    write_json(OUTPUT_ROOT / "manifest.json", manifest, pretty=True)
+    write_json(
+        OUTPUT_ROOT / "manifest.json",
+        {
+            "schemaVersion": "online-storefront-candidate-margin-manifest.v1",
+            "protocolSha256": summary["protocolSha256"],
+            "files": files,
+        },
+        pretty=True,
+    )
     print(json.dumps(summary, indent=2))
 
 

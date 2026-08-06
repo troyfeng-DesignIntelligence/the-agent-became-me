@@ -1,4 +1,5 @@
 import type {
+  CandidateMarginSummary,
   CrossLlmPilotSummary,
   DecodingDoseSummary,
   ForcedInspectionSummary,
@@ -14,20 +15,22 @@ export function LLMBehaviorFeedbackPanel({
   matchedMimo,
   deepseek,
   dose,
-  forced
+  forced,
+  margin
 }: {
   originalMimo: MiMoLlmPilotSummary;
   matchedMimo: CrossLlmPilotSummary;
   deepseek: CrossLlmPilotSummary;
   dose: DecodingDoseSummary;
   forced: ForcedInspectionSummary;
+  margin: CandidateMarginSummary;
 }) {
   const metrics = [
     {
-      label: "Changed shelf / both models",
+      label: "Historical mean displacement",
       value: matchedMimo.descriptive.meanExposureT1,
       display: percent(matchedMimo.descriptive.meanExposureT1),
-      note: "mean in-task Top-10 displacement under immediate activation"
+      note: "aggregate displacement; not an exact cross-provider shelf match"
     },
     {
       label: "MiMo matched trace",
@@ -62,11 +65,11 @@ export function LLMBehaviorFeedbackPanel({
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
       <header>
         <span className="mono-label">FRONTIER LLM PILOTS / 32 FROZEN TASKS</span>
-        <h3 id="llm-feedback-title">Same changed shelf. Different agent response.</h3>
+        <h3 id="llm-feedback-title">The response differed. The shelf was not fully frozen.</h3>
         <p>
-          MiMo and DeepSeek received the same frozen tasks, policies, and recommender
-          contrasts. Both saw equally displaced shelves. Only DeepSeek changed its action
-          path, making provider dependence part of the result rather than a footnote.
+          MiMo and DeepSeek received the same task design, but a later audit found the
+          learned recommenders were still in training mode. The historical response
+          difference remains observed; an exact same-shelf causal comparison does not.
         </p>
       </header>
 
@@ -84,13 +87,13 @@ export function LLMBehaviorFeedbackPanel({
       </div>
 
       <div className="llm-feedback-chain" aria-label="Observed boundary chain">
-        <span>same task protocol</span>
+        <span>same frozen task design</span>
         <b aria-hidden="true">→</b>
-        <span>same shelf displacement</span>
+        <span>dropout-active shelves</span>
         <b aria-hidden="true">→</b>
-        <span>different model response</span>
+        <span>different observed response</span>
         <b aria-hidden="true">→</b>
-        <span>provider-contingent path</span>
+        <span>causal attribution paused</span>
       </div>
 
       <div className="llm-feedback-diagnostics">
@@ -158,17 +161,52 @@ export function LLMBehaviorFeedbackPanel({
         </p>
       </div>
 
+      <div className="llm-feedback-audit">
+        <header>
+          <span className="mono-label">FROZEN SCALE GATE / NO-GO</span>
+          <h4>The proposed decision margin could not explain the split.</h4>
+          <p>
+            This analysis uses the pseudonymous candidate features actually sent to
+            each provider, avoiding a non-deterministic shelf reconstruction.
+          </p>
+        </header>
+        <div>
+          <article>
+            <span>Margin-analyzable</span>
+            <strong>{margin.providers.deepseek.analyzableCount}/32</strong>
+            <p>40.6% observed · 90% required</p>
+          </article>
+          <article>
+            <span>Margin AUC</span>
+            <strong>{margin.providers.deepseek.marginAuc?.toFixed(2) ?? "n/a"}</strong>
+            <p>0.50 chance · 0.70 required</p>
+          </article>
+          <article>
+            <span>Permutation p</span>
+            <strong>{margin.providers.deepseek.oneSidedPermutationP?.toFixed(2) ?? "n/a"}</strong>
+            <p>100,000 frozen permutations</p>
+          </article>
+        </div>
+        <p className="llm-feedback-audit__note">
+          All 13 analyzable top-two utility gaps were zero. The preregistered
+          mechanism gate failed, so third-provider and confirmatory calls are paused.
+          The repaired recommender now passes a separate 32/32 within-process and
+          fresh-process determinism preflight; that fixes future measurement, not this
+          failed mechanism.
+        </p>
+      </div>
+
       <footer>
         <p>
-          <strong>Observed:</strong> MiMo produced 0/64 exposed trace divergences and
+          <strong>Historical observation:</strong> MiMo produced 0/64 exposed trace divergences and
           DeepSeek produced 11/64, despite the same 69.7% mean shelf displacement. Both
           held-versus-held sham rates were 0/64.
         </p>
         <p>
           <strong>Boundary:</strong> The earlier MiMo pilot's {percent(originalMimo.descriptive.traceDivergenceRate)}
-          trace divergence did not recur under the matched decoding protocol. The evidence
-          supports a model-contingent boundary, not cross-LLM replication. Forced
-          inspection further separates changed browsing history from changed task resolution.
+          trace divergence did not recur. Because recommender dropout was active, these
+          historical runs do not identify a clean provider or exposure effect. Forced
+          inspection still shows why browsing history and task resolution need separate measures.
         </p>
       </footer>
     </section>

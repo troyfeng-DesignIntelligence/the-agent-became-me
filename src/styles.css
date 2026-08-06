@@ -315,10 +315,90 @@
   line-height: 1.6;
 }
 
+.llm-feedback-audit {
+  margin-top: clamp(2.5rem, 6vw, 5.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.75rem);
+  border-top: 1px solid rgb(36 35 32 / 0.3);
+}
+
+.llm-feedback-audit > header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: clamp(1.25rem, 4vw, 4rem);
+  align-items: end;
+}
+
+.llm-feedback-audit h4 {
+  grid-column: 1;
+  margin: 0.65rem 0 0;
+  max-width: 18ch;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.llm-feedback-audit > header p {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+  color: rgb(36 35 32 / 0.68);
+  line-height: 1.55;
+}
+
+.llm-feedback-audit > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+  border-block: 1px solid rgb(36 35 32 / 0.24);
+}
+
+.llm-feedback-audit article {
+  padding: clamp(1rem, 2.5vw, 2rem);
+  border-right: 1px solid rgb(36 35 32 / 0.24);
+}
+
+.llm-feedback-audit article:last-child {
+  border-right: 0;
+}
+
+.llm-feedback-audit article > span {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.llm-feedback-audit article strong {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.llm-feedback-audit article p,
+.llm-feedback-audit__note {
+  color: rgb(36 35 32 / 0.68);
+  line-height: 1.55;
+}
+
+.llm-feedback-audit article p {
+  margin: 0.65rem 0 0;
+}
+
+.llm-feedback-audit__note {
+  margin: 0;
+  padding-top: 1.5rem;
+}
+
 @media (max-width: 900px) {
   .llm-feedback-panel > header,
   .llm-feedback-panel > footer,
-  .llm-feedback-diagnostics > header {
+  .llm-feedback-diagnostics > header,
+  .llm-feedback-audit > header {
     grid-template-columns: 1fr;
   }
 
@@ -354,6 +434,11 @@
   .llm-feedback-resolved > header {
     grid-column: 1 / -1;
     border-right: 0;
+  }
+
+  .llm-feedback-audit > header p {
+    grid-column: 1;
+    grid-row: auto;
   }
 }
 
@@ -422,6 +507,19 @@
   .llm-feedback-resolved > article {
     padding-block: 1.5rem;
     border-top: 1px solid rgb(36 35 32 / 0.24);
+  }
+
+  .llm-feedback-audit > div {
+    grid-template-columns: 1fr;
+  }
+
+  .llm-feedback-audit article {
+    border-right: 0;
+    border-bottom: 1px solid rgb(36 35 32 / 0.24);
+  }
+
+  .llm-feedback-audit article:last-child {
+    border-bottom: 0;
   }
 }
 

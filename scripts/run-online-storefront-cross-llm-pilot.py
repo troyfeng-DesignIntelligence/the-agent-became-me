@@ -723,6 +723,7 @@ def main() -> None:
             seed = [7, 17, 29][task_index % 3]
             model = sas_models[seed] if family == "sasrec" else gru_models[seed]
             scoring = sas.score_context_batch if family == "sasrec" else gru.score_context_batch
+            model.eval()
             scorer = models.ModelScorer(model, scoring)
             for policy in protocol["agentPolicies"]:
                 results = {}

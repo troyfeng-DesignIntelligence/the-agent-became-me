@@ -1,7 +1,19 @@
 # Resolved-action confirmatory plan
 
-Status: frozen before the first candidate-margin computation and before any new
-confirmatory API call.
+Status: **frozen mechanism gate returned no-go; confirmatory API calls paused**.
+
+Post-freeze audit (2026-08-06): only 13/32 DeepSeek tasks were margin-analyzable,
+all 13 top-two eligible utility gaps were zero, margin AUC was 0.50, and the
+one-sided permutation p-value was 1.00. The historical storefront runner also
+left SASRec/GRU4Rec in training mode, so recommender dropout was active. The
+three-family plan below remains an audit record and must not be executed until
+a deterministic repair pilot and a newly frozen, non-degenerate margin
+instrument pass their gates. See `DATA_QUALITY_AUDIT_2026-08-06.md`.
+
+Instrumentation update (2026-08-06): the repaired runner now passes its separate
+determinism preflight on 32/32 tasks, including a matching Top-10 shelf hash in
+two fresh processes. The confirmatory plan remains paused because this does not
+repair the degenerate margin instrument or supply mechanism evidence.
 
 ## What is primary now
 
@@ -44,6 +56,10 @@ If the near-tie gate passes, the larger study retains decision margin as a
 pre-specified moderator. If only candidate-state opportunity passes, the paper
 pivots from near-tie sensitivity to exposure-created decision opportunity. If
 neither passes, no new confirmatory API calls are justified.
+
+Observed decision: **no-go**. The analyzable-support and AUC gates both failed.
+No third-family provider should be selected and no confirmatory calls should be
+made from this plan.
 
 ## Claim boundary
 

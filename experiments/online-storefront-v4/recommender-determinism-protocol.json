@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "online-storefront-recommender-determinism-protocol.v1",
+  "status": "required-before-any-future-storefront-api-call",
+  "frozenDate": "2026-08-06",
+  "categories": [
+    "luxury-beauty",
+    "software",
+    "industrial-and-scientific",
+    "prime-pantry"
+  ],
+  "tasksPerCategory": 8,
+  "recommenderAllocation": "Alternate SASRec and GRU4Rec using the frozen task order and seed assignment.",
+  "checks": {
+    "evaluationMode": "Every selected model must report training=false before scoring.",
+    "withinProcess": "Three uncached score calls for the same context must be byte-identical.",
+    "freshProcess": "The canonical 32-task Top-10 shelf-state SHA-256 must match the preceding completed preflight from a fresh process."
+  },
+  "decisionRule": "Pass only when all 32 tasks pass evaluation-mode and within-process checks and the fresh-process shelf hash matches.",
+  "privacy": "Public output contains counts and aggregate hashes only; no item IDs, task IDs, titles, reviews, or model score vectors."
+}
