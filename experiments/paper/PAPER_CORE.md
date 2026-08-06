@@ -374,6 +374,41 @@ hash. This establishes a deterministic future instrument only. It does not
 rescue the failed margin mechanism or retrospectively repair the historical
 LLM contrasts.
 
+### R13 — A non-degenerate predecision score localized divergence in a deterministic repair pilot
+
+We prospectively replaced the degenerate utility gap with an outcome-independent
+dominance score. For every constraint-eligible candidate, the score averages
+task utility, reciprocal platform rank, reciprocal task-local rank, and novelty.
+The task-level predictor is the smaller immediate/held separation between the
+leading two candidates, with frozen single- and zero-candidate boundary rules.
+No model response, selected action, success label, or later outcome enters the
+score.
+
+Before any new LLM call, we screened all 460 deterministic tasks. The predictor
+was finite for 460/460 tasks; the original balanced 32-task slice had 17 distinct
+values, a largest point mass of 0.406, and standard deviation 0.450. Only 37/460
+tasks, however, contained an exposure-created actionable opportunity. We
+therefore froze an outcome-blind, category- and recommender-balanced 32-task
+mechanism set with 15 opportunity tasks. This sample is deliberately enriched
+for mechanism detection and cannot estimate natural prevalence.
+
+On the repaired shelves, DeepSeek produced 7/32 persistent resolved-action
+events versus 1/32 sham events. Its dominance predictor reached AUC 0.780 with
+an exact one-sided label-permutation `p = 0.0115`; 5/7 events fell in the bottom
+predictor tertile. MiMo independently produced 6/32 exposure events versus
+0/32 sham, AUC 0.734, exact `p = 0.0391`, with 3/6 events in the bottom tertile.
+Across both providers, all 13 exposure events occurred on opportunity-changed
+tasks and none occurred on the 17 tasks without that opportunity. The primary
+DeepSeek gates all passed.
+
+The post-call actual-state audit matched the frozen predictor, exposure
+resolved action, and sham resolved action for 32/32 tasks per provider. The
+result therefore supports a narrow mechanism inside this research storefront:
+recommendation exposure was associated with resolved-action divergence when
+it changed the actionable candidate opportunity, especially at lower frozen
+predecision separation. It does not establish the frequency of that condition
+in natural task traffic, human preference change, or production-retailer effects.
+
 ## Contribution statement
 
 1. **Empirical.** We characterize how three candidate outcomes—ranking change,
@@ -381,11 +416,15 @@ LLM contrasts.
    research shopping system. The forced-inspection runs show that a changed
    realized browsing history need not become a changed resolved decision. The
    historical provider contrast is retained as an observed controller outcome,
-   not as a clean same-shelf causal comparison.
+   not as a clean same-shelf causal comparison. In a separately frozen repair
+   pilot, divergence recurred across two LLM families and localized entirely to
+   exposure-created actionable opportunities.
 2. **Conceptual.** We distinguish stored-state, browsing-path, and resolved-
    decision reversibility. Removing temporary evidence can restore a profile
    input; a required inspection can still change browsing history; neither fact
-   alone establishes that the agent's committed decision changed.
+   alone establishes that the agent's committed decision changed. The repair
+   pilot adds two preconditions for committed-decision divergence: an exposure-
+   created opportunity and sufficiently low predecision separation.
 3. **Methodological.** We show that a paired four-arm protocol must freeze two
    stochastic layers, not one: independent held-exposure sham trajectories
    calibrate LLM variation, while deterministic recommender-state hashes are
@@ -393,7 +432,8 @@ LLM contrasts.
    resolved-action estimand prevent mandated intermediate actions from being
    misreported as changed task resolution. The failed margin gate further shows
    why a proposed moderator must have empirical support before confirmatory
-   scaling.
+   scaling. An outcome-blind enrichment procedure then shows how to stress-test
+   a rare mechanism without misreporting the enriched sample as prevalence.
 4. **Design.** We translate the mechanism into outcome-gated platform
    activation with a separate task-local channel and an inspectable control
    prototype. The design implication follows from computational evidence; the
@@ -418,6 +458,7 @@ LLM contrasts.
 | Fig. 13 | Immediate-versus-held trace pair with the held-versus-held sham calibration | Makes exposure-adjusted behavioral path dependence visible |
 | Fig. 14 | Temperature curves plus whole-trace versus resolved-action divergence | Shows when stochasticity enters and why trace change is not decision change |
 | Fig. 15 | Frozen margin gates versus observed support, with inference-mode audit | Explains why the larger LLM replication is paused |
+| Fig. 16 | Deterministic repair: exposure versus sham events, dominance AUC, and opportunity localization | Main prospective mechanism result and its sampling boundary |
 
 ## Claim discipline
 
@@ -433,8 +474,10 @@ LLM contrasts.
 - Say “deterministic autonomous policies,” not “frontier LLM agents.”
 - Say “behavioral path dependence within the paired replay,” not “permanent
   contamination,” “irreversible preference change,” or “unlearning failure.”
-- Say “DeepSeek-only behavioral propagation under the matched pilot,” not
-  “cross-LLM replication” or “provider-general agent feedback.”
+- For the historical matched pilot, say “DeepSeek-only behavioral propagation,”
+  not “cross-LLM replication.” For the deterministic repair pilot, say “same-
+  direction recurrence across MiMo and DeepSeek on an opportunity-enriched
+  task set,” not “provider-general population effect.”
 - Say “resolved-action divergence” when claiming changed task behavior; do not
   use a controller-mandated browsing-trace difference as equivalent evidence.
 - Say “historical provider-contingent controller outcomes,” not “same-shelf
@@ -444,11 +487,12 @@ LLM contrasts.
 
 ## Most defensible paper story
 
-The strongest story is no longer that transient evidence already produced a
-confirmed irreversible feedback effect. The discovery is methodological and
-interactional: a system can record a different browsing history without
-reaching a different resolved decision, and an experiment can calibrate the
-agent's stochasticity while leaving the recommender's stochasticity uncontrolled.
+The strongest story is not that transient evidence generically produces an
+irreversible feedback effect. It is that recommendation exposure changes a
+resolved action under a narrower conjunction: exposure must create an
+actionable opportunity, and the frozen predecision separation must be low.
+This mechanism appeared in an outcome-blind, opportunity-enriched deterministic
+pilot across MiMo and DeepSeek.
 
 The deterministic fixed-trace experiments establish that activation timing can
 change recommendation state without requiring task-blind retrieval. The LLM
@@ -457,13 +501,17 @@ overstates committed behavioral change: MiMo changed 24/32 forced-inspection
 traces but 0/32 resolved actions. Second, LLM sham controls are insufficient if
 the learned shelf itself is not frozen across contexts and runs.
 
-The frozen decision-margin diagnostic did not rescue the intended mechanism:
-support was 13/32, every observable gap tied at zero, and discrimination was at
-chance. Although the repaired recommender now passes a 32/32 within- and
-cross-process determinism preflight, that is an instrumentation result rather
-than evidence for the proposed mechanism. The defensible contribution is
-therefore a distinction among stored
-state, provisional trace, and resolved action, plus an audit requirement that
-both recommender and agent variation be independently controlled. A new study
-must repair the instrument and pass a small deterministic pilot before any
-third-family or confirmatory-scale claim.
+The failed historical margin remains part of the evidence: support was 13/32,
+every observable gap tied at zero, and discrimination was at chance. We did not
+relax that gate. We designed a new outcome-independent score, tested its support
+offline, froze the task-selection algorithm, repaired recommender determinism,
+and only then made new calls. The resulting 7-versus-1 DeepSeek and 6-versus-0
+MiMo exposure/sham contrasts, together with 13/13 localization to opportunity
+tasks, support the proposed mechanism inside the research system.
+
+The defensible contribution now combines the distinction among stored state,
+provisional trace, and resolved action with a positive, prospectively measured
+mechanism: early exposure can alter a resolved decision before deletion, but
+not on every task. A third-family replication is justified next. Population-
+scale prevalence estimation still requires a separate natural task sample and
+must not reuse the opportunity-enriched 32-task pilot as its denominator.

@@ -28,7 +28,7 @@ export const hero = {
   summary:
     "I pair immediate recommendation activation with an outcome-gated hold, then follow the agent from the changed shelf to its resolved action and next task. Independent held-exposure calls separate recommendation-mediated feedback from ordinary LLM variation.",
   status:
-    "4 Amazon-derived categories · 2 learned recommenders · MiMo and DeepSeek diagnostics complete · frozen mechanism gate returned no-go · confirmatory calls paused",
+    "4 Amazon-derived categories · 2 learned recommenders · MiMo and DeepSeek repaired pilot complete · frozen mechanism gate passed · third-family replication is next",
   disclosure:
     "Shopping tasks are generated over public, pseudonymized review histories. Public artifacts exclude original user IDs, item IDs, titles, reviews, and raw model responses.",
   primaryAction: "Inspect the evidence",
@@ -242,7 +242,8 @@ export const limitations = [
   "The profile is a five-axis test representation over 90 food products. It is intentionally inspectable and cannot represent the breadth, instability, or social meaning of a person’s preferences.",
   "Most large experiments use deterministic, transparent policies. The historical LLM runner inadvertently left SASRec and GRU4Rec in training mode, so dropout remained active during ranking inference. Provider and temperature comparisons therefore do not establish same-shelf recurrence or a clean recommendation-exposure effect.",
   "A controller-required recommendation view changed MiMo browsing traces in 24/32 pairs but changed its resolved item-or-abandon outcome in 0/32. Whole-trace divergence can therefore overstate behavioral change; the confirmatory outcome must be resolved-action divergence with a held-sham control.",
-  "The frozen candidate-margin gate returned no-go: only 13/32 DeepSeek tasks were analyzable, every observed top-two eligible utility gap was zero, AUC was 0.50, and the one-sided permutation p-value was 1.00. Third-family and confirmatory calls are paused.",
+  "The historical task-utility margin returned no-go: only 13/32 DeepSeek tasks were analyzable and every observed gap was zero. It remains a negative audit and was not reinterpreted after the fact.",
+  "A separately frozen dominance score passed its offline support check and predicted resolved-action divergence in an outcome-blind, opportunity-enriched 32-task repair pilot across MiMo and DeepSeek. Because 15 of the selected tasks were deliberate exposure-opportunity cases drawn from 37/460 screened tasks, this pilot tests mechanism rather than natural prevalence.",
   "The serialized field `profileContamination` is a reference-profile distance, not independently established harm. It depends on hand-authored vectors, update equations, learning rates, and one relevance model.",
   "Matched shrinkage slightly outperformed provenance-aware updating. The benchmark therefore does not establish a provenance-specific benefit.",
   "Matched shrinkage is oracle-calibrated per trace from provenance-aware observed-intent weights. It is a non-selective mechanism control, not a deployable policy wholly independent of intent metadata.",

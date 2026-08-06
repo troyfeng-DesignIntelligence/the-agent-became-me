@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "online-storefront-deterministic-repair-pilot-evaluation-summary.v1",
+  "generatedAt": "2026-08-06T08:48:01.616112Z",
+  "protocolSha256": "ed3b2a309a4997913549c87025160ad160d7822a3ccf4cfb8c61459f71fe34d9",
+  "selectionSha256": "e60f374f39ca72a2905199991e4056c80fa255da02cd8452e9eecd9ade33db5c",
+  "sources": {
+    "mimo": {
+      "summaryPath": "public/results/online-storefront-deterministic-repair-pilot/v1/mimo/summary.json",
+      "summarySha256": "9bd8539467b5beab2268044fc02f88de979d17ed5bf49c53125180349285dbb0",
+      "contrastsPath": "public/results/online-storefront-deterministic-repair-pilot/v1/mimo/contrasts.json",
+      "contrastsSha256": "1d855f331caeba704b29bc853c9bf8e905a01aa07fe5734f13648d9b36b807da"
+    },
+    "deepseek": {
+      "summaryPath": "public/results/online-storefront-deterministic-repair-pilot/v1/deepseek/summary.json",
+      "summarySha256": "d4ca5f7496235c8fc1a0e0a009cb0a603000f4e978ae2ff3eec7b54b28e0d7a3",
+      "contrastsPath": "public/results/online-storefront-deterministic-repair-pilot/v1/deepseek/contrasts.json",
+      "contrastsSha256": "7a5b29db74c7941c8018940c115e6bde7b4c67a016e6d435dea6d54091535420"
+    }
+  },
+  "providers": {
+    "mimo": {
+      "taskCount": 32,
+      "persistentResolvedActionEventCount": 6,
+      "persistentResolvedActionEventRate": 0.1875,
+      "shamPersistentResolvedActionEventCount": 0,
+      "shamPersistentResolvedActionEventRate": 0.0,
+      "shamAdjustedEventRate": 0.1875,
+      "mechanismAuc": 0.733974,
+      "oneSidedExactPermutationP": 0.039057,
+      "exactPermutationEnumerationCount": 906192,
+      "bottomTertileThreshold": 0.052525,
+      "eventCountInBottomTertile": 3,
+      "eventFractionInBottomTertile": 0.5,
+      "eventCountOnOpportunityChangedTasks": 6,
+      "eventCountOutsideOpportunityChangedTasks": 0,
+      "categoryEventCounts": {
+        "luxury-beauty": 2,
+        "software": 0,
+        "industrial-and-scientific": 4,
+        "prime-pantry": 0
+      },
+      "pairedExposureVersusSham": {
+        "exposureOnlyCount": 6,
+        "shamOnlyCount": 0,
+        "discordantCount": 6,
+        "oneSidedExactP": 0.015625
+      },
+      "reliability": {
+        "validActionRate": 1.0,
+        "timeoutCount": 0,
+        "requestCount": 128,
+        "observedCostAtPublishedRates": 0.101333,
+        "currency": "CNY"
+      },
+      "actualStateAudit": {
+        "responseFileCount": 128,
+        "responseDirectorySha256": "f8800de6eebe5f9be53df1760f9ebd4b740ed2fb769d7944f86ff7e518d6a6b9",
+        "componentCount": 32,
+        "predictorMatchCount": 32,
+        "resolvedActionMatchCount": 32,
+        "shamResolvedActionMatchCount": 32,
+        "aliasItemSearchLimit": 10000
+      }
+    },
+    "deepseek": {
+      "taskCount": 32,
+      "persistentResolvedActionEventCount": 7,
+      "persistentResolvedActionEventRate": 0.21875,
+      "shamPersistentResolvedActionEventCount": 1,
+      "shamPersistentResolvedActionEventRate": 0.03125,
+      "shamAdjustedEventRate": 0.1875,
+      "mechanismAuc": 0.78,
+      "oneSidedExactPermutationP": 0.011541,
+      "exactPermutationEnumerationCount": 3365856,
+      "bottomTertileThreshold": 0.052525,
+      "eventCountInBottomTertile": 5,
+      "eventFractionInBottomTertile": 0.714286,
+      "eventCountOnOpportunityChangedTasks": 7,
+      "eventCountOutsideOpportunityChangedTasks": 0,
+      "categoryEventCounts": {
+        "luxury-beauty": 1,
+        "software": 1,
+        "industrial-and-scientific": 2,
+        "prime-pantry": 3
+      },
+      "pairedExposureVersusSham": {
+        "exposureOnlyCount": 7,
+        "shamOnlyCount": 1,
+        "discordantCount": 8,
+        "oneSidedExactP": 0.035156
+      },
+      "reliability": {
+        "validActionRate": 1.0,
+        "timeoutCount": 0,
+        "requestCount": 166,
+        "observedCostAtPublishedRates": 0.016706,
+        "currency": "USD"
+      },
+      "actualStateAudit": {
+        "responseFileCount": 166,
+        "responseDirectorySha256": "a3e6d3706ff87335631e9946554e3176009cd51165cc7cae5246b9dc4dad7c80",
+        "componentCount": 32,
+        "predictorMatchCount": 32,
+        "resolvedActionMatchCount": 32,
+        "shamResolvedActionMatchCount": 32,
+        "aliasItemSearchLimit": 10000
+      }
+    }
+  },
+  "gates": {
+    "reliability": true,
+    "deepseekSham": true,
+    "deepseekEventSupport": true,
+    "deepseekDiscrimination": true,
+    "deepseekExactPermutation": true,
+    "deepseekBottomTertileConcentration": true,
+    "manifestMatch": true,
+    "actualSentStateMatch": true,
+    "privacy": true
+  },
+  "decision": "go-mechanism-stress-test",
+  "cost": {
+    "mimo": {
+      "amount": 0.101333,
+      "currency": "CNY"
+    },
+    "deepseek": {
+      "amount": 0.016706,
+      "currency": "USD"
+    }
+  },
+  "claimBoundary": "A passing result supports the proposed mechanism on an opportunity-enriched research-storefront task set. It does not estimate natural prevalence, human behavior, or production-retailer effects."
+}

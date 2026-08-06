@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "online-storefront-cross-llm-pilot-summary.v1",
+  "generatedAt": "2026-08-06T08:27:24.645695+00:00",
+  "protocolSha256": "ed3b2a309a4997913549c87025160ad160d7822a3ccf4cfb8c61459f71fe34d9",
+  "design": {
+    "provider": "xiaomi-mimo",
+    "model": "mimo-v2.5",
+    "temperature": 0.0,
+    "taskCount": 32,
+    "trajectoryCount": 128,
+    "pairedContrastCount": 32,
+    "conditions": [
+      "immediate-remove",
+      "held-outcome",
+      "held-sham-a",
+      "held-sham-b"
+    ],
+    "agentPolicies": [
+      "forced-inspection"
+    ],
+    "recommenderFamilies": [
+      "sasrec",
+      "gru4rec"
+    ]
+  },
+  "api": {
+    "requestCount": 128,
+    "cacheHitCount": 0,
+    "attemptCount": 128,
+    "validActionCount": 128,
+    "retrySuccessCount": 0,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "validActionRate": 1.0,
+    "inputTokens": 95355,
+    "outputTokens": 2989,
+    "currency": "CNY",
+    "observedCostAtPublishedRates": 0.101333,
+    "medianLatencySeconds": 1.75,
+    "returnedModels": [
+      "mimo-v2.5"
+    ],
+    "systemFingerprints": []
+  },
+  "descriptive": {
+    "meanExposureT1": 0.825,
+    "exposureTraceDivergenceRate": 0.875,
+    "shamTraceDivergenceRate": 0.0,
+    "persistentBehavioralFeedbackRate": 0.75,
+    "shamPersistentBehavioralFeedbackRate": 0.0,
+    "adjustedPersistentFeedback": 0.75,
+    "adjustedTraceDivergence": 0.875,
+    "exposureResolvedActionDivergenceRate": 0.1875,
+    "shamResolvedActionDivergenceRate": 0.0,
+    "persistentResolvedActionFeedbackRate": 0.1875,
+    "shamPersistentResolvedActionFeedbackRate": 0.0,
+    "adjustedPersistentResolvedActionFeedback": 0.1875,
+    "heldMinusImmediateDecisionAccuracy": 0.0,
+    "heldMinusImmediateSelectedUtility": 0.0
+  },
+  "gates": {
+    "validActionRateAtLeast095": true,
+    "timeoutRateBelow005": true,
+    "shamPersistentFeedbackAtMost005": true,
+    "privacyViolationCount": 0
+  },
+  "claims": {
+    "observed": [
+      "The provider selected actions from pseudonymous derived candidate features under frozen policies.",
+      "Independent held-exposure sham calls estimate model stochastic divergence rather than forcing a cache match."
+    ],
+    "notEstablished": [
+      "This pilot does not establish confirmatory cross-LLM recurrence.",
+      "The study does not measure human or production-retailer behavior.",
+      "Persistent behavioral feedback is bounded to the protocol-defined research-system checkpoints and realized-trace exclusion masks."
+    ]
+  }
+}

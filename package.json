@@ -69,6 +69,7 @@
     "online:repair-pilot:select": "python scripts/select-online-storefront-repair-pilot-tasks.py",
     "online:repair-pilot:dry-run:mimo": "python scripts/run-online-storefront-cross-llm-pilot.py --provider mimo --protocol experiments/online-storefront-v4/deterministic-repair-pilot-protocol.json",
     "online:repair-pilot:dry-run:deepseek": "python scripts/run-online-storefront-cross-llm-pilot.py --provider deepseek --protocol experiments/online-storefront-v4/deterministic-repair-pilot-protocol.json",
+    "online:repair-pilot:evaluate": "python scripts/evaluate-online-storefront-deterministic-repair-pilot.py",
     "paper:figures": "node scripts/generate-paper-figures.mjs",
     "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",

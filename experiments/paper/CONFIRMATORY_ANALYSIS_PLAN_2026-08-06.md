@@ -9,6 +9,13 @@ frozen no-go on its candidate-margin gate. See
 `DATA_QUALITY_AUDIT_2026-08-06.md` and
 `RESOLVED_ACTION_CONFIRMATORY_PLAN_2026-08-06.md`.
 
+Prospective repair update (2026-08-06): a separate deterministic 32-task pilot
+with a newly frozen dominance score passed its primary mechanism gate across
+DeepSeek, with convergent MiMo evidence. This justifies a third-family recurrence
+on that pilot's frozen manifest. It does not reactivate this older 360-task plan,
+whose sampling frame and primary estimand remain superseded. See
+`DETERMINISTIC_REPAIR_PILOT_REPORT_2026-08-06.md`.
+
 Post-freeze decision (2026-08-06): the matched 32-task pilot produced 9/64
 persistent-feedback events for DeepSeek and 0/64 for MiMo, with 0/64 sham
 events for both providers. This satisfies the plan's **model-contingent

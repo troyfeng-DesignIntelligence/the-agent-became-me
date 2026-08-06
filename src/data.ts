@@ -1360,11 +1360,48 @@ const CandidateMarginSummarySchema = z.object({
   claimBoundary: z.string()
 });
 
+const DeterministicRepairProviderSchema = z.object({
+  taskCount: z.number().int().positive(),
+  persistentResolvedActionEventCount: z.number().int().nonnegative(),
+  persistentResolvedActionEventRate: z.number().min(0).max(1),
+  shamPersistentResolvedActionEventCount: z.number().int().nonnegative(),
+  shamPersistentResolvedActionEventRate: z.number().min(0).max(1),
+  shamAdjustedEventRate: z.number().min(-1).max(1),
+  mechanismAuc: z.number().min(0).max(1),
+  oneSidedExactPermutationP: z.number().min(0).max(1),
+  eventCountInBottomTertile: z.number().int().nonnegative(),
+  eventFractionInBottomTertile: z.number().min(0).max(1),
+  eventCountOnOpportunityChangedTasks: z.number().int().nonnegative(),
+  eventCountOutsideOpportunityChangedTasks: z.number().int().nonnegative(),
+  actualStateAudit: z.object({
+    componentCount: z.number().int().positive(),
+    predictorMatchCount: z.number().int().nonnegative(),
+    resolvedActionMatchCount: z.number().int().nonnegative(),
+    shamResolvedActionMatchCount: z.number().int().nonnegative()
+  }).passthrough()
+}).passthrough();
+
+const DeterministicRepairSummarySchema = z.object({
+  schemaVersion: z.literal(
+    "online-storefront-deterministic-repair-pilot-evaluation-summary.v1"
+  ),
+  providers: z.object({
+    mimo: DeterministicRepairProviderSchema,
+    deepseek: DeterministicRepairProviderSchema
+  }),
+  gates: z.record(z.string(), z.boolean()),
+  decision: z.string(),
+  claimBoundary: z.string()
+}).passthrough();
+
 export type MiMoLlmPilotSummary = z.infer<typeof MiMoLlmPilotSummarySchema>;
 export type CrossLlmPilotSummary = z.infer<typeof CrossLlmPilotSummarySchema>;
 export type DecodingDoseSummary = z.infer<typeof DecodingDoseSummarySchema>;
 export type ForcedInspectionSummary = z.infer<typeof ForcedInspectionSummarySchema>;
 export type CandidateMarginSummary = z.infer<typeof CandidateMarginSummarySchema>;
+export type DeterministicRepairSummary = z.infer<
+  typeof DeterministicRepairSummarySchema
+>;
 
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
@@ -1389,6 +1426,7 @@ interface ProjectDataState {
   decodingDoseResponse: DecodingDoseSummary | null;
   forcedInspection: ForcedInspectionSummary | null;
   candidateMargin: CandidateMarginSummary | null;
+  deterministicRepairPilot: DeterministicRepairSummary | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1414,6 +1452,7 @@ export function useProjectData(): ProjectDataState {
     decodingDoseResponse: null,
     forcedInspection: null,
     candidateMargin: null,
+    deterministicRepairPilot: null,
     catalog: null,
     error: null,
     loading: true
@@ -1551,6 +1590,14 @@ export function useProjectData(): ProjectDataState {
           if (!response.ok) throw new Error("Could not load candidate-margin audit.");
           return CandidateMarginSummarySchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-deterministic-repair-pilot/v1/evaluation/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load deterministic repair pilot.");
+          }
+          return DeterministicRepairSummarySchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1573,7 +1620,8 @@ export function useProjectData(): ProjectDataState {
           deepseekLlmPilot,
           decodingDoseResponse,
           forcedInspection,
-          candidateMargin
+          candidateMargin,
+          deterministicRepairPilot
         ]) => {
         if (!cancelled) {
           setState({
@@ -1595,6 +1643,7 @@ export function useProjectData(): ProjectDataState {
             decodingDoseResponse,
             forcedInspection,
             candidateMargin,
+            deterministicRepairPilot,
             catalog,
             error: null,
             loading: false
@@ -1623,6 +1672,7 @@ export function useProjectData(): ProjectDataState {
             decodingDoseResponse: null,
             forcedInspection: null,
             candidateMargin: null,
+            deterministicRepairPilot: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

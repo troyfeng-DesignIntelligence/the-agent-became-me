@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "online-storefront-deterministic-repair-pilot-evaluation-manifest.v1",
+  "protocolSha256": "ed3b2a309a4997913549c87025160ad160d7822a3ccf4cfb8c61459f71fe34d9",
+  "files": {
+    "summary.json": {
+      "sha256": "87126498db27c4f0c8cd815b494fcac1680e04d9ac835db78fb3e30fbe5f1aa2",
+      "bytes": 4979
+    },
+    "rows.json": {
+      "sha256": "81188fb3a66fb0aebae7da88ff5d323f3788f5f5d5c90a8cd577e9152bd2ecc7",
+      "bytes": 17521
+    }
+  }
+}

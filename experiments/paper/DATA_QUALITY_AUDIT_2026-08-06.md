@@ -1,6 +1,19 @@
 # Data-quality audit: historical storefront recommendation states
 
-Status: **critical method defect found; new confirmatory API calls paused**.
+Status: **historical defect retained; deterministic repair pilot passed**.
+
+## Prospective resolution
+
+The historical defect and old margin no-go remain unchanged. A separate
+prospective repair has now completed: the runner used evaluation-mode SASRec
+and GRU4Rec shelves, a newly frozen outcome-independent dominance score, and an
+outcome-blind 32-task mechanism manifest. The actual sent-state audit matched
+the frozen predictor and exposure/sham resolved actions for 32/32 tasks per
+provider. DeepSeek passed every frozen primary gate; MiMo showed convergent
+directional evidence. See `DETERMINISTIC_REPAIR_PILOT_REPORT_2026-08-06.md`.
+
+This resolution validates the new mechanism stress test only. It does not
+repair historical comparisons or estimate natural prevalence.
 
 ## Technical summary
 
@@ -124,14 +137,14 @@ controller outcomes, but their causal attribution is downgraded.
 
 ## Recommended next steps
 
-1. Keep third-provider and confirmatory API calls paused.
+1. Proceed only to a separately frozen third-family recurrence test; keep
+   population-scale confirmatory calls paused until their natural-sampling
+   estimand and multiplicity plan are frozen.
 2. Keep the now-passing deterministic recommender preflight as a mandatory
    API-call gate; do not interpret it as a mechanism result.
-3. Design and validate a non-degenerate decision-margin instrument entirely
-   offline.
-4. Freeze a new 32-task deterministic repair pilot before spending on LLM calls.
-5. Only after that pilot passes mechanism, reliability, sham, and privacy gates,
-   freeze the third family and scale to the planned temperature-zero study.
+3. Retain the now-validated dominance score without post-outcome modification.
+4. Retain the frozen 32-task repair manifest for independent recurrence.
+5. Use a separate non-enriched sample for prevalence or average-effect claims.
 
 ## Open questions
 

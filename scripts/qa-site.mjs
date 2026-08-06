@@ -382,10 +382,14 @@ async function desktopPass(browser) {
     (await page.locator(".llm-feedback-resolved article").count()) === 2,
     "Desktop: the forced-inspection comparison did not render both LLM providers."
   );
-  check(
-    (await page.locator(".llm-feedback-audit").innerText()).includes("NO-GO"),
-    "Desktop: the frozen candidate-margin no-go did not render."
-  );
+    check(
+      (await page.locator(".llm-feedback-audit").innerText()).includes("NO-GO"),
+      "Desktop: the frozen candidate-margin no-go did not render."
+    );
+    check(
+      (await page.locator(".llm-feedback-repair").innerText()).includes("0.780"),
+      "Desktop: the deterministic repair result did not render."
+    );
 
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-hero.png")
@@ -911,10 +915,14 @@ async function mobilePass(browser) {
     (await page.locator(".llm-feedback-dose__row").count()) === 2,
     "Mobile: the decoding dose table did not render both LLM providers."
   );
-  check(
-    (await page.locator(".llm-feedback-audit").innerText()).includes("0.50"),
-    "Mobile: the candidate-margin audit metrics did not render."
-  );
+    check(
+      (await page.locator(".llm-feedback-audit").innerText()).includes("0.50"),
+      "Mobile: the candidate-margin audit metrics did not render."
+    );
+    check(
+      (await page.locator(".llm-feedback-repair").innerText()).includes("13 / 13"),
+      "Mobile: the opportunity-localization result did not render."
+    );
   await page.locator(".llm-feedback-panel").screenshot({
     path: path.join(outputDirectory, "mobile-llm-feedback-boundary.png")
   });
