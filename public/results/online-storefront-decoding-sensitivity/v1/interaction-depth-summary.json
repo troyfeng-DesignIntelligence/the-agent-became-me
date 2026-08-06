@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "online-storefront-interaction-depth-diagnostic.v1",
+  "generatedAt": "2026-08-06T05:02:29.594Z",
+  "derivation": "Every valid trajectory has exactly one terminal select-or-abandon model action in the frozen runner. Model view actions therefore equal valid model actions minus completed trajectories.",
+  "cells": {
+    "mimo": [
+      {
+        "temperature": 0,
+        "trajectoryCount": 256,
+        "modelActionCount": 256,
+        "modelViewActionCount": 0,
+        "meanModelActionsPerTrajectory": 1,
+        "meanModelViewsPerTrajectory": 0,
+        "selectedTrajectoryCount": 144,
+        "abandonedTrajectoryCount": 112,
+        "exposureTraceDivergenceRate": 0,
+        "shamTraceDivergenceRate": 0,
+        "adjustedPersistentFeedback": 0
+      },
+      {
+        "temperature": 0.1,
+        "trajectoryCount": 256,
+        "modelActionCount": 256,
+        "modelViewActionCount": 0,
+        "meanModelActionsPerTrajectory": 1,
+        "meanModelViewsPerTrajectory": 0,
+        "selectedTrajectoryCount": 144,
+        "abandonedTrajectoryCount": 112,
+        "exposureTraceDivergenceRate": 0,
+        "shamTraceDivergenceRate": 0,
+        "adjustedPersistentFeedback": 0
+      },
+      {
+        "temperature": 0.2,
+        "trajectoryCount": 256,
+        "modelActionCount": 256,
+        "modelViewActionCount": 0,
+        "meanModelActionsPerTrajectory": 1,
+        "meanModelViewsPerTrajectory": 0,
+        "selectedTrajectoryCount": 144,
+        "abandonedTrajectoryCount": 112,
+        "exposureTraceDivergenceRate": 0,
+        "shamTraceDivergenceRate": 0,
+        "adjustedPersistentFeedback": 0
+      },
+      {
+        "temperature": 0.3,
+        "trajectoryCount": 256,
+        "modelActionCount": 256,
+        "modelViewActionCount": 0,
+        "meanModelActionsPerTrajectory": 1,
+        "meanModelViewsPerTrajectory": 0,
+        "selectedTrajectoryCount": 144,
+        "abandonedTrajectoryCount": 112,
+        "exposureTraceDivergenceRate": 0.03125,
+        "shamTraceDivergenceRate": 0,
+        "adjustedPersistentFeedback": 0.03125
+      }
+    ],
+    "deepseek": [
+      {
+        "temperature": 0,
+        "trajectoryCount": 256,
+        "modelActionCount": 483,
+        "modelViewActionCount": 227,
+        "meanModelActionsPerTrajectory": 1.88671875,
+        "meanModelViewsPerTrajectory": 0.88671875,
+        "selectedTrajectoryCount": 137,
+        "abandonedTrajectoryCount": 119,
+        "exposureTraceDivergenceRate": 0.171875,
+        "shamTraceDivergenceRate": 0,
+        "adjustedPersistentFeedback": 0.140625
+      },
+      {
+        "temperature": 0.1,
+        "trajectoryCount": 256,
+        "modelActionCount": 475,
+        "modelViewActionCount": 219,
+        "meanModelActionsPerTrajectory": 1.85546875,
+        "meanModelViewsPerTrajectory": 0.85546875,
+        "selectedTrajectoryCount": 138,
+        "abandonedTrajectoryCount": 118,
+        "exposureTraceDivergenceRate": 0.15625,
+        "shamTraceDivergenceRate": 0.046875,
+        "adjustedPersistentFeedback": 0.09375
+      },
+      {
+        "temperature": 0.2,
+        "trajectoryCount": 256,
+        "modelActionCount": 477,
+        "modelViewActionCount": 221,
+        "meanModelActionsPerTrajectory": 1.86328125,
+        "meanModelViewsPerTrajectory": 0.86328125,
+        "selectedTrajectoryCount": 137,
+        "abandonedTrajectoryCount": 119,
+        "exposureTraceDivergenceRate": 0.234375,
+        "shamTraceDivergenceRate": 0.0625,
+        "adjustedPersistentFeedback": 0.140625
+      },
+      {
+        "temperature": 0.3,
+        "trajectoryCount": 256,
+        "modelActionCount": 480,
+        "modelViewActionCount": 224,
+        "meanModelActionsPerTrajectory": 1.875,
+        "meanModelViewsPerTrajectory": 0.875,
+        "selectedTrajectoryCount": 137,
+        "abandonedTrajectoryCount": 119,
+        "exposureTraceDivergenceRate": 0.140625,
+        "shamTraceDivergenceRate": 0.078125,
+        "adjustedPersistentFeedback": 0.078125
+      }
+    ]
+  },
+  "diagnostic": {
+    "mimoSingleDecisionAcrossGrid": true,
+    "deepseekExploresAcrossGrid": true,
+    "decision": "interaction-depth-confounded-with-provider"
+  },
+  "claimBoundary": "This accounting identifies a structural trace difference. It does not show that forcing additional inspection will cause exposure-mediated divergence; that requires a separate intervention."
+}

@@ -60,6 +60,7 @@
     "online:decoding:evaluate": "node scripts/evaluate-online-storefront-decoding-sensitivity.mjs",
     "online:decoding:dose:preflight": "node scripts/evaluate-online-storefront-decoding-dose-response.mjs --preflight",
     "online:decoding:dose:evaluate": "node scripts/evaluate-online-storefront-decoding-dose-response.mjs",
+    "online:interaction-depth:evaluate": "node scripts/evaluate-online-storefront-interaction-depth.mjs",
     "paper:figures": "node scripts/generate-paper-figures.mjs",
     "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",

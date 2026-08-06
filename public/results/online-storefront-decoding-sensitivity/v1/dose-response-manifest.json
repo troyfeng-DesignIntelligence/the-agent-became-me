@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "online-storefront-decoding-dose-response-manifest.v1",
+  "protocolSha256": "3a012a23f79aa9342eb0642880599b1e4a0cceaa006a9033f8b0c57c4a946f6e",
+  "files": {
+    "dose-response-summary.json": {
+      "sha256": "7c6b7c42cd61222cb8b567b401dd48f02c4a07c0284495633a5e5048e67604eb",
+      "bytes": 5182
+    }
+  }
+}

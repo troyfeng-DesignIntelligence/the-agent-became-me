@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "online-storefront-cross-llm-pilot-manifest.v1",
+  "protocolSha256": "3a012a23f79aa9342eb0642880599b1e4a0cceaa006a9033f8b0c57c4a946f6e",
+  "files": {
+    "summary.json": {
+      "sha256": "1bef342e11460cfc49bbec099af2dcbec7639788a9acde738db0f69d7a2dab33",
+      "bytes": 2369
+    },
+    "rows.json": {
+      "sha256": "5197974e0e9b8930eedca10db1357ded1fa3064c89b93e392c9014a71e50e323",
+      "bytes": 137407
+    },
+    "contrasts.json": {
+      "sha256": "9b297fe0ce88321d7babf47dd906be76004a33517a2be98407b11c61f80ac967",
+      "bytes": 45331
+    }
+  }
+}

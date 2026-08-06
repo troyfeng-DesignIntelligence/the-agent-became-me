@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "online-storefront-interaction-depth-manifest.v1",
+  "files": {
+    "interaction-depth-summary.json": {
+      "sha256": "3cbdbebf5091a39c4d773779408a54712d32a3a6bba8ceaaf8610c9dde934e17",
+      "bytes": 4371
+    }
+  }
+}
