@@ -10,10 +10,11 @@ frozen no-go on its candidate-margin gate. See
 `RESOLVED_ACTION_CONFIRMATORY_PLAN_2026-08-06.md`.
 
 Prospective repair update (2026-08-06): a separate deterministic 32-task pilot
-with a newly frozen dominance score passed its primary mechanism gate across
-DeepSeek, with convergent MiMo evidence. This justifies a third-family recurrence
-on that pilot's frozen manifest. It does not reactivate this older 360-task plan,
-whose sampling frame and primary estimand remain superseded. See
+with a newly frozen dominance score passed its primary mechanism gate for
+DeepSeek, with convergent MiMo evidence. Provider expansion is deferred. The
+current priority is a simpler paper structure and a natural, non-enriched sample
+that can separate opportunity frequency from conditional action change. This
+result does not reactivate the older 360-task plan. See
 `DETERMINISTIC_REPAIR_PILOT_REPORT_2026-08-06.md`.
 
 Post-freeze decision (2026-08-06): the matched 32-task pilot produced 9/64

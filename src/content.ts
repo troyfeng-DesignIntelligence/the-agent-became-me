@@ -21,14 +21,14 @@ export interface Finding {
 }
 
 export const hero = {
-  eyebrow: "An agent-computer interaction experiment",
+  eyebrow: "A study of shopping agents and recommender timing",
   title: "The Agent Became Me",
   subtitle:
-    "A temporary task changes what a shopping agent sees. If that exposure changes what it chooses, deletion may already be too late.",
+    "I tested what happens when a temporary shopping task reaches the recommender before its outcome is known.",
   summary:
-    "I pair immediate recommendation activation with an outcome-gated hold, then follow the agent from the changed shelf to its resolved action and next task. Independent held-exposure calls separate recommendation-mediated feedback from ordinary LLM variation.",
+    "The experiment compares immediate activation with an outcome-gated hold. It follows each pair from the in-task shelf to the selected item or abandon decision, then checks the next-task ranking.",
   status:
-    "4 Amazon-derived categories · 2 learned recommenders · MiMo and DeepSeek repaired pilot complete · frozen mechanism gate passed · third-family replication is next",
+    "4 Amazon-derived categories · 2 learned recommenders · 460-task storefront experiment · 32-task deterministic LLM pilot",
   disclosure:
     "Shopping tasks are generated over public, pseudonymized review histories. Public artifacts exclude original user IDs, item IDs, titles, reviews, and raw model responses.",
   primaryAction: "Inspect the evidence",
@@ -37,15 +37,15 @@ export const hero = {
 
 export const researchQuestion = {
   label: "Research question",
-  headline: "Can deletion restore a path the agent has already left?",
+  headline: "A restored profile does not guarantee the same decision.",
   question:
-    "Beyond repeated-call randomness, when does immediate recommender activation change an agent's action path and leave a different protocol-defined next-task ranking after temporary evidence is removed?",
+    "When does immediate recommendation activation change a shopping agent's resolved action, and can delaying platform activation avoid that change without weakening the current task?",
   framing:
-    "The project studies behavioral path dependence inside a research-owned recommender pipeline. It does not treat ranking movement as human preference change, permanent model contamination, or production-platform harm.",
+    "The project studies action path dependence inside a research storefront. Ranking movement, browsing movement, and a different final decision are measured separately.",
   contribution:
-    "The paired protocol separates logging, platform activation, task-local retrieval, LLM stochastic divergence, resolved action, and downstream ranking consequences.",
+    "Four activation contracts separate recording from ranking. Paired sham calls separate recommendation effects from ordinary LLM variation.",
   noveltyBoundary:
-    "Transient intent, editable profiles, recommendation agents, and exposure feedback already exist. The narrower claim concerns when early recommendation exposure changes an autonomous agent's committed path before a later deletion can act."
+    "The study does not claim that temporary intent or editable profiles are new. It asks a narrower timing question: what can change before deletion gets a chance to work?"
 } as const;
 
 export const studyA = {
@@ -148,109 +148,97 @@ export const studyC = {
 
 export const findings: readonly Finding[] = [
   {
-    id: "matched-control",
-    kicker: "Study A · 480 paired runs per contract",
-    title: "The matched control changed the conclusion.",
+    id: "activation-timing",
+    kicker: "460 tasks · four activation contracts",
+    title: "Only ranking activation changed the shelf.",
     body:
-      "Provenance-aware updating lowered divergence relative to actor-blind updating. Uniform shrinkage with the same total update mass performed slightly better. In this testbed, reduced update mass explains the result without needing selective provenance.",
+      "No-state and inert-log conditions produced the same rankings and traces. Immediate activation versus holding changed the in-task Top-10, even though the two conditions returned to the same replay state after the outcome.",
     evidence: [
-      "Mean divergence: 0.176 matched shrinkage; 0.187 provenance-aware",
-      "Mean simulated ranking loss: 0.005 matched; 0.006 provenance-aware",
-      "Mean task utility: 0.434 in both contracts",
-      "Higher provenance-aware divergence in 12/12 cell means and 456/480 paired runs"
+      "Fixed-trace T1 displacement: 0.765 [0.745, 0.785]",
+      "Resolved and next-task displacement: 0.000",
+      "No-state and inert-log contrasts: 0.000",
+      "Direction repeated across four Amazon-derived categories"
     ],
     boundary:
-      "The matched scale is calibrated from observed-intent weights, so it is a mechanism control rather than a deployable policy. It still rules out the stronger claim that selective provenance produced the gain on its own."
+      "This is a counterfactual experiment over public review histories and research-owned recommenders. It does not measure a retailer's production ranking system."
   },
   {
-    id: "logged-only-control",
-    kicker: "Study A · frozen traces",
-    title: "Recording provenance changed the log, not the profile.",
+    id: "trace-versus-decision",
+    kicker: "Primary outcome audit",
+    title: "A different browsing trace was not always a different decision.",
     body:
-      "Actor-blind and logged-only contracts produced identical profile and ranking outcomes. I report actor-recording errors, intent-label errors, provenance use, and persistence separately because they describe different failures.",
+      "A controller-required product view changed MiMo's browsing trace in most pairs but never changed its selected item or abandon outcome. The final analysis therefore counts resolved actions rather than every trace difference.",
     evidence: [
-      "Mean divergence: 0.311 in both contracts",
-      "Mean simulated ranking loss: 0.035 in both contracts",
-      "Actor-recording error: 100% actor-blind; 0% logged-only",
-      "Intent-label error: 9.9% in both"
+      "MiMo trace divergence: 24/32",
+      "MiMo resolved-action divergence: 0/32",
+      "DeepSeek exposure decisions: 6/32; sham: 1/32"
     ],
     boundary:
-      "This is a code-level comparison of synthetic contracts. It does not evaluate whether a provenance label is visible, understandable, or useful to a person."
+      "The controller probe came from the historical runner and is retained as a measurement audit. The repaired pilot supplies the prospective mechanism result."
   },
   {
-    id: "learning-needed",
-    kicker: "Study C · explicit counterexample",
-    title: "No update won with an aligned profile, then lost with a stale one.",
+    id: "action-opportunity",
+    kicker: "Deterministic LLM pilot · 32 tasks",
+    title: "All 13 exposure events occurred on opportunity tasks.",
     body:
-      "With the profile initialized at the evaluator reference, no update produced zero divergence by construction. In the weekly-breakfast case, the disclosed profile started stale and scope-gated learning moved it closer to the reference.",
+      "The repaired pilot froze the shelves and a predecision dominance score before provider calls. Resolved actions changed only when exposure altered the actionable candidate opportunity, with more events at lower candidate separation.",
     evidence: [
-      "Aligned start: 0.000 no-update divergence",
-      "Stale start: 0.104 no update; 0.067 scope-gated",
-      "Stale start: 0.075 matched shrinkage; 0.078 provenance-aware"
+      "DeepSeek exposure/sham: 7/32 versus 1/32; AUC 0.780",
+      "MiMo exposure/sham: 6/32 versus 0/32; AUC 0.734",
+      "Opportunity localization: 13/13 events",
+      "Actual sent-state matches: 32/32 per provider"
     ],
     boundary:
-      "The stress case is one deliberately constructed scenario. It shows a counterexample to universal preservation, not how frequently such cases occur."
+      "Fifteen opportunity tasks were deliberately included in the 32-task set. The pilot tests the mechanism and cannot estimate its ordinary frequency."
   },
   {
-    id: "quarantine-contract",
-    kicker: "Study B · 480 runs per condition",
-    title: "A staged hold changed persistence without changing the agent trace.",
+    id: "task-local-preservation",
+    kicker: "Current-task guardrail",
+    title: "Holding platform activation kept task-local help available.",
     body:
-      "The impact-proxy and staged-hold conditions generated identical paired traces. Replaying those traces with non-commit evidence excluded from persistence lowered mean divergence from 0.180 to 0.131.",
+      "Immediate and held conditions used the same task-local recommender. Holding passed the frozen checks for decision accuracy and selected-item utility, while removing task-local recommendations lowered utility in three categories.",
     evidence: [
-      "Mean divergence: 0.180 proxy; 0.131 proxy + staged hold",
-      "Mean simulated ranking loss: 0.006 → 0.004",
-      "Mean task utility: 0.432 in both paired-trace conditions",
-      "Modeled cost index: 3 → 8"
+      "Held condition passed accuracy non-inferiority",
+      "Held condition passed selected-utility non-inferiority",
+      "No-task-local diagnostic reduced utility in 3/4 categories"
     ],
     boundary:
-      "No repair or approval interaction occurs. The comparison isolates a synthetic persistence rule and must not be described as experienced control."
+      "The control interface has not been tested with people. The result concerns system performance, not whether users understand or prefer the design."
   }
 ] as const;
 
 export const designImplications = [
   {
-    title: "Compare provenance with simple shrinkage",
+    title: "Keep task help separate from platform learning",
     body:
-      "Match total update mass before crediting actor or purpose metadata. Here, uniform shrinkage explained the gain more simply."
+      "A shopping agent can use task-local recommendations without sending every temporary action straight into the principal's platform profile."
   },
   {
-    title: "Test when task context should persist",
+    title: "Show when activation happens",
     body:
-      "Compare task-scoped, expiring, and durable evidence in both kinds of case: when learning causes drift and when the stored profile is stale."
+      "Logging, task-local retrieval, platform activation, and deletion are separate operations. The interface should name the current state and the next transition."
   },
   {
-    title: "Use a real counterfactual impact signal",
+    title: "Wait for the task outcome",
     body:
-      "The next experiment should expose the updater's projected state transition instead of the static distance proxy used here, then record how the agent responds."
+      "Removal after failure cannot replay a choice influenced by earlier exposure. Outcome-gated activation avoids that order in the tested system."
   },
   {
-    title: "Keep holding and post-hoc repair distinct",
+    title: "Be precise about undo",
     body:
-      "Holding happens before platform activation; rollback happens after it. A repair study needs explicit update, expiry, reversal, and confirmation events with inspectable receipts."
-  },
-  {
-    title: "Stress asymmetric label failures",
-    body:
-      "Aggregate noise can lower divergence by accidentally suppressing commit signals. The next test should vary false explore, consider, and commit labels independently."
+      "A receipt can confirm that stored task evidence was removed. It cannot show that the agent would have made the same decision without the earlier recommendation."
   }
 ] as const;
 
 export const limitations = [
-  "There were no human participants. The project does not measure trust, satisfaction, identity, authorship, perceived control, willingness to use, or cognitive load.",
-  "All principals, delegation briefs, behaviors, and outcomes are synthetic. Results characterize this implemented testbed, not commercial recommenders or real shopping behavior.",
-  "The profile is a five-axis test representation over 90 food products. It is intentionally inspectable and cannot represent the breadth, instability, or social meaning of a person’s preferences.",
-  "Most large experiments use deterministic, transparent policies. The historical LLM runner inadvertently left SASRec and GRU4Rec in training mode, so dropout remained active during ranking inference. Provider and temperature comparisons therefore do not establish same-shelf recurrence or a clean recommendation-exposure effect.",
-  "A controller-required recommendation view changed MiMo browsing traces in 24/32 pairs but changed its resolved item-or-abandon outcome in 0/32. Whole-trace divergence can therefore overstate behavioral change; the confirmatory outcome must be resolved-action divergence with a held-sham control.",
-  "The historical task-utility margin returned no-go: only 13/32 DeepSeek tasks were analyzable and every observed gap was zero. It remains a negative audit and was not reinterpreted after the fact.",
-  "A separately frozen dominance score passed its offline support check and predicted resolved-action divergence in an outcome-blind, opportunity-enriched 32-task repair pilot across MiMo and DeepSeek. Because 15 of the selected tasks were deliberate exposure-opportunity cases drawn from 37/460 screened tasks, this pilot tests mechanism rather than natural prevalence.",
-  "The serialized field `profileContamination` is a reference-profile distance, not independently established harm. It depends on hand-authored vectors, update equations, learning rates, and one relevance model.",
-  "Matched shrinkage slightly outperformed provenance-aware updating. The benchmark therefore does not establish a provenance-specific benefit.",
-  "Matched shrinkage is oracle-calibrated per trace from provenance-aware observed-intent weights. It is a non-selective mechanism control, not a deployable policy wholly independent of intent metadata.",
-  "Intent labels and their noise are generated. Aggregate label noise is not monotonic evidence of robustness and may suppress high-weight commit updates.",
-      "Study B uses a static product-to-profile distance proxy and a hold-before-activation rule. It does not implement or evaluate a projected-impact preview, approval flow, or repair action.",
-  "Study B’s cost values are abstract simulator indices, not measurements of human burden.",
-  "The literature review was scoped rather than systematic. Finding no exact precedent does not establish novelty."
+  "There were no human participants. The project does not measure trust, comprehension, identity, authorship, perceived control, or cognitive load.",
+  "The shopping tasks and agent outcomes were generated over public, pseudonymized review histories. They are not records of delegated shopping.",
+  "The LLM pilot deliberately included 15 tasks with a treatment opportunity. Its adjusted event rate is a mechanism result, not an estimate of ordinary task frequency.",
+  "The storefront uses research-owned SASRec and GRU models. It does not reproduce a production retailer's recommender.",
+  "DeepSeek was the frozen primary mechanism test. MiMo supplies a same-direction check rather than a second confirmatory endpoint.",
+  "The first LLM runner had dropout active during recommendation inference. Those historical comparisons remain in the audit trail and are not combined with the repaired pilot.",
+  "The control interface is implemented but has not been evaluated with users.",
+  "The literature review was scoped rather than systematic."
 ] as const;
 
 export const references: readonly ReferenceLink[] = [

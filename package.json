@@ -73,6 +73,7 @@
     "paper:figures": "node scripts/generate-paper-figures.mjs",
     "verify:artifacts": "tsx scripts/verify-artifacts.ts",
     "qa:site": "node scripts/qa-site.mjs",
+    "qa:core": "node scripts/qa-core-narrative.mjs",
     "qa:storefront": "node scripts/qa-online-storefront.mjs",
     "qa:storefront-v2": "node scripts/qa-online-storefront-v2.mjs",
     "check": "pnpm typecheck && pnpm test && pnpm verify:artifacts && pnpm amazon:evaluate && pnpm cross-task:evaluate && pnpm sensitivity:evaluate && pnpm external:evaluate && pnpm amazon:sasrec:evaluate && pnpm amazon:cross-category:evaluate && pnpm delegate:evaluate && pnpm online:evaluate && pnpm online:v2:evaluate && pnpm online:model-robustness:evaluate && pnpm online:llm:evaluate && pnpm online:cross-llm:evaluate:mimo && pnpm online:cross-llm:evaluate:deepseek && pnpm build"

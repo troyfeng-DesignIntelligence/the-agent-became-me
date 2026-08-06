@@ -137,14 +137,14 @@ controller outcomes, but their causal attribution is downgraded.
 
 ## Recommended next steps
 
-1. Proceed only to a separately frozen third-family recurrence test; keep
-   population-scale confirmatory calls paused until their natural-sampling
-   estimand and multiplicity plan are frozen.
+1. Do not add another provider yet. Keep population-scale calls paused until a
+   natural-sampling estimand and paired analysis plan are frozen.
 2. Keep the now-passing deterministic recommender preflight as a mandatory
    API-call gate; do not interpret it as a mechanism result.
 3. Retain the now-validated dominance score without post-outcome modification.
 4. Retain the frozen 32-task repair manifest for independent recurrence.
-5. Use a separate non-enriched sample for prevalence or average-effect claims.
+5. Use a separate non-enriched sample for opportunity frequency and average-
+   effect claims.
 
 ## Open questions
 

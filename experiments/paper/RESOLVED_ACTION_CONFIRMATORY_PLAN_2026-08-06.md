@@ -1,16 +1,16 @@
 # Resolved-action confirmatory plan
 
-Status: **deterministic repair pilot passed; third-family recurrence justified**.
+Status: **deterministic repair pilot passed; provider expansion deferred**.
 
 Prospective update (2026-08-06): a new outcome-independent dominance score and
 outcome-blind 32-task opportunity-enriched manifest were frozen before calls.
 On deterministic shelves, DeepSeek produced 7/32 exposure events versus 1/32
 sham (AUC 0.780, exact `p = 0.0115`); MiMo produced 6/32 versus 0/32 (AUC
 0.734, exact `p = 0.0391`). All 13 events occurred on opportunity-changed tasks,
-and actual sent-state checks matched 32/32 per provider. The next justified step
-is a third-family recurrence on the same frozen manifest. The 360-task plan
-below must be redesigned around a separate natural, non-enriched sample before
-it can estimate prevalence or an average effect.
+and actual sent-state checks matched 32/32 per provider. The next study should
+use a natural, non-enriched sample to estimate opportunity frequency and the
+conditional action effect separately. The 360-task plan below is retained as an
+audit record and should not be run in its current form.
 
 Post-freeze audit (2026-08-06): only 13/32 DeepSeek tasks were margin-analyzable,
 all 13 top-two eligible utility gaps were zero, margin AUC was 0.50, and the
@@ -69,9 +69,9 @@ neither passes, no new confirmatory API calls are justified.
 
 Historical decision: **no-go for the original task-utility gap**. That result
 was not loosened or reinterpreted. The separately frozen dominance-score repair
-pilot later passed, so one third-family recurrence on the repair manifest is
-now justified. No population-scale calls should be made directly from the old
-360-task plan until its sampling and estimands are refrozen.
+pilot later passed. No provider expansion or population-scale call should be
+made directly from the old 360-task plan until its sampling and estimands are
+refrozen.
 
 ## Claim boundary
 

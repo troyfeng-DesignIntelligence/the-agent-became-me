@@ -68,16 +68,24 @@ function useScrollProgress() {
 const chapters = [
   { id: "top", label: "Opening", index: "00" },
   { id: "question", label: "Question", index: "01" },
-  { id: "lab", label: "Trace", index: "02" },
+  { id: "evidence", label: "Evidence", index: "02" },
+  { id: "methods", label: "Methods", index: "03" }
+] as const;
+
+const archiveChapters = [
+  { id: "top", label: "Opening", index: "00" },
+  { id: "question", label: "Question", index: "01" },
+  { id: "lab", label: "Trace archive", index: "02" },
   { id: "evidence", label: "Evidence", index: "03" },
   { id: "methods", label: "Methods", index: "04" }
 ] as const;
 
-function useActiveChapter() {
+function useActiveChapter(includeArchive: boolean) {
   const [activeChapter, setActiveChapter] = useState("top");
 
   useEffect(() => {
-    const sections = chapters
+    const visibleChapters = includeArchive ? archiveChapters : chapters;
+    const sections = visibleChapters
       .map(({ id }) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
     if (sections.length === 0) return;
@@ -97,7 +105,7 @@ function useActiveChapter() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [includeArchive]);
 
   return activeChapter;
 }
@@ -288,7 +296,7 @@ function Hero() {
         <div className="hero-brief">
           <p className="hero-summary">{hero.summary}</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#lab">
+            <a className="button button-primary" href="#evidence">
               {hero.primaryAction}
             </a>
             <a className="button button-secondary" href="#methods">
@@ -369,6 +377,8 @@ function LoadingState() {
 
 export function App() {
   const scrollProgress = useScrollProgress();
+  const showArchive = new URLSearchParams(window.location.search).get("archive") === "1";
+  const visibleChapters = showArchive ? archiveChapters : chapters;
   const {
     summary,
     webarena,
@@ -393,7 +403,7 @@ export function App() {
     error,
     loading
   } = useProjectData();
-  const activeChapter = useActiveChapter();
+  const activeChapter = useActiveChapter(showArchive);
   useEditorialScroll(Boolean(summary));
 
   const evidence = useMemo(() => {
@@ -454,13 +464,15 @@ export function App() {
           >
             Question
           </a>
-          <a
-            aria-current={activeChapter === "lab" ? "location" : undefined}
-            className={activeChapter === "lab" ? "is-active" : ""}
-            href="#lab"
-          >
-            Trace
-          </a>
+          {showArchive && (
+            <a
+              aria-current={activeChapter === "lab" ? "location" : undefined}
+              className={activeChapter === "lab" ? "is-active" : ""}
+              href="#lab"
+            >
+              Trace archive
+            </a>
+          )}
           <a
             aria-current={activeChapter === "evidence" ? "location" : undefined}
             className={activeChapter === "evidence" ? "is-active" : ""}
@@ -488,10 +500,10 @@ export function App() {
 
       <div className="chapter-rail" aria-hidden="true">
         <span>
-          {chapters.find((chapter) => chapter.id === activeChapter)?.index ?? "00"}
+          {visibleChapters.find((chapter) => chapter.id === activeChapter)?.index ?? "00"}
         </span>
         <div>
-          {chapters.map((chapter) => (
+          {visibleChapters.map((chapter) => (
             <i
               className={chapter.id === activeChapter ? "is-active" : ""}
               key={chapter.id}
@@ -499,7 +511,7 @@ export function App() {
           ))}
         </div>
         <small>
-          {chapters.find((chapter) => chapter.id === activeChapter)?.label ?? "Opening"}
+          {visibleChapters.find((chapter) => chapter.id === activeChapter)?.label ?? "Opening"}
         </small>
       </div>
 
@@ -535,7 +547,7 @@ export function App() {
             />
             <figcaption>
               <span>SPECIMEN A / TEMPORARY INTENT</span>
-              <p>A trace can be logged without changing the profile.</p>
+              <p>A temporary task can stay local until its outcome is known.</p>
             </figcaption>
           </figure>
         </section>
@@ -543,26 +555,27 @@ export function App() {
         <section className="gap-section section-shell">
           <header className="section-header">
             <div>
-              <span className="section-kicker">The delegation gap</span>
-              <h2>A temporary task can change a persistent profile.</h2>
+              <span className="section-kicker">The timing problem</span>
+              <h2>The recommender can react before the task is over.</h2>
             </div>
             <p>
-              The design question appears after the agent acts, when the system
-              decides which events should update the principal's profile.
+              Recording an event, using it inside the task, and activating it for
+              platform personalization are three different decisions.
             </p>
           </header>
           <CausalRibbon />
           <div className="provocation">
             <span aria-hidden="true">“</span>
             <p>
-              Should an agent’s action count as evidence of{" "}
-              <em>your</em> preference?
+              When should a temporary task become evidence for platform
+              personalization?
             </p>
           </div>
         </section>
 
-        <TraceFieldInterlude />
+        {showArchive && <TraceFieldInterlude />}
 
+        {showArchive && (
         <section className="lab-section section-shell" id="lab">
           <div className="section-number">02</div>
           <header className="section-header lab-header">
@@ -589,8 +602,9 @@ export function App() {
             />
           )}
         </section>
+        )}
 
-        {summary && evidence && (
+        {showArchive && summary && evidence && (
           <section className="evidence-section" id="evidence">
             <div className="section-shell">
               <div className="section-number light">03</div>
@@ -655,7 +669,7 @@ export function App() {
                 index="02"
                 label="CONDITION DISTRIBUTIONS"
                 meta={`GENERATED · 4 SCENARIOS · 480 RUNS/CONDITION · ${summary.protocolVersion.toUpperCase()}`}
-                note="Each card pools four synthetic scenarios, three policies, and 40 paired seeds. Whiskers are descriptive P10–P90 ranges."
+                note="Each card pools four synthetic scenarios, three policies, and 40 paired seeds. Whiskers are descriptive P10 to P90 ranges."
                 title="Six contracts over paired traces"
                 variant="paper"
               >
@@ -891,7 +905,7 @@ export function App() {
           </section>
         )}
 
-        {summary && evidence && (
+        {showArchive && summary && evidence && (
           <section className="studies-section section-shell">
             <figure className="study-archive">
               <img
@@ -1006,7 +1020,7 @@ export function App() {
           </section>
         )}
 
-        {webarena && webarenaFailure && (
+        {showArchive && webarena && webarenaFailure && (
           <section className="webarena-replay section-shell">
             <header className="section-header">
               <div>
@@ -1147,7 +1161,7 @@ export function App() {
           </section>
         )}
 
-        {amazonField && amazonControlled && (
+        {showArchive && amazonField && amazonControlled && (
           <section className="amazon-field section-shell" aria-labelledby="amazon-field-title">
             <header className="section-header">
               <div>
@@ -1163,7 +1177,7 @@ export function App() {
 
             <div className="amazon-field-lead">
               <div className="amazon-field-signal">
-                <span className="mono-label">STRONGEST VISIBLE SIGNAL</span>
+                <span className="mono-label">LARGEST OBSERVED PAGE SHIFT</span>
                 <strong>02</strong>
                 <h3>history-related modules appeared after product views.</h3>
               </div>
@@ -1297,21 +1311,23 @@ export function App() {
           <section
             aria-labelledby="cross-task-title"
             className="cross-task-section section-shell"
+            id={showArchive ? "main-evidence" : "evidence"}
           >
             <header className="section-header">
               <div>
-                <span className="section-kicker">Controlled cross-task experiment</span>
+                <span className="section-kicker">Main evidence</span>
                 <h2 id="cross-task-title">
-                  The task ended. Its recommendations did not.
+                  When does a changed shelf become a different decision?
                 </h2>
               </div>
               <p>
-                Five temporary briefs were followed by eight rounds of unrelated
-                personal shopping. The same 40 paired seeds were replayed through
-                six lifecycle rules, producing {crossTaskExposure.design.runCount.toLocaleString()} controlled runs.
+                The evidence moves in three steps: learned rankings first, agent
+                trajectories second, and resolved LLM actions last. Each step has
+                its own control and its own stopping point.
               </p>
             </header>
 
+            {showArchive && (
             <div className="cross-task-results">
               {[
                 [
@@ -1351,12 +1367,13 @@ export function App() {
                 </article>
               ))}
             </div>
+            )}
 
-            {externalValidity && (
+            {showArchive && externalValidity && (
               <ExternalValidationPanel summary={externalValidity} />
             )}
 
-            {amazonSasrec && (
+            {showArchive && amazonSasrec && (
               <LearnedCommercePanel summary={amazonSasrec} />
             )}
 
@@ -1364,7 +1381,7 @@ export function App() {
               <CrossCategoryReplicationPanel summary={amazonCrossCategory} />
             )}
 
-            {delegatedActivation && (
+            {showArchive && delegatedActivation && (
               <DelegatedActivationPanel summary={delegatedActivation} />
             )}
 
@@ -1372,35 +1389,26 @@ export function App() {
               <OnlineStorefrontV2Panel summary={onlineStorefrontV2} />
             )}
 
-            {mimoLlmPilot &&
-              mimoMatchedLlmPilot &&
-              deepseekLlmPilot &&
-              decodingDoseResponse &&
-              forcedInspection &&
+            {forcedInspection &&
               candidateMargin &&
               deterministicRepairPilot && (
               <LLMBehaviorFeedbackPanel
-                originalMimo={mimoLlmPilot}
-                matchedMimo={mimoMatchedLlmPilot}
-                deepseek={deepseekLlmPilot}
-                dose={decodingDoseResponse}
                 forced={forcedInspection}
-                margin={candidateMargin}
                 repair={deterministicRepairPilot}
+                historicalMargin={candidateMargin}
               />
             )}
 
-            {crossTaskSensitivity && (
+            {showArchive && crossTaskSensitivity && (
               <PollutionPhaseMap summary={crossTaskSensitivity} />
             )}
 
             <div className="cross-task-instrument-heading">
-              <span className="mono-label">INTERACTIVE RESEARCH INSTRUMENT</span>
-              <h3>Decide when a temporary task can enter the platform recommender.</h3>
+              <span className="mono-label">INTERACTION PROTOTYPE</span>
+              <h3>Choose when temporary task evidence can affect the platform shelf.</h3>
               <p>
-                Change the task, lifecycle rule, outcome, and timeline. The shelf
-                below is recomputed from the same deterministic model used in the
-                experiment.
+                Change the task, lifecycle rule, outcome, and checkpoint. The
+                prototype keeps task-local help separate from platform activation.
               </p>
             </div>
             <CrossTaskControlLab summary={crossTaskExposure} />
@@ -1411,8 +1419,8 @@ export function App() {
           <div className="section-number">04</div>
           <header className="section-header">
             <div>
-              <span className="section-kicker">What the testbed suggests</span>
-              <h2>Four results and where each one stops.</h2>
+              <span className="section-kicker">Findings</span>
+              <h2>Four findings with separate evidence boundaries.</h2>
             </div>
             <p>
               Measured outcomes stay separate from design implications. No
@@ -1462,9 +1470,7 @@ export function App() {
             <div className="section-number light">05</div>
             <header className="implications-intro">
               <span className="section-kicker">Testable design hypotheses</span>
-              <h2>
-                The result changed what I would test next.
-              </h2>
+              <h2>Design controls around activation time.</h2>
             </header>
             <div className="implication-grid">
               {designImplications.map((item, index) => (
@@ -1492,7 +1498,7 @@ export function App() {
             </p>
           </header>
 
-          {summary && (
+          {showArchive && summary && (
             <>
               <div className="method-ledger">
                 <div>
@@ -1548,7 +1554,7 @@ export function App() {
                   <SensitivityHeatmap
                     data={sensitivityData(summary.sensitivity)}
                     metric="profileContamination"
-                    note="Actor-blind and provenance-aware updating are compared over five label-noise values and four learning rates. P10–P90 values are available below; lower means can arise for the wrong mechanistic reason."
+                    note="Actor-blind and provenance-aware updating are compared over five label-noise values and four learning rates. P10 to P90 values are available below; lower means can arise for the wrong mechanistic reason."
                     subtitle="Mean reference-profile divergence over the protocol-defined parameter grid."
                     title="Reference-divergence sensitivity"
                   />
@@ -1560,23 +1566,24 @@ export function App() {
           <div className="methods-grid">
             <article className="method-card method-protocol">
               <span className="mono-label">REPRODUCE</span>
-              <h3>One command regenerates the evidence.</h3>
+              <h3>Rebuild the main experiment outputs.</h3>
               <pre>
                 <code>
                   <span>$</span> pnpm install --frozen-lockfile{"\n"}
-                  <span>$</span> pnpm experiment{"\n"}
-                  <span>$</span> pnpm check
+                  <span>$</span> pnpm online:v2:evaluate{"\n"}
+                  <span>$</span> pnpm online:repair-pilot:evaluate{"\n"}
+                  <span>$</span> pnpm build
                 </code>
               </pre>
               <div className="artifact-links">
-                <a href={`${base}results/v1/baseline.json`} download>
-                  Download full rows <span>JSON ↓</span>
+                <a href={`${base}results/online-storefront-v2/v1/summary.json`} download>
+                  Storefront summary <span>JSON ↓</span>
                 </a>
-                <a href={`${base}results/v1/summary.json`} download>
-                  Download summary <span>JSON ↓</span>
+                <a href={`${base}results/online-storefront-deterministic-repair-pilot/v1/evaluation/summary.json`} download>
+                  LLM pilot summary <span>JSON ↓</span>
                 </a>
-                <a href={`${base}data/open-food-facts.snapshot.json`} download>
-                  Download catalog <span>JSON ↓</span>
+                <a href="?archive=1#lab">
+                  Open development archive <span>↗</span>
                 </a>
               </div>
             </article>
@@ -1636,12 +1643,12 @@ export function App() {
         <div>
           <span className="footer-mark">ACI / 01</span>
           <h2>
-            Provenance only matters here if it beats a simpler baseline.
+            Temporary task help does not need immediate platform activation.
           </h2>
         </div>
         <div className="footer-meta">
           <span>Independent portfolio research artifact</span>
-          <span>Synthetic scenarios · No human participants</span>
+          <span>Public review histories · No human participants</span>
           <span>MIT code · Open Food Facts ODbL metadata</span>
         </div>
         <a href="#top">Back to top ↑</a>

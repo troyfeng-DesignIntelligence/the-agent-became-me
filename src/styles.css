@@ -183,6 +183,67 @@
   line-height: 1.6;
 }
 
+.llm-feedback-boundary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-block: clamp(3rem, 7vw, 6rem);
+  border-block: 1px solid rgb(36 35 32 / 0.28);
+}
+
+.llm-feedback-boundary-grid > article {
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.llm-feedback-boundary-grid > article:first-child {
+  padding-left: 0;
+  border-right: 1px solid rgb(36 35 32 / 0.24);
+}
+
+.llm-feedback-boundary-grid h4 {
+  margin: 0.75rem 0 1rem;
+  max-width: 16ch;
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 3.4vw, 3.8rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.llm-feedback-boundary-grid p {
+  margin: 0;
+  max-width: 42rem;
+  color: rgb(36 35 32 / 0.7);
+  line-height: 1.6;
+}
+
+.llm-feedback-boundary-grid dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1.5rem 0 0;
+  background: rgb(36 35 32 / 0.2);
+}
+
+.llm-feedback-boundary-grid dl > div {
+  padding: 1rem;
+  background: rgb(238 234 222 / 0.9);
+}
+
+.llm-feedback-boundary-grid dt {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.llm-feedback-boundary-grid dd {
+  margin: 0.45rem 0 0;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 1;
+}
+
 .llm-feedback-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -508,6 +569,20 @@
   .llm-feedback-diagnostics > header,
   .llm-feedback-audit > header {
     grid-template-columns: 1fr;
+  }
+
+  .llm-feedback-boundary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .llm-feedback-boundary-grid > article,
+  .llm-feedback-boundary-grid > article:first-child {
+    padding-inline: 0;
+    border-right: 0;
+  }
+
+  .llm-feedback-boundary-grid > article + article {
+    border-top: 1px solid rgb(36 35 32 / 0.24);
   }
 
   .llm-feedback-panel > header p {
@@ -1811,6 +1886,8 @@
 }
 
 html {
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 76px;
 }
@@ -1818,6 +1895,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
   background:
     radial-gradient(circle at 12% 16%, rgb(49 91 214 / 3%) 0 1px, transparent 1.5px)
       0 0 / 18px 18px,

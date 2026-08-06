@@ -45,12 +45,12 @@ export function CrossCategoryReplicationPanel({ summary }: { summary: AmazonCros
       <header>
         <div>
           <span className="mono-label">REPLICATION / FOUR COMMERCE DOMAINS</span>
-          <h3 id="cross-category-title">The direction held. The size did not.</h3>
+          <h3 id="cross-category-title">The ranking effect appeared in all four categories.</h3>
         </div>
         <p>
-          One SASRec protocol, unchanged across personal care, software,
+          The same SASRec protocol was used for personal care, software,
           specialist procurement, and replenishment goods. Intervals resample
-          users and model initializations—not repeated rows as if they were new people.
+          users and model initializations while keeping repeated rows together.
         </p>
       </header>
 
@@ -62,7 +62,7 @@ export function CrossCategoryReplicationPanel({ summary }: { summary: AmazonCros
         </div>
         <blockquote>
           <b>95% hierarchical bootstrap</b>
-          <span>{pooled.lower95.toFixed(3)} — {pooled.upper95.toFixed(3)}</span>
+          <span>{pooled.lower95.toFixed(3)} to {pooled.upper95.toFixed(3)}</span>
           <p>Every leave-one-category-out lower bound remained above zero.</p>
         </blockquote>
       </div>
@@ -97,7 +97,7 @@ export function CrossCategoryReplicationPanel({ summary }: { summary: AmazonCros
               <div>
                 <strong>{category.label}</strong>
                 <small>
-                  SASRec − popularity NDCG {category.performanceUncertainty.ndcgGainVsPopularity.estimate > 0 ? "+" : ""}
+                  SASRec minus popularity NDCG {category.performanceUncertainty.ndcgGainVsPopularity.estimate > 0 ? "+" : ""}
                   {category.performanceUncertainty.ndcgGainVsPopularity.estimate.toFixed(3)}
                 </small>
               </div>
@@ -109,14 +109,14 @@ export function CrossCategoryReplicationPanel({ summary }: { summary: AmazonCros
 
       <footer>
         <p>
-          <strong>What replicated:</strong> all four category-specific 95%
-          intervals were positive, outcome-only commit was smaller in all four,
-          and holding before activation changed no paired ranking.
+          All four category-specific 95% intervals were positive. Outcome-only
+          commit was smaller in each category, and holding before activation
+          reproduced the paired baseline ranking.
         </p>
         <p>
-          <strong>What varied:</strong> point estimates ranged across&nbsp;
+          Point estimates spanned&nbsp;
           {summary.inference.betweenCategoryDescriptive.range.toFixed(3)} slots.
-          This is evidence of domain heterogeneity, not one universal effect size.
+          The protocol has a stable direction but no single category-independent size.
         </p>
       </footer>
     </section>

@@ -375,21 +375,17 @@ async function desktopPass(browser) {
     "Desktop: the online research-store link is missing."
   );
   check(
-    (await page.locator(".llm-feedback-dose__row").count()) === 2,
-    "Desktop: the decoding dose table did not render both LLM providers."
+    (await page.locator(".llm-feedback-repair__grid article").count()) === 4,
+    "Desktop: the repaired LLM result did not render all four metrics."
   );
   check(
-    (await page.locator(".llm-feedback-resolved article").count()) === 2,
-    "Desktop: the forced-inspection comparison did not render both LLM providers."
+    (await page.locator(".llm-feedback-boundary-grid article").count()) === 2,
+    "Desktop: the measurement and audit boundaries did not render."
   );
-    check(
-      (await page.locator(".llm-feedback-audit").innerText()).includes("NO-GO"),
-      "Desktop: the frozen candidate-margin no-go did not render."
-    );
-    check(
-      (await page.locator(".llm-feedback-repair").innerText()).includes("0.780"),
-      "Desktop: the deterministic repair result did not render."
-    );
+  check(
+    (await page.locator(".llm-feedback-repair").innerText()).includes("0.780"),
+    "Desktop: the deterministic repair result did not render."
+  );
 
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-hero.png")
@@ -557,7 +553,7 @@ async function desktopPass(browser) {
   await positionForScreenshot(page, ".llm-feedback-panel", 88);
   await page.waitForTimeout(550);
   check(
-    (await page.locator(".llm-feedback-resolved__note").innerText()).includes("24/32"),
+    (await page.locator(".llm-feedback-boundary-grid").innerText()).includes("24/32"),
     "Desktop: the trace-versus-decision result did not load."
   );
   await page.locator(".llm-feedback-panel").screenshot({
@@ -912,17 +908,17 @@ async function mobilePass(browser) {
   await positionForScreenshot(page, ".llm-feedback-panel", 72);
   await page.waitForTimeout(650);
   check(
-    (await page.locator(".llm-feedback-dose__row").count()) === 2,
-    "Mobile: the decoding dose table did not render both LLM providers."
+    (await page.locator(".llm-feedback-repair__grid article").count()) === 4,
+    "Mobile: the repaired LLM result did not render all four metrics."
   );
-    check(
-      (await page.locator(".llm-feedback-audit").innerText()).includes("0.50"),
-      "Mobile: the candidate-margin audit metrics did not render."
-    );
-    check(
-      (await page.locator(".llm-feedback-repair").innerText()).includes("13 / 13"),
-      "Mobile: the opportunity-localization result did not render."
-    );
+  check(
+    (await page.locator(".llm-feedback-boundary-grid").innerText()).includes("0.50"),
+    "Mobile: the historical margin audit did not render."
+  );
+  check(
+    (await page.locator(".llm-feedback-repair").innerText()).includes("13 / 13"),
+    "Mobile: the opportunity-localization result did not render."
+  );
   await page.locator(".llm-feedback-panel").screenshot({
     path: path.join(outputDirectory, "mobile-llm-feedback-boundary.png")
   });

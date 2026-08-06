@@ -89,13 +89,13 @@ model contamination, production-retailer harm, or provider-general effects.
 
 ## Next study
 
-1. Freeze an independent third LLM family at temperature zero and repeat this
-   exact 32-task manifest as a recurrence test.
-2. Separately draw a natural, non-enriched task sample to estimate opportunity
-   prevalence and average effect. Do not combine its denominator with this pilot.
-3. Keep exact sent-state auditing, paired sham arms, deterministic recommender
-   hashes, and the resolved-action estimand mandatory.
-4. Freeze multiplicity control and paired uncertainty before confirmatory calls.
+Provider expansion is not the next priority. The useful follow-up is a natural,
+non-enriched task sample that reports two quantities separately: how often
+activation changes the actionable opportunity, and how often a resolved action
+changes when that opportunity exists. The analysis should keep exact sent-state
+auditing, paired sham arms, deterministic recommender hashes, and the resolved-
+action outcome. A later interface study can test whether people understand the
+difference between task-local use, platform activation, and deletion.
 
 ## Reproducible artifacts
 
