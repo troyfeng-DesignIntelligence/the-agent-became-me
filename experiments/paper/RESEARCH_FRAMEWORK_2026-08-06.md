@@ -1,96 +1,53 @@
-# Research framework after the evidence review
+# Research framework after the P0 audit
 
-## One claim
+## Evidence state
 
-Temporary shopping activity can affect two systems at once. A task-local system
-helps the agent finish the current job. A platform recommender changes what the
-agent sees. If platform activation changes the resolved action, deleting the
-temporary evidence afterward cannot recreate the decision that would have been
-made under delayed activation.
+One result is established: activating temporary task evidence changed learned
+rankings in the research storefront, while inert logging did not.
 
-The project is about activation timing and action path dependence. It is not a
-general paper about profile pollution.
+One question remains open: whether that exposure changes an LLM shopping
+agent's selected item or abandon decision when both arms can choose from the
+same candidates.
 
-## Three-step evidence chain
+The old 32-task pilot no longer answers the second question. Its action set
+changed after forced inspection, its mechanism sample was enriched, and its
+next-task outcome used unmatched realized histories. Its event counts and AUCs
+are audit material, not findings.
 
-| Step | Question | Evidence kept in the main paper |
+## Evidence chain
+
+| Step | Question | Current evidence |
 |---|---|---|
-| 1. Shelf | Does activation, rather than logging, change recommendations? | Four-contract fixed replay, four Amazon categories, SASRec and GRU |
-| 2. Action | Does the shelf change alter what the agent does? | Free-running 460-task storefront, separate trace and resolved-action outcomes |
-| 3. Condition | Which tasks allow that action change? | Deterministic 32-task LLM pilot, held shams, frozen dominance score |
+| Shelf | Does activation rather than logging change recommendations? | Complete: four-contract replay, four categories, SASRec and GRU |
+| Action | Does changed exposure alter the resolved action? | Open: v5 protocol and 920-unit preflight complete; provider results pending |
+| Guardrail | Does holding reduce current-task decision quality? | Open: nondegenerate score frozen; paired analysis pending |
+| Interface | How might a system expose activation timing? | Implemented prototype without participant evaluation |
 
-The control prototype follows from the same sequence. It keeps task-local help
-available and waits for the task outcome before platform activation.
+## P0 corrections
 
-## What stays in the main paper and website
+- Every matched arm receives the same candidate IDs.
+- An inspected item remains selectable.
+- Immediate and held arms each have two calls.
+- Call order uses frozen Latin-square rotations.
+- All 460 tasks enter without opportunity enrichment.
+- The primary behavior endpoint stops at selected item or abandon.
+- Platform-input restoration and downstream action histories are reported
+  separately.
+- The dominance AUC and actor-provenance mechanism claims are withdrawn.
+- The quality guardrail uses a continuous offered-candidate score with a frozen
+  margin and task-clustered interval.
 
-The main evidence includes the four-category learned recommender result, the
-four-contract storefront experiment, the repaired MiMo and DeepSeek pilot, the
-trace-versus-decision measurement check, and the control prototype.
+## Contribution boundary
 
-These pieces answer different parts of one question. The cross-category study
-shows that the shelf effect is not tied to one product domain. The storefront
-experiment separates logging from activation and lets the changed shelf affect
-later behavior. The repaired LLM pilot measures a resolved decision rather than
-surface-level trace movement.
+The empirical contribution currently concerns ranking activation. The action
+study contributes a prospective method until its gates pass. The interface is a
+design response, not evidence about trust, control, comprehension, or human
+preference. Agent-mediated shopping is the setting; provenance is not a causal
+treatment in this study.
 
-## What moves to the development archive
+## Writing rule
 
-The signed-out Amazon probe, WebArena replay, synthetic profile studies,
-MovieLens transfer, temperature sweep, historical provider comparison, and
-failed utility margin remain available at `?archive=1` or in the repository.
-They document how the study was developed and repaired. They do not support the
-main mechanism claim.
-
-The first LLM runner is especially important as an audit. Dropout was active
-during recommendation inference, so those shelves were not comparable across
-runs. The repaired pilot was frozen and executed separately. The paper does not
-use the repair to reinterpret the old data.
-
-## Current findings
-
-1. Recording an event did not change rankings. Activating it did.
-2. A changed browsing trace did not guarantee a different selected item or
-   abandon decision.
-3. In the repaired pilot, all 13 exposure events occurred where activation
-   changed the actionable candidate opportunity.
-4. Delaying platform activation preserved current-task decision accuracy and
-   selected-item utility because task-local recommendations remained available.
-
-## Contribution structure
-
-The empirical contribution is the observed separation between shelf movement,
-browsing movement, and resolved-action movement.
-
-The conceptual contribution is the distinction between reversible stored state
-and action that has already occurred.
-
-The methodological contribution is a four-arm protocol that controls the shelf
-and repeated LLM variation independently, plus an outcome-blind way to select a
-mechanism stress test.
-
-The design contribution is an outcome-gated activation model with separate
-task-local and platform channels. The prototype has not been evaluated with
-people.
-
-## Writing audit
-
-The previous draft read like a chronological research log. Thirteen findings
-had similar weight, so failed pilots and weak probes competed with the repaired
-result. Several headings relied on paired slogans, and many paragraphs ended
-with a generic claim about what the result established. The draft also spent
-too much time narrating how the work changed from one version to the next.
-
-The revised draft puts the phenomenon before the implementation. It uses one
-claim, three evidence steps, four findings, and six paper figures. Historical
-problems appear once in the audit section. Sentences name the measured object,
-sample, and boundary directly. The main prose avoids decorative significance,
-stock transitions, vague claims, and dramatic punctuation.
-
-## Work deferred
-
-A third provider family is not part of the current plan. The next useful study
-would sample tasks without opportunity enrichment and report two quantities:
-the frequency with which activation changes the actionable opportunity, and
-the resolved-action effect conditional on that opportunity. A later participant
-study could test whether the interface makes the timing distinction clear.
+Do not use pollution, irreversible feedback, deletion failure, or restored
+behavior as result labels. Use the measured terms: temporary evidence
+activation, shelf displacement, resolved-action distribution, platform-input
+restoration, and downstream committed history.

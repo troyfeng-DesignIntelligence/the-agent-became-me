@@ -153,3 +153,9 @@ controller outcomes, but their causal attribution is downgraded.
 - Does a deterministic repair pilot retain any DeepSeek resolved-action excess?
 - Is forced inspection a useful intervention, or should the confirmatory design
   use naturally initiated inspection with an instrumental manipulation?
+# Superseded after the P0 audit
+
+This audit preceded the source-level review. Its positive dominance conclusion
+is withdrawn. Within opportunity-positive tasks, the reported association does
+not hold, and the legacy action runner changed the selectable candidate set.
+See `P0_REPAIR_PLAN_2026-08-06.md` for the current disposition.

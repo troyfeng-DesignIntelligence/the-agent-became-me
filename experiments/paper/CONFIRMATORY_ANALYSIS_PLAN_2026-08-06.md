@@ -93,3 +93,10 @@ The eight LLM × recommender × policy estimates are secondary. Their one-sided 
 3. Audit provider fingerprints, JSON reliability, stochastic sham divergence, cost, and privacy.
 4. Recalculate only the cost and detectable-effect diagnostics; do not change the primary event or thresholds based on DeepSeek outcomes.
 5. Ask for a new explicit cost and data-transfer authorization before the 360-task run.
+# Superseded after the P0 audit
+
+This plan is retained as a dated record. The 32-task result described below is
+not confirmatory evidence: forced inspection changed candidate availability,
+the dominance analysis was selection-confounded, and its persistent endpoint
+used unmatched downstream histories. The replacement protocol is
+`experiments/online-storefront-v5/natural-action-study-protocol.json`.

@@ -79,3 +79,9 @@ The study can establish a resolved-action effect inside this research shopping
 controller. It cannot establish human preference change, permanent model
 contamination, production-retailer harm, or a proprietary model architecture
 mechanism.
+# Superseded after the P0 audit
+
+The prospective update below is no longer treated as confirmatory. The action
+set differed across arms, the mechanism analysis was selection-confounded, and
+the persistent endpoint used unmatched realized histories. The v5 natural
+action protocol replaces this plan.

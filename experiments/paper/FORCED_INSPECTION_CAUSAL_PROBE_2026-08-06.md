@@ -54,3 +54,9 @@ Systems should not treat every changed agent trace as evidence that recommendati
 Observed: a deterministic platform-recommendation inspection changed MiMo browsing traces without changing any of its 32 paired resolved actions. DeepSeek showed five sham-adjusted persistent resolved-action events.
 
 Not established: why the proprietary model policies differ, whether the effect transfers to other prompts or tools, human consequences, or production-retailer behavior.
+# Invalidated causal probe
+
+The probe below is historical audit material. Its forced-inspection controller
+changed candidate availability after a view, so it does not identify a pure
+recommendation-exposure effect. None of its action counts support the current
+paper claim.

@@ -1419,8 +1419,8 @@ export function App() {
           <div className="section-number">04</div>
           <header className="section-header">
             <div>
-              <span className="section-kicker">Findings</span>
-              <h2>Four findings with separate evidence boundaries.</h2>
+              <span className="section-kicker">Evidence status</span>
+              <h2>One result, two audits, and one prospective guardrail.</h2>
             </div>
             <p>
               Measured outcomes stay separate from design implications. No
@@ -1458,8 +1458,8 @@ export function App() {
             />
             <figcaption>
               <span className="mono-label">SPECIMEN B / MISFILED</span>
-              <h2>A detailed trace can still assign an event to the wrong actor.</h2>
-              <p>The attribution rule changes the profile, so it belongs in the interface design.</p>
+              <h2>A detailed trace can still hide when evidence became active.</h2>
+              <p>Task-local use and platform activation need separate states in the interface.</p>
               <small>CONCEPTUAL IMAGE · NOT STUDY DATA</small>
             </figcaption>
           </figure>

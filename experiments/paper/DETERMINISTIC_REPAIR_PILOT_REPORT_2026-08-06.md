@@ -105,3 +105,9 @@ difference between task-local use, platform activation, and deletion.
 - Selected manifest: `public/results/online-storefront-repair-pilot-selection/v1/selected-task-manifest.json`
 - Evaluation summary: `public/results/online-storefront-deterministic-repair-pilot/v1/evaluation/summary.json`
 - Public derived rows: `public/results/online-storefront-deterministic-repair-pilot/v1/evaluation/rows.json`
+# Invalidated result
+
+The result below is preserved for reproducibility but is not used in the paper.
+Forced inspection removed the inspected product from the next candidate list;
+the dominance AUC was driven by enriched versus non-enriched task groups; and
+the next-task endpoint mixed state with consequences of different actions.

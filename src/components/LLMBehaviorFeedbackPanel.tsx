@@ -13,111 +13,107 @@ export function LLMBehaviorFeedbackPanel({
   forced: ForcedInspectionSummary;
   historicalMargin: CandidateMarginSummary;
 }) {
-  const mimo = repair.providers.mimo;
-  const deepseek = repair.providers.deepseek;
-  const eventCount =
-    mimo.persistentResolvedActionEventCount +
-    deepseek.persistentResolvedActionEventCount;
-  const opportunityEventCount =
-    mimo.eventCountOnOpportunityChangedTasks +
-    deepseek.eventCountOnOpportunityChangedTasks;
+  const oldProviderEvents =
+    repair.providers.mimo.persistentResolvedActionEventCount +
+    repair.providers.deepseek.persistentResolvedActionEventCount;
 
   return (
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
       <header>
-        <span className="mono-label">DETERMINISTIC LLM PILOT / 32 TASKS</span>
+        <span className="mono-label">P0 METHOD AUDIT / CLAIM WITHDRAWN</span>
         <h3 id="llm-feedback-title">
-          Action changes appeared in one part of the task set.
+          The 32-task pilot cannot support the action claim.
         </h3>
         <p>
-          The pilot compared immediate activation with an outcome-gated hold.
-          Two additional held calls measured ordinary model variation. Tasks,
-          shelves, prompts, and decoding settings were fixed before the calls.
+          A source audit found three coupled problems: the required inspection
+          removed that item from the next candidate list, tasks were enriched on
+          the proposed mechanism, and the next-task outcome included consequences
+          of different selected items. The old result is retained as an audit,
+          not evidence.
         </p>
       </header>
 
       <div className="llm-feedback-repair">
         <header>
-          <span className="mono-label">PRIMARY RESULT</span>
-          <h4>Every exposure event had a changed choice opportunity.</h4>
+          <span className="mono-label">WHY IT FAILED</span>
+          <h4>The treatment changed more than recommendation exposure.</h4>
           <p>
-            The 32 tasks were selected without model outcomes from a pool of 460.
-            Fifteen were chosen because activation changed the actionable candidate
-            opportunity. This makes the pilot a mechanism test, not a prevalence study.
+            Once the controller marked a recommendation as viewed, the legacy
+            candidate builder excluded it. Immediate and held agents therefore
+            did not receive the same selectable action set. That is a design
+            confound, not a cosmetic implementation detail.
           </p>
         </header>
 
         <div className="llm-feedback-repair__grid">
           <article>
-            <span>DeepSeek</span>
-            <strong>7 / 32</strong>
-            <p>resolved-action events; 1/32 in sham</p>
+            <span>Old provider-events</span>
+            <strong>{oldProviderEvents}</strong>
+            <p>recorded, but no longer used as a result</p>
           </article>
           <article>
-            <span>MiMo</span>
-            <strong>6 / 32</strong>
-            <p>resolved-action events; 0/32 in sham</p>
+            <span>Within-opportunity AUC</span>
+            <strong>0.313</strong>
+            <p>DeepSeek; exact one-sided p = 0.892</p>
           </article>
           <article>
-            <span>Opportunity tasks</span>
-            <strong>{opportunityEventCount} / {eventCount}</strong>
-            <p>exposure events found inside the opportunity subset</p>
+            <span>Natural task frame</span>
+            <strong>460</strong>
+            <p>all frozen tasks, without mechanism enrichment</p>
           </article>
           <article>
-            <span>Sent-state audit</span>
-            <strong>32 / 32</strong>
-            <p>predictor and decisions matched for each provider</p>
+            <span>New task-model units</span>
+            <strong>920</strong>
+            <p>SASRec and GRU on every task</p>
           </article>
         </div>
 
         <p className="llm-feedback-repair__note">
-          DeepSeek was the frozen primary test: AUC {deepseek.mechanismAuc.toFixed(3)},
-          exact p = {deepseek.oneSidedExactPermutationP.toFixed(4)}. MiMo pointed in
-          the same direction: AUC {mimo.mechanismAuc.toFixed(3)}, exact p = {mimo.oneSidedExactPermutationP.toFixed(4)}.
-          Lower dominance scores meant that the leading candidates were less separated
-          before the model decided.
+          The reported dominance association disappears inside the 15 enriched
+          opportunity tasks: DeepSeek AUC 0.313, p = 0.892; MiMo AUC 0.231,
+          p = 0.961. The mechanism claim has been removed rather than reworded.
         </p>
       </div>
 
       <div className="llm-feedback-boundary-grid">
         <article>
-          <span className="mono-label">MEASUREMENT CHOICE</span>
-          <h4>Browsing and deciding are different outcomes.</h4>
+          <span className="mono-label">REPLACEMENT STUDY</span>
+          <h4>Matched choices, symmetric repeats.</h4>
           <p>
-            In an earlier controller probe, a required recommendation view changed
-            MiMo&apos;s trace in 24/32 pairs but changed its selected-item or abandon
-            outcome in 0/32. The paper therefore counts resolved actions, not every
-            difference in browsing history.
+            The v5 protocol sends identical candidate IDs to immediate and held
+            arms. The inspected product remains selectable. Two calls per arm and
+            a frozen Latin-square order separate an arm effect from repeated-call
+            variation at temperature zero.
           </p>
           <dl>
             <div>
-              <dt>Trace changed</dt>
-              <dd>{Math.round(forced.providers.mimo.wholeTraceDivergenceRate * 32)}/32</dd>
+              <dt>Calls per unit</dt>
+              <dd>4</dd>
             </div>
             <div>
-              <dt>Decision changed</dt>
-              <dd>0/32</dd>
+              <dt>Selectable inspections</dt>
+              <dd>1,840/1,840</dd>
             </div>
           </dl>
         </article>
 
         <article>
-          <span className="mono-label">AUDIT TRAIL</span>
-          <h4>The failed measurements stay visible.</h4>
+          <span className="mono-label">MEASUREMENT BOUNDARY</span>
+          <h4>Restored input state is not restored behavior.</h4>
           <p>
-            The first utility margin covered only {historicalMargin.providers.deepseek.analyzableCount}/32
-            tasks and had AUC {historicalMargin.providers.deepseek.marginAuc?.toFixed(2)}.
-            The historical recommender also had dropout active at inference. Those
-            runs explain the redesign, but they are not evidence for the repaired result.
+            The new primary endpoint is resolved-action distribution distance.
+            It does not require next-task displacement. If two arms select
+            different items, their later histories are expected to differ and
+            cannot be used as evidence that removal failed.
           </p>
           <dl>
             <div>
-              <dt>Old margin support</dt>
-              <dd>{historicalMargin.providers.deepseek.analyzableCount}/32</dd>
+              <dt>Old trace-only change</dt>
+              <dd>{Math.round(forced.providers.mimo.wholeTraceDivergenceRate * 32)}/32</dd>
             </div>
             <div>
-              <dt>Old margin AUC</dt>
-              <dd>{historicalMargin.providers.deepseek.marginAuc?.toFixed(2)}</dd>
+              <dt>Old margin support</dt>
+              <dd>{historicalMargin.providers.deepseek.analyzableCount}/32</dd>
             </div>
           </dl>
         </article>
@@ -125,12 +121,13 @@ export function LLMBehaviorFeedbackPanel({
 
       <footer>
         <p>
-          The result applies to an opportunity-enriched research storefront. It
-          does not estimate ordinary task frequency or human preference change.
+          Agent-mediated shopping is the setting, not an identified provenance
+          mechanism. No usability, trust, human preference, production-retailer,
+          deletion, or unlearning claim is made.
         </p>
         <p>
           Raw prompts, responses, item titles, reviews, and original identifiers
-          are excluded from the public artifacts.
+          remain outside the public artifacts.
         </p>
       </footer>
     </section>
