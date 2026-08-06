@@ -374,6 +374,14 @@ async function desktopPass(browser) {
     (await page.locator('.activation-store-link[href*="view=storefront"]').count()) === 1,
     "Desktop: the online research-store link is missing."
   );
+  check(
+    (await page.locator(".llm-feedback-dose__row").count()) === 2,
+    "Desktop: the decoding dose table did not render both LLM providers."
+  );
+  check(
+    (await page.locator(".llm-feedback-resolved article").count()) === 2,
+    "Desktop: the forced-inspection comparison did not render both LLM providers."
+  );
 
   await page.screenshot({
     path: path.join(outputDirectory, "desktop-hero.png")
@@ -537,6 +545,15 @@ async function desktopPass(browser) {
   );
   await page.locator(".learned-commerce").screenshot({
     path: path.join(outputDirectory, "desktop-learned-commerce.png")
+  });
+  await positionForScreenshot(page, ".llm-feedback-panel", 88);
+  await page.waitForTimeout(550);
+  check(
+    (await page.locator(".llm-feedback-resolved__note").innerText()).includes("24/32"),
+    "Desktop: the trace-versus-decision result did not load."
+  );
+  await page.locator(".llm-feedback-panel").screenshot({
+    path: path.join(outputDirectory, "desktop-llm-feedback-boundary.png")
   });
   await positionForScreenshot(page, ".cross-category-replication", 88);
   await page.waitForTimeout(550);
@@ -883,6 +900,15 @@ async function mobilePass(browser) {
   await page.waitForTimeout(650);
   await page.locator(".learned-commerce").screenshot({
     path: path.join(outputDirectory, "mobile-learned-commerce.png")
+  });
+  await positionForScreenshot(page, ".llm-feedback-panel", 72);
+  await page.waitForTimeout(650);
+  check(
+    (await page.locator(".llm-feedback-dose__row").count()) === 2,
+    "Mobile: the decoding dose table did not render both LLM providers."
+  );
+  await page.locator(".llm-feedback-panel").screenshot({
+    path: path.join(outputDirectory, "mobile-llm-feedback-boundary.png")
   });
   await positionForScreenshot(page, ".cross-category-replication", 72);
   await page.waitForTimeout(650);

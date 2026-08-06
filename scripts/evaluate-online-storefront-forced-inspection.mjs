@@ -6,6 +6,7 @@ import process from "node:process";
 const root = process.cwd();
 const preflight = process.argv.includes("--preflight");
 const protocolPath = path.join(root, "experiments/online-storefront-v4/forced-inspection-protocol.json");
+const sourceRoot = path.join(root, "public/results/online-storefront-decoding-sensitivity/v1");
 const outputRoot = path.join(root, "public/results/online-storefront-forced-inspection/v1");
 const depthPath = path.join(root, "public/results/online-storefront-decoding-sensitivity/v1/interaction-depth-summary.json");
 const sha256 = (value) => createHash("sha256").update(value).digest("hex");
@@ -26,7 +27,7 @@ if (preflight) {
 const providers = {};
 let taskSet = null;
 for (const provider of ["mimo", "deepseek"]) {
-  const rootForProvider = path.join(outputRoot, `${provider}-forced-inspection-t0`);
+  const rootForProvider = path.join(sourceRoot, `${provider}-forced-inspection-t0`);
   const summary = await readJson(path.join(rootForProvider, "summary.json"));
   const contrasts = (await readJson(path.join(rootForProvider, "contrasts.json"))).rows;
   if (summary.protocolSha256 !== sha256(Buffer.from(protocolText))) throw new Error(`${provider} protocol hash mismatch.`);
@@ -43,6 +44,8 @@ for (const provider of ["mimo", "deepseek"]) {
     model: summary.design.model,
     taskCount: summary.design.taskCount,
     pairedContrastCount: contrasts.length,
+    wholeTraceDivergenceRate: summary.descriptive.exposureTraceDivergenceRate,
+    wholePersistentFeedbackRate: summary.descriptive.persistentBehavioralFeedbackRate,
     resolvedActionDivergenceCount: resolved,
     shamResolvedActionDivergenceCount: shamResolved,
     persistentResolvedActionFeedbackCount: exposure,

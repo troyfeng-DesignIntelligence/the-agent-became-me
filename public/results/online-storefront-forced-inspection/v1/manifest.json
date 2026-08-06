@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "online-storefront-forced-inspection-manifest.v1",
+  "protocolSha256": "7296f7813b698631dbbc826d5ca984c083068246f8ff31fa4d2e6d83c2a120ac",
+  "files": {
+    "summary.json": {
+      "sha256": "2c12db2aaad15b3d5c9cd15f0c611d019609a46c8c97cc4765a80bd37f498ea3",
+      "bytes": 1792
+    }
+  }
+}

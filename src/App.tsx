@@ -385,6 +385,8 @@ export function App() {
     mimoLlmPilot,
     mimoMatchedLlmPilot,
     deepseekLlmPilot,
+    decodingDoseResponse,
+    forcedInspection,
     catalog,
     error,
     loading
@@ -1368,11 +1370,17 @@ export function App() {
               <OnlineStorefrontV2Panel summary={onlineStorefrontV2} />
             )}
 
-            {mimoLlmPilot && mimoMatchedLlmPilot && deepseekLlmPilot && (
+            {mimoLlmPilot &&
+              mimoMatchedLlmPilot &&
+              deepseekLlmPilot &&
+              decodingDoseResponse &&
+              forcedInspection && (
               <LLMBehaviorFeedbackPanel
                 originalMimo={mimoLlmPilot}
                 matchedMimo={mimoMatchedLlmPilot}
                 deepseek={deepseekLlmPilot}
+                dose={decodingDoseResponse}
+                forced={forcedInspection}
               />
             )}
 

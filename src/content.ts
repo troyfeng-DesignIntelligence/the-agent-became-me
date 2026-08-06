@@ -28,7 +28,7 @@ export const hero = {
   summary:
     "I pair immediate recommendation activation with an outcome-gated hold, then follow the agent from the changed shelf to its resolved action and next task. Independent held-exposure calls separate recommendation-mediated feedback from ordinary LLM variation.",
   status:
-    "4 Amazon-derived categories · 2 learned recommenders · matched MiMo and DeepSeek pilots complete · provider-contingent result · no human participants",
+    "4 Amazon-derived categories · 2 learned recommenders · matched MiMo and DeepSeek pilots · decoding grid and forced-inspection probe complete · no human participants",
   disclosure:
     "Shopping tasks are generated over public, pseudonymized review histories. Public artifacts exclude original user IDs, item IDs, titles, reviews, and raw model responses.",
   primaryAction: "Inspect the evidence",
@@ -240,7 +240,8 @@ export const limitations = [
   "There were no human participants. The project does not measure trust, satisfaction, identity, authorship, perceived control, willingness to use, or cognitive load.",
   "All principals, delegation briefs, behaviors, and outcomes are synthetic. Results characterize this implemented testbed, not commercial recommenders or real shopping behavior.",
   "The profile is a five-axis test representation over 90 food products. It is intentionally inspectable and cannot represent the breadth, instability, or social meaning of a person’s preferences.",
-  "Most large experiments use deterministic, transparent policies. In the matched 32-task LLM pilots, DeepSeek changed action paths after recommendation exposure while MiMo did not, despite identical mean shelf displacement. The result is provider-contingent and does not establish cross-LLM recurrence.",
+  "Most large experiments use deterministic, transparent policies. Across the matched LLM pilots and decoding grid, model response remained provider- and temperature-contingent; higher temperature also increased held-sham divergence for DeepSeek. These bounded pilots do not establish cross-LLM recurrence.",
+  "A controller-required recommendation view changed MiMo browsing traces in 24/32 pairs but changed its resolved item-or-abandon outcome in 0/32. Whole-trace divergence can therefore overstate behavioral change; the confirmatory outcome must be resolved-action divergence with a held-sham control.",
   "The serialized field `profileContamination` is a reference-profile distance, not independently established harm. It depends on hand-authored vectors, update equations, learning rates, and one relevance model.",
   "Matched shrinkage slightly outperformed provenance-aware updating. The benchmark therefore does not establish a provenance-specific benefit.",
   "Matched shrinkage is oracle-calibrated per trace from provenance-aware observed-intent weights. It is a non-selective mechanism control, not a deployable policy wholly independent of intent metadata.",

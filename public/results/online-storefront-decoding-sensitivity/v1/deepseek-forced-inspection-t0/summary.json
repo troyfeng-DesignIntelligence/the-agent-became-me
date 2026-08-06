@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "online-storefront-cross-llm-pilot-summary.v1",
+  "generatedAt": "2026-08-06T05:11:25.556041+00:00",
+  "protocolSha256": "7296f7813b698631dbbc826d5ca984c083068246f8ff31fa4d2e6d83c2a120ac",
+  "design": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "temperature": 0.0,
+    "taskCount": 32,
+    "trajectoryCount": 128,
+    "pairedContrastCount": 32,
+    "conditions": [
+      "immediate-remove",
+      "held-outcome",
+      "held-sham-a",
+      "held-sham-b"
+    ],
+    "agentPolicies": [
+      "forced-inspection"
+    ],
+    "recommenderFamilies": [
+      "sasrec",
+      "gru4rec"
+    ]
+  },
+  "api": {
+    "requestCount": 174,
+    "cacheHitCount": 0,
+    "attemptCount": 174,
+    "validActionCount": 174,
+    "retrySuccessCount": 0,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "validActionRate": 1.0,
+    "inputTokens": 114809,
+    "outputTokens": 3695,
+    "currency": "USD",
+    "observedCostAtPublishedRates": 0.017108,
+    "medianLatencySeconds": 0.953,
+    "returnedModels": [
+      "deepseek-v4-flash"
+    ],
+    "systemFingerprints": [
+      "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+    ]
+  },
+  "descriptive": {
+    "meanExposureT1": 0.709375,
+    "exposureTraceDivergenceRate": 0.6875,
+    "shamTraceDivergenceRate": 0.03125,
+    "persistentBehavioralFeedbackRate": 0.5625,
+    "shamPersistentBehavioralFeedbackRate": 0.03125,
+    "adjustedPersistentFeedback": 0.53125,
+    "adjustedTraceDivergence": 0.65625,
+    "exposureResolvedActionDivergenceRate": 0.1875,
+    "shamResolvedActionDivergenceRate": 0.03125,
+    "persistentResolvedActionFeedbackRate": 0.1875,
+    "shamPersistentResolvedActionFeedbackRate": 0.03125,
+    "adjustedPersistentResolvedActionFeedback": 0.15625,
+    "heldMinusImmediateDecisionAccuracy": 0.0,
+    "heldMinusImmediateSelectedUtility": 0.0
+  },
+  "gates": {
+    "validActionRateAtLeast095": true,
+    "timeoutRateBelow005": true,
+    "shamPersistentFeedbackAtMost005": true,
+    "privacyViolationCount": 0
+  },
+  "claims": {
+    "observed": [
+      "The provider selected actions from pseudonymous derived candidate features under frozen policies.",
+      "Independent held-exposure sham calls estimate model stochastic divergence rather than forcing a cache match."
+    ],
+    "notEstablished": [
+      "This pilot does not establish confirmatory cross-LLM recurrence.",
+      "The study does not measure human or production-retailer behavior.",
+      "Persistent behavioral feedback is bounded to the protocol-defined research-system checkpoints and realized-trace exclusion masks."
+    ]
+  }
+}

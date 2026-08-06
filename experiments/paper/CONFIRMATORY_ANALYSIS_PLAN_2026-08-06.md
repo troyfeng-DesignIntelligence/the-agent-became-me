@@ -9,6 +9,14 @@ feedback** outcome rather than cross-family recurrence. The frozen document is
 retained as an audit record, but its 360-task execution is paused and should
 not be run unchanged. See `CROSS_LLM_SHAM_PILOT_2026-08-06.md`.
 
+Subsequent diagnostics reinforce the pause. The 0–0.3 temperature grid did not
+produce a clean shared-provider effect, and a frozen forced-inspection probe
+changed 24/32 MiMo browsing traces while changing 0/32 resolved actions. Future
+confirmation must replace whole-trace divergence with a resolved-action primary
+event and treat provisional browsing-history change as a separate outcome. See
+`DECODING_DOSE_RESPONSE_2026-08-06.md` and
+`FORCED_INSPECTION_CAUSAL_PROBE_2026-08-06.md`.
+
 ## Narrow claim
 
 The paper no longer treats broad “profile pollution” as its central phenomenon. The confirmatory target is narrower: allowing temporary-task activity into a platform recommender can change what an autonomous agent sees, the changed exposure can alter the agent's action path, and later deletion cannot rewind an action that has already changed the resolved history.

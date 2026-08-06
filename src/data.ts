@@ -1287,8 +1287,57 @@ const CrossLlmPilotSummarySchema = z.object({
   })
 });
 
+const DecodingDoseCellSchema = z.object({
+  temperature: z.number().min(0).max(1),
+  exposureTraceDivergenceRate: z.number().min(0).max(1),
+  shamTraceDivergenceRate: z.number().min(0).max(1),
+  adjustedTraceDivergence: z.number().min(-1).max(1),
+  persistentBehavioralFeedbackRate: z.number().min(0).max(1),
+  shamPersistentBehavioralFeedbackRate: z.number().min(0).max(1),
+  adjustedPersistentFeedback: z.number().min(-1).max(1),
+  meanExposureT1: z.number().min(0).max(1),
+  cleanExposureCell: z.boolean()
+}).passthrough();
+
+const DecodingDoseSummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-decoding-dose-response-summary.v1"),
+  temperatures: z.array(z.number()),
+  providers: z.object({
+    mimo: z.record(z.string(), DecodingDoseCellSchema),
+    deepseek: z.record(z.string(), DecodingDoseCellSchema)
+  }),
+  decision: z.string(),
+  claimBoundary: z.string()
+});
+
+const ForcedInspectionProviderSchema = z.object({
+  model: z.string(),
+  taskCount: z.number().int().positive(),
+  pairedContrastCount: z.number().int().positive(),
+  wholeTraceDivergenceRate: z.number().min(0).max(1),
+  wholePersistentFeedbackRate: z.number().min(0).max(1),
+  resolvedActionDivergenceCount: z.number().int().nonnegative(),
+  shamResolvedActionDivergenceCount: z.number().int().nonnegative(),
+  persistentResolvedActionFeedbackCount: z.number().int().nonnegative(),
+  shamPersistentResolvedActionFeedbackCount: z.number().int().nonnegative(),
+  adjustedPersistentResolvedActionFeedback: z.number().min(-1).max(1),
+  shamPersistentResolvedActionRate: z.number().min(0).max(1)
+}).passthrough();
+
+const ForcedInspectionSummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-forced-inspection-summary.v1"),
+  providers: z.object({
+    mimo: ForcedInspectionProviderSchema,
+    deepseek: ForcedInspectionProviderSchema
+  }),
+  decision: z.string(),
+  claimBoundary: z.string()
+});
+
 export type MiMoLlmPilotSummary = z.infer<typeof MiMoLlmPilotSummarySchema>;
 export type CrossLlmPilotSummary = z.infer<typeof CrossLlmPilotSummarySchema>;
+export type DecodingDoseSummary = z.infer<typeof DecodingDoseSummarySchema>;
+export type ForcedInspectionSummary = z.infer<typeof ForcedInspectionSummarySchema>;
 
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
@@ -1310,6 +1359,8 @@ interface ProjectDataState {
   mimoLlmPilot: MiMoLlmPilotSummary | null;
   mimoMatchedLlmPilot: CrossLlmPilotSummary | null;
   deepseekLlmPilot: CrossLlmPilotSummary | null;
+  decodingDoseResponse: DecodingDoseSummary | null;
+  forcedInspection: ForcedInspectionSummary | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1332,6 +1383,8 @@ export function useProjectData(): ProjectDataState {
     mimoLlmPilot: null,
     mimoMatchedLlmPilot: null,
     deepseekLlmPilot: null,
+    decodingDoseResponse: null,
+    forcedInspection: null,
     catalog: null,
     error: null,
     loading: true
@@ -1451,6 +1504,18 @@ export function useProjectData(): ProjectDataState {
           if (!response.ok) throw new Error("Could not load DeepSeek LLM pilot.");
           return CrossLlmPilotSummarySchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-decoding-sensitivity/v1/dose-response-summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load decoding dose response.");
+          return DecodingDoseSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/online-storefront-forced-inspection/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) throw new Error("Could not load forced-inspection probe.");
+          return ForcedInspectionSummarySchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1470,7 +1535,9 @@ export function useProjectData(): ProjectDataState {
           onlineStorefrontV2,
           mimoLlmPilot,
           mimoMatchedLlmPilot,
-          deepseekLlmPilot
+          deepseekLlmPilot,
+          decodingDoseResponse,
+          forcedInspection
         ]) => {
         if (!cancelled) {
           setState({
@@ -1489,6 +1556,8 @@ export function useProjectData(): ProjectDataState {
             mimoLlmPilot,
             mimoMatchedLlmPilot,
             deepseekLlmPilot,
+            decodingDoseResponse,
+            forcedInspection,
             catalog,
             error: null,
             loading: false
@@ -1514,6 +1583,8 @@ export function useProjectData(): ProjectDataState {
             mimoLlmPilot: null,
             mimoMatchedLlmPilot: null,
             deepseekLlmPilot: null,
+            decodingDoseResponse: null,
+            forcedInspection: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

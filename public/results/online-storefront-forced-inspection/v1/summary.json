@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "online-storefront-forced-inspection-summary.v1",
+  "generatedAt": "2026-08-06T05:16:50.873Z",
+  "protocolSha256": "7296f7813b698631dbbc826d5ca984c083068246f8ff31fa4d2e6d83c2a120ac",
+  "providers": {
+    "mimo": {
+      "model": "mimo-v2.5",
+      "taskCount": 32,
+      "pairedContrastCount": 32,
+      "wholeTraceDivergenceRate": 0.75,
+      "wholePersistentFeedbackRate": 0.59375,
+      "resolvedActionDivergenceCount": 0,
+      "shamResolvedActionDivergenceCount": 0,
+      "persistentResolvedActionFeedbackCount": 0,
+      "shamPersistentResolvedActionFeedbackCount": 0,
+      "adjustedPersistentResolvedActionFeedback": 0,
+      "shamPersistentResolvedActionRate": 0,
+      "validActionRate": 1,
+      "timeoutCount": 0,
+      "requestCount": 128,
+      "currency": "CNY",
+      "observedCostAtPublishedRates": 0.100713
+    },
+    "deepseek": {
+      "model": "deepseek-v4-flash",
+      "taskCount": 32,
+      "pairedContrastCount": 32,
+      "wholeTraceDivergenceRate": 0.6875,
+      "wholePersistentFeedbackRate": 0.5625,
+      "resolvedActionDivergenceCount": 6,
+      "shamResolvedActionDivergenceCount": 1,
+      "persistentResolvedActionFeedbackCount": 6,
+      "shamPersistentResolvedActionFeedbackCount": 1,
+      "adjustedPersistentResolvedActionFeedback": 0.15625,
+      "shamPersistentResolvedActionRate": 0.03125,
+      "validActionRate": 1,
+      "timeoutCount": 0,
+      "requestCount": 174,
+      "currency": "USD",
+      "observedCostAtPublishedRates": 0.017108
+    }
+  },
+  "decision": "interaction-depth-insufficient",
+  "claimBoundary": "A positive result would identify required recommendation inspection as a causal contributor within this controller-model system, not as a general property of either provider or production shopping agents."
+}

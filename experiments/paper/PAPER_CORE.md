@@ -316,23 +316,55 @@ not be scaled unchanged. The next study must first isolate whether this boundary
 comes from provider family, decoding configuration, action-margin sensitivity,
 or an interaction between policy wording and model behavior.
 
+### R11 — A changed browsing trace did not necessarily become a changed decision
+
+We mapped both providers at temperatures 0, 0.1, 0.2, and 0.3 while retaining
+the independent held-sham arms. MiMo's adjusted persistent-feedback counts were
+0/64, 0/64, 0/64, and 2/64. DeepSeek's were 9/64, 6/64, 9/64, and 5/64.
+DeepSeek sham persistent-feedback rose from 0/64 at temperature 0 to 3/64,
+4/64, and 4/64, crossing the frozen 5% threshold at temperatures 0.2 and 0.3.
+The temperature grid therefore did not yield a clean shared-provider effect.
+
+The API-action accounting exposed a more concrete difference. Across 1,024
+trajectories spanning the four temperatures, MiMo initiated zero product views
+and made exactly one model decision per trajectory. DeepSeek initiated 891
+product views and averaged 1.86–1.89 model decisions per trajectory. Provider
+identity was therefore confounded with interaction depth.
+
+We tested that alternative explanation with a frozen controller intervention.
+At temperature 0, the controller required one view of the highest-ranked
+platform recommendation before the LLM could resolve the task. Because this
+action could mechanically differ across exposure arms, whole-trace divergence
+was excluded from the primary outcome. The primary event instead required a
+different final selected item or abandon outcome plus next-task displacement.
+
+MiMo's whole trace diverged in 24/32 exposure pairs and remained different at
+the next task in 19/32, yet its resolved action changed in 0/32. DeepSeek's
+whole trace diverged in 22/32; resolved actions changed in 6/32 exposure pairs
+versus 1/32 sham pairs, for a sham-adjusted resolved-action estimate of 5/32.
+Required inspection was therefore insufficient to explain the provider
+boundary. More importantly, the probe revealed that browsing-history path
+dependence and committed-decision path dependence are empirically separable.
+
 ## Contribution statement
 
 1. **Empirical.** We characterize recommendation-mediated behavioral path
    dependence in a research shopping system, separating in-task ranking
    exposure, agent-trace divergence, and downstream consequences across task
-   checkpoints. Matched MiMo and DeepSeek pilots show that equally displaced
-   shelves need not produce equally changed behavior; the propagation step is
-   model-contingent in the current evidence.
-2. **Conceptual.** We distinguish stored-state reversibility from interaction-
-   path reversibility: removing temporary evidence can restore a profile input
-   while failing to restore the action that would have occurred without the
-   earlier recommendation exposure.
+   checkpoints. Matched LLM pilots and a forced-inspection intervention show
+   that equally displaced shelves—and even different realized browsing
+   histories—need not produce different resolved decisions.
+2. **Conceptual.** We distinguish stored-state, browsing-path, and resolved-
+   decision reversibility. Removing temporary evidence can restore a profile
+   input; a required inspection can still change browsing history; neither fact
+   alone establishes that the agent's committed decision changed.
 3. **Methodological.** We introduce a paired four-arm protocol that separates
    platform activation from task-local retrieval and calibrates LLM stochastic
-   divergence with two independent held-exposure sham trajectories. Real
-   commerce histories, two learned sequence encoders, four categories, fixed
-   candidate masks, and explicit failure accounting bound the comparison.
+   divergence with two independent held-exposure sham trajectories. A
+   controller intervention and resolved-action estimand prevent mandated
+   intermediate actions from being misreported as changed task resolution.
+   Real commerce histories, two learned sequence encoders, four categories,
+   fixed candidate masks, and explicit failure accounting bound the comparison.
 4. **Design.** We translate the mechanism into outcome-gated platform
    activation with a separate task-local channel and an inspectable control
    prototype. The design implication follows from computational evidence; the
@@ -355,6 +387,7 @@ or an interaction between policy wording and model behavior.
 | Fig. 11 | `?view=storefront-v2&mode=free-running&phase=task-in-progress` plus v2 contrast intervals | Four-contract model-backed replay and fixed-versus-free-running estimands |
 | Fig. 12 | SASRec-versus-GRU fixed displacement and free trace-divergence intervals | Recurrence and model-dependent trajectory amplification |
 | Fig. 13 | Immediate-versus-held trace pair with the held-versus-held sham calibration | Makes exposure-adjusted behavioral path dependence visible |
+| Fig. 14 | Temperature curves plus whole-trace versus resolved-action divergence | Shows when stochasticity enters and why trace change is not decision change |
 
 ## Claim discipline
 
@@ -372,6 +405,8 @@ or an interaction between policy wording and model behavior.
   contamination,” “irreversible preference change,” or “unlearning failure.”
 - Say “DeepSeek-only behavioral propagation under the matched pilot,” not
   “cross-LLM replication” or “provider-general agent feedback.”
+- Say “resolved-action divergence” when claiming changed task behavior; do not
+  use a controller-mandated browsing-trace difference as equivalent evidence.
 
 ## Most defensible paper story
 
@@ -389,9 +424,12 @@ propagated into DeepSeek actions but not MiMo actions. The held condition keeps
 the same task-local retrieval channel, so preventing platform activation does
 not require making the current agent task-blind.
 
-The sham contrast ruled out observed repeated-call divergence in both matched
-provider runs, but the exposure effect recurred only in DeepSeek. This triggers
-the prespecified contraction: the defensible contribution is the ranking-
-exposure mechanism plus a model-contingent propagation boundary. Before a large
-confirmation, a smaller diagnostic study should vary decoding and action-margin
-sensitivity within each provider while retaining the same paired sham design.
+The sham contrast ruled out observed repeated-call divergence at temperature 0,
+but the exposure effect recurred only in DeepSeek. Temperature sweeps showed
+that stochasticity enters before a clean shared-provider effect appears. The
+forced-inspection probe then revealed the sharper phenomenon: a recommendation
+can change the realized browsing path without changing the resolved decision.
+The defensible contribution is therefore the ranking-exposure mechanism, its
+model-contingent propagation boundary, and a measurement distinction between
+provisional trace change and committed action change. A larger confirmation
+should be designed around resolved actions rather than whole-trace divergence.
