@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "online-storefront-decoding-sensitivity-manifest.v1",
+  "protocolSha256": "4f2b42c7f2d63895c54b603045b786bb8a201599455c2d8c66aa01cd6b6afcb1",
+  "files": {
+    "summary.json": {
+      "sha256": "7ca3c06f4b8b7157358763df6bb6e3fb8de099b300eae118151ff79dbce64a62",
+      "bytes": 3498
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "online-storefront-cross-llm-pilot-summary.v1",
+  "generatedAt": "2026-08-06T04:36:20.913048+00:00",
+  "protocolSha256": "4f2b42c7f2d63895c54b603045b786bb8a201599455c2d8c66aa01cd6b6afcb1",
+  "design": {
+    "provider": "xiaomi-mimo",
+    "model": "mimo-v2.5",
+    "temperature": 0.3,
+    "taskCount": 32,
+    "trajectoryCount": 256,
+    "pairedContrastCount": 64,
+    "conditions": [
+      "immediate-remove",
+      "held-outcome",
+      "held-sham-a",
+      "held-sham-b"
+    ],
+    "agentPolicies": [
+      "constraint-first",
+      "exploration-first"
+    ],
+    "recommenderFamilies": [
+      "sasrec",
+      "gru4rec"
+    ]
+  },
+  "api": {
+    "requestCount": 256,
+    "cacheHitCount": 0,
+    "attemptCount": 256,
+    "validActionCount": 256,
+    "retrySuccessCount": 0,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "validActionRate": 1.0,
+    "inputTokens": 186030,
+    "outputTokens": 5998,
+    "currency": "CNY",
+    "observedCostAtPublishedRates": 0.198026,
+    "medianLatencySeconds": 1.6565,
+    "returnedModels": [
+      "mimo-v2.5"
+    ],
+    "systemFingerprints": []
+  },
+  "descriptive": {
+    "meanExposureT1": 0.6875,
+    "exposureTraceDivergenceRate": 0.03125,
+    "shamTraceDivergenceRate": 0.0,
+    "persistentBehavioralFeedbackRate": 0.03125,
+    "shamPersistentBehavioralFeedbackRate": 0.0,
+    "adjustedPersistentFeedback": 0.03125,
+    "adjustedTraceDivergence": 0.03125,
+    "heldMinusImmediateDecisionAccuracy": 0.0,
+    "heldMinusImmediateSelectedUtility": 0.0
+  },
+  "gates": {
+    "validActionRateAtLeast095": true,
+    "timeoutRateBelow005": true,
+    "shamPersistentFeedbackAtMost005": true,
+    "privacyViolationCount": 0
+  },
+  "claims": {
+    "observed": [
+      "The provider selected actions from pseudonymous derived candidate features under frozen policies.",
+      "Independent held-exposure sham calls estimate model stochastic divergence rather than forcing a cache match."
+    ],
+    "notEstablished": [
+      "This pilot does not establish confirmatory cross-LLM recurrence.",
+      "The study does not measure human or production-retailer behavior.",
+      "Persistent behavioral feedback is bounded to the protocol-defined research-system checkpoints and realized-trace exclusion masks."
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "online-storefront-cross-llm-pilot-summary.v1",
+  "generatedAt": "2026-08-06T04:35:46.748035+00:00",
+  "protocolSha256": "4f2b42c7f2d63895c54b603045b786bb8a201599455c2d8c66aa01cd6b6afcb1",
+  "design": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "temperature": 0.3,
+    "taskCount": 32,
+    "trajectoryCount": 256,
+    "pairedContrastCount": 64,
+    "conditions": [
+      "immediate-remove",
+      "held-outcome",
+      "held-sham-a",
+      "held-sham-b"
+    ],
+    "agentPolicies": [
+      "constraint-first",
+      "exploration-first"
+    ],
+    "recommenderFamilies": [
+      "sasrec",
+      "gru4rec"
+    ]
+  },
+  "api": {
+    "requestCount": 480,
+    "cacheHitCount": 0,
+    "attemptCount": 480,
+    "validActionCount": 480,
+    "retrySuccessCount": 0,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "validActionRate": 1.0,
+    "inputTokens": 322433,
+    "outputTokens": 10346,
+    "currency": "USD",
+    "observedCostAtPublishedRates": 0.048038,
+    "medianLatencySeconds": 0.8515,
+    "returnedModels": [
+      "deepseek-v4-flash"
+    ],
+    "systemFingerprints": [
+      "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+    ]
+  },
+  "descriptive": {
+    "meanExposureT1": 0.69375,
+    "exposureTraceDivergenceRate": 0.140625,
+    "shamTraceDivergenceRate": 0.078125,
+    "persistentBehavioralFeedbackRate": 0.140625,
+    "shamPersistentBehavioralFeedbackRate": 0.0625,
+    "adjustedPersistentFeedback": 0.078125,
+    "adjustedTraceDivergence": 0.0625,
+    "heldMinusImmediateDecisionAccuracy": -0.015625,
+    "heldMinusImmediateSelectedUtility": -0.015625
+  },
+  "gates": {
+    "validActionRateAtLeast095": true,
+    "timeoutRateBelow005": true,
+    "shamPersistentFeedbackAtMost005": false,
+    "privacyViolationCount": 0
+  },
+  "claims": {
+    "observed": [
+      "The provider selected actions from pseudonymous derived candidate features under frozen policies.",
+      "Independent held-exposure sham calls estimate model stochastic divergence rather than forcing a cache match."
+    ],
+    "notEstablished": [
+      "This pilot does not establish confirmatory cross-LLM recurrence.",
+      "The study does not measure human or production-retailer behavior.",
+      "Persistent behavioral feedback is bounded to the protocol-defined research-system checkpoints and realized-trace exclusion masks."
+    ]
+  }
+}

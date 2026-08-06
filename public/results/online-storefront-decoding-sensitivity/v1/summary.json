@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "online-storefront-decoding-sensitivity-summary.v1",
+  "generatedAt": "2026-08-06T04:36:55.252Z",
+  "protocolSha256": "4f2b42c7f2d63895c54b603045b786bb8a201599455c2d8c66aa01cd6b6afcb1",
+  "design": {
+    "taskCountPerProviderTemperature": 32,
+    "pairedContrastCountPerProviderTemperature": 64,
+    "temperatures": [
+      0,
+      0.3
+    ],
+    "providers": [
+      "mimo",
+      "deepseek"
+    ]
+  },
+  "cells": {
+    "mimo": {
+      "temperature0": {
+        "model": "mimo-v2.5",
+        "temperature": 0,
+        "taskCount": 32,
+        "pairedContrastCount": 64,
+        "validActionRate": 1,
+        "timeoutCount": 0,
+        "requestCount": 224,
+        "currency": "CNY",
+        "observedCostAtPublishedRates": 0.197918,
+        "meanExposureT1": 0.696875,
+        "exposureTraceDivergenceRate": 0,
+        "shamTraceDivergenceRate": 0,
+        "adjustedTraceDivergence": 0,
+        "persistentBehavioralFeedbackRate": 0,
+        "shamPersistentBehavioralFeedbackRate": 0,
+        "adjustedPersistentFeedback": 0
+      },
+      "temperature0p3": {
+        "model": "mimo-v2.5",
+        "temperature": 0.3,
+        "taskCount": 32,
+        "pairedContrastCount": 64,
+        "validActionRate": 1,
+        "timeoutCount": 0,
+        "requestCount": 256,
+        "currency": "CNY",
+        "observedCostAtPublishedRates": 0.198026,
+        "meanExposureT1": 0.6875,
+        "exposureTraceDivergenceRate": 0.03125,
+        "shamTraceDivergenceRate": 0,
+        "adjustedTraceDivergence": 0.03125,
+        "persistentBehavioralFeedbackRate": 0.03125,
+        "shamPersistentBehavioralFeedbackRate": 0,
+        "adjustedPersistentFeedback": 0.03125
+      }
+    },
+    "deepseek": {
+      "temperature0": {
+        "model": "deepseek-v4-flash",
+        "temperature": 0,
+        "taskCount": 32,
+        "pairedContrastCount": 64,
+        "validActionRate": 1,
+        "timeoutCount": 0,
+        "requestCount": 483,
+        "currency": "USD",
+        "observedCostAtPublishedRates": 0.048362,
+        "meanExposureT1": 0.696875,
+        "exposureTraceDivergenceRate": 0.171875,
+        "shamTraceDivergenceRate": 0,
+        "adjustedTraceDivergence": 0.171875,
+        "persistentBehavioralFeedbackRate": 0.140625,
+        "shamPersistentBehavioralFeedbackRate": 0,
+        "adjustedPersistentFeedback": 0.140625
+      },
+      "temperature0p3": {
+        "model": "deepseek-v4-flash",
+        "temperature": 0.3,
+        "taskCount": 32,
+        "pairedContrastCount": 64,
+        "validActionRate": 1,
+        "timeoutCount": 0,
+        "requestCount": 480,
+        "currency": "USD",
+        "observedCostAtPublishedRates": 0.048038,
+        "meanExposureT1": 0.69375,
+        "exposureTraceDivergenceRate": 0.140625,
+        "shamTraceDivergenceRate": 0.078125,
+        "adjustedTraceDivergence": 0.0625,
+        "persistentBehavioralFeedbackRate": 0.140625,
+        "shamPersistentBehavioralFeedbackRate": 0.0625,
+        "adjustedPersistentFeedback": 0.078125
+      }
+    }
+  },
+  "temperatureDeltas": {
+    "mimoAdjustedTraceDivergence": 0.03125,
+    "mimoAdjustedPersistentFeedback": 0.03125,
+    "deepseekAdjustedTraceDivergence": -0.109375,
+    "deepseekAdjustedPersistentFeedback": -0.0625
+  },
+  "decision": "stochasticity-dominated",
+  "claimBoundary": "This mechanism pilot identifies decoding sensitivity or a provider-contingent boundary within the frozen research storefront; it does not establish a population, production, or architectural effect."
+}
