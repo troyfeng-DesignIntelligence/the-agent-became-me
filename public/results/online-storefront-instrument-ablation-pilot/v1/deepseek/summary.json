@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-run-summary.v1",
+  "generatedAt": "2026-08-07T06:44:34.974209+00:00",
+  "protocolSha256": "23fea23e3e0d8ebf14d8761179a8a50335d440c0ea2756f700eb37c23ac546cf",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "taskModelUnitCount": 32,
+  "modeRowCount": 128,
+  "api": {
+    "requestCount": 512,
+    "cacheHitCount": 0,
+    "attemptCount": 512,
+    "validActionCount": 512,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 414800,
+    "outputTokens": 11092,
+    "currency": "USD",
+    "observedCostAtPublishedRates": 0.061178,
+    "systemFingerprints": [
+      "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+    ],
+    "returnedModels": [
+      "deepseek-v4-flash"
+    ]
+  },
+  "claimBoundary": "The study concerns categorical provider outputs over pseudonymous derived product features in a research storefront. It does not identify human behavior, purchases, production-retailer effects, or human utility."
+}

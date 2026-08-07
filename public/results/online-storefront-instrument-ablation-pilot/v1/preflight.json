@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-preflight.v1",
+  "generatedAt": "2026-08-07T06:29:24.299713+00:00",
+  "protocolSha256": "23fea23e3e0d8ebf14d8761179a8a50335d440c0ea2756f700eb37c23ac546cf",
+  "passed": true,
+  "taskModelUnitCount": 32,
+  "servedOrderChangeCount": 32,
+  "servedOrderChangeRate": 1.0,
+  "meanNormalizedRankDisplacement": 0.25947,
+  "failureCount": 0,
+  "failures": []
+}

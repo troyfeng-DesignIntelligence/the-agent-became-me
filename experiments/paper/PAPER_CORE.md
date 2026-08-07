@@ -22,6 +22,11 @@ frame. Earlier 32-task and layout-confounded runs remain withdrawn.
 The paper does not claim trained-model deletion, irreversible platform state,
 human preference change, or production-retailer effects.
 
+A frozen V7 mechanism pilot now shows that an order-only representation remains
+worth testing after explicit rank and inspection fields are removed. This is a
+scale-up result, not confirmatory evidence: DeepSeek's served-order interval
+still touched zero.
+
 ## Research questions
 
 ### RQ1. Does activation, rather than event recording, change the in-task shelf?
@@ -53,6 +58,7 @@ and does not define human utility or harmlessness.
 | SASRec and GRU replication across four Amazon Reviews categories | Complete | The ranking effect is not confined to one category or encoder in this testbed |
 | Free-running deterministic policies | Descriptive | Ranking movement can alter scripted trajectories; policy estimates are not LLM action effects |
 | Natural-frame LLM action study | Complete: 7,360 valid calls | Immediate versus held activation changed categorical output distributions in both tested provider models |
+| V7 instrument-ablation pilot | Complete: 1,024 valid calls | Served order cleared the frozen scale-up gate; the enriched pilot cannot support a natural-frame or consequential claim |
 | Control interface | Implemented design response | No usability, trust, comprehension, or preference claim |
 
 ## Completed result: activation changed rankings
@@ -173,6 +179,31 @@ neither provider had a select-to-abandon or abandon-to-select transition. The
 result therefore concerns which pseudonymous candidate record was returned, not
 whether the model completed or abandoned the task.
 
+## V7 instrument-ablation pilot
+
+V6 changed a composite prompt representation. Besides `platformRank` and the
+`inspected` marker, novelty was computed after the arm-specific inspection. V7
+held the candidate set, candidate attributes, and baseline novelty fixed. It
+then compared rank only, inspection only, a byte-identical masked control, and
+candidate order alone.
+
+The 32 task-model units reused a committed selection made without provider
+responses or resolved actions. The set was enriched for recommendation
+opportunity, so this pilot tests whether a full study is warranted rather than
+estimating natural prevalence.
+
+DeepSeek's categorical energy distance was 0.188 [0.000, 0.375] for served
+order and -0.047 [-0.125, 0.000] for the masked control. It changed action in 7
+of 64 matched served-order pairs. MiMo's served-order estimate was 0.313 [0.125,
+0.563], versus 0.063 [0.000, 0.188] for the masked control, with 10 of 64
+matched changes. All changes were selected-candidate swaps.
+
+The DeepSeek point estimate passed the frozen pilot thresholds, so a full
+natural-frame V7 is warranted. Its interval did not exclude zero. The result
+therefore keeps an order-based explanation alive but does not close the
+treatment-meaning P0. The inspection-only condition also moved outputs, which
+confirms that V6 must remain described as a composite instrument.
+
 ## State and behavior are different estimands
 
 The implementation uses the term temporary task evidence activation. It does
@@ -197,7 +228,10 @@ ranking displacement is not part of the primary behavioral event.
    immediate-versus-held output-distribution contrast while holding selectable
    candidates fixed and measuring repeated-call variation symmetrically in two
    provider models.
-4. An outcome-gated interface as an unevaluated design response.
+4. A frozen mechanism pilot showing that recommendation order remains a viable
+   explanation after explicit rank and inspection metadata are removed; this
+   contribution remains provisional until the natural-frame V7 is complete.
+5. An outcome-gated interface as an unevaluated design response.
 
 All frozen action and guardrail gates passed. Agent provenance is not
 manipulated, so the paper does not claim an ACI-specific causal mechanism.
@@ -219,9 +253,10 @@ that holding improves decisions or that people prefer this control.
   retailer's production system.
 - LLMs received pseudonymous derived features, not rendered commerce pages or
   natural-language product descriptions.
-- The action contrast is the effect of a constructed instrument containing
-  arm-dependent platform-rank and inspected-item fields. It is not yet an
-  effect of a naturally ordered, rendered shelf.
+- The v6 action contrast is the effect of a composite instrument containing
+  arm-dependent platform-rank, inspection, and inspection-conditioned novelty.
+  V7's enriched pilot found an order-only signal but did not pass the primary
+  provider's full confirmatory interval gate. Neither study used a rendered shelf.
 - Two repeated calls per arm require stable, mutually independent provider
   draws for the categorical-distance interpretation; call diagnostics cannot
   prove those assumptions.
@@ -239,4 +274,6 @@ whose interval also excluded zero, provider failures were 0%, and both
 worst-case decision-quality intervals remained above -0.05. The study is
 therefore eligible for the bounded model-action claim stated above. It is not
 eligible for claims about people, Amazon, trained-model deletion, irreversible
-platform state, or actor provenance.
+platform state, or actor provenance. The V7 pilot separately authorizes a
+natural-frame instrument ablation; it does not yet authorize replacing
+"composite prompt instrument" with "recommendation-order effect" in the claim.

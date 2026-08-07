@@ -2,6 +2,7 @@ import type {
   CandidateMarginSummary,
   DeterministicRepairSummary,
   ForcedInspectionSummary,
+  InstrumentAblationEvaluation,
   NaturalActionEvaluation
 } from "../data";
 
@@ -13,12 +14,14 @@ export function LLMBehaviorFeedbackPanel({
   repair,
   forced,
   historicalMargin,
-  natural
+  natural,
+  ablation
 }: {
   repair: DeterministicRepairSummary;
   forced: ForcedInspectionSummary;
   historicalMargin: CandidateMarginSummary;
   natural: NaturalActionEvaluation;
+  ablation: InstrumentAblationEvaluation;
 }) {
   const mimo = natural.providers.mimo;
   const deepseek = natural.providers.deepseek;
@@ -26,6 +29,8 @@ export function LLMBehaviorFeedbackPanel({
     repair.providers.mimo.persistentResolvedActionEventCount +
     repair.providers.deepseek.persistentResolvedActionEventCount;
   const validCalls = mimo.runApi.validActionCount + deepseek.runApi.validActionCount;
+  const v7DeepSeek = ablation.providers.deepseek.estimates;
+  const v7MiMo = ablation.providers.mimo.estimates;
 
   return (
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
@@ -79,6 +84,49 @@ export function LLMBehaviorFeedbackPanel({
 
         <p className="llm-feedback-repair__note">
           Conditional on a natural actionable opportunity, the estimate was {interval(deepseek.estimates.conditionalActionDistributionDistance)} for DeepSeek and {interval(mimo.estimates.conditionalActionDistributionDistance)} for MiMo. This conditional result is reported beside its 4.35% prevalence, not as a population-wide rate.
+        </p>
+      </div>
+
+      <div className="llm-feedback-ablation">
+        <header>
+          <span className="mono-label">V7 / FROZEN 32-UNIT MECHANISM PILOT</span>
+          <h4>Candidate order survived the metadata ablation.</h4>
+          <p>
+            V7 removed explicit platform rank and inspection markers, held all
+            candidate attributes fixed, and changed only the order in which the
+            same candidates were served. The pilot passed its prespecified
+            scale-up gate; it did not pass DeepSeek&apos;s full confirmatory interval
+            gate.
+          </p>
+        </header>
+
+        <div className="llm-feedback-repair__grid">
+          <article>
+            <span>DeepSeek / served order</span>
+            <strong>{v7DeepSeek["served-order"].categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {v7DeepSeek["served-order"].categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+          </article>
+          <article>
+            <span>DeepSeek / masked</span>
+            <strong>{v7DeepSeek["masked-control"].categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>{v7DeepSeek["served-order"].matchedCrossArmActionChangeCount}/64 served-order pairs changed</p>
+          </article>
+          <article>
+            <span>MiMo / served order</span>
+            <strong>{v7MiMo["served-order"].categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {v7MiMo["served-order"].categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+          </article>
+          <article>
+            <span>Pilot decision</span>
+            <strong>Scale</strong>
+            <p>run the full natural-frame V7</p>
+          </article>
+        </div>
+
+        <p className="llm-feedback-repair__note">
+          The inspection marker also moved outputs. V6 therefore remains a
+          composite prompt-instrument result. V7 only establishes that an
+          order-based explanation is strong enough to test at full scale.
         </p>
       </div>
 
@@ -136,9 +184,9 @@ export function LLMBehaviorFeedbackPanel({
           production-retailer effects, deletion, unlearning, or actor provenance.
         </p>
         <p>
-          Every observed cross-arm transition was a selected-candidate swap;
-          none changed between selection and abandonment. The instrument exposes
-          platform-rank and inspected-item fields, not a rendered commerce shelf.
+          Every observed cross-arm transition in V6 and the V7 pilot was a
+          selected-candidate swap; none changed between selection and abandonment.
+          Neither study used a rendered commerce shelf.
         </p>
         <p>
           Raw prompts, responses, item titles, reviews, and original identifiers

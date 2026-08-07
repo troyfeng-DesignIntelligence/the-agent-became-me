@@ -36,9 +36,11 @@ and abandon. The result is not evidence of human preference change, harm,
 purchase behavior, trained-model deletion, or a production-retailer effect.
 
 The current full paper is a no-go for IUI 2027. CALMRec and RecNet occupy the
-general temporary-memory and selective-assimilation ideas, and the action
-instrument still needs an order-versus-metadata ablation plus a consequential
-shopping benchmark before a RecSys main-track submission. See the
+general temporary-memory and selective-assimilation ideas. The action
+instrument has passed a 32-unit order-versus-metadata scale-up pilot, but the
+primary DeepSeek interval still touched zero. It still needs a full
+natural-frame ablation and a consequential shopping benchmark before a RecSys
+main-track submission. See the
 [P0/P1 review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md) and the
 [updated collision review](experiments/paper/COLLISION_REVIEW_V6_2026-08-07.md).
 
@@ -533,6 +535,7 @@ Useful review documents:
 - [V6 Collision Review](experiments/paper/COLLISION_REVIEW_V6_2026-08-07.md)
 - [P0/P1 Repair and Strict Review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md)
 - [V6 Confirmatory Report](experiments/paper/NATURAL_ACTION_CONFIRMATORY_REPORT_2026-08-07.md)
+- [V7 Instrument-Ablation Pilot](experiments/paper/V7_INSTRUMENT_ABLATION_PILOT_2026-08-07.md)
 - [Data and Reuse](docs/DATA_AND_REUSE.md)
 - [AI Use Disclosure](docs/AI_USE.md)
 - [Art Direction and Image Provenance](docs/ART_DIRECTION.md)

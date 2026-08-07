@@ -77,7 +77,8 @@
   line-height: 1.65;
 }
 
-.llm-feedback-repair {
+.llm-feedback-repair,
+.llm-feedback-ablation {
   margin-top: clamp(2rem, 5vw, 4.5rem);
   padding: clamp(1.25rem, 3vw, 2.5rem);
   color: #ece9df;
@@ -87,18 +88,21 @@
   box-shadow: 12px 14px 0 rgb(80 90 83 / 0.18);
 }
 
-.llm-feedback-repair > header {
+.llm-feedback-repair > header,
+.llm-feedback-ablation > header {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
   gap: clamp(1.25rem, 4vw, 4rem);
   align-items: end;
 }
 
-.llm-feedback-repair .mono-label {
+.llm-feedback-repair .mono-label,
+.llm-feedback-ablation .mono-label {
   color: rgb(235 196 147 / 0.88);
 }
 
 .llm-feedback-repair h4,
+.llm-feedback-ablation h4,
 .llm-feedback-history-heading h4 {
   margin: 0.65rem 0 0;
   max-width: 17ch;
@@ -109,7 +113,8 @@
   letter-spacing: -0.045em;
 }
 
-.llm-feedback-repair > header p {
+.llm-feedback-repair > header p,
+.llm-feedback-ablation > header p {
   margin: 0;
   color: rgb(236 233 223 / 0.72);
   line-height: 1.6;
@@ -565,6 +570,7 @@
   .llm-feedback-panel > header,
   .llm-feedback-panel > footer,
   .llm-feedback-repair > header,
+  .llm-feedback-ablation > header,
   .llm-feedback-history-heading,
   .llm-feedback-diagnostics > header,
   .llm-feedback-audit > header {

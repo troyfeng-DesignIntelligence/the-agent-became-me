@@ -1,0 +1,470 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-evaluation.v1",
+  "protocolSha256": "23fea23e3e0d8ebf14d8761179a8a50335d440c0ea2756f700eb37c23ac546cf",
+  "providers": {
+    "deepseek": {
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "taskModelUnitCount": 32,
+      "estimates": {
+        "rank-only": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.0625,
+            "ci95": [
+              0.0,
+              0.1875
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.0625,
+            "ci95": [
+              0.0,
+              0.140625
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.0625,
+            "ci95": [
+              0.0,
+              0.15625
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 4
+        },
+        "inspection-only": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.25,
+            "ci95": [
+              0.0625,
+              0.4375
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.125,
+            "ci95": [
+              0.03125,
+              0.21875
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 8
+        },
+        "masked-control": {
+          "categoricalEnergyDistance": {
+            "estimate": -0.046875,
+            "ci95": [
+              -0.125,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.046875,
+            "ci95": [
+              0.0,
+              0.125
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.0625,
+            "ci95": [
+              0.0,
+              0.15625
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.0625,
+            "ci95": [
+              0.0,
+              0.15625
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 3
+        },
+        "served-order": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.1875,
+            "ci95": [
+              0.0,
+              0.375
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.109375,
+            "ci95": [
+              0.015625,
+              0.21875
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.03125,
+            "ci95": [
+              0.0,
+              0.09375
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 7
+        }
+      },
+      "transitions": {
+        "rank-only": {
+          "same": 60,
+          "selected-candidate-swap": 4
+        },
+        "inspection-only": {
+          "same": 56,
+          "selected-candidate-swap": 8
+        },
+        "masked-control": {
+          "same": 61,
+          "selected-candidate-swap": 3
+        },
+        "served-order": {
+          "same": 57,
+          "selected-candidate-swap": 7
+        }
+      },
+      "runApi": {
+        "requestCount": 512,
+        "cacheHitCount": 0,
+        "attemptCount": 512,
+        "validActionCount": 512,
+        "invalidOrFailedAttemptCount": 0,
+        "timeoutCount": 0,
+        "terminalFailureCount": 0,
+        "inputTokens": 414800,
+        "outputTokens": 11092,
+        "currency": "USD",
+        "observedCostAtPublishedRates": 0.061178,
+        "systemFingerprints": [
+          "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+        ],
+        "returnedModels": [
+          "deepseek-v4-flash"
+        ]
+      }
+    },
+    "mimo": {
+      "provider": "mimo",
+      "model": "mimo-v2.5",
+      "taskModelUnitCount": 32,
+      "estimates": {
+        "rank-only": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 0
+        },
+        "inspection-only": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.125,
+            "ci95": [
+              0.0,
+              0.3125
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.09375,
+            "ci95": [
+              0.015625,
+              0.1875
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.03125,
+            "ci95": [
+              0.0,
+              0.09375
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.03125,
+            "ci95": [
+              0.0,
+              0.09375
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 6
+        },
+        "masked-control": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.0625,
+            "ci95": [
+              0.0,
+              0.1875
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.046875,
+            "ci95": [
+              0.0,
+              0.125
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.03125,
+            "ci95": [
+              0.0,
+              0.09375
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 3
+        },
+        "served-order": {
+          "categoricalEnergyDistance": {
+            "estimate": 0.3125,
+            "ci95": [
+              0.125,
+              0.5625
+            ]
+          },
+          "matchedCrossArmActionChangeRate": {
+            "estimate": 0.15625,
+            "ci95": [
+              0.0625,
+              0.28125
+            ]
+          },
+          "immediateWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "heldWithinDivergenceRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "servedOrderChangeRate": {
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ]
+          },
+          "matchedCrossArmActionChangeCount": 10
+        }
+      },
+      "transitions": {
+        "rank-only": {
+          "same": 64
+        },
+        "inspection-only": {
+          "same": 58,
+          "selected-candidate-swap": 6
+        },
+        "masked-control": {
+          "same": 61,
+          "selected-candidate-swap": 3
+        },
+        "served-order": {
+          "same": 54,
+          "selected-candidate-swap": 10
+        }
+      },
+      "runApi": {
+        "requestCount": 512,
+        "cacheHitCount": 0,
+        "attemptCount": 512,
+        "validActionCount": 512,
+        "invalidOrFailedAttemptCount": 0,
+        "timeoutCount": 0,
+        "terminalFailureCount": 0,
+        "inputTokens": 400948,
+        "outputTokens": 12967,
+        "currency": "CNY",
+        "observedCostAtPublishedRates": 0.426882,
+        "systemFingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ]
+      }
+    }
+  },
+  "gates": {
+    "preflightPassed": true,
+    "instrumentOrderChangeRateAtLeast075": true,
+    "allProviderFailureRatesBelow005": true,
+    "deepseekServedPointAtLeast008": true,
+    "deepseekServedMinusMaskedAtLeast005": true,
+    "deepseekServedMatchedChangesAtLeast4": true,
+    "fullV7ServedLowerBoundAboveZero": false,
+    "fullV7MaskedUpperBoundBelow005": true
+  },
+  "decision": "go-scale-to-natural-frame-v7",
+  "interpretationPolicy": {
+    "servedOrder": "Only a passing served-order result supports further testing of a recommendation-order account.",
+    "metadataOnly": "Positive rank-only or inspection-only results without the served-order gate bound v6 to prompt-feature sensitivity.",
+    "maskedControl": "A positive masked-control result indicates provider instability or temporal drift that the energy-distance correction did not remove adequately."
+  },
+  "inferenceScope": "Opportunity-enriched 32-unit mechanism pilot with one frozen recommender checkpoint per task. Intervals resample tasks within category and are not natural-frame prevalence intervals.",
+  "claimBoundary": "The study concerns categorical provider outputs over pseudonymous derived product features in a research storefront. It does not identify human behavior, purchases, production-retailer effects, or human utility.",
+  "remainingExternalValidityRequirement": "Even a passing pilot and full v7 do not establish consequential shopping behavior. A realistic product-language benchmark with task success, regret, or long-horizon value remains required for a RecSys full paper."
+}

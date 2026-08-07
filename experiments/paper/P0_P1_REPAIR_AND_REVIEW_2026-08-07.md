@@ -1,5 +1,19 @@
 # P0/P1 repair and paper-oriented review
 
+## V7 update: P0-A reduced, not closed
+
+The frozen 32-unit instrument-ablation pilot passed its scale-up gate. With
+explicit `platformRank` and `inspected` fields removed, candidate order alone
+produced a categorical energy-distance estimate of 0.188 [0.000, 0.375] for
+DeepSeek and 0.313 [0.125, 0.563] for MiMo. The DeepSeek interval still touched
+zero, and the opportunity-enriched task set is not a natural frame. A full V7
+is therefore warranted, but P0-A remains open. P0-B and P0-C are unchanged.
+
+The inspection-only condition was also non-zero in both providers. The V6
+finding must remain framed as a composite prompt-instrument effect until the
+full natural-frame ablation is complete. See
+`V7_INSTRUMENT_ABLATION_PILOT_2026-08-07.md`.
+
 ## Current verdict
 
 The v6 result is internally auditable after the corrections below, but it is

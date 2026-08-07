@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-pilot-protocol.v1",
+  "status": "frozen-before-any-v7-provider-call",
+  "frozenDate": "2026-08-07",
+  "purpose": "Test whether the v6 categorical provider-output effect can be reproduced by recommendation order after explicit platform-rank and inspected-item metadata are removed.",
+  "studyRole": "Outcome-blind, opportunity-enriched mechanism stress test. It decides whether a full natural-frame v7 is warranted; it does not estimate population prevalence.",
+  "relationshipToV6": "V6 manipulated a composite prompt representation containing arm-specific platformRank, inspected, and inspection-conditioned novelty. V7 holds the candidate menu and all non-instrument features fixed, then varies explicit rank, explicit inspection, neither field, or candidate order alone.",
+  "claimBoundary": "The study concerns categorical provider outputs over pseudonymous derived product features in a research storefront. It does not identify human behavior, purchases, production-retailer effects, or human utility.",
+  "sampling": {
+    "taskSelectionPath": "public/results/online-storefront-repair-pilot-selection/v1/selected-tasks.json",
+    "taskSelectionSha256": "e60f374f39ca72a2905199991e4056c80fa255da02cd8452e9eecd9ade33db5c",
+    "selectionPolicy": "Reuse the committed 32-task manifest selected without LLM responses or resolved-action outcomes. Each task keeps its frozen recommender-family and checkpoint allocation.",
+    "categories": [
+      "luxury-beauty",
+      "software",
+      "industrial-and-scientific",
+      "prime-pantry"
+    ],
+    "tasksPerCategory": 8,
+    "taskModelUnitCount": 32,
+    "modelSeeds": [7, 17, 29],
+    "unit": "one selected task with its frozen recommender family and checkpoint",
+    "dependence": "Resample task units within category, retaining every instrument mode in the task cluster."
+  },
+  "llmFamilies": [
+    {
+      "id": "deepseek-v4-flash-instrument-ablation-pilot",
+      "provider": "deepseek",
+      "api": "chat-completions",
+      "thinking": "disabled",
+      "temperature": 0,
+      "priceCurrency": "USD",
+      "inputPricePerMillion": 0.14,
+      "outputPricePerMillion": 0.28,
+      "rollingAlias": true,
+      "fingerprintRequired": true
+    },
+    {
+      "id": "mimo-v2.5-instrument-ablation-pilot",
+      "provider": "xiaomi-mimo",
+      "api": "responses",
+      "thinking": "none",
+      "temperature": 0,
+      "priceCurrency": "CNY",
+      "inputPricePerMillion": 1.0,
+      "outputPricePerMillion": 2.0
+    }
+  ],
+  "conditions": ["immediate-a", "held-a", "immediate-b", "held-b"],
+  "callOrder": {
+    "conditionOrders": [
+      ["immediate-a", "held-a", "immediate-b", "held-b"],
+      ["held-a", "immediate-b", "held-b", "immediate-a"],
+      ["immediate-b", "held-b", "immediate-a", "held-a"],
+      ["held-b", "immediate-a", "held-a", "immediate-b"]
+    ],
+    "modeOrders": [
+      ["rank-only", "inspection-only", "masked-control", "served-order"],
+      ["inspection-only", "masked-control", "served-order", "rank-only"],
+      ["masked-control", "served-order", "rank-only", "inspection-only"],
+      ["served-order", "rank-only", "inspection-only", "masked-control"]
+    ],
+    "assignment": "Independent SHA-256 rotations by provider, category, task, and recommender family; complete the four condition calls inside each mode before advancing."
+  },
+  "decisionInstrument": {
+    "candidateLimit": 12,
+    "callsPerModeUnit": 4,
+    "modesPerUnit": 4,
+    "callsPerUnit": 16,
+    "maximumOutputTokens": 96,
+    "maximumRetries": 2,
+    "temperature": 0,
+    "allowedActions": ["select", "abandon"],
+    "commonCandidateFeatures": "constraintMatch, taskUtility, taskLocalRank, searchRank, and novelty computed before the manipulated recommendation inspection; identical across arms and modes.",
+    "privacy": "Only pseudonymous candidate IDs and derived constraint, rank, utility, novelty, and instrument fields are sent."
+  },
+  "instrumentModes": [
+    {
+      "id": "rank-only",
+      "candidateOrder": "shared frozen order across arms",
+      "platformRank": "arm-specific",
+      "inspected": "false for every candidate",
+      "role": "Estimate sensitivity to explicit rank metadata."
+    },
+    {
+      "id": "inspection-only",
+      "candidateOrder": "shared frozen order across arms",
+      "platformRank": "null for every candidate",
+      "inspected": "arm-specific inspected identity",
+      "role": "Estimate sensitivity to the explicit inspected-item marker."
+    },
+    {
+      "id": "masked-control",
+      "candidateOrder": "shared frozen order across arms",
+      "platformRank": "null for every candidate",
+      "inspected": "false for every candidate",
+      "role": "Negative control; immediate and held task states must be byte-identical."
+    },
+    {
+      "id": "served-order",
+      "candidateOrder": "arm-specific platform-rank order followed by a shared frozen fallback for candidates absent from the platform Top-N",
+      "platformRank": "not sent",
+      "inspected": "false for every candidate",
+      "role": "Represent recommendation exposure through candidate order while preserving candidate availability and all candidate attributes."
+    }
+  ],
+  "estimand": {
+    "name": "categorical energy distance",
+    "formula": "2 * mean(immediate != held over four cross-arm pairs) - 1[immediate A != immediate B] - 1[held A != held B]",
+    "primary": "DeepSeek categorical energy distance in served-order mode.",
+    "negativeControl": "DeepSeek categorical energy distance in masked-control mode.",
+    "descriptive": [
+      "rank-only and inspection-only distances",
+      "MiMo estimates for all modes",
+      "cross-arm selected-candidate swaps and select/abandon transitions",
+      "candidate-order manipulation rate and normalized rank displacement"
+    ]
+  },
+  "uncertainty": {
+    "method": "paired within-category task-cluster bootstrap",
+    "replicates": 5000,
+    "seed": 20260807,
+    "interval": "percentile 95%",
+    "providerPooling": false
+  },
+  "pilotGate": {
+    "reliability": "Protocol failure rate below 0.05 for each provider.",
+    "instrument": "All masked-control arm states are byte-identical, all candidate sets match, and at least 75% of units have different immediate and held served orders.",
+    "scaleUpGo": "DeepSeek served-order point estimate is at least 0.08, exceeds the masked-control point estimate by at least 0.05, and at least four of the 64 matched replicate pairs change action under served order.",
+    "fullV7ConfirmatoryGate": "A future natural-frame full v7 requires the served-order lower 95% bound above zero and masked-control upper 95% bound below 0.05.",
+    "metadataOnlyBoundary": "If served-order fails the pilot scale-up gate while rank-only or inspection-only is positive, describe v6 as prompt-feature sensitivity and remove recommendation-mediated behavior from the paper.",
+    "noBehavioralClaim": "If served-order and metadata modes do not exceed the masked control, retain only the shelf audit and withdraw the provider-output contribution."
+  },
+  "outputs": {
+    "publicRoot": "public/results/online-storefront-instrument-ablation-pilot/v1",
+    "artifactRoot": "artifacts/online-storefront-instrument-ablation-pilot"
+  },
+  "remainingExternalValidityRequirement": "Even a passing pilot and full v7 do not establish consequential shopping behavior. A realistic product-language benchmark with task success, regret, or long-horizon value remains required for a RecSys full paper."
+}

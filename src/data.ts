@@ -1450,6 +1450,47 @@ export type NaturalActionEvaluation = z.infer<
   typeof NaturalActionEvaluationSchema
 >;
 
+const InstrumentModeEstimateSchema = z.object({
+  categoricalEnergyDistance: NaturalActionEstimateSchema,
+  matchedCrossArmActionChangeRate: NaturalActionEstimateSchema,
+  matchedCrossArmActionChangeCount: z.number().int().nonnegative()
+}).passthrough();
+
+const InstrumentProviderSchema = z.object({
+  provider: z.string(),
+  model: z.string(),
+  taskModelUnitCount: z.number().int().positive(),
+  estimates: z.object({
+    "rank-only": InstrumentModeEstimateSchema,
+    "inspection-only": InstrumentModeEstimateSchema,
+    "masked-control": InstrumentModeEstimateSchema,
+    "served-order": InstrumentModeEstimateSchema
+  }),
+  runApi: z.object({
+    validActionCount: z.number().int().nonnegative(),
+    terminalFailureCount: z.number().int().nonnegative(),
+    observedCostAtPublishedRates: z.number().nonnegative(),
+    currency: z.string()
+  }).passthrough()
+});
+
+const InstrumentAblationEvaluationSchema = z.object({
+  schemaVersion: z.literal("online-storefront-instrument-ablation-evaluation.v1"),
+  protocolSha256: z.string(),
+  providers: z.object({
+    deepseek: InstrumentProviderSchema,
+    mimo: InstrumentProviderSchema
+  }),
+  gates: z.record(z.string(), z.boolean()),
+  decision: z.string(),
+  claimBoundary: z.string(),
+  remainingExternalValidityRequirement: z.string()
+});
+
+export type InstrumentAblationEvaluation = z.infer<
+  typeof InstrumentAblationEvaluationSchema
+>;
+
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
 >;
@@ -1475,6 +1516,7 @@ interface ProjectDataState {
   candidateMargin: CandidateMarginSummary | null;
   deterministicRepairPilot: DeterministicRepairSummary | null;
   naturalActionEvaluation: NaturalActionEvaluation | null;
+  instrumentAblationEvaluation: InstrumentAblationEvaluation | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1502,6 +1544,7 @@ export function useProjectData(): ProjectDataState {
     candidateMargin: null,
     deterministicRepairPilot: null,
     naturalActionEvaluation: null,
+    instrumentAblationEvaluation: null,
     catalog: null,
     error: null,
     loading: true
@@ -1655,6 +1698,14 @@ export function useProjectData(): ProjectDataState {
           }
           return NaturalActionEvaluationSchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-instrument-ablation-pilot/v1/evaluation.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load instrument-ablation pilot.");
+          }
+          return InstrumentAblationEvaluationSchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1679,7 +1730,8 @@ export function useProjectData(): ProjectDataState {
           forcedInspection,
           candidateMargin,
           deterministicRepairPilot,
-          naturalActionEvaluation
+          naturalActionEvaluation,
+          instrumentAblationEvaluation
         ]) => {
         if (!cancelled) {
           setState({
@@ -1703,6 +1755,7 @@ export function useProjectData(): ProjectDataState {
             candidateMargin,
             deterministicRepairPilot,
             naturalActionEvaluation,
+            instrumentAblationEvaluation,
             catalog,
             error: null,
             loading: false
@@ -1733,6 +1786,7 @@ export function useProjectData(): ProjectDataState {
             candidateMargin: null,
             deterministicRepairPilot: null,
             naturalActionEvaluation: null,
+            instrumentAblationEvaluation: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",
