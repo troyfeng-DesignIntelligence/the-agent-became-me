@@ -1,18 +1,19 @@
 # P0/P1 repair and paper-oriented review
 
-## V7 update: P0-A reduced, not closed
+## V7 update: P0-A closed within the research-storefront scope
 
-The frozen 32-unit instrument-ablation pilot passed its scale-up gate. With
+The complete natural-frame V7 crossed 460 tasks with SASRec and GRU4Rec. With
 explicit `platformRank` and `inspected` fields removed, candidate order alone
-produced a categorical energy-distance estimate of 0.188 [0.000, 0.375] for
-DeepSeek and 0.313 [0.125, 0.563] for MiMo. The DeepSeek interval still touched
-zero, and the opportunity-enriched task set is not a natural frame. A full V7
-is therefore warranted, but P0-A remains open. P0-B and P0-C are unchanged.
+produced a categorical energy-distance estimate of 0.193 [0.155, 0.233] for
+DeepSeek and 0.147 [0.115, 0.183] for MiMo. The masked estimates were 0.004
+[-0.003, 0.013] and 0.000 [-0.007, 0.008]. The frozen treatment-meaning gates
+passed. P0-B remains open; the collision review narrows P0-C.
 
-The inspection-only condition was also non-zero in both providers. The V6
-finding must remain framed as a composite prompt-instrument effect until the
-full natural-frame ablation is complete. See
-`V7_INSTRUMENT_ABLATION_PILOT_2026-08-07.md`.
+The supported phenomenon is recommendation-order-induced agent choice
+divergence. Prior work already establishes candidate-order sensitivity in LLM
+ranking, so novelty cannot rest on that phenomenon alone. See
+`V7_CONFIRMATORY_REPORT_2026-08-07.md` and
+`COLLISION_REVIEW_RECOMMENDATION_ORDER_2026-08-07.md`.
 
 ## Current verdict
 

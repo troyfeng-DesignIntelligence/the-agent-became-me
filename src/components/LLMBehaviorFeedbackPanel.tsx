@@ -89,14 +89,13 @@ export function LLMBehaviorFeedbackPanel({
 
       <div className="llm-feedback-ablation">
         <header>
-          <span className="mono-label">V7 / FROZEN 32-UNIT MECHANISM PILOT</span>
-          <h4>Candidate order survived the metadata ablation.</h4>
+          <span className="mono-label">CONFIRMATORY V7 / NATURAL 460-TASK FRAME</span>
+          <h4>Recommendation order induced agent choice divergence.</h4>
           <p>
             V7 removed explicit platform rank and inspection markers, held all
             candidate attributes fixed, and changed only the order in which the
-            same candidates were served. The pilot passed its prespecified
-            scale-up gate; it did not pass DeepSeek&apos;s full confirmatory interval
-            gate.
+            same candidates were served. The complete study passed both frozen
+            DeepSeek gates and recurred in MiMo.
           </p>
         </header>
 
@@ -109,7 +108,7 @@ export function LLMBehaviorFeedbackPanel({
           <article>
             <span>DeepSeek / masked</span>
             <strong>{v7DeepSeek["masked-control"].categoricalEnergyDistance.estimate.toFixed(3)}</strong>
-            <p>{v7DeepSeek["served-order"].matchedCrossArmActionChangeCount}/64 served-order pairs changed</p>
+            <p>{v7DeepSeek["served-order"].matchedCrossArmActionChangeCount}/1,840 served-order pairs changed</p>
           </article>
           <article>
             <span>MiMo / served order</span>
@@ -118,15 +117,16 @@ export function LLMBehaviorFeedbackPanel({
           </article>
           <article>
             <span>Pilot decision</span>
-            <strong>Scale</strong>
-            <p>run the full natural-frame V7</p>
+            <strong>Passed</strong>
+            <p>primary and masked-control gates</p>
           </article>
         </div>
 
         <p className="llm-feedback-repair__note">
-          The inspection marker also moved outputs. V6 therefore remains a
-          composite prompt-instrument result. V7 only establishes that an
-          order-based explanation is strong enough to test at full scale.
+          Candidate-order sensitivity itself is established in prior LLM
+          ranking research. V7 contributes a controlled bridge from learned
+          platform exposure to categorical agent action; consequential shopping
+          outcomes remain untested.
         </p>
       </div>
 
@@ -184,7 +184,7 @@ export function LLMBehaviorFeedbackPanel({
           production-retailer effects, deletion, unlearning, or actor provenance.
         </p>
         <p>
-          Every observed cross-arm transition in V6 and the V7 pilot was a
+          Every observed cross-arm transition in V6 and V7 was a
           selected-candidate swap; none changed between selection and abandonment.
           Neither study used a rendered commerce shelf.
         </p>

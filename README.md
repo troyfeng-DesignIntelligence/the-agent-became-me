@@ -35,12 +35,15 @@ cross-arm transition was a selected-candidate swap; none changed between select
 and abandon. The result is not evidence of human preference change, harm,
 purchase behavior, trained-model deletion, or a production-retailer effect.
 
-The current full paper is a no-go for IUI 2027. CALMRec and RecNet occupy the
-general temporary-memory and selective-assimilation ideas. The action
-instrument has passed a 32-unit order-versus-metadata scale-up pilot, but the
-primary DeepSeek interval still touched zero. It still needs a full
-natural-frame ablation and a consequential shopping benchmark before a RecSys
-main-track submission. See the
+The complete V7 study identifies recommendation-order-induced agent choice
+divergence in the research storefront. With candidate identities and attributes
+held fixed, changing only served order produced a DeepSeek categorical energy
+distance of 0.193 [0.155, 0.233], while the byte-identical masked control was
+0.004 [-0.003, 0.013]. MiMo reproduced the direction. Candidate-order
+sensitivity is already established in LLM ranking research, so this is not
+claimed as a new bias. The remaining paper contribution concerns the bridge
+from temporary-evidence activation to platform order and agent action; it still
+needs a consequential shopping benchmark. See the
 [P0/P1 review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md) and the
 [updated collision review](experiments/paper/COLLISION_REVIEW_V6_2026-08-07.md).
 
@@ -536,6 +539,8 @@ Useful review documents:
 - [P0/P1 Repair and Strict Review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md)
 - [V6 Confirmatory Report](experiments/paper/NATURAL_ACTION_CONFIRMATORY_REPORT_2026-08-07.md)
 - [V7 Instrument-Ablation Pilot](experiments/paper/V7_INSTRUMENT_ABLATION_PILOT_2026-08-07.md)
+- [V7 Confirmatory Instrument Ablation](experiments/paper/V7_CONFIRMATORY_REPORT_2026-08-07.md)
+- [Recommendation-Order Collision Review](experiments/paper/COLLISION_REVIEW_RECOMMENDATION_ORDER_2026-08-07.md)
 - [Data and Reuse](docs/DATA_AND_REUSE.md)
 - [AI Use Disclosure](docs/AI_USE.md)
 - [Art Direction and Image Provenance](docs/ART_DIRECTION.md)

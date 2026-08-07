@@ -1699,10 +1699,10 @@ export function useProjectData(): ProjectDataState {
           return NaturalActionEvaluationSchema.parse(await response.json());
         }
       ),
-      fetch(`${base}results/online-storefront-instrument-ablation-pilot/v1/evaluation.json`).then(
+      fetch(`${base}results/online-storefront-instrument-ablation-confirmatory/v1/evaluation.json`).then(
         async (response) => {
           if (!response.ok) {
-            throw new Error("Could not load instrument-ablation pilot.");
+            throw new Error("Could not load confirmatory instrument ablation.");
           }
           return InstrumentAblationEvaluationSchema.parse(await response.json());
         }
