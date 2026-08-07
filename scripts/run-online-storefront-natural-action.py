@@ -425,10 +425,12 @@ def study_units(protocol: dict):
 def run_preflight(protocol: dict, protocol_hash: str) -> dict:
     counts = Counter()
     order_counts = Counter()
+    source_history_counts = Counter()
     quality_values = []
     failures = []
     for slug, task, products, family, seed, scorer in study_units(protocol):
         unit = prepared_unit(protocol, slug, task, products, scorer)
+        source_history_counts[(slug, task["user"])] += 1
         counts["units"] += 1
         counts["opportunities"] += int(unit["opportunity"])
         counts["exposureChanged"] += int(unit["exposureChanged"])
@@ -437,6 +439,12 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
         counts["layoutsMatched"] += int(unit["layoutsMatched"])
         counts["allFourLayoutsMatched"] += int(unit["allFourLayoutsMatched"])
         counts["postResolutionMatched"] += int(unit["postResolutionMatched"])
+        counts["withinArmStateMatched"] += int(
+            sha256(canonical(unit["states"]["immediate-a"]))
+            == sha256(canonical(unit["states"]["immediate-b"]))
+            and sha256(canonical(unit["states"]["held-a"]))
+            == sha256(canonical(unit["states"]["held-b"]))
+        )
         for arm in ["immediate", "held"]:
             inspected = unit["audits"][arm]["inspectedAlias"]
             present = inspected in unit["audits"][arm]["candidateAliases"]
@@ -469,7 +477,12 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
         and counts["layoutsMatched"] == expected
         and counts["allFourLayoutsMatched"] == expected
         and counts["postResolutionMatched"] == expected
+        and counts["withinArmStateMatched"] == expected
         and counts["inspectedSelectable"] == expected * 2
+        and len(source_history_counts) * len(protocol["sampling"]["recommenderFamiliesPerTask"])
+        == expected
+        and max(source_history_counts.values())
+        == len(protocol["sampling"]["recommenderFamiliesPerTask"])
         and len(set(quality_values)) > 1
         and not failures
     )
@@ -490,6 +503,9 @@ def run_preflight(protocol: dict, protocol_hash: str) -> dict:
         "allFourLayoutMatchCount": counts["allFourLayoutsMatched"],
         "inspectedSelectableCount": counts["inspectedSelectable"],
         "postResolutionInputMatchCount": counts["postResolutionMatched"],
+        "withinArmByteIdenticalStateCount": counts["withinArmStateMatched"],
+        "uniqueSourceHistoryCount": len(source_history_counts),
+        "taskCountPerSourceHistory": 1,
         "decisionQualityDistinctValueCount": len(set(quality_values)),
         "decisionQualityStandardDeviation": round(float(np.std(quality_values)), 6),
         "callOrderCounts": {" / ".join(key): value for key, value in order_counts.items()},
@@ -627,6 +643,45 @@ def main() -> None:
                 "inspectedIdentityChanged": unit["inspectedIdentityChanged"],
                 "callOrder": order,
                 "responseHashes": response_hashes,
+                "auditPrimitives": {
+                    "stateHashes": {
+                        condition: sha256(canonical(unit["states"][condition]))
+                        for condition in [
+                            "immediate-a",
+                            "held-a",
+                            "immediate-b",
+                            "held-b",
+                        ]
+                    },
+                    "candidateLayouts": {
+                        condition: [
+                            candidate["candidateId"]
+                            for candidate in unit["states"][condition]["candidates"]
+                        ]
+                        for condition in [
+                            "immediate-a",
+                            "held-a",
+                            "immediate-b",
+                            "held-b",
+                        ]
+                    },
+                    "platformRanks": {
+                        arm: unit["audits"][arm]["platformRanks"]
+                        for arm in ["immediate", "held"]
+                    },
+                    "inspectedAliases": {
+                        arm: unit["audits"][arm]["inspectedAlias"]
+                        for arm in ["immediate", "held"]
+                    },
+                    "bestFeasiblePlatformAliases": {
+                        arm: unit["audits"][arm]["bestFeasiblePlatformAlias"]
+                        for arm in ["immediate", "held"]
+                    },
+                    "postResolutionInputHashes": {
+                        arm: unit["audits"][arm]["postResolutionInputHash"]
+                        for arm in ["immediate", "held"]
+                    },
+                },
                 "candidateSetMatched": unit["candidateSetMatched"],
                 "allFourLayoutsMatched": unit["allFourLayoutsMatched"],
                 "inspectedSelectable": all(
@@ -644,9 +699,40 @@ def main() -> None:
         stats["inputTokens"] / 1_000_000 * spec["inputPricePerMillion"]
         + stats["outputTokens"] / 1_000_000 * spec["outputPricePerMillion"]
     )
+    api_summary = {
+        "requestCount": stats["requestCount"],
+        "cacheHitCount": stats["cacheHitCount"],
+        "attemptCount": stats["attemptCount"],
+        "validActionCount": stats["validActionCount"],
+        "invalidOrFailedAttemptCount": stats["invalidOrFailedAttemptCount"],
+        "timeoutCount": stats["timeoutCount"],
+        "terminalFailureCount": stats["terminalFailureCount"],
+        "inputTokens": stats["inputTokens"],
+        "outputTokens": stats["outputTokens"],
+        "currency": spec["priceCurrency"],
+        "observedCostAtPublishedRates": round(observed_cost, 6),
+        "systemFingerprints": sorted(stats["fingerprints"]),
+    }
+    generated_at = datetime.now(timezone.utc).isoformat()
+    prior_summary_path = output / "summary.json"
+    audit_replay = None
+    if prior_summary_path.exists() and stats["requestCount"] == 0:
+        prior_summary = json.loads(prior_summary_path.read_text(encoding="utf-8"))
+        if (
+            prior_summary.get("protocolSha256") == protocol_hash
+            and prior_summary.get("api", {}).get("requestCount", 0) > 0
+        ):
+            generated_at = prior_summary["generatedAt"]
+            api_summary = prior_summary["api"]
+            audit_replay = {
+                "generatedAt": datetime.now(timezone.utc).isoformat(),
+                "networkRequestCount": 0,
+                "cacheHitCount": stats["cacheHitCount"],
+                "purpose": "Republish audit primitives without altering original provider accounting.",
+            }
     summary = {
         "schemaVersion": "online-storefront-natural-action-run-summary.v1",
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": generated_at,
         "protocolSha256": protocol_hash,
         "provider": args.provider,
         "model": legacy.model_id(env, args.provider),
@@ -670,20 +756,8 @@ def main() -> None:
             ),
             6,
         ) if any(row["heldMinusImmediateDecisionQuality"] is not None for row in rows) else None,
-        "api": {
-            "requestCount": stats["requestCount"],
-            "cacheHitCount": stats["cacheHitCount"],
-            "attemptCount": stats["attemptCount"],
-            "validActionCount": stats["validActionCount"],
-            "invalidOrFailedAttemptCount": stats["invalidOrFailedAttemptCount"],
-            "timeoutCount": stats["timeoutCount"],
-            "terminalFailureCount": stats["terminalFailureCount"],
-            "inputTokens": stats["inputTokens"],
-            "outputTokens": stats["outputTokens"],
-            "currency": spec["priceCurrency"],
-            "observedCostAtPublishedRates": round(observed_cost, 6),
-            "systemFingerprints": sorted(stats["fingerprints"]),
-        },
+        "api": api_summary,
+        "auditReplay": audit_replay,
         "callOrderCounts": {" / ".join(key): value for key, value in order_counts.items()},
         "claimBoundary": protocol["claimBoundary"],
     }

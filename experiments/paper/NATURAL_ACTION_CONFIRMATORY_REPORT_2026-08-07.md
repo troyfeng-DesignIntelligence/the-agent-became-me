@@ -2,9 +2,9 @@
 
 ## Decision
 
-The v6 study passed its frozen action, replication, reliability, and decision-
+The v6 study passed its frozen action, second-provider, reliability, and decision-
 quality gates. The paper may claim that immediate versus held activation changed
-model action distributions in this research storefront. The claim is limited to
+categorical provider-output distributions in this research storefront. The claim is limited to
 the tested models, pseudonymous derived product features, and frozen task frame.
 
 It may not be described as human preference change, an Amazon effect,
@@ -15,11 +15,11 @@ ACI mechanism.
 
 - 460 frozen tasks, 115 in each of four Amazon Reviews categories.
 - SASRec and GRU evaluated on every task: 920 task-model units per provider.
-- Two independent immediate calls and two independent held calls per unit.
+- Two separately issued immediate calls and two separately issued held calls per unit.
 - One common candidate universe and one candidate order across all four calls.
 - The inspected candidate remained selectable.
 - Frozen Latin-square condition order.
-- DeepSeek primary; MiMo prespecified replication.
+- DeepSeek primary; MiMo prespecified second-provider robustness check.
 - 5,000-replicate bootstrap clustered by task, retaining both encoders inside
   each task cluster.
 
@@ -27,12 +27,12 @@ ACI mechanism.
 
 | Estimate | DeepSeek | MiMo |
 |---|---:|---:|
-| Overall action-distribution distance | 0.126 [0.093, 0.161] | 0.111 [0.079, 0.144] |
-| Conditional distance on opportunity units | 0.600 [0.348, 0.850] | 0.400 [0.143, 0.703] |
-| Same-layout immediate-versus-held divergence | 0.0739 [0.0565, 0.0924] | 0.0750 [0.0582, 0.0929] |
+| Overall categorical energy distance | 0.126 [0.093, 0.161] | 0.111 [0.080, 0.142] |
+| Conditional distance on opportunity units | 0.600 [0.345, 0.846] | 0.400 [0.146, 0.690] |
+| Same-layout immediate-versus-held divergence | 0.0739 [0.0571, 0.0918] | 0.0750 [0.0587, 0.0924] |
 | Immediate within-arm divergence | 0.0152 [0.0076, 0.0239] | 0.0174 [0.0098, 0.0261] |
-| Held within-arm divergence | 0.0065 [0.0022, 0.0120] | 0.0228 [0.0130, 0.0337] |
-| Held-minus-immediate decision quality | -0.0006 [-0.0028, 0.0015] | +0.0008 [-0.0012, 0.0028] |
+| Held within-arm divergence | 0.0065 [0.0022, 0.0120] | 0.0228 [0.0141, 0.0326] |
+| Held-minus-immediate offered-candidate score | -0.0006 [-0.0028, 0.0015] | +0.0008 [-0.0012, 0.0028] |
 | Protocol failure rate | 0.000 | 0.000 |
 
 The natural actionable-opportunity rate was 40/920, or 4.35% [2.93%,
@@ -46,7 +46,18 @@ The direction was positive for both recommender encoders. DeepSeek estimates
 were 0.122 for SASRec and 0.130 for GRU; MiMo estimates were 0.117 and 0.104.
 Category point estimates were also positive in all eight provider-category
 cells, ranging from 0.057 to 0.165. These subgroup values are descriptive; the
-frozen primary intervals are the task-clustered provider estimates above.
+task-clustered provider estimates above carry the bounded claim.
+
+The reporting intervals above use within-category task resampling so the fixed
+equal category weights remain fixed. The original frozen unstratified intervals
+remain in the public evaluation; they lead to the same decision. The evaluator
+recomputes all main quantities from public pseudonymous primitives and rejects
+duplicate or incomplete cells.
+
+Every observed paired cross-arm transition was a selected-candidate swap. No
+provider changed between select and abandon. The result is therefore a
+categorical output contrast over pseudonymous records, not a task-completion or
+purchase effect.
 
 ## Provider accounting
 

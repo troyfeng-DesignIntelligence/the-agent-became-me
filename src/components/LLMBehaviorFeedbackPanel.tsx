@@ -32,24 +32,25 @@ export function LLMBehaviorFeedbackPanel({
       <header>
         <span className="mono-label">CONFIRMATORY V6 / NATURAL 460-TASK FRAME</span>
         <h3 id="llm-feedback-title">
-          Changed exposure shifted model action distributions.
+          Activation timing shifted categorical outputs in the tested models.
         </h3>
         <p>
           Every task was evaluated with SASRec and GRU. Immediate and held arms
           received the same candidate IDs in the same order, and the inspected
-          product remained selectable. Two independent calls per arm measured
-          repeated-call variation.
+          product remained selectable. Two separately issued calls per arm
+          measured repeated-call variation under a stable-output assumption.
         </p>
       </header>
 
       <div className="llm-feedback-repair">
         <header>
           <span className="mono-label">PRIMARY RESULT</span>
-          <h4>The bounded action effect recurred in both LLM families.</h4>
+          <h4>The bounded contrast recurred in both provider models.</h4>
           <p>
-            The estimator subtracts within-arm disagreement from cross-arm
-            disagreement. DeepSeek was the frozen primary provider; MiMo was the
-            prespecified replication. Both task-clustered intervals exclude zero.
+            The categorical energy-distance statistic subtracts within-arm
+            disagreement from cross-arm disagreement. DeepSeek was the frozen
+            primary provider; MiMo was the prespecified second provider. Both
+            task-clustered intervals exclude zero.
           </p>
         </header>
 
@@ -133,6 +134,11 @@ export function LLMBehaviorFeedbackPanel({
           The result concerns model choices from pseudonymous features in a
           research storefront. It does not identify human preference change,
           production-retailer effects, deletion, unlearning, or actor provenance.
+        </p>
+        <p>
+          Every observed cross-arm transition was a selected-candidate swap;
+          none changed between selection and abandonment. The instrument exposes
+          platform-rank and inspected-item fields, not a rendered commerce shelf.
         </p>
         <p>
           Raw prompts, responses, item titles, reviews, and original identifiers

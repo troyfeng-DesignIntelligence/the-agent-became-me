@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-protocol.draft-v1",
+  "status": "draft-not-frozen-no-provider-calls-authorized-by-this-file",
+  "draftDate": "2026-08-07",
+  "purpose": "Distinguish sensitivity to explicit platform-rank and inspected-item fields from sensitivity to recommendation order in the common candidate menu.",
+  "relationshipToV6": "V6 estimates the effect of the complete metadata exposure instrument. V7 does not replace or pool with V6; it decomposes that instrument and tests an order-based representation.",
+  "claimBoundary": "The study concerns categorical provider outputs over pseudonymous derived features in a research storefront. It does not identify human behavior, purchases, production-retailer effects, or human utility.",
+  "sampling": {
+    "frame": "The same frozen 460 tasks, 115 per category, without opportunity enrichment.",
+    "recommenderFamiliesPerTask": ["sasrec", "gru4rec"],
+    "taskModelUnitCountPerProvider": 920,
+    "unit": "task by recommender family",
+    "dependence": "Resample tasks within category, retaining both recommender observations and every instrument mode in the task cluster."
+  },
+  "providers": {
+    "primary": "deepseek-v4-flash",
+    "secondProvider": "mimo-v2.5",
+    "policy": "Analyze separately. The second provider is a robustness check, not an independent study replication."
+  },
+  "commonControls": {
+    "candidateIds": "The same symmetric candidate union is available in immediate and held arms.",
+    "withinArmRepeats": "Two byte-identical states per arm, issued as separate provider calls.",
+    "inspectedCandidateSelectable": true,
+    "temperature": 0,
+    "callOrder": "Frozen Latin-square rotation within instrument mode.",
+    "actions": ["select", "abandon"]
+  },
+  "instrumentModes": [
+    {
+      "id": "rank-only",
+      "candidateOrder": "shared frozen order across arms",
+      "platformRank": "arm-specific",
+      "inspected": "false for every candidate",
+      "role": "Estimate sensitivity to explicit rank metadata."
+    },
+    {
+      "id": "inspection-only",
+      "candidateOrder": "shared frozen order across arms",
+      "platformRank": "null for every candidate",
+      "inspected": "arm-specific inspected identity",
+      "role": "Estimate sensitivity to the inspected-item marker."
+    },
+    {
+      "id": "masked-control",
+      "candidateOrder": "shared frozen order across arms",
+      "platformRank": "null for every candidate",
+      "inspected": "false for every candidate",
+      "role": "Negative control; immediate and held states must be byte-identical."
+    },
+    {
+      "id": "served-order",
+      "candidateOrder": "arm-specific platform-rank order with shared-order fallback for candidates absent from the platform Top-N",
+      "platformRank": "not sent",
+      "inspected": "false for every candidate",
+      "role": "Represent recommendation exposure through order rather than explicit metadata while preserving candidate availability."
+    }
+  ],
+  "estimand": {
+    "name": "categorical energy distance",
+    "formula": "2 * mean(immediate != held) - 1[immediate A != immediate B] - 1[held A != held B]",
+    "assumptions": "The distributional interpretation requires mutually independent calls from stable categorical output distributions.",
+    "primary": "DeepSeek categorical energy distance in served-order mode.",
+    "negativeControl": "DeepSeek masked-control upper 95% bound below 0.05.",
+    "descriptive": [
+      "rank-only distance",
+      "inspection-only distance",
+      "MiMo estimates for all modes",
+      "category, recommender, and checkpoint-seed strata",
+      "selected-candidate, select-to-abandon, and abandon-to-select transitions"
+    ]
+  },
+  "uncertainty": {
+    "method": "paired within-category task-cluster bootstrap",
+    "replicates": 5000,
+    "interval": "percentile 95%",
+    "providerPooling": false
+  },
+  "goNoGo": {
+    "behavioralInterpretationSurvives": "The served-order primary lower bound is above zero and the masked-control upper bound is below 0.05.",
+    "metadataOnlyBoundary": "If served-order does not pass but rank-only or inspection-only does, describe v6 as prompt-feature sensitivity and remove recommendation-mediated behavior from the paper.",
+    "noBehavioralClaim": "If served-order and metadata modes do not pass, retain only the shelf audit and withdraw the provider-output contribution."
+  },
+  "remainingExternalValidityRequirement": "Even a passing v7 does not establish consequential shopping behavior. A realistic product-language benchmark with task success, regret, or long-horizon value remains required for a RecSys full paper."
+}

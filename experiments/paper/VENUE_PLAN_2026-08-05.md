@@ -1,8 +1,24 @@
 # Venue plan — 2026-08-05
 
-## Primary target: ACM IUI 2027
+## Decision amendment — 2026-08-07
 
-IUI is the closest current CCF-B fit. The seventh CCF list places IUI in the
+Do not submit the current v6 paper to IUI 2027. The official call permits
+computational analysis, but it describes ideal submissions as addressing an HCI
+challenge with both computational and human-centric aspects. The current
+interface is unevaluated, and the action endpoint is a provider-model choice
+over pseudonymous feature records. The 20 August deadline is not a reason to
+turn those boundaries into claims.
+
+The conditional primary target is ACM RecSys 2027. Before a main-track
+submission, complete the instrument ablation and consequential benchmark study
+in `P0_P1_REPAIR_AND_REVIEW_2026-08-07.md`. If those studies do not produce a
+defensible residual contribution, use a workshop or short format and keep the
+website as a portfolio artifact.
+
+## Former primary target: ACM IUI 2027
+
+IUI is a CCF-B fit by classification, but it is no longer the scientific
+primary target for this version. The seventh CCF list places IUI in the
 human-computer interaction and pervasive-computing B tier, and counts full or
 regular conference papers rather than posters, demos, short papers, or
 workshops. The IUI 2027 call explicitly includes human-centered recommendation,
@@ -47,7 +63,7 @@ The deadline is unusually close. The scientific no-go is submitting an
 underpowered LLM result merely to mention LLMs. A clean deterministic-agent plus
 two-recommender paper is preferable to an invalid LLM appendix.
 
-## Backup: ACM RecSys 2027
+## Conditional primary target: ACM RecSys 2027
 
 The current seventh CCF list places RecSys in database/data-mining/content
 retrieval B. Its 2027 main-track dates are not yet published as of this review.

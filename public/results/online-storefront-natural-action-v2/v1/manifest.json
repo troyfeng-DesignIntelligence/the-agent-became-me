@@ -1,26 +1,30 @@
 {
-  "schemaVersion": "online-storefront-natural-action-manifest.v1",
+  "schemaVersion": "online-storefront-natural-action-manifest.v2",
   "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
   "files": {
     "evaluation.json": {
-      "bytes": 5356,
-      "sha256": "5d6cf528d59d0705295d86a1a89bcb19d382105dae02c0f15b2aea158de5f536"
+      "bytes": 32747,
+      "sha256": "c7305ec24a8bc8a87329a363181d02155b44eb59a9e8cfa67b31c2b2dc42d082"
     },
     "preflight.json": {
-      "bytes": 1033,
-      "sha256": "08375a457c74ed6d18830b7afbf7550ce9f9232d7e4d04bb4d87f03e03c10017"
+      "bytes": 1145,
+      "sha256": "971fa8d089a7ad9ebaaddd850dbb2421c3d00a7db53a88d2610d4fbe2ad25805"
+    },
+    "call-stability-audit.json": {
+      "bytes": 6807,
+      "sha256": "a00451b7e641ba64bf0f9231c881466fd6fef8b0038c4b6fbad30f246dba83c9"
     },
     "deepseek/rows.json": {
-      "bytes": 1059396,
-      "sha256": "64283c783ef9069188002ec4e0762bba5ede5d4f9e05be258ca10bbb0fed90d8"
+      "bytes": 2723743,
+      "sha256": "3e3268ea731071c4939ddee26162a20c735f1da9bb8b0875c1dab947e164d2b6"
     },
     "deepseek/summary.json": {
       "bytes": 1376,
       "sha256": "d9231a6ae77b77538b4645b5a9cd0a07405aecc57e5dfbc688e31e3310172978"
     },
     "mimo/rows.json": {
-      "bytes": 1055523,
-      "sha256": "1a89cfc2f9fc94e4d9acce20d441ccc29c7d2023285f36698b4eb81c450ac9af"
+      "bytes": 2719870,
+      "sha256": "11082070f3ce1e85288705f5d1ed5b5a94ecc8ff52ba9f01e54dd9c6e426af57"
     },
     "mimo/summary.json": {
       "bytes": 1305,

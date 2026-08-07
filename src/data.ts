@@ -1434,7 +1434,7 @@ const NaturalActionProviderSchema = z.object({
 });
 
 const NaturalActionEvaluationSchema = z.object({
-  schemaVersion: z.literal("online-storefront-natural-action-evaluation.v1"),
+  schemaVersion: z.literal("online-storefront-natural-action-evaluation.v3"),
   protocolSha256: z.string(),
   providers: z.object({
     mimo: NaturalActionProviderSchema,

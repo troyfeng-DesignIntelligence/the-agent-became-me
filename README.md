@@ -9,17 +9,38 @@ testbed about delegated action and persistent personalization. It asks a narrow
 question: when a shopping agent explores products for a temporary task, which
 actions—if any—should become long-term evidence about the human principal?
 
-The repository combines:
+The current repository combines:
 
 - a polished static React portfolio experience;
-- a deterministic TypeScript simulator;
-- two paired experiments and one falsification stress test;
-- versioned product metadata and generated results;
+- deterministic and learned-recommender research storefronts;
+- a 460-task, two-recommender action study with 7,360 valid provider calls;
+- public pseudonymous action/state primitives and a recomputing evaluator;
+- invalidation records for the two action studies that failed their controls;
 - event-level traces, update receipts, exact-value tables, and accessible
   analytical figures.
 
-No API key is required. There are no human participants, real user profiles, or
-LLM-generated evaluation scores in the committed baseline.
+No API key is required to inspect or reproduce the public evaluation. There are
+no human participants or real delegated-shopping records. The provider study
+uses pseudonymous derived candidate features; raw prompts and responses remain
+outside the public artifact.
+
+## Current paper status — 7 August 2026
+
+The defensible result is narrower than the original ACI framing. In the research
+storefront, recording an event without activating it left recommendations
+unchanged. Immediate versus held activation changed learned shelves. Under a
+common candidate set and order, it also changed categorical outputs from
+DeepSeek and MiMo, measured with categorical energy distance. Every observed
+cross-arm transition was a selected-candidate swap; none changed between select
+and abandon. The result is not evidence of human preference change, harm,
+purchase behavior, trained-model deletion, or a production-retailer effect.
+
+The current full paper is a no-go for IUI 2027. CALMRec and RecNet occupy the
+general temporary-memory and selective-assimilation ideas, and the action
+instrument still needs an order-versus-metadata ablation plus a consequential
+shopping benchmark before a RecSys main-track submission. See the
+[P0/P1 review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md) and the
+[updated collision review](experiments/paper/COLLISION_REVIEW_V6_2026-08-07.md).
 
 ## Install and quickstart
 
@@ -509,6 +530,9 @@ Useful review documents:
 - [Trace Schema](docs/TRACE_SCHEMA.md)
 - [Collision Review](docs/COLLISION_REVIEW.md)
 - [Collision Review Delta](docs/COLLISION_REVIEW_2026-08-05.md)
+- [V6 Collision Review](experiments/paper/COLLISION_REVIEW_V6_2026-08-07.md)
+- [P0/P1 Repair and Strict Review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md)
+- [V6 Confirmatory Report](experiments/paper/NATURAL_ACTION_CONFIRMATORY_REPORT_2026-08-07.md)
 - [Data and Reuse](docs/DATA_AND_REUSE.md)
 - [AI Use Disclosure](docs/AI_USE.md)
 - [Art Direction and Image Provenance](docs/ART_DIRECTION.md)

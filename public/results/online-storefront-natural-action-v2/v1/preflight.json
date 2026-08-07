@@ -1,6 +1,6 @@
 {
   "schemaVersion": "online-storefront-natural-action-preflight.v1",
-  "generatedAt": "2026-08-06T17:52:35.875298+00:00",
+  "generatedAt": "2026-08-07T05:54:15.224537+00:00",
   "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
   "passed": true,
   "taskModelUnitCount": 920,
@@ -15,6 +15,9 @@
   "allFourLayoutMatchCount": 920,
   "inspectedSelectableCount": 1840,
   "postResolutionInputMatchCount": 920,
+  "withinArmByteIdenticalStateCount": 920,
+  "uniqueSourceHistoryCount": 460,
+  "taskCountPerSourceHistory": 1,
   "decisionQualityDistinctValueCount": 323,
   "decisionQualityStandardDeviation": 0.078138,
   "callOrderCounts": {

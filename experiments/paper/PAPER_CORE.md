@@ -12,7 +12,8 @@ the agent sees. In a research storefront, activating temporary evidence changed
 learned recommendation rankings; recording the same event without activating
 it did not.
 
-The confirmatory action study also found a bounded model-action effect. With the
+The confirmatory action study also found a bounded categorical provider-output
+contrast. With the
 candidate IDs and order fixed, immediate versus held activation changed the
 selected-item or abandon distribution after repeated-call variation was
 subtracted. The result recurred in DeepSeek and MiMo over the natural 460-task
@@ -29,19 +30,20 @@ The four-contract storefront separates no state, inert logging, immediate
 platform activation, and an outcome-gated hold. Fixed traces keep behavior and
 candidate masks constant while activation timing changes.
 
-### RQ2. Does the changed exposure alter the agent's resolved action?
+### RQ2. Does the changed exposure alter the provider model's categorical choice?
 
 The confirmatory action study compares selected-item or abandon distributions
 under immediate and held activation. Matched arms receive the same candidate
 IDs in the same order, and the inspected candidate remains selectable. Two
 independent calls per arm estimate repeated-call variation.
 
-### RQ3. Does holding platform activation reduce current-task decision quality?
+### RQ3. What is the held-minus-immediate difference on the frozen offered-candidate score?
 
 Both timing arms retain task-local retrieval. The new guardrail uses a
 continuous, frozen score over offered candidates. The previous binary utility
 measure was too coarse to support a non-inferiority claim. Both providers passed
-the frozen -0.05 guardrail.
+the frozen -0.05 engineering guardrail. The margin is not externally calibrated
+and does not define human utility or harmlessness.
 
 ## Evidence retained in the paper
 
@@ -50,7 +52,7 @@ the frozen -0.05 guardrail.
 | Four-contract fixed replay over 460 tasks | Complete | Activation changes in-task rankings; inert logging does not |
 | SASRec and GRU replication across four Amazon Reviews categories | Complete | The ranking effect is not confined to one category or encoder in this testbed |
 | Free-running deterministic policies | Descriptive | Ranking movement can alter scripted trajectories; policy estimates are not LLM action effects |
-| Natural-frame LLM action study | Complete: 7,360 valid calls | Immediate versus held activation changed model action distributions in both LLM families |
+| Natural-frame LLM action study | Complete: 7,360 valid calls | Immediate versus held activation changed categorical output distributions in both tested provider models |
 | Control interface | Implemented design response | No usability, trust, comprehension, or preference claim |
 
 ## Completed result: activation changed rankings
@@ -113,27 +115,40 @@ cache scopes force independent provider calls. The common candidate universe is
 constructed from both shelves, task-local retrieval, and search. The inspected
 item is marked but remains selectable.
 
-The primary estimator is
+The primary statistic is the categorical energy-distance construction
+(Szekely and Rizzo, 2013), applied to two repeated calls in each arm:
 
 `2 * mean(immediate != held) - 1[immediate A != immediate B] - 1[held A != held B]`.
 
-In expectation, this is the squared distance between the two categorical
-action distributions. It does not assume that temperature zero makes an API
-deterministic. DeepSeek is the primary provider; MiMo is the prespecified
-replication. Providers are analyzed separately.
+Under mutually independent calls from stable categorical output distributions,
+it is an unbiased estimate of the squared L2 distance between the two
+distributions. The statistic is established; the contribution here is its use
+as a control for repeated provider variation, not a new estimator. Temperature
+zero does not establish independence or stability. DeepSeek is the primary
+provider; MiMo is the prespecified second provider. Providers are analyzed
+separately.
 
-The preflight covered all 920 task-model units. Candidate IDs and all four
+The preflight covered all 920 task-model units from 460 distinct source
+histories, with one task per source history. Candidate IDs and all four
 candidate orders agreed in 920 of 920 units. All 1,840 inspected candidates remained
 selectable. Post-resolution platform-input hashes agreed in 920 of 920 units.
 The decision-quality score had 323 distinct feasible-candidate values. No API
 call was needed for these checks.
+
+The public evaluator now reconstructs every distance, quality contrast, and P0
+invariant from pseudonymous action and state primitives. It rejects duplicate
+or incomplete task-by-recommender cells. A dated reporting amendment resamples
+tasks within category so the fixed equal category weights remain fixed; the
+original frozen unstratified intervals remain published. Cached responses were
+replayed to publish the primitives without new provider calls.
 
 ## Confirmatory action results
 
 All 7,360 v6 provider calls returned valid actions. There were no terminal
 failures or timeouts. DeepSeek's overall action-distribution distance was 0.126,
 with a task-clustered 95% interval from 0.093 to 0.161. MiMo's prespecified
-replication estimate was 0.111, with an interval from 0.079 to 0.144.
+second-provider estimate was 0.111, with a category-stratified interval from
+0.080 to 0.142. Its original frozen interval was 0.079 to 0.144.
 
 Actionable opportunity was uncommon in the natural frame. The highest-ranked
 constraint-matching platform candidate differed between arms in 40 of 920
@@ -147,9 +162,16 @@ was 1.52% in immediate and 0.65% in held calls; MiMo was 1.74% and 2.28%.
 Same-layout immediate-versus-held divergence was about 7.5% in both families.
 
 The held-minus-immediate decision-quality difference was -0.0006
-[-0.0028, 0.0015] for DeepSeek and +0.0008 [-0.0012, 0.0028] for MiMo. Both
-lower bounds remained above the frozen -0.05 guardrail. This score is a
-protocol-defined surrogate over offered candidates, not human utility.
+[-0.0028, 0.0015] for DeepSeek and +0.0008 [-0.0012, 0.0028] for MiMo after
+rounding. Both lower bounds remained above the frozen -0.05 engineering
+guardrail. This score is a protocol-defined surrogate over offered candidates,
+not human utility, and the margin has no external calibration.
+
+The action contrast was entirely within selected items. Across the two paired
+replicates per unit, DeepSeek had 136 selected-candidate swaps and MiMo had 138;
+neither provider had a select-to-abandon or abandon-to-select transition. The
+result therefore concerns which pseudonymous candidate record was returned, not
+whether the model completed or abandoned the task.
 
 ## State and behavior are different estimands
 
@@ -170,10 +192,11 @@ ranking displacement is not part of the primary behavioral event.
 1. An empirical separation between event recording and recommendation
    activation in a learned research storefront.
 2. A measurement distinction between shelf displacement, trace divergence, and
-   resolved action.
-3. A confirmatory estimate of an LLM action-distribution effect while
-   holding the selectable candidates fixed and measuring repeated-call
-   variation symmetrically, replicated in two LLM families.
+   categorical provider output.
+3. A confirmatory application of categorical energy distance to estimate an
+   immediate-versus-held output-distribution contrast while holding selectable
+   candidates fixed and measuring repeated-call variation symmetrically in two
+   provider models.
 4. An outcome-gated interface as an unevaluated design response.
 
 All frozen action and guardrail gates passed. Agent provenance is not
@@ -183,8 +206,9 @@ manipulated, so the paper does not claim an ACI-specific causal mechanism.
 
 Task-local recommendation and platform activation can be separate system
 operations. The prototype makes that separation visible and lets platform
-activation wait for a task outcome. This design follows from the ranking and
-model-action results. It has not been evaluated with people.
+activation wait for a task outcome. The experiment shows that the timing choice
+is behaviorally non-neutral for the tested provider models; it does not show
+that holding improves decisions or that people prefer this control.
 
 ## Limits
 
@@ -195,6 +219,14 @@ model-action results. It has not been evaluated with people.
   retailer's production system.
 - LLMs received pseudonymous derived features, not rendered commerce pages or
   natural-language product descriptions.
+- The action contrast is the effect of a constructed instrument containing
+  arm-dependent platform-rank and inspected-item fields. It is not yet an
+  effect of a naturally ordered, rendered shelf.
+- Two repeated calls per arm require stable, mutually independent provider
+  draws for the categorical-distance interpretation; call diagnostics cannot
+  prove those assumptions.
+- Checkpoint-seed strata are descriptive because tasks were assigned to one of
+  three seeds rather than fully crossed with all seeds.
 - The old 32-task LLM pilot is invalidated and supplies no action estimate.
 - The new quality score is a protocol-defined surrogate over offered candidates,
   not human utility.

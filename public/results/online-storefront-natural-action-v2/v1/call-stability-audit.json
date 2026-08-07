@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "online-storefront-call-stability-audit.v1",
+  "providers": {
+    "deepseek": {
+      "provider": "deepseek",
+      "callCount": 3680,
+      "runStart": "2026-08-06T17:54:04.774335+00:00",
+      "runEnd": "2026-08-06T19:03:38.058970+00:00",
+      "runDurationHours": 1.159246,
+      "providerModelIds": [
+        "deepseek-v4-flash"
+      ],
+      "systemFingerprints": [
+        "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+      ],
+      "lagSeconds": {
+        "sameArmRepeat": {
+          "min": 1.554175,
+          "p25": 1.902607,
+          "median": 2.057581,
+          "p75": 2.259634,
+          "max": 21.727195
+        },
+        "matchedCrossArm": {
+          "min": 0.688565,
+          "p25": 0.958948,
+          "median": 1.116459,
+          "p75": 2.703604,
+          "max": 25.077121
+        }
+      },
+      "effectByChronologicalQuartile": [
+        {
+          "chronologicalQuartile": 1,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.078261,
+          "categoryComposition": {
+            "luxury-beauty": 230
+          }
+        },
+        {
+          "chronologicalQuartile": 2,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.121739,
+          "categoryComposition": {
+            "software": 230
+          }
+        },
+        {
+          "chronologicalQuartile": 3,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.156522,
+          "categoryComposition": {
+            "industrial-and-scientific": 230
+          }
+        },
+        {
+          "chronologicalQuartile": 4,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.147826,
+          "categoryComposition": {
+            "prime-pantry": 230
+          }
+        }
+      ],
+      "effectByWithinCategoryChronologicalQuartile": [
+        {
+          "withinCategoryQuartile": 1,
+          "unitCount": 232,
+          "meanActionDistributionDistance": 0.12931
+        },
+        {
+          "withinCategoryQuartile": 2,
+          "unitCount": 232,
+          "meanActionDistributionDistance": 0.094828
+        },
+        {
+          "withinCategoryQuartile": 3,
+          "unitCount": 228,
+          "meanActionDistributionDistance": 0.122807
+        },
+        {
+          "withinCategoryQuartile": 4,
+          "unitCount": 228,
+          "meanActionDistributionDistance": 0.157895
+        }
+      ],
+      "effectByLatinSquareOrder": {
+        "held-a / immediate-b / held-b / immediate-a": {
+          "unitCount": 243,
+          "meanActionDistributionDistance": 0.098765
+        },
+        "held-b / immediate-a / held-a / immediate-b": {
+          "unitCount": 229,
+          "meanActionDistributionDistance": 0.131004
+        },
+        "immediate-a / held-a / immediate-b / held-b": {
+          "unitCount": 224,
+          "meanActionDistributionDistance": 0.151786
+        },
+        "immediate-b / held-b / immediate-a / held-a": {
+          "unitCount": 224,
+          "meanActionDistributionDistance": 0.125
+        }
+      },
+      "interpretation": "The raw chronological quartiles are confounded with the sequential category run order; within-category quartiles are the relevant drift diagnostic. Neither diagnostic proves independence, exchangeability, or stationarity."
+    },
+    "mimo": {
+      "provider": "mimo",
+      "callCount": 3680,
+      "runStart": "2026-08-06T17:54:05.057700+00:00",
+      "runEnd": "2026-08-06T19:42:36.434313+00:00",
+      "runDurationHours": 1.808716,
+      "providerModelIds": [
+        "mimo-v2.5"
+      ],
+      "systemFingerprints": [],
+      "lagSeconds": {
+        "sameArmRepeat": {
+          "min": 1.622639,
+          "p25": 2.490353,
+          "median": 3.137115,
+          "p75": 4.373938,
+          "max": 14.027166
+        },
+        "matchedCrossArm": {
+          "min": 0.774726,
+          "p25": 1.217331,
+          "median": 1.739583,
+          "p75": 3.73325,
+          "max": 11.791427
+        }
+      },
+      "effectByChronologicalQuartile": [
+        {
+          "chronologicalQuartile": 1,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.056522,
+          "categoryComposition": {
+            "luxury-beauty": 230
+          }
+        },
+        {
+          "chronologicalQuartile": 2,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.082609,
+          "categoryComposition": {
+            "software": 230
+          }
+        },
+        {
+          "chronologicalQuartile": 3,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.13913,
+          "categoryComposition": {
+            "industrial-and-scientific": 230
+          }
+        },
+        {
+          "chronologicalQuartile": 4,
+          "unitCount": 230,
+          "meanActionDistributionDistance": 0.165217,
+          "categoryComposition": {
+            "prime-pantry": 230
+          }
+        }
+      ],
+      "effectByWithinCategoryChronologicalQuartile": [
+        {
+          "withinCategoryQuartile": 1,
+          "unitCount": 232,
+          "meanActionDistributionDistance": 0.125
+        },
+        {
+          "withinCategoryQuartile": 2,
+          "unitCount": 232,
+          "meanActionDistributionDistance": 0.090517
+        },
+        {
+          "withinCategoryQuartile": 3,
+          "unitCount": 228,
+          "meanActionDistributionDistance": 0.114035
+        },
+        {
+          "withinCategoryQuartile": 4,
+          "unitCount": 228,
+          "meanActionDistributionDistance": 0.114035
+        }
+      ],
+      "effectByLatinSquareOrder": {
+        "held-a / immediate-b / held-b / immediate-a": {
+          "unitCount": 244,
+          "meanActionDistributionDistance": 0.127049
+        },
+        "held-b / immediate-a / held-a / immediate-b": {
+          "unitCount": 222,
+          "meanActionDistributionDistance": 0.112613
+        },
+        "immediate-a / held-a / immediate-b / held-b": {
+          "unitCount": 231,
+          "meanActionDistributionDistance": 0.121212
+        },
+        "immediate-b / held-b / immediate-a / held-a": {
+          "unitCount": 223,
+          "meanActionDistributionDistance": 0.080717
+        }
+      },
+      "interpretation": "The raw chronological quartiles are confounded with the sequential category run order; within-category quartiles are the relevant drift diagnostic. Neither diagnostic proves independence, exchangeability, or stationarity."
+    }
+  },
+  "privacy": "Only aggregate timestamps, model identifiers, fingerprints, lags, and derived effects are published. Prompts and raw responses remain local."
+}

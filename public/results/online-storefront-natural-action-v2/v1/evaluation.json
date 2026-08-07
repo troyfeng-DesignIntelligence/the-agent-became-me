@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "online-storefront-natural-action-evaluation.v1",
+  "schemaVersion": "online-storefront-natural-action-evaluation.v3",
   "protocolSha256": "6bf45b2e84b8278b322aaff43245161bba7496fc5115e80180d3abe1d94b56e7",
   "providers": {
     "mimo": {
@@ -7,6 +7,78 @@
       "taskCount": 460,
       "taskModelUnitCount": 920,
       "estimates": {
+        "exposureManipulationRate": {
+          "estimate": 0.981522,
+          "ci95": [
+            0.972826,
+            0.98913
+          ]
+        },
+        "naturalOpportunityRate": {
+          "estimate": 0.043478,
+          "ci95": [
+            0.029348,
+            0.058696
+          ]
+        },
+        "overallActionDistributionDistance": {
+          "estimate": 0.11087,
+          "ci95": [
+            0.080435,
+            0.142391
+          ]
+        },
+        "conditionalActionDistributionDistance": {
+          "estimate": 0.4,
+          "ci95": [
+            0.146341,
+            0.689655
+          ]
+        },
+        "sameLayoutDivergence": {
+          "estimate": 0.075,
+          "ci95": [
+            0.058696,
+            0.092391
+          ]
+        },
+        "immediateWithinDivergence": {
+          "estimate": 0.017391,
+          "ci95": [
+            0.009783,
+            0.026087
+          ]
+        },
+        "heldWithinDivergence": {
+          "estimate": 0.022826,
+          "ci95": [
+            0.01413,
+            0.032609
+          ]
+        },
+        "completeCaseQualityDifference": {
+          "estimate": 0.000779,
+          "ci95": [
+            -0.001199,
+            0.002787
+          ]
+        },
+        "worstCaseQualityDifference": {
+          "estimate": 0.000779,
+          "ci95": [
+            -0.001199,
+            0.002787
+          ]
+        },
+        "protocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "frozenUnstratifiedEstimates": {
         "exposureManipulationRate": {
           "estimate": 0.981522,
           "ci95": [
@@ -78,6 +150,414 @@
           ]
         }
       },
+      "sensitivityAnalyses": {
+        "categoryStratifiedTaskClusterBootstrap": {
+          "exposureManipulationRate": {
+            "estimate": 0.981522,
+            "ci95": [
+              0.972826,
+              0.98913
+            ]
+          },
+          "naturalOpportunityRate": {
+            "estimate": 0.043478,
+            "ci95": [
+              0.029348,
+              0.058696
+            ]
+          },
+          "overallActionDistributionDistance": {
+            "estimate": 0.11087,
+            "ci95": [
+              0.080435,
+              0.142391
+            ]
+          },
+          "conditionalActionDistributionDistance": {
+            "estimate": 0.4,
+            "ci95": [
+              0.146341,
+              0.689655
+            ]
+          },
+          "sameLayoutDivergence": {
+            "estimate": 0.075,
+            "ci95": [
+              0.058696,
+              0.092391
+            ]
+          },
+          "immediateWithinDivergence": {
+            "estimate": 0.017391,
+            "ci95": [
+              0.009783,
+              0.026087
+            ]
+          },
+          "heldWithinDivergence": {
+            "estimate": 0.022826,
+            "ci95": [
+              0.01413,
+              0.032609
+            ]
+          },
+          "completeCaseQualityDifference": {
+            "estimate": 0.000779,
+            "ci95": [
+              -0.001199,
+              0.002787
+            ]
+          },
+          "worstCaseQualityDifference": {
+            "estimate": 0.000779,
+            "ci95": [
+              -0.001199,
+              0.002787
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "subgroups": {
+        "category": {
+          "industrial-and-scientific": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.13913,
+                "ci95": [
+                  0.069565,
+                  0.217391
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.117391,
+                "ci95": [
+                  0.073913,
+                  0.169565
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.000795,
+                "ci95": [
+                  -0.006104,
+                  0.004182
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.518519,
+                "ci95": [
+                  0.173913,
+                  0.909221
+                ]
+              }
+            }
+          },
+          "luxury-beauty": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.056522,
+                "ci95": [
+                  0.013043,
+                  0.104348
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.013043,
+                "ci95": [
+                  0.0,
+                  0.030435
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.001283,
+                "ci95": [
+                  -0.002685,
+                  0.005173
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ]
+              }
+            }
+          },
+          "prime-pantry": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.165217,
+                "ci95": [
+                  0.095652,
+                  0.243478
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.030435,
+                "ci95": [
+                  0.008696,
+                  0.056522
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.002177,
+                "ci95": [
+                  -0.001533,
+                  0.006013
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.285714,
+                "ci95": [
+                  0.0,
+                  1.0
+                ]
+              }
+            }
+          },
+          "software": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.082609,
+                "ci95": [
+                  0.034783,
+                  0.13913
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.013043,
+                "ci95": [
+                  0.0,
+                  0.030435
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.000453,
+                "ci95": [
+                  -0.002341,
+                  0.003895
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ]
+              }
+            }
+          }
+        },
+        "modelFamily": {
+          "gru4rec": {
+            "taskCount": 460,
+            "taskModelUnitCount": 460,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.104348,
+                "ci95": [
+                  0.065217,
+                  0.147826
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.028261,
+                "ci95": [
+                  0.013043,
+                  0.043478
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.002215,
+                "ci95": [
+                  -0.000556,
+                  0.005075
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.461538,
+                "ci95": [
+                  0.0,
+                  1.0
+                ]
+              }
+            }
+          },
+          "sasrec": {
+            "taskCount": 460,
+            "taskModelUnitCount": 460,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.117391,
+                "ci95": [
+                  0.073913,
+                  0.163043
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.058696,
+                "ci95": [
+                  0.03913,
+                  0.080435
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.000656,
+                "ci95": [
+                  -0.003495,
+                  0.002183
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.37037,
+                "ci95": [
+                  0.095238,
+                  0.695652
+                ]
+              }
+            }
+          }
+        },
+        "modelSeed": {
+          "7": {
+            "taskCount": 246,
+            "taskModelUnitCount": 298,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.083893,
+                "ci95": [
+                  0.035205,
+                  0.136213
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.040268,
+                "ci95": [
+                  0.019934,
+                  0.063973
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.00076,
+                "ci95": [
+                  -0.001943,
+                  0.003529
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.5,
+                "ci95": [
+                  0.0,
+                  1.058824
+                ]
+              }
+            }
+          },
+          "17": {
+            "taskCount": 270,
+            "taskModelUnitCount": 325,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.147692,
+                "ci95": [
+                  0.089736,
+                  0.207557
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.070769,
+                "ci95": [
+                  0.044025,
+                  0.099099
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.002043,
+                "ci95": [
+                  -0.006015,
+                  0.00177
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.434783,
+                "ci95": [
+                  0.083333,
+                  0.846429
+                ]
+              }
+            }
+          },
+          "29": {
+            "taskCount": 251,
+            "taskModelUnitCount": 297,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.097643,
+                "ci95": [
+                  0.05298,
+                  0.148649
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.016835,
+                "ci95": [
+                  0.003367,
+                  0.032895
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.003887,
+                "ci95": [
+                  0.000948,
+                  0.007185
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ]
+              }
+            }
+          }
+        }
+      },
+      "diagnostics": {
+        "conditionAbandonRates": {
+          "immediate-a": 0.497826,
+          "held-a": 0.497826,
+          "immediate-b": 0.497826,
+          "held-b": 0.497826
+        },
+        "pairedTransitionCounts": {
+          "same": 1702,
+          "selected-candidate-swap": 138
+        },
+        "actionDistanceValueCounts": {
+          "-1.0": 3,
+          "0.0": 864,
+          "1.0": 1,
+          "2.0": 52
+        },
+        "opportunityTaskCount": 33,
+        "opportunityTaskModelUnitCount": 40
+      },
       "runApi": {
         "requestCount": 3680,
         "cacheHitCount": 0,
@@ -98,6 +578,78 @@
       "taskCount": 460,
       "taskModelUnitCount": 920,
       "estimates": {
+        "exposureManipulationRate": {
+          "estimate": 0.981522,
+          "ci95": [
+            0.972826,
+            0.98913
+          ]
+        },
+        "naturalOpportunityRate": {
+          "estimate": 0.043478,
+          "ci95": [
+            0.029348,
+            0.058696
+          ]
+        },
+        "overallActionDistributionDistance": {
+          "estimate": 0.126087,
+          "ci95": [
+            0.093478,
+            0.16087
+          ]
+        },
+        "conditionalActionDistributionDistance": {
+          "estimate": 0.6,
+          "ci95": [
+            0.344828,
+            0.846154
+          ]
+        },
+        "sameLayoutDivergence": {
+          "estimate": 0.073913,
+          "ci95": [
+            0.057065,
+            0.091848
+          ]
+        },
+        "immediateWithinDivergence": {
+          "estimate": 0.015217,
+          "ci95": [
+            0.007609,
+            0.023913
+          ]
+        },
+        "heldWithinDivergence": {
+          "estimate": 0.006522,
+          "ci95": [
+            0.002174,
+            0.011957
+          ]
+        },
+        "completeCaseQualityDifference": {
+          "estimate": -0.000614,
+          "ci95": [
+            -0.00275,
+            0.001472
+          ]
+        },
+        "worstCaseQualityDifference": {
+          "estimate": -0.000614,
+          "ci95": [
+            -0.00275,
+            0.001472
+          ]
+        },
+        "protocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "frozenUnstratifiedEstimates": {
         "exposureManipulationRate": {
           "estimate": 0.981522,
           "ci95": [
@@ -169,6 +721,412 @@
           ]
         }
       },
+      "sensitivityAnalyses": {
+        "categoryStratifiedTaskClusterBootstrap": {
+          "exposureManipulationRate": {
+            "estimate": 0.981522,
+            "ci95": [
+              0.972826,
+              0.98913
+            ]
+          },
+          "naturalOpportunityRate": {
+            "estimate": 0.043478,
+            "ci95": [
+              0.029348,
+              0.058696
+            ]
+          },
+          "overallActionDistributionDistance": {
+            "estimate": 0.126087,
+            "ci95": [
+              0.093478,
+              0.16087
+            ]
+          },
+          "conditionalActionDistributionDistance": {
+            "estimate": 0.6,
+            "ci95": [
+              0.344828,
+              0.846154
+            ]
+          },
+          "sameLayoutDivergence": {
+            "estimate": 0.073913,
+            "ci95": [
+              0.057065,
+              0.091848
+            ]
+          },
+          "immediateWithinDivergence": {
+            "estimate": 0.015217,
+            "ci95": [
+              0.007609,
+              0.023913
+            ]
+          },
+          "heldWithinDivergence": {
+            "estimate": 0.006522,
+            "ci95": [
+              0.002174,
+              0.011957
+            ]
+          },
+          "completeCaseQualityDifference": {
+            "estimate": -0.000614,
+            "ci95": [
+              -0.00275,
+              0.001472
+            ]
+          },
+          "worstCaseQualityDifference": {
+            "estimate": -0.000614,
+            "ci95": [
+              -0.00275,
+              0.001472
+            ]
+          },
+          "protocolFailureRate": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "subgroups": {
+        "category": {
+          "industrial-and-scientific": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.156522,
+                "ci95": [
+                  0.086957,
+                  0.234783
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.117391,
+                "ci95": [
+                  0.073913,
+                  0.169565
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.000987,
+                "ci95": [
+                  -0.005774,
+                  0.003806
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.592593,
+                "ci95": [
+                  0.3,
+                  0.875125
+                ]
+              }
+            }
+          },
+          "luxury-beauty": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.078261,
+                "ci95": [
+                  0.034783,
+                  0.130435
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.013043,
+                "ci95": [
+                  0.0,
+                  0.030435
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.002353,
+                "ci95": [
+                  -0.000998,
+                  0.005909
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.0,
+                "ci95": [
+                  0.0,
+                  0.0
+                ]
+              }
+            }
+          },
+          "prime-pantry": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.147826,
+                "ci95": [
+                  0.078261,
+                  0.226087
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.030435,
+                "ci95": [
+                  0.008696,
+                  0.056522
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.002901,
+                "ci95": [
+                  -0.007466,
+                  0.00178
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.857143,
+                "ci95": [
+                  0.0,
+                  1.6
+                ]
+              }
+            }
+          },
+          "software": {
+            "taskCount": 115,
+            "taskModelUnitCount": 230,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.121739,
+                "ci95": [
+                  0.06087,
+                  0.191304
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.013043,
+                "ci95": [
+                  0.0,
+                  0.030435
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.00092,
+                "ci95": [
+                  -0.004988,
+                  0.00339
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.666667,
+                "ci95": [
+                  0.0,
+                  2.0
+                ]
+              }
+            }
+          }
+        },
+        "modelFamily": {
+          "gru4rec": {
+            "taskCount": 460,
+            "taskModelUnitCount": 460,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.130435,
+                "ci95": [
+                  0.086957,
+                  0.178261
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.028261,
+                "ci95": [
+                  0.013043,
+                  0.043478
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.001076,
+                "ci95": [
+                  -0.003832,
+                  0.001716
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 1.230769,
+                "ci95": [
+                  0.666667,
+                  1.777778
+                ]
+              }
+            }
+          },
+          "sasrec": {
+            "taskCount": 460,
+            "taskModelUnitCount": 460,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.121739,
+                "ci95": [
+                  0.078261,
+                  0.165217
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.058696,
+                "ci95": [
+                  0.03913,
+                  0.080435
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.000152,
+                "ci95": [
+                  -0.003299,
+                  0.002902
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.296296,
+                "ci95": [
+                  0.066667,
+                  0.580712
+                ]
+              }
+            }
+          }
+        },
+        "modelSeed": {
+          "7": {
+            "taskCount": 246,
+            "taskModelUnitCount": 298,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.120805,
+                "ci95": [
+                  0.065784,
+                  0.187702
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.040268,
+                "ci95": [
+                  0.019934,
+                  0.063973
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.001539,
+                "ci95": [
+                  -0.004863,
+                  0.001498
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.833333,
+                "ci95": [
+                  0.25,
+                  1.428571
+                ]
+              }
+            }
+          },
+          "17": {
+            "taskCount": 270,
+            "taskModelUnitCount": 325,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.135385,
+                "ci95": [
+                  0.085366,
+                  0.189274
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.070769,
+                "ci95": [
+                  0.044025,
+                  0.099099
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": -0.002217,
+                "ci95": [
+                  -0.006098,
+                  0.00169
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.521739,
+                "ci95": [
+                  0.2,
+                  0.857381
+                ]
+              }
+            }
+          },
+          "29": {
+            "taskCount": 251,
+            "taskModelUnitCount": 297,
+            "estimates": {
+              "overallActionDistributionDistance": {
+                "estimate": 0.121212,
+                "ci95": [
+                  0.071192,
+                  0.176481
+                ]
+              },
+              "naturalOpportunityRate": {
+                "estimate": 0.016835,
+                "ci95": [
+                  0.003367,
+                  0.032895
+                ]
+              },
+              "completeCaseQualityDifference": {
+                "estimate": 0.002069,
+                "ci95": [
+                  -0.001458,
+                  0.005709
+                ]
+              },
+              "conditionalActionDistributionDistance": {
+                "estimate": 0.4,
+                "ci95": [
+                  0.0,
+                  1.333333
+                ]
+              }
+            }
+          }
+        }
+      },
+      "diagnostics": {
+        "conditionAbandonRates": {
+          "immediate-a": 0.497826,
+          "held-a": 0.497826,
+          "immediate-b": 0.497826,
+          "held-b": 0.497826
+        },
+        "pairedTransitionCounts": {
+          "same": 1704,
+          "selected-candidate-swap": 136
+        },
+        "actionDistanceValueCounts": {
+          "0.0": 862,
+          "2.0": 58
+        },
+        "opportunityTaskCount": 33,
+        "opportunityTaskModelUnitCount": 40
+      },
       "runApi": {
         "requestCount": 3680,
         "cacheHitCount": 0,
@@ -190,9 +1148,25 @@
   "gates": {
     "deepseekOverallEffectLowerBoundAboveZero": true,
     "deepseekWorstCaseQualityLowerBoundAboveMargin": true,
-    "mimoReplicationPointEstimatePositive": true,
+    "mimoSecondProviderIntervalLowerBoundAboveZero": true,
+    "mimoWorstCaseQualityLowerBoundAboveMargin": true,
     "allProviderFailureRatesBelow005": true
   },
+  "hypothesisHierarchy": {
+    "confirmatory": "DeepSeek overall categorical energy distance is above zero.",
+    "secondProviderRobustness": "MiMo overall interval is above zero under both reporting and frozen bootstrap variants.",
+    "guardrails": [
+      "Worst-case held-minus-immediate offered-candidate surrogate exceeds -0.05 for each provider.",
+      "Protocol failure rate remains below 0.05 for each provider."
+    ],
+    "descriptive": [
+      "Opportunity-conditional distance",
+      "same-layout divergence",
+      "category, recommender, and checkpoint-seed subgroups"
+    ],
+    "multiplicity": "No familywise claim is made for guardrail or descriptive outcomes."
+  },
+  "inferenceScope": "The frozen analysis used paired task-cluster resampling. A dated P0 audit amendment makes within-category task resampling the reporting analysis so the fixed equal category weights remain fixed; the frozen intervals remain reported separately. Inference is conditional on the frozen task frame, six recommender checkpoints, provider versions, and two-call-per-arm design.",
   "claimDecision": "eligible-for-bounded-action-distribution-claim",
   "withdrawnAnalyses": [
     "old dominance AUC",

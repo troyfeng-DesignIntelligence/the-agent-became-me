@@ -5,7 +5,7 @@
 One result is established: activating temporary task evidence changed learned
 rankings in the research storefront, while inert logging did not.
 
-The confirmatory v6 study also found a model-action effect when both arms could
+The confirmatory v6 study also found a categorical provider-output contrast when both arms could
 choose from the same candidates in the same order. The result recurred in
 DeepSeek and MiMo after within-arm variation was subtracted.
 
