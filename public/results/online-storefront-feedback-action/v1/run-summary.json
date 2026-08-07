@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-run-summary.v1",
+  "generatedAt": "2026-08-07T08:37:17.826301+00:00",
+  "protocolSha256": "ca44c582efe84ac51c6ec852a6ad51428d421fb4a5072878a7b2504b42919035",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "taskModelUnitCount": 920,
+  "rowCount": 1146,
+  "api": {
+    "requestCount": 4584,
+    "cacheHitCount": 0,
+    "attemptCount": 4584,
+    "validActionCount": 4584,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 3191772,
+    "outputTokens": 98585,
+    "currency": "USD",
+    "observedCostAtPublishedRates": 0.474452,
+    "acceptedCostCap": 0.68,
+    "systemFingerprints": [
+      "fp_a18b46594c_prod0820_fp8_kvcache_20260402"
+    ],
+    "returnedModels": [
+      "deepseek-v4-flash"
+    ]
+  },
+  "claimBoundary": "The study concerns provider outputs over pseudonymous derived features in a research storefront. It does not establish human behavior, purchases, production-retailer effects, long-run amplification, or welfare consequences."
+}

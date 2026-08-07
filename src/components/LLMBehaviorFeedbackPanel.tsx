@@ -1,6 +1,8 @@
 import type {
   CandidateMarginSummary,
   DeterministicRepairSummary,
+  FeedbackActionEvaluation,
+  FeedbackBridgeSummary,
   ForcedInspectionSummary,
   InstrumentAblationEvaluation,
   NaturalActionEvaluation
@@ -15,13 +17,17 @@ export function LLMBehaviorFeedbackPanel({
   forced,
   historicalMargin,
   natural,
-  ablation
+  ablation,
+  feedbackBridge,
+  feedbackAction
 }: {
   repair: DeterministicRepairSummary;
   forced: ForcedInspectionSummary;
   historicalMargin: CandidateMarginSummary;
   natural: NaturalActionEvaluation;
   ablation: InstrumentAblationEvaluation;
+  feedbackBridge: FeedbackBridgeSummary;
+  feedbackAction: FeedbackActionEvaluation;
 }) {
   const mimo = natural.providers.mimo;
   const deepseek = natural.providers.deepseek;
@@ -31,6 +37,9 @@ export function LLMBehaviorFeedbackPanel({
   const validCalls = mimo.runApi.validActionCount + deepseek.runApi.validActionCount;
   const v7DeepSeek = ablation.providers.deepseek.estimates;
   const v7MiMo = ablation.providers.mimo.estimates;
+  const bridgeDeepSeek = feedbackBridge.groups.deepseek;
+  const downstream = feedbackAction.results["primary-feedback"];
+  const downstreamControl = feedbackAction.results["identical-control"];
 
   return (
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
@@ -90,7 +99,7 @@ export function LLMBehaviorFeedbackPanel({
       <div className="llm-feedback-ablation">
         <header>
           <span className="mono-label">CONFIRMATORY V7 / NATURAL 460-TASK FRAME</span>
-          <h4>Recommendation order induced agent choice divergence.</h4>
+          <h4>Recommendation-order-induced agent choice divergence.</h4>
           <p>
             V7 removed explicit platform rank and inspection markers, held all
             candidate attributes fixed, and changed only the order in which the
@@ -116,7 +125,7 @@ export function LLMBehaviorFeedbackPanel({
             <p>95% CI {v7MiMo["served-order"].categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
           </article>
           <article>
-            <span>Pilot decision</span>
+            <span>V7 decision</span>
             <strong>Passed</strong>
             <p>primary and masked-control gates</p>
           </article>
@@ -125,8 +134,47 @@ export function LLMBehaviorFeedbackPanel({
         <p className="llm-feedback-repair__note">
           Candidate-order sensitivity itself is established in prior LLM
           ranking research. V7 contributes a controlled bridge from learned
-          platform exposure to categorical agent action; consequential shopping
-          outcomes remain untested.
+          platform exposure to categorical agent action. V8 tests whether that
+          action survives writeback as a later system effect.
+        </p>
+      </div>
+
+      <div className="llm-feedback-ablation">
+        <header>
+          <span className="mono-label">CONFIRMATORY V8 / ONE-STEP FEEDBACK CHAIN</span>
+          <h4>The choice changed the next shelf—and sometimes the next choice.</h4>
+          <p>
+            Each V7 selection was written back to the same frozen recommender.
+            The held-out chronological next event then opened a second task.
+            No task was selected because it had already diverged.
+          </p>
+        </header>
+
+        <div className="llm-feedback-repair__grid">
+          <article>
+            <span>Next-shelf distance</span>
+            <strong>{bridgeDeepSeek["served-order"].slateEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {bridgeDeepSeek["served-order"].slateEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+          </article>
+          <article>
+            <span>Later-choice distance</span>
+            <strong>{downstream.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {downstream.categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+          </article>
+          <article>
+            <span>Byte-identical control</span>
+            <strong>{downstreamControl.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>226 independently selected task-model units</p>
+          </article>
+          <article>
+            <span>Feedback decision</span>
+            <strong>Passed</strong>
+            <p>exposure, action, control, and reliability gates</p>
+          </article>
+        </div>
+
+        <p className="llm-feedback-repair__note">
+          Served-order choices changed at least one matched next slate in {(bridgeDeepSeek["served-order"].anyMatchedSlateChangeRate.estimate * 100).toFixed(1)}% of task-model units. The later matched action-change rate was {(downstream.matchedActionChangeRate.estimate * 100).toFixed(1)}%. This is a one-step model-system feedback result, not evidence of long-run amplification or human consequences.
         </p>
       </div>
 
@@ -186,7 +234,8 @@ export function LLMBehaviorFeedbackPanel({
         <p>
           Every observed cross-arm transition in V6 and V7 was a
           selected-candidate swap; none changed between selection and abandonment.
-          Neither study used a rendered commerce shelf.
+          V8 used a held-out next-item intent proxy and derived features rather
+          than a rendered commerce shelf.
         </p>
         <p>
           Raw prompts, responses, item titles, reviews, and original identifiers

@@ -9,11 +9,13 @@ divergence** as the name of the observed phenomenon, not as a novelty claim.
 The defensible residual direction is narrower: temporary task evidence changes
 a learned platform ranking; that ranking becomes the order shown to an acting
 LLM; the order changes which item the agent selects; the selected action may
-then become new recommender evidence. The current study establishes the middle
-link. It has not yet established a consequential or longitudinal feedback loop.
+then become new recommender evidence. V7 establishes the order-to-choice link.
+V8 establishes one later writeback-to-shelf-to-choice cycle. Longitudinal
+amplification and calibrated decision consequences remain untested.
 
-Current novelty score: **2/5** for an order-sensitivity paper; **3/5 reachable**
-for a paper about activation timing and consequential agent-recommender feedback.
+Current novelty score: **2/5** for an order-sensitivity paper; **3/5** for the
+completed one-step activation-timing feedback chain. A higher score requires a
+policy or value result that the collision set does not already imply.
 
 ## Search scope
 
@@ -47,10 +49,15 @@ explicit rank and inspection metadata as necessary explanations.
 Not new: LLMs are sensitive to candidate order; permutation can change rankings
 or selections; repeated permutations can diagnose or mitigate the bias.
 
-Potentially new if completed: an outcome-gated intervention that prevents
-temporary task evidence from changing platform order before the task resolves,
-with evidence that this interrupts a consequential feedback path without
-reducing current-task quality.
+Added by V8: a prospectively gated bridge from V7 selections through the same
+learned recommender to later exposure, followed by a second categorical
+DeepSeek action. The downstream exposure estimate was 0.035 [0.024, 0.047],
+and the later-action estimate was 0.037 [0.020, 0.057]. This is one cycle, not
+a general feedback-loop or long-horizon claim.
+
+Still potentially new if completed: an outcome-gated intervention that
+interrupts this measured path without reducing current-task quality or
+long-horizon recommendation value.
 
 ## Claim policy
 
@@ -60,6 +67,12 @@ Allowed now:
 > storefront: learned ranking changes altered categorical choices even when
 > candidate identities and attributes were held fixed.
 
+Also allowed after V8:
+
+> In the same testbed, the resulting choices changed later learned-recommender
+> exposure and a second categorical agent choice, establishing a measurable
+> one-step model-system feedback path.
+
 Do not claim:
 
 - discovery of LLM position bias;
@@ -68,12 +81,13 @@ Do not claim:
 - irreversible harm or a production-retailer feedback loop;
 - superiority of outcome gating before measuring consequential outcomes.
 
-## Next discriminating study
+## Next discriminating study after V8
 
 Compare immediate activation, post-failure deletion, and outcome-gated activation
 while retaining task-local support in every arm. Freeze task success, constraint
 violations, regret, and next-task recommendation value before provider calls.
-The direction remains viable only if outcome gating changes the downstream
-feedback path and does not materially reduce current-task performance relative
-to immediate activation. A null consequential result should reframe the paper
-as a measurement and systems-audit contribution rather than a control-policy paper.
+The direction remains viable as a control-policy paper only if outcome gating
+reduces the measured downstream path without materially reducing current-task
+performance or long-horizon recommendation value. A null value result should
+leave V7–V8 as a measurement and systems-audit contribution rather than a
+control-policy paper.

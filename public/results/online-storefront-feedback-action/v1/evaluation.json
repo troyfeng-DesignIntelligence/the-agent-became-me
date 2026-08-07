@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-evaluation.v1",
+  "generatedAt": "2026-08-07T08:40:16.853928+00:00",
+  "protocolSha256": "ca44c582efe84ac51c6ec852a6ad51428d421fb4a5072878a7b2504b42919035",
+  "evidenceStatus": "one-step-feedback-gate-passed",
+  "results": {
+    "primary-feedback": {
+      "unitCount": 920,
+      "categoricalEnergyDistance": {
+        "estimate": 0.036957,
+        "ci95": [
+          0.019565,
+          0.056522
+        ]
+      },
+      "matchedActionChangeRate": {
+        "estimate": 0.020652,
+        "ci95": [
+          0.011413,
+          0.030978
+        ]
+      },
+      "meanDecisionQuality": {
+        "estimate": 0.505624,
+        "ci95": [
+          0.479017,
+          0.53231
+        ]
+      },
+      "abandonRate": {
+        "estimate": 0.28288,
+        "ci95": [
+          0.246467,
+          0.319837
+        ]
+      },
+      "protocolFailureRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "byRecommenderFamily": {
+        "sasrec": {
+          "unitCount": 460,
+          "categoricalEnergyDistance": {
+            "estimate": 0.021739,
+            "ci95": [
+              0.004348,
+              0.043478
+            ]
+          }
+        },
+        "gru4rec": {
+          "unitCount": 460,
+          "categoricalEnergyDistance": {
+            "estimate": 0.052174,
+            "ci95": [
+              0.026087,
+              0.082609
+            ]
+          }
+        }
+      }
+    },
+    "identical-control": {
+      "unitCount": 226,
+      "categoricalEnergyDistance": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "matchedActionChangeRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "meanDecisionQuality": {
+        "estimate": 0.476929,
+        "ci95": [
+          0.433354,
+          0.52086
+        ]
+      },
+      "abandonRate": {
+        "estimate": 0.237864,
+        "ci95": [
+          0.18103,
+          0.298089
+        ]
+      },
+      "protocolFailureRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "gates": {
+    "feedbackExposurePrerequisitePassed": true,
+    "downstreamActionLowerBoundAboveZero": true,
+    "identicalControlUpperBoundBelow005": true,
+    "primaryFailureRateBelow005": true,
+    "controlFailureRateBelow005": true,
+    "bothRecommenderFamilyPointEstimatesAboveZero": true,
+    "oneStepAgentRecommenderAgentFeedbackGatePassed": true
+  },
+  "claimBoundary": "The study concerns provider outputs over pseudonymous derived features in a research storefront. It does not establish human behavior, purchases, production-retailer effects, long-run amplification, or welfare consequences.",
+  "interpretation": "The research storefront exhibits a measurable one-step recommendation-order to agent-choice to recommender-exposure to later-agent-choice feedback path."
+}

@@ -14,6 +14,7 @@ The current repository combines:
 - a polished static React portfolio experience;
 - deterministic and learned-recommender research storefronts;
 - a 460-task, two-recommender action study with 7,360 valid provider calls;
+- a completed one-step feedback-chain study with 4,584 additional valid calls;
 - public pseudonymous action/state primitives and a recomputing evaluator;
 - invalidation records for the two action studies that failed their controls;
 - event-level traces, update receipts, exact-value tables, and accessible
@@ -41,11 +42,20 @@ held fixed, changing only served order produced a DeepSeek categorical energy
 distance of 0.193 [0.155, 0.233], while the byte-identical masked control was
 0.004 [-0.003, 0.013]. MiMo reproduced the direction. Candidate-order
 sensitivity is already established in LLM ranking research, so this is not
-claimed as a new bias. The remaining paper contribution concerns the bridge
-from temporary-evidence activation to platform order and agent action; it still
-needs a consequential shopping benchmark. See the
+claimed as a new bias.
+
+The frozen V8 follow-up now closes the next system link. Writing V7 choices
+back to the same learned recommender produced next-shelf energy distance 0.035
+[0.024, 0.047] for DeepSeek-sourced actions; the masked control was 0.000
+[-0.002, 0.002], and MiMo-sourced actions reproduced the direction. When the
+resulting next shelves were served to DeepSeek on a held-out next-task proxy,
+the later-choice distance was 0.037 [0.020, 0.057], while a byte-identical
+control was 0.000 [0.000, 0.000]. This establishes a measurable one-step
+recommendation-order–agent-choice–recommendation–agent-choice path inside the
+research storefront. It does not establish long-run amplification, human
+behavior, decision benefit, or a production-retailer effect. See the
 [P0/P1 review](experiments/paper/P0_P1_REPAIR_AND_REVIEW_2026-08-07.md) and the
-[updated collision review](experiments/paper/COLLISION_REVIEW_V6_2026-08-07.md).
+[feedback-chain report](experiments/paper/FEEDBACK_CHAIN_CONFIRMATORY_REPORT_2026-08-07.md).
 
 ## Install and quickstart
 
@@ -540,6 +550,7 @@ Useful review documents:
 - [V6 Confirmatory Report](experiments/paper/NATURAL_ACTION_CONFIRMATORY_REPORT_2026-08-07.md)
 - [V7 Instrument-Ablation Pilot](experiments/paper/V7_INSTRUMENT_ABLATION_PILOT_2026-08-07.md)
 - [V7 Confirmatory Instrument Ablation](experiments/paper/V7_CONFIRMATORY_REPORT_2026-08-07.md)
+- [V8 One-Step Feedback Chain](experiments/paper/FEEDBACK_CHAIN_CONFIRMATORY_REPORT_2026-08-07.md)
 - [Recommendation-Order Collision Review](experiments/paper/COLLISION_REVIEW_RECOMMENDATION_ORDER_2026-08-07.md)
 - [Data and Reuse](docs/DATA_AND_REUSE.md)
 - [AI Use Disclosure](docs/AI_USE.md)

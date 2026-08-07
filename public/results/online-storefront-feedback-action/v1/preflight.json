@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-preflight.v1",
+  "generatedAt": "2026-08-07T08:30:06.530667+00:00",
+  "protocolSha256": "ca44c582efe84ac51c6ec852a6ad51428d421fb4a5072878a7b2504b42919035",
+  "passed": true,
+  "counts": {
+    "units": 920,
+    "controlUnits": 226,
+    "nextSlateChangedUnits": 93,
+    "states": 3680,
+    "primaryCalls": 3680,
+    "controlCalls": 904,
+    "maximumCalls": 4584
+  },
+  "distinctPrimaryStateCount": 1015,
+  "failures": [],
+  "privacy": "Only pseudonymous candidate IDs and derived scalar features enter provider payloads."
+}

@@ -1491,6 +1491,63 @@ export type InstrumentAblationEvaluation = z.infer<
   typeof InstrumentAblationEvaluationSchema
 >;
 
+const FeedbackBridgeModeSchema = z.object({
+  unitCount: z.number().int().positive(),
+  slateEnergyDistance: NaturalActionEstimateSchema,
+  meanMatchedSlateDisplacement: NaturalActionEstimateSchema,
+  anyMatchedSlateChangeRate: NaturalActionEstimateSchema,
+  matchedTopItemChangeRate: NaturalActionEstimateSchema,
+  selectedActionChangeRate: NaturalActionEstimateSchema
+}).passthrough();
+
+const FeedbackBridgeSummarySchema = z.object({
+  schemaVersion: z.literal("online-storefront-feedback-bridge-summary.v1"),
+  evidenceStatus: z.literal("feedback-exposure-gate-passed"),
+  design: z.object({
+    taskCount: z.number().int().positive(),
+    taskModelUnitCount: z.number().int().positive(),
+    publicRowCount: z.number().int().positive(),
+    providerCalls: z.number().int().nonnegative()
+  }).passthrough(),
+  groups: z.object({
+    deepseek: z.object({
+      "served-order": FeedbackBridgeModeSchema,
+      "masked-control": FeedbackBridgeModeSchema
+    }),
+    mimo: z.object({
+      "served-order": FeedbackBridgeModeSchema,
+      "masked-control": FeedbackBridgeModeSchema
+    })
+  }),
+  gates: z.record(z.string(), z.boolean())
+}).passthrough();
+
+const FeedbackActionModeSchema = z.object({
+  unitCount: z.number().int().positive(),
+  categoricalEnergyDistance: NaturalActionEstimateSchema,
+  matchedActionChangeRate: NaturalActionEstimateSchema,
+  meanDecisionQuality: NaturalActionEstimateSchema,
+  abandonRate: NaturalActionEstimateSchema,
+  protocolFailureRate: NaturalActionEstimateSchema
+}).passthrough();
+
+const FeedbackActionEvaluationSchema = z.object({
+  schemaVersion: z.literal("online-storefront-feedback-action-evaluation.v1"),
+  evidenceStatus: z.literal("one-step-feedback-gate-passed"),
+  results: z.object({
+    "primary-feedback": FeedbackActionModeSchema,
+    "identical-control": FeedbackActionModeSchema
+  }),
+  gates: z.record(z.string(), z.boolean()),
+  claimBoundary: z.string(),
+  interpretation: z.string()
+}).passthrough();
+
+export type FeedbackBridgeSummary = z.infer<typeof FeedbackBridgeSummarySchema>;
+export type FeedbackActionEvaluation = z.infer<
+  typeof FeedbackActionEvaluationSchema
+>;
+
 export type CrossTaskExposureSummary = z.infer<
   typeof CrossTaskExposureSummarySchema
 >;
@@ -1517,6 +1574,8 @@ interface ProjectDataState {
   deterministicRepairPilot: DeterministicRepairSummary | null;
   naturalActionEvaluation: NaturalActionEvaluation | null;
   instrumentAblationEvaluation: InstrumentAblationEvaluation | null;
+  feedbackBridgeSummary: FeedbackBridgeSummary | null;
+  feedbackActionEvaluation: FeedbackActionEvaluation | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1545,6 +1604,8 @@ export function useProjectData(): ProjectDataState {
     deterministicRepairPilot: null,
     naturalActionEvaluation: null,
     instrumentAblationEvaluation: null,
+    feedbackBridgeSummary: null,
+    feedbackActionEvaluation: null,
     catalog: null,
     error: null,
     loading: true
@@ -1706,6 +1767,22 @@ export function useProjectData(): ProjectDataState {
           }
           return InstrumentAblationEvaluationSchema.parse(await response.json());
         }
+      ),
+      fetch(`${base}results/online-storefront-feedback-bridge/v1/summary.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load the feedback-exposure bridge.");
+          }
+          return FeedbackBridgeSummarySchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/online-storefront-feedback-action/v1/evaluation.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load the downstream feedback action study.");
+          }
+          return FeedbackActionEvaluationSchema.parse(await response.json());
+        }
       )
     ])
       .then(
@@ -1731,7 +1808,9 @@ export function useProjectData(): ProjectDataState {
           candidateMargin,
           deterministicRepairPilot,
           naturalActionEvaluation,
-          instrumentAblationEvaluation
+          instrumentAblationEvaluation,
+          feedbackBridgeSummary,
+          feedbackActionEvaluation
         ]) => {
         if (!cancelled) {
           setState({
@@ -1756,6 +1835,8 @@ export function useProjectData(): ProjectDataState {
             deterministicRepairPilot,
             naturalActionEvaluation,
             instrumentAblationEvaluation,
+            feedbackBridgeSummary,
+            feedbackActionEvaluation,
             catalog,
             error: null,
             loading: false
@@ -1787,6 +1868,8 @@ export function useProjectData(): ProjectDataState {
             deterministicRepairPilot: null,
             naturalActionEvaluation: null,
             instrumentAblationEvaluation: null,
+            feedbackBridgeSummary: null,
+            feedbackActionEvaluation: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

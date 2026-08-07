@@ -7,7 +7,8 @@ explicit `platformRank` and `inspected` fields removed, candidate order alone
 produced a categorical energy-distance estimate of 0.193 [0.155, 0.233] for
 DeepSeek and 0.147 [0.115, 0.183] for MiMo. The masked estimates were 0.004
 [-0.003, 0.013] and 0.000 [-0.007, 0.008]. The frozen treatment-meaning gates
-passed. P0-B remains open; the collision review narrows P0-C.
+passed. V8 subsequently closed the one-step system-feedback part of P0-B;
+calibrated task value, human consequence, and long-horizon behavior remain open.
 
 The supported phenomenon is recommendation-order-induced agent choice
 divergence. Prior work already establishes candidate-order sensitivity in LLM
@@ -17,11 +18,12 @@ ranking, so novelty cannot rest on that phenomenon alone. See
 
 ## Current verdict
 
-The v6 result is internally auditable after the corrections below, but it is
-not yet a competitive IUI or RecSys full paper. The remaining P0 is scientific
-significance: the treatment is a constructed exposure instrument, and the
-current endpoint does not show a real-world or consequential failure. This
-cannot be repaired by stronger prose.
+V6–V8 now form an internally auditable one-step feedback chain, but the package
+is not yet a competitive IUI full paper and remains borderline for a RecSys
+full paper. The remaining P0 is value significance: the treatment changes a
+later shelf and later model action, but the endpoint does not show decision
+benefit, regret, long-run amplification, human consequence, or a production
+failure. This cannot be repaired by stronger prose.
 
 ## P0 repairs completed in this pass
 
@@ -115,11 +117,13 @@ the following cells:
 The paper's behavioral interpretation survives only if the served-shelf cell
 shows a positive contrast and the negative control does not.
 
-### P0-B: consequence is missing
+### P0-B: system feedback is measured; value consequence is missing
 
-The frozen quality surrogate is near zero between arms. That rules out a large
-loss on that narrow score; it does not establish harm, benefit, autonomy,
-privacy, task success, regret, or long-horizon value.
+V8 shows that an order-induced choice changes a later learned-recommender slate
+and a second categorical DeepSeek choice. The system-level consequence is no
+longer hypothetical. The effect is one step and small in prevalence: the
+matched later-action change rate is 2.1% [1.1%, 3.1%]. It does not establish
+harm, benefit, autonomy, privacy, task success, regret, or long-horizon value.
 
 Required experiment: use an established shopping-agent benchmark or a newly
 documented realistic task set with product language and a consequential
@@ -128,11 +132,13 @@ TTL/decay, selective assimilation, and commit-only updates on task success,
 regret, and long-horizon recommendation quality. For an IUI paper, a human
 study of comprehension and desired control is additionally required.
 
-### P0-C: residual novelty is too narrow for a full paper
+### P0-C: residual novelty remains narrow but is no longer order bias alone
 
-CALMRec and RecNet occupy the memory-policy idea, while energy statistics
-occupies the estimator. Without P0-A and P0-B, the residual is a careful audit
-of an expected input perturbation.
+CALMRec and RecNet occupy the memory-policy idea, energy statistics occupies
+the estimator, and RecInter occupies broad agent–recommender ecosystem feedback.
+The residual is the isolated activation-timing to order to action to writeback
+chain. That is more defensible than an order-bias paper, but a full-paper method
+or consequential policy advantage is still missing.
 
 ## Remaining P1
 
@@ -163,11 +169,12 @@ paper merely to meet the 20 August deadline.
 
 ### RecSys 2027: conditional primary target
 
-RecSys is the better fit if P0-A and P0-B are completed. The paper should be a
-recommender-systems audit of premature evidence assimilation, not an HCI paper
-with an ornamental interface. If those experiments fail, retain the artifact
-as a portfolio project and target a workshop or short-format venue rather than
-inflating the claim.
+RecSys remains the better fit. V8 supplies the missing one-step feedback
+mechanism, but the paper still needs to show what a gating policy improves and
+what it costs. The paper should be a recommender-systems audit of premature
+evidence assimilation, not an HCI paper with an ornamental interface. If the
+value study fails, retain the artifact as a portfolio project and target a
+workshop or short format rather than inflating the claim.
 
 ## Strict score after this repair
 
@@ -175,12 +182,12 @@ inflating the claim.
 |---|---:|---|
 | Internal validity and auditability | 4/5 | Main statistic and invariants now recompute from public primitives; provider IID remains unprovable |
 | Statistical reporting | 4/5 | Fixed-category reporting, frozen analysis retained, hierarchy and stricter gates added |
-| Novelty | 2/5 | Exact audit bundle is uncommon, but architecture and statistic are occupied |
+| Novelty | 3/5 | The isolated one-step causal chain is uncommon, but position bias, feedback ecosystems, and memory policies are occupied |
 | External validity | 1/5 | Engineered feature records, synthetic tasks, research storefront |
-| Consequential evidence | 1/5 | No detected quality difference and no human or long-horizon outcome |
+| Consequential evidence | 2/5 | A later shelf and later model action change; decision value, humans, and long-horizon outcomes remain absent |
 | IUI fit | 1/5 | No evaluated human interaction |
-| RecSys fit | 2/5 | Relevant system question, but no method or consequential advantage yet |
+| RecSys fit | 3/5 | Mechanism evidence is now coherent, but no policy advantage or long-run value endpoint yet |
 
-Overall full-paper recommendation: **reject in current form, invite resubmission
-after the instrument ablation and consequential benchmark study**. Confidence:
-high.
+Overall full-paper recommendation: **borderline reject in current form; invite
+resubmission after a calibrated outcome-gating and long-horizon benchmark**.
+Confidence: high.

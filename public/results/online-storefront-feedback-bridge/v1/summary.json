@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "online-storefront-feedback-bridge-summary.v1",
+  "generatedAt": "2026-08-07T08:20:27.720236+00:00",
+  "protocolSha256": "93df90a2fb249161c925f81104d18515ddb282fad1d7bf1f8f81fae21d2c73f7",
+  "evidenceStatus": "feedback-exposure-gate-passed",
+  "design": {
+    "taskCount": 460,
+    "taskModelUnitCount": 920,
+    "publicRowCount": 3680,
+    "providers": [
+      "deepseek",
+      "mimo"
+    ],
+    "recommenderFamilies": [
+      "sasrec",
+      "gru4rec"
+    ],
+    "instrumentModes": [
+      "served-order",
+      "masked-control"
+    ],
+    "providerCalls": 0
+  },
+  "groups": {
+    "deepseek": {
+      "served-order": {
+        "unitCount": 920,
+        "slateEnergyDistance": {
+          "estimate": 0.035,
+          "ci95": [
+            0.02413,
+            0.047174
+          ]
+        },
+        "meanMatchedSlateDisplacement": {
+          "estimate": 0.018152,
+          "ci95": [
+            0.012772,
+            0.02413
+          ]
+        },
+        "anyMatchedSlateChangeRate": {
+          "estimate": 0.075,
+          "ci95": [
+            0.055435,
+            0.095652
+          ]
+        },
+        "matchedTopItemChangeRate": {
+          "estimate": 0.027717,
+          "ci95": [
+            0.016848,
+            0.03913
+          ]
+        },
+        "selectedActionChangeRate": {
+          "estimate": 0.102174,
+          "ci95": [
+            0.079891,
+            0.126087
+          ]
+        },
+        "byRecommenderFamily": {
+          "sasrec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": 0.018261,
+              "ci95": [
+                0.010435,
+                0.027391
+              ]
+            }
+          },
+          "gru4rec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": 0.051739,
+              "ci95": [
+                0.033913,
+                0.071304
+              ]
+            }
+          }
+        }
+      },
+      "masked-control": {
+        "unitCount": 920,
+        "slateEnergyDistance": {
+          "estimate": 0.0,
+          "ci95": [
+            -0.001739,
+            0.001522
+          ]
+        },
+        "meanMatchedSlateDisplacement": {
+          "estimate": 0.002446,
+          "ci95": [
+            0.001087,
+            0.004022
+          ]
+        },
+        "anyMatchedSlateChangeRate": {
+          "estimate": 0.016304,
+          "ci95": [
+            0.008696,
+            0.025
+          ]
+        },
+        "matchedTopItemChangeRate": {
+          "estimate": 0.00163,
+          "ci95": [
+            0.0,
+            0.003804
+          ]
+        },
+        "selectedActionChangeRate": {
+          "estimate": 0.014674,
+          "ci95": [
+            0.008696,
+            0.021196
+          ]
+        },
+        "byRecommenderFamily": {
+          "sasrec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": 0.000435,
+              "ci95": [
+                0.0,
+                0.001304
+              ]
+            }
+          },
+          "gru4rec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": -0.000435,
+              "ci95": [
+                -0.003913,
+                0.002609
+              ]
+            }
+          }
+        }
+      }
+    },
+    "mimo": {
+      "served-order": {
+        "unitCount": 920,
+        "slateEnergyDistance": {
+          "estimate": 0.024783,
+          "ci95": [
+            0.016087,
+            0.034674
+          ]
+        },
+        "meanMatchedSlateDisplacement": {
+          "estimate": 0.01625,
+          "ci95": [
+            0.01163,
+            0.021361
+          ]
+        },
+        "anyMatchedSlateChangeRate": {
+          "estimate": 0.08587,
+          "ci95": [
+            0.065217,
+            0.106522
+          ]
+        },
+        "matchedTopItemChangeRate": {
+          "estimate": 0.019022,
+          "ci95": [
+            0.011413,
+            0.027717
+          ]
+        },
+        "selectedActionChangeRate": {
+          "estimate": 0.097283,
+          "ci95": [
+            0.07716,
+            0.118478
+          ]
+        },
+        "byRecommenderFamily": {
+          "sasrec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": 0.015435,
+              "ci95": [
+                0.008913,
+                0.022391
+              ]
+            }
+          },
+          "gru4rec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": 0.03413,
+              "ci95": [
+                0.019783,
+                0.051304
+              ]
+            }
+          }
+        }
+      },
+      "masked-control": {
+        "unitCount": 920,
+        "slateEnergyDistance": {
+          "estimate": 0.000761,
+          "ci95": [
+            -0.001522,
+            0.004348
+          ]
+        },
+        "meanMatchedSlateDisplacement": {
+          "estimate": 0.003207,
+          "ci95": [
+            0.001467,
+            0.005489
+          ]
+        },
+        "anyMatchedSlateChangeRate": {
+          "estimate": 0.019565,
+          "ci95": [
+            0.01087,
+            0.029348
+          ]
+        },
+        "matchedTopItemChangeRate": {
+          "estimate": 0.003804,
+          "ci95": [
+            0.001087,
+            0.007065
+          ]
+        },
+        "selectedActionChangeRate": {
+          "estimate": 0.016304,
+          "ci95": [
+            0.010326,
+            0.022826
+          ]
+        },
+        "byRecommenderFamily": {
+          "sasrec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": -0.000217,
+              "ci95": [
+                -0.000652,
+                0.0
+              ]
+            }
+          },
+          "gru4rec": {
+            "unitCount": 460,
+            "slateEnergyDistance": {
+              "estimate": 0.001739,
+              "ci95": [
+                -0.002826,
+                0.008913
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "gates": {
+    "instrumentPassed": true,
+    "deepseekServedLowerBoundAboveZero": true,
+    "deepseekMaskedUpperBoundBelow002": true,
+    "bothRecommenderFamilyPointEstimatesAboveZero": true,
+    "feedbackExposureGatePassed": true
+  },
+  "claims": {
+    "observedIfGatePasses": "V7 order-induced provider-output differences survived selected-action writeback as measurable one-step next-slate differences in the same frozen learned recommenders.",
+    "notEstablished": [
+      "The bridge does not yet show that the changed next slate changes a later agent action.",
+      "It does not establish repeated amplification, purchases, human effects, or a production recommender outcome.",
+      "The held-out next interaction is used as a standardized next-task event, not as proof of the user's intent."
+    ]
+  }
+}

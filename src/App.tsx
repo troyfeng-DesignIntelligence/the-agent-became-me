@@ -401,6 +401,8 @@ export function App() {
     deterministicRepairPilot,
     naturalActionEvaluation,
     instrumentAblationEvaluation,
+    feedbackBridgeSummary,
+    feedbackActionEvaluation,
     catalog,
     error,
     loading
@@ -1395,13 +1397,17 @@ export function App() {
               candidateMargin &&
               deterministicRepairPilot &&
               naturalActionEvaluation &&
-              instrumentAblationEvaluation && (
+              instrumentAblationEvaluation &&
+              feedbackBridgeSummary &&
+              feedbackActionEvaluation && (
               <LLMBehaviorFeedbackPanel
                 forced={forcedInspection}
                 repair={deterministicRepairPilot}
                 historicalMargin={candidateMargin}
                 natural={naturalActionEvaluation}
                 ablation={instrumentAblationEvaluation}
+                feedbackBridge={feedbackBridgeSummary}
+                feedbackAction={feedbackActionEvaluation}
               />
             )}
 

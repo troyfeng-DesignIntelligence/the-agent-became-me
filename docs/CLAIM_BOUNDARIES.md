@@ -200,6 +200,23 @@ It does not establish behavior of Amazon.com, Amazon's production recommender,
 frontier shopping agents, or people. Exact final-state equality is a replay
 property, not trained-model state removal.
 
+## One-step agent–recommender feedback boundary
+
+V7 and V8 use 460 pseudonymous tasks crossed with SASRec and GRU4Rec. V7 shows
+recommendation-order-induced agent choice divergence. V8 writes those choices
+back to the assigned frozen recommender and measures one later slate and one
+later DeepSeek choice under a held-out next-item intent proxy.
+
+Permitted wording is: “In this research storefront, order-induced choices
+changed later learned-recommender exposure and a second categorical agent
+choice, establishing a measurable one-step model-system feedback path.”
+
+Do not call this irreversible, self-reinforcing, harmful, beneficial, or a
+human preference effect. The experiment does not estimate repeated
+amplification, calibrated decision value, a natural-language delegated task,
+or a production retailer. MiMo recurs at the writeback-to-slate stage but was
+not run at the second action endpoint.
+
 ## Required language
 
 Prefer:

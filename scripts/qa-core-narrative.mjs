@@ -50,6 +50,14 @@ async function checkViewport(browser, viewport, name) {
     (await page.locator(".llm-feedback-repair").innerText()).includes("7,360"),
     `${name}: the confirmatory natural-frame action result is missing.`
   );
+  check(
+    (await page.locator(".llm-feedback-panel").innerText()).includes("ONE-STEP FEEDBACK CHAIN"),
+    `${name}: the V8 feedback-chain result is missing.`
+  );
+  check(
+    (await page.locator(".llm-feedback-panel").innerText()).includes("0.037"),
+    `${name}: the downstream action estimate is missing.`
+  );
 
   const overflow = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,

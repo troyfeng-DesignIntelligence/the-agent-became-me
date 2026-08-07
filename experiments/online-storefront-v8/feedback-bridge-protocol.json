@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "online-storefront-feedback-bridge-protocol.v1",
+  "status": "frozen-before-feedback-bridge-evaluation",
+  "frozenDate": "2026-08-07",
+  "purpose": "Test whether V7 recommendation-order-induced agent choice divergence survives action writeback as measurable next-task recommendation exposure divergence.",
+  "studyRole": "Deterministic mediator bridge between the completed V7 action experiment and a prospective downstream-agent experiment.",
+  "claimBoundary": "The study tests a one-step feedback path inside a research storefront: learned recommendation order changes provider output, and writing that output to the same frozen recommender changes a later slate. It does not establish purchases, human behavior, a production-retailer loop, long-run amplification, or welfare effects.",
+  "source": {
+    "v7Protocol": "experiments/online-storefront-v7/instrument-ablation-confirmatory-protocol.json",
+    "deepseekRows": "public/results/online-storefront-instrument-ablation-confirmatory/v1/deepseek/rows.json",
+    "mimoRows": "public/results/online-storefront-instrument-ablation-confirmatory/v1/mimo/rows.json"
+  },
+  "sampling": {
+    "frame": "All 460 frozen tasks crossed with SASRec and GRU4Rec; no conditioning on whether a V7 action diverged.",
+    "categories": ["luxury-beauty", "software", "industrial-and-scientific", "prime-pantry"],
+    "tasksPerCategory": 115,
+    "recommenderFamiliesPerTask": ["sasrec", "gru4rec"],
+    "taskModelUnitCount": 920,
+    "llmActionSources": ["deepseek", "mimo"],
+    "unit": "task by recommender family",
+    "dependence": "Resample tasks within category, retaining both recommender families, both action-source providers, and both instrument modes in each task cluster."
+  },
+  "conditions": ["immediate-a", "held-a", "immediate-b", "held-b"],
+  "instrumentModes": ["served-order", "masked-control"],
+  "writeback": {
+    "selectedAction": "Append the selected pseudonymous candidate's underlying catalog item to the principal history; append nothing for abandon.",
+    "nextTaskEvent": "Append the task's held-out chronological next item after the selected action as a standardized first event for the next task.",
+    "checkpoint": "Use the same frozen recommender family and seed assigned to the V7 unit; do not retrain.",
+    "candidateMask": "Use one condition-invariant mask per provider-mode-unit: prior interacted items, the held-out next-task event, and the union of all four selected writeback items.",
+    "slateSize": 10
+  },
+  "estimand": {
+    "distance": "top-10 set displacement = 1 - intersection(left, right) / 10",
+    "energyFormula": "2 * mean(distance(immediate replicate, held replicate) over four cross-arm pairs) - distance(immediate-a, immediate-b) - distance(held-a, held-b)",
+    "primary": "DeepSeek served-order downstream slate energy displacement.",
+    "negativeControl": "DeepSeek masked-control downstream slate energy displacement.",
+    "robustness": "MiMo and recommender-family estimates are reported separately without provider pooling.",
+    "supporting": [
+      "fraction of units with any matched cross-arm next-slate change",
+      "mean matched cross-arm top-10 set displacement",
+      "fraction of units with a changed top-ranked item",
+      "fraction of units with a cross-arm selected-action difference"
+    ]
+  },
+  "uncertainty": {
+    "method": "paired within-category task-cluster bootstrap",
+    "replicates": 5000,
+    "seed": 20260808,
+    "interval": "percentile 95%",
+    "providerPooling": false
+  },
+  "feedbackExposureGate": {
+    "instrument": "Every selected alias maps to exactly one private catalog item; every slate has ten unique items; all four conditions use an identical mask.",
+    "primary": "DeepSeek served-order lower 95% bound is above zero.",
+    "negativeControl": "DeepSeek masked-control upper 95% bound is below 0.02.",
+    "recurrence": "SASRec and GRU4Rec served-order point estimates are both above zero.",
+    "decision": "All four requirements must pass before any new downstream-agent API calls."
+  },
+  "stopRules": {
+    "noFeedback": "If the primary lower bound is not above zero, do not claim a measurable recommendation feedback path.",
+    "unstableControl": "If the masked-control upper bound is at least 0.02, treat provider-output noise as unresolved and do not proceed to downstream-agent calls.",
+    "modelSpecific": "If either recommender-family point estimate is non-positive, report model dependence and do not call the bridge general across the two learned recommenders."
+  },
+  "outputs": {
+    "publicRoot": "public/results/online-storefront-feedback-bridge/v1",
+    "artifactRoot": "artifacts/online-storefront-feedback-bridge"
+  }
+}

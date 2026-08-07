@@ -28,6 +28,12 @@ only the order of the same candidate records changed categorical choices in
 both tested provider models. Candidate-order sensitivity is established in
 prior LLM ranking work; the paper does not claim to discover position bias.
 
+The V8 follow-up traces that difference through one additional cycle. V7
+choices were written back to the same frozen recommender, which changed later
+Top-10 exposure. Serving those later shelves to DeepSeek changed a second
+categorical choice distribution. This supports a one-step feedback path inside
+the research storefront, not a claim about long-run amplification or people.
+
 ## Research questions
 
 ### RQ1. Does activation, rather than event recording, change the in-task shelf?
@@ -51,6 +57,14 @@ measure was too coarse to support a non-inferiority claim. Both providers passed
 the frozen -0.05 engineering guardrail. The margin is not externally calibrated
 and does not define human utility or harmlessness.
 
+### RQ4. Does an order-induced choice survive writeback as later exposure and action?
+
+The V8 bridge writes each V7 selection into the same frozen SASRec or GRU4Rec
+history, adds one standardized held-out next event, and measures the next
+Top-10. A second confirmatory DeepSeek study serves those next shelves under a
+held-out intent proxy. Both stages retain all 920 task-model units rather than
+selecting cases that already diverged.
+
 ## Evidence retained in the paper
 
 | Evidence | Status | Claim it can support |
@@ -60,6 +74,8 @@ and does not define human utility or harmlessness.
 | Free-running deterministic policies | Descriptive | Ranking movement can alter scripted trajectories; policy estimates are not LLM action effects |
 | Natural-frame LLM action study | Complete: 7,360 valid calls | Immediate versus held activation changed categorical output distributions in both tested provider models |
 | V7 confirmatory instrument ablation | Complete: 29,440 valid calls | Order-only exposure changed categorical agent choices; this does not establish decision quality or human effects |
+| V8 deterministic writeback bridge | Complete: 3,680 public rows, no provider calls | Order-induced choices changed a later slate in both learned recommenders and both V7 action-source providers |
+| V8 downstream-agent confirmation | Complete: 4,584 valid calls | The later shelves changed a second DeepSeek choice distribution under a held-out next-task proxy |
 | Control interface | Implemented design response | No usability, trust, comprehension, or preference claim |
 
 ## Completed result: activation changed rankings
@@ -201,9 +217,47 @@ Both frozen DeepSeek gates passed, and MiMo supplied a same-direction robustness
 result. The treatment-meaning P0 is closed within the research-storefront scope.
 We name the observed phenomenon recommendation-order-induced agent choice
 divergence. Prior work already documents position bias in LLM listwise ranking
-and recommendation; our residual question is whether temporary platform
-activation creates consequential agent-recommender feedback through that known
-sensitivity.
+and recommendation. V8 therefore tests the narrower residual mechanism:
+whether temporary platform activation can enter a measurable one-step
+agent-recommender-agent feedback path through that known sensitivity.
+
+## V8 one-step feedback chain
+
+V8 tests whether the V7 choice contrast disappears at the terminal action or
+enters the recommender's next state. The first stage uses the four V7 action
+replicates for every task-model unit. A selected item is appended to the same
+principal history; abandon appends nothing. The held-out chronological next
+item is then appended as a standardized first event for the next task. Every
+condition uses the same exclusion mask, and the frozen SASRec or GRU4Rec
+checkpoint emits a new Top-10 without retraining.
+
+The downstream-slate statistic applies the same repeated-call energy
+construction to Top-10 set displacement. DeepSeek-sourced V7 actions produced
+a served-order estimate of 0.035 [0.024, 0.047], compared with 0.000
+[-0.002, 0.002] in the masked control. MiMo-sourced actions produced 0.025
+[0.016, 0.035]. The estimate remained positive for SASRec, 0.018 [0.010,
+0.027], and GRU4Rec, 0.052 [0.034, 0.071]. At least one matched next slate
+changed in 7.5% [5.5%, 9.6%] of DeepSeek task-model units.
+
+The second stage asks whether the changed shelf alters another agent choice.
+All 920 units were retained. The held-out next item defined private token-overlap
+and price-similarity features; titles, tokens, raw item IDs, and the held-out
+item were not sent. DeepSeek made four calls per unit. A hash-selected set of
+226 units also received four calls over one byte-identical state, yielding
+4,584 valid calls with no failures or timeouts.
+
+The downstream categorical action distance was 0.037 [0.020, 0.057]. The
+byte-identical control was 0.000 [0.000, 0.000]. Estimates were positive for
+SASRec, 0.022 [0.004, 0.043], and GRU4Rec, 0.052 [0.026, 0.083]. The matched
+later-action change rate was 2.1% [1.1%, 3.1%]. All frozen exposure, action,
+control, reliability, and recommender-recurrence gates passed.
+
+Together, V7 and V8 establish a one-step path in this testbed:
+`learned recommendation order -> provider choice -> recommender writeback ->
+next recommendation exposure -> later provider choice`. The result is a
+measurable model-system feedback path. It is not evidence that the effect grows
+over repeated cycles, changes human preferences, improves or harms decisions,
+or occurs in a production retailer.
 
 ## State and behavior are different estimands
 
@@ -216,8 +270,10 @@ If the two arms select different items, any later committed histories are
 legitimately different. Those histories are downstream behavior, not a test of
 matched-state restoration.
 
-The action endpoint therefore stops at selected item or abandon. Next-task
-ranking displacement is not part of the primary behavioral event.
+The V6 and V7 action endpoints stop at selected item or abandon. V8 treats
+next-task ranking displacement and later action as separate, prospectively
+frozen estimands. They are not evidence that a matched resolved state failed to
+restore; the histories differ because the agents selected different items.
 
 ## Contributions allowed now
 
@@ -231,7 +287,9 @@ ranking displacement is not part of the primary behavioral event.
    provider models.
 4. A confirmatory estimate of recommendation-order-induced agent choice
    divergence linking learned platform exposure to categorical agent action.
-5. An outcome-gated interface as an unevaluated design response.
+5. A confirmatory one-step trace from that action through learned-recommender
+   writeback to later exposure and a second categorical agent choice.
+6. An outcome-gated interface as an unevaluated design response.
 
 All frozen action and guardrail gates passed. Agent provenance is not
 manipulated, so the paper does not claim an ACI-specific causal mechanism.
@@ -241,8 +299,9 @@ manipulated, so the paper does not claim an ACI-specific causal mechanism.
 Task-local recommendation and platform activation can be separate system
 operations. The prototype makes that separation visible and lets platform
 activation wait for a task outcome. The experiment shows that the timing choice
-is behaviorally non-neutral for the tested provider models; it does not show
-that holding improves decisions or that people prefer this control.
+is behaviorally non-neutral for the tested provider models and can propagate
+through one later recommendation cycle. It does not show that holding improves
+decisions or that people prefer this control.
 
 ## Limits
 
@@ -253,6 +312,13 @@ that holding improves decisions or that people prefer this control.
   retailer's production system.
 - LLMs received pseudonymous derived features, not rendered commerce pages or
   natural-language product descriptions.
+- The V8 next task is a proxy derived from one held-out chronological item. It
+  is not a natural-language delegated task or verified user intent.
+- V8 traces one later cycle. It does not estimate repeated amplification,
+  equilibrium behavior, accumulated value, or reversibility after several
+  rounds.
+- The downstream action confirmation uses DeepSeek only. MiMo recurs at the
+  writeback-to-slate bridge but not at the second action endpoint.
 - The v6 action contrast is the effect of a composite instrument containing
   arm-dependent platform-rank, inspection, and inspection-conditioned novelty.
   V7 isolated and confirmed an order-only signal. Neither study used a rendered
@@ -276,4 +342,6 @@ therefore eligible for the bounded model-action claim stated above. It is not
 eligible for claims about people, Amazon, trained-model deletion, irreversible
 platform state, or actor provenance. V7 supports the bounded phrase
 "recommendation-order-induced agent choice divergence" for categorical outputs
-in this research storefront. It does not establish consequential shopping outcomes.
+in this research storefront. V8 supports a measurable one-step
+agent-recommender-agent feedback path. Neither study establishes human outcomes,
+long-run amplification, decision benefit or harm, or production-retailer effects.
