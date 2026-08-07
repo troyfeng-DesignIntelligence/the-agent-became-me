@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-run-summary.v1",
+  "generatedAt": "2026-08-07T07:53:32.976366+00:00",
+  "protocolSha256": "d346f05a16a67753bbebcc50caa2506a08562cca797eb322ce6de90442fe68af",
+  "provider": "mimo",
+  "model": "mimo-v2.5",
+  "taskModelUnitCount": 920,
+  "modeRowCount": 3680,
+  "api": {
+    "requestCount": 14720,
+    "cacheHitCount": 0,
+    "attemptCount": 14720,
+    "validActionCount": 14720,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 11577476,
+    "outputTokens": 344281,
+    "currency": "CNY",
+    "observedCostAtPublishedRates": 12.266038,
+    "systemFingerprints": [],
+    "returnedModels": [
+      "mimo-v2.5"
+    ]
+  },
+  "claimBoundary": "The study concerns categorical provider outputs over pseudonymous derived product features in a research storefront. It does not identify human behavior, purchases, production-retailer effects, or human utility."
+}

@@ -13,6 +13,7 @@ import importlib.util
 import json
 import math
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -74,7 +75,9 @@ def protocol_and_text(path: Path = PROTOCOL_PATH) -> tuple[dict, str]:
     return json.loads(text), text
 
 
-def load_selection(protocol: dict) -> list[dict]:
+def load_selection(protocol: dict) -> list[dict] | None:
+    if "taskSelectionPath" not in protocol["sampling"]:
+        return None
     path = (ROOT / protocol["sampling"]["taskSelectionPath"]).resolve()
     if ROOT not in path.parents:
         raise RuntimeError("Task-selection path must remain inside the repository")
@@ -115,15 +118,21 @@ def normalized_rank_displacement(left: list[str], right: list[str]) -> float:
 
 
 def study_units(protocol: dict):
-    selected = {
-        (row["category"], row["taskId"]): row
-        for row in load_selection(protocol)
-    }
+    selection = load_selection(protocol)
+    selected = (
+        {(row["category"], row["taskId"]): row for row in selection}
+        if selection is not None
+        else None
+    )
     for category in cross.CATEGORIES:
         slug = category["slug"]
-        category_rows = {task_id: row for (cat, task_id), row in selected.items() if cat == slug}
-        if not category_rows:
+        if slug not in protocol["sampling"]["categories"]:
             continue
+        category_rows = (
+            {task_id: row for (cat, task_id), row in selected.items() if cat == slug}
+            if selected is not None
+            else None
+        )
         data = cross.prepare_category(category)
         products = delegate.load_products(category, data)
         delegate.TASKS_PER_CATEGORY = 115
@@ -131,17 +140,25 @@ def study_units(protocol: dict):
         tasks_by_id = {task["taskId"]: task for task in tasks}
         sas_models, _ = cross.load_or_train_models(data)
         gru_models, _ = gru.load_or_train_models(data, slug, GRU_CHECKPOINTS, sas)
-        for task_id in sorted(category_rows):
-            selection = category_rows[task_id]
-            task = tasks_by_id.get(task_id)
-            if task is None:
-                raise RuntimeError(f"Selected task missing from regenerated frame: {slug}/{task_id}")
-            family = selection["modelFamily"]
-            seed = int(selection["modelSeed"])
-            model = sas_models[seed] if family == "sasrec" else gru_models[seed]
-            scoring = sas.score_context_batch if family == "sasrec" else gru.score_context_batch
-            model.eval()
-            yield slug, task, products, family, seed, models.ModelScorer(model, scoring)
+        chosen_tasks = (
+            [tasks_by_id[task_id] for task_id in sorted(category_rows)]
+            if category_rows is not None
+            else tasks[: int(protocol["sampling"]["tasksPerCategory"])]
+        )
+        for task in chosen_tasks:
+            allocations = (
+                [(category_rows[task["taskId"]]["modelFamily"], int(category_rows[task["taskId"]]["modelSeed"]))]
+                if category_rows is not None
+                else [
+                    (family, base.model_seed(protocol, slug, task["taskId"], family))
+                    for family in protocol["sampling"]["recommenderFamiliesPerTask"]
+                ]
+            )
+            for family, seed in allocations:
+                model = sas_models[seed] if family == "sasrec" else gru_models[seed]
+                scoring = sas.score_context_batch if family == "sasrec" else gru.score_context_batch
+                model.eval()
+                yield slug, task, products, family, seed, models.ModelScorer(model, scoring)
 
 
 def prepared_unit(protocol: dict, category: str, task: dict, products: dict[int, dict], scorer) -> dict:
@@ -395,6 +412,7 @@ def main() -> None:
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--accept-cost-cap", type=float)
+    parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--protocol", default=str(PROTOCOL_PATH.relative_to(ROOT)))
     args = parser.parse_args()
     protocol_path = (ROOT / args.protocol).resolve()
@@ -419,8 +437,10 @@ def main() -> None:
         return
     if not legacy.api_key(env, args.provider):
         raise RuntimeError(f"{args.provider} API key is missing")
-    if args.accept_cost_cap is None or args.accept_cost_cap < estimate["recommendedHardCap"]:
-        raise RuntimeError("Live calls require --accept-cost-cap at or above the dry-run hard cap")
+    if args.accept_cost_cap is None or args.accept_cost_cap <= 0:
+        raise RuntimeError("Live calls require a positive --accept-cost-cap")
+    if not 1 <= args.workers <= 16:
+        raise RuntimeError("--workers must be between 1 and 16")
 
     spec = legacy.provider_spec(protocol, args.provider)
     output = ROOT / protocol["outputs"]["publicRoot"] / args.provider
@@ -434,7 +454,15 @@ def main() -> None:
     token_limit = int(protocol["decisionInstrument"]["maximumOutputTokens"])
 
     units = list(study_units(protocol))
-    for unit_index, (category, task, products, family, seed, scorer) in enumerate(units, 1):
+    per_unit_cap = args.accept_cost_cap / len(units)
+
+    def execute_unit(index_and_unit):
+        unit_index, (category, task, products, family, seed, scorer) = index_and_unit
+        local_stats = defaultdict(int)
+        local_stats["latencies"] = []
+        local_stats["fingerprints"] = set()
+        local_stats["returnedModels"] = set()
+        local_stats["acceptedCostCap"] = per_unit_cap
         unit = prepared_unit(protocol, category, task, products, scorer)
         mode_rows = []
         for mode in mode_order(protocol, args.provider, category, task["taskId"], family):
@@ -457,7 +485,7 @@ def main() -> None:
                         aliases,
                         "terminal",
                         f"instrument-ablation/{category}/{task['taskId']}/{family}/{mode}/{condition}",
-                        stats,
+                        local_stats,
                         artifact_root,
                     )
                     actions[condition] = call["action"]
@@ -467,7 +495,7 @@ def main() -> None:
                         raise
                     actions[condition] = {"action": "failure", "candidateId": None}
                     response_hashes[condition] = sha256(str(error).encode("utf-8"))
-                    stats["terminalFailureCount"] += 1
+                    local_stats["terminalFailureCount"] += 1
                 qualities[condition] = action_quality(state, actions[condition])
             row = {
                 "category": category,
@@ -489,8 +517,27 @@ def main() -> None:
                 },
             }
             mode_rows.append(row)
-        rows.extend(mode_rows)
-        print(f"instrument-ablation provider={args.provider} units={unit_index}/{len(units)}", flush=True)
+        return unit_index, mode_rows, local_stats
+
+    indexed_units = list(enumerate(units, 1))
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        for completed, (unit_index, mode_rows, local_stats) in enumerate(
+            executor.map(execute_unit, indexed_units), 1
+        ):
+            rows.extend(mode_rows)
+            for key in [
+                "requestCount", "cacheHitCount", "attemptCount", "validActionCount",
+                "invalidOrFailedAttemptCount", "timeoutCount", "terminalFailureCount",
+                "inputTokens", "outputTokens", "retrySuccessCount"
+            ]:
+                stats[key] += local_stats[key]
+            stats["latencies"].extend(local_stats["latencies"])
+            stats["fingerprints"].update(local_stats["fingerprints"])
+            stats["returnedModels"].update(local_stats["returnedModels"])
+            if completed % 10 == 0 or completed == len(units):
+                print(f"instrument-ablation provider={args.provider} units={completed}/{len(units)}", flush=True)
+
+    rows.sort(key=lambda row: (row["category"], row["taskId"], row["modelFamily"], MODES.index(row["mode"])))
 
     observed_cost = (
         stats["inputTokens"] / 1_000_000 * spec["inputPricePerMillion"]

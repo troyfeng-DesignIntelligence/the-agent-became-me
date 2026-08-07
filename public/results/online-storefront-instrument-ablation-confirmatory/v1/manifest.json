@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-manifest.v1",
+  "protocolSha256": "d346f05a16a67753bbebcc50caa2506a08562cca797eb322ce6de90442fe68af",
+  "files": {
+    "preflight.json": {
+      "bytes": 419,
+      "sha256": "bb320be9b25433025c5f91f677f98528563a50d4ba423ccffb641aeea4fd6207"
+    },
+    "evaluation.json": {
+      "bytes": 13076,
+      "sha256": "ed175b98ec587dcdcf1ccb01e437014006d140232d9be1c9967a5d986145a067"
+    },
+    "deepseek/rows.json": {
+      "bytes": 7027059,
+      "sha256": "e5af6af190dd8e84b314980e5d1cb87e61ffbe5aa342914f2ca0982c1bdafa8d"
+    },
+    "deepseek/summary.json": {
+      "bytes": 1050,
+      "sha256": "777a5fe49c7965cdce63f2b6118f9dfc46ef481a29ed9539a608278c0f556bd3"
+    },
+    "mimo/rows.json": {
+      "bytes": 7012833,
+      "sha256": "24f93065ffccdd3ed92bef6f53cd25d7e7b94f3a03f6fe88805be9599229cb73"
+    },
+    "mimo/summary.json": {
+      "bytes": 974,
+      "sha256": "7493088172095be60868d14b2b7ce888ea51d8974eed58fcc06d0553eeb266e6"
+    }
+  }
+}

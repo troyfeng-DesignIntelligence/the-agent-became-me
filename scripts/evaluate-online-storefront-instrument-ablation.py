@@ -17,8 +17,8 @@ MODES = ["rank-only", "inspection-only", "masked-control", "served-order"]
 CONDITIONS = ["immediate-a", "held-a", "immediate-b", "held-b"]
 
 
-def canonical_protocol() -> tuple[dict, str]:
-    text = PROTOCOL_PATH.read_text(encoding="utf-8").replace("\r\n", "\n")
+def canonical_protocol(path: Path = PROTOCOL_PATH) -> tuple[dict, str]:
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
     return json.loads(text), hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
@@ -104,6 +104,12 @@ def validate_frame(rows: list[dict], protocol: dict, provider: str) -> None:
         tasks = {row["taskId"] for row in rows if row["category"] == category}
         if len(tasks) != int(protocol["sampling"]["tasksPerCategory"]):
             raise RuntimeError(f"{provider}/{category} has the wrong task count")
+    expected_families = set(protocol["sampling"].get("recommenderFamiliesPerTask", []))
+    if expected_families:
+        for category, task_id in {(row["category"], row["taskId"]) for row in rows}:
+            families = {row["modelFamily"] for row in rows if row["category"] == category and row["taskId"] == task_id}
+            if families != expected_families:
+                raise RuntimeError(f"{provider}/{category}/{task_id} lacks a complete recommender pair")
 
 
 def mode_metrics(rows: list[dict]) -> dict[str, float | int]:
@@ -216,8 +222,12 @@ def build_manifest(protocol: dict, protocol_hash: str, providers: list[str]) -> 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--provider", choices=["mimo", "deepseek", "both"], default="both")
+    parser.add_argument("--protocol", default=str(PROTOCOL_PATH.relative_to(ROOT)))
     args = parser.parse_args()
-    protocol, protocol_hash = canonical_protocol()
+    protocol_path = (ROOT / args.protocol).resolve()
+    if ROOT not in protocol_path.parents:
+        raise RuntimeError("Protocol path must remain inside the repository")
+    protocol, protocol_hash = canonical_protocol(protocol_path)
     providers = ["deepseek", "mimo"] if args.provider == "both" else [args.provider]
     preflight = json.loads((ROOT / protocol["outputs"]["publicRoot"] / "preflight.json").read_text(encoding="utf-8"))
     if not preflight.get("passed") or preflight.get("protocolSha256") != protocol_hash:
@@ -264,24 +274,34 @@ def main() -> None:
         and gates.get("fullV7ServedLowerBoundAboveZero", False)
         and gates.get("fullV7MaskedUpperBoundBelow005", False)
     )
+    is_confirmatory = protocol.get("analysisStage") == "confirmatory-natural-frame"
+    decision = (
+        "confirmatory-treatment-meaning-gate-passed"
+        if is_confirmatory and confirmatory
+        else "confirmatory-treatment-meaning-gate-failed"
+        if is_confirmatory
+        else "confirmatory-gate-already-passed-in-pilot"
+        if confirmatory
+        else "go-scale-to-natural-frame-v7"
+        if scale_up
+        else "no-go-for-full-v7-under-frozen-pilot-gate"
+    )
     payload = {
         "schemaVersion": "online-storefront-instrument-ablation-evaluation.v1",
         "protocolSha256": protocol_hash,
         "providers": results,
         "gates": gates,
-        "decision": (
-            "confirmatory-gate-already-passed-in-pilot"
-            if confirmatory
-            else "go-scale-to-natural-frame-v7"
-            if scale_up
-            else "no-go-for-full-v7-under-frozen-pilot-gate"
-        ),
+        "decision": decision,
         "interpretationPolicy": {
             "servedOrder": "Only a passing served-order result supports further testing of a recommendation-order account.",
             "metadataOnly": "Positive rank-only or inspection-only results without the served-order gate bound v6 to prompt-feature sensitivity.",
             "maskedControl": "A positive masked-control result indicates provider instability or temporal drift that the energy-distance correction did not remove adequately.",
         },
-        "inferenceScope": "Opportunity-enriched 32-unit mechanism pilot with one frozen recommender checkpoint per task. Intervals resample tasks within category and are not natural-frame prevalence intervals.",
+        "inferenceScope": (
+            "Natural 460-task frame crossed with SASRec and GRU4Rec. Intervals resample tasks within category while retaining recommender families and modes in each task cluster."
+            if is_confirmatory
+            else "Opportunity-enriched 32-unit mechanism pilot with one frozen recommender checkpoint per task. Intervals resample tasks within category and are not natural-frame prevalence intervals."
+        ),
         "claimBoundary": protocol["claimBoundary"],
         "remainingExternalValidityRequirement": protocol["remainingExternalValidityRequirement"],
     }

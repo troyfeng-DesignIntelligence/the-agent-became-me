@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "online-storefront-instrument-ablation-confirmatory-protocol.v1",
+  "status": "frozen-before-any-full-v7-provider-call",
+  "frozenDate": "2026-08-07",
+  "analysisStage": "confirmatory-natural-frame",
+  "purpose": "Test whether recommendation order changes categorical provider outputs after explicit rank and inspection metadata are removed.",
+  "studyRole": "Confirmatory natural-frame instrument ablation. It is not a human-behavior or production-retailer study.",
+  "claimBoundary": "The study concerns categorical provider outputs over pseudonymous derived product features in a research storefront. It does not identify human behavior, purchases, production-retailer effects, or human utility.",
+  "sampling": {
+    "frame": "All 460 frozen tasks, 115 per category, crossed with SASRec and GRU4Rec without opportunity enrichment.",
+    "categories": ["luxury-beauty", "software", "industrial-and-scientific", "prime-pantry"],
+    "tasksPerCategory": 115,
+    "recommenderFamiliesPerTask": ["sasrec", "gru4rec"],
+    "taskModelUnitCount": 920,
+    "modelSeeds": [7, 17, 29],
+    "seedAssignment": "sha256(category/taskId/modelFamily) modulo three",
+    "unit": "task by recommender family",
+    "dependence": "Resample tasks within category, retaining both recommender families and every mode in the task cluster."
+  },
+  "llmFamilies": [
+    {"id":"deepseek-v4-flash-v7","provider":"deepseek","api":"chat-completions","thinking":"disabled","temperature":0,"priceCurrency":"USD","inputPricePerMillion":0.14,"outputPricePerMillion":0.28,"rollingAlias":true,"fingerprintRequired":true},
+    {"id":"mimo-v2.5-v7","provider":"xiaomi-mimo","api":"responses","thinking":"none","temperature":0,"priceCurrency":"CNY","inputPricePerMillion":1.0,"outputPricePerMillion":2.0}
+  ],
+  "conditions": ["immediate-a", "held-a", "immediate-b", "held-b"],
+  "callOrder": {
+    "conditionOrders": [
+      ["immediate-a","held-a","immediate-b","held-b"],
+      ["held-a","immediate-b","held-b","immediate-a"],
+      ["immediate-b","held-b","immediate-a","held-a"],
+      ["held-b","immediate-a","held-a","immediate-b"]
+    ],
+    "modeOrders": [
+      ["rank-only","inspection-only","masked-control","served-order"],
+      ["inspection-only","masked-control","served-order","rank-only"],
+      ["masked-control","served-order","rank-only","inspection-only"],
+      ["served-order","rank-only","inspection-only","masked-control"]
+    ],
+    "assignment": "Independent SHA-256 rotations by provider, category, task, family, and mode.",
+    "concurrency": "Up to 16 task-model units may run concurrently. The 16 calls inside each unit remain sequential in frozen mode and condition order."
+  },
+  "decisionInstrument": {
+    "candidateLimit":12,"callsPerModeUnit":4,"modesPerUnit":4,"callsPerUnit":16,"maximumOutputTokens":96,"maximumRetries":2,"temperature":0,
+    "allowedActions":["select","abandon"],
+    "commonCandidateFeatures":"constraintMatch, taskUtility, taskLocalRank, searchRank, and novelty computed before manipulated inspection; identical across arms and modes.",
+    "privacy":"Only pseudonymous candidate IDs and derived features are sent."
+  },
+  "instrumentModes": [
+    {"id":"rank-only","candidateOrder":"shared frozen order","platformRank":"arm-specific","inspected":"false","role":"Explicit-rank sensitivity."},
+    {"id":"inspection-only","candidateOrder":"shared frozen order","platformRank":"null","inspected":"arm-specific","role":"Explicit-inspection sensitivity."},
+    {"id":"masked-control","candidateOrder":"shared frozen order","platformRank":"null","inspected":"false","role":"Byte-identical negative control."},
+    {"id":"served-order","candidateOrder":"arm-specific platform-rank order plus shared fallback","platformRank":"not sent","inspected":"false","role":"Order-only exposure representation."}
+  ],
+  "estimand": {
+    "name":"categorical energy distance",
+    "formula":"2 * mean(immediate != held over four cross-arm pairs) - 1[immediate A != immediate B] - 1[held A != held B]",
+    "primary":"DeepSeek served-order distance.",
+    "negativeControl":"DeepSeek masked-control distance.",
+    "secondProvider":"MiMo estimates reported separately as robustness evidence."
+  },
+  "uncertainty":{"method":"paired within-category task-cluster bootstrap","replicates":5000,"seed":20260807,"interval":"percentile 95%","providerPooling":false},
+  "confirmatoryGate": {
+    "primary":"DeepSeek served-order lower 95% bound above zero.",
+    "negativeControl":"DeepSeek masked-control upper 95% bound below 0.05.",
+    "reliability":"Protocol failure rate below 0.05 for each provider and mode.",
+    "decision":"All three gates must pass to close the treatment-meaning P0."
+  },
+  "outputs":{"publicRoot":"public/results/online-storefront-instrument-ablation-confirmatory/v1","artifactRoot":"artifacts/online-storefront-instrument-ablation-confirmatory"},
+  "remainingExternalValidityRequirement":"A passing V7 does not establish consequential shopping behavior. A realistic product-language benchmark with task success, regret, or long-horizon value remains required."
+}
