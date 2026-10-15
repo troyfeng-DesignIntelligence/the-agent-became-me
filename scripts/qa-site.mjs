@@ -3,8 +3,16 @@ import path from "node:path";
 import process from "node:process";
 import { chromium } from "@playwright/test";
 
-const siteUrl =
-  process.env.SITE_URL ?? process.argv[2] ?? "http://127.0.0.1:4173/?archive=1";
+// The desktop and mobile passes check the development archive (#lab, #evidence,
+// .study-archive), which the site renders only with ?archive=1, so the flag is
+// added when the caller's URL (for example the Pages workflow's SITE_URL) lacks it.
+const siteUrl = (() => {
+  const url = new URL(
+    process.env.SITE_URL ?? process.argv[2] ?? "http://127.0.0.1:4173/"
+  );
+  if (!url.searchParams.has("archive")) url.searchParams.set("archive", "1");
+  return url.toString();
+})();
 const outputDirectory = path.resolve(
   process.env.QA_OUTPUT ?? "artifacts/qa"
 );
@@ -369,8 +377,9 @@ async function desktopPass(browser) {
     "Desktop: the Amazon controlled replay does not expose all six lifecycle contracts."
   );
   check(
-    (await page.locator(".cross-task-contracts button").count()) === 5,
-    "Desktop: the cross-task prototype does not expose all five user-facing lifecycle choices."
+    (await page.locator(".activation-gate-arm").count()) === 2 &&
+      (await page.getByRole("group", { name: "Outcome to replay" }).getByRole("button").count()) === 2,
+    "Desktop: the outcome-gate replay does not expose its two service policies and two outcomes."
   );
   check(
     (await page.locator('.activation-store-link[href*="view=storefront"]').count()) === 1,
@@ -620,33 +629,31 @@ async function desktopPass(browser) {
     (await page.locator(".cross-task-results").innerText()).includes("24.17"),
     "Desktop: the cross-task aggregate result did not load."
   );
-  await page.getByRole("button", { name: /hold until outcome/i }).click();
+  // Outcome-gate replay: the two service policies are arms, the outcome is a toggle,
+  // and the range input walks the shared trace across the T2 gate.
+  const gateLab = page.locator(".activation-gate-lab");
+  const armText = async (arm) =>
+    (await gateLab.locator(`.activation-gate-arm.is-${arm} .activation-gate-state-grid`).innerText()).toUpperCase();
+  await gateLab.getByRole("button", { name: "abandoned", exact: true }).click();
   await page.locator('input[aria-label="Cross-task timeline"]').fill("3");
   check(
-    (await page.locator(".cross-task-status").innerText())
-      .toLowerCase()
-      .includes("held outside profile"),
-    "Desktop: quarantine did not expose the held profile state."
+    (await armText("held")).includes("HELD") && (await armText("immediate")).includes("ACTIVE"),
+    "Desktop: before the outcome gate the held arm should read HELD and the write-now arm ACTIVE."
   );
-  await page.locator('input[aria-label="Cross-task timeline"]').fill("4");
+  await page.locator('input[aria-label="Cross-task timeline"]').fill("5");
   check(
-    (await page.locator(".cross-task-shelf output").innerText()).startsWith("0 / 6"),
-    "Desktop: abandoned quarantined evidence leaked into the follow-up shelf."
+    (await armText("held")).includes("DISCARDED") && (await armText("immediate")).includes("REMOVED"),
+    "Desktop: after an abandoned outcome the held arm should read DISCARDED and the write-now arm REMOVED."
   );
-  await page.getByRole("button", { name: /undo on failure/i }).click();
-  await page.locator('input[aria-label="Cross-task timeline"]').fill("3");
+  await gateLab.getByRole("button", { name: "completed", exact: true }).click();
   check(
-    Number.parseFloat(await page.locator(".cross-task-meter > strong").innerText()) > 0.9,
-    "Desktop: rollback did not expose provisional profile evidence."
+    (await armText("held")).includes("COMMITTED") && (await armText("immediate")).includes("RETAINED"),
+    "Desktop: after a completed outcome the held arm should read COMMITTED and the write-now arm RETAINED."
   );
-  await page.locator('input[aria-label="Cross-task timeline"]').fill("4");
   check(
-    (await page.locator(".cross-task-status").innerText())
-      .toLowerCase()
-      .includes("removed"),
-    "Desktop: rollback did not remove abandoned-task evidence after the boundary."
+    (await gateLab.locator(".activation-gate-readout strong").innerText()).trim().startsWith("+"),
+    "Desktop: the frozen aggregate readout did not load."
   );
-  await page.getByRole("button", { name: /learn now/i }).click();
   await page.locator('input[aria-label="Cross-task timeline"]').fill("4");
   await page.locator(".cross-task-control-lab").screenshot({
     path: path.join(outputDirectory, "desktop-cross-task-control.png")
@@ -946,12 +953,12 @@ async function mobilePass(browser) {
   });
   await positionForScreenshot(page, ".cross-task-control-lab", 72);
   await page.waitForTimeout(650);
-  await page.locator(".cross-task-control-bar").screenshot({
+  await page.locator(".activation-gate-controls").screenshot({
     path: path.join(outputDirectory, "mobile-cross-task-controls.png")
   });
-  await page.locator(".cross-task-shelf").scrollIntoViewIfNeeded();
+  await page.locator(".activation-gate-blueprint").scrollIntoViewIfNeeded();
   await page.waitForTimeout(350);
-  await page.locator(".cross-task-shelf").screenshot({
+  await page.locator(".activation-gate-blueprint").screenshot({
     path: path.join(outputDirectory, "mobile-cross-task-shelf.png")
   });
   await waitForImage(page, ".reliquary-interlude img");
