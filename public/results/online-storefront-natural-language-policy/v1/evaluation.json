@@ -1,0 +1,409 @@
+{
+  "schemaVersion": "online-storefront-natural-language-policy-evaluation.v1",
+  "generatedAt": "2026-08-07T11:29:36.254976+00:00",
+  "protocolSha256": "c6a356e03e44d5baf3e2a4e1717f6e94a163fe05cead43455fff55f8c547178f",
+  "analysisStage": "mechanism-extension-pilot",
+  "providers": [
+    "deepseek",
+    "mimo"
+  ],
+  "evidenceStatus": {
+    "deepseek": "natural-language-order-signal-observed",
+    "mimo": "natural-language-order-signal-observed"
+  },
+  "results": {
+    "deepseek": {
+      "unitCount": 128,
+      "estimates": {
+        "selectionDivergence": {
+          "estimate": 0.308594,
+          "ci95": [
+            0.179688,
+            0.453125
+          ]
+        },
+        "matchedSelectionChangeRate": {
+          "estimate": 0.179688,
+          "ci95": [
+            0.113281,
+            0.25
+          ]
+        },
+        "immediateTaskSuccess": {
+          "estimate": 0.898438,
+          "ci95": [
+            0.835938,
+            0.953125
+          ]
+        },
+        "heldTaskSuccess": {
+          "estimate": 0.929688,
+          "ci95": [
+            0.867188,
+            0.976562
+          ]
+        },
+        "heldMinusImmediateTaskSuccess": {
+          "estimate": 0.03125,
+          "ci95": [
+            -0.007812,
+            0.078125
+          ]
+        },
+        "immediateRegret": {
+          "estimate": 0.070312,
+          "ci95": [
+            0.03125,
+            0.117188
+          ]
+        },
+        "heldRegret": {
+          "estimate": 0.054688,
+          "ci95": [
+            0.007812,
+            0.109375
+          ]
+        },
+        "heldMinusImmediateRegret": {
+          "estimate": -0.015625,
+          "ci95": [
+            -0.046875,
+            0.015625
+          ]
+        },
+        "immediateTaskFailure": {
+          "estimate": 0.101562,
+          "ci95": [
+            0.046875,
+            0.164062
+          ]
+        },
+        "heldTaskFailure": {
+          "estimate": 0.070312,
+          "ci95": [
+            0.023438,
+            0.132812
+          ]
+        },
+        "heldMinusImmediateTaskFailure": {
+          "estimate": -0.03125,
+          "ci95": [
+            -0.078125,
+            0.007812
+          ]
+        },
+        "protocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "heldProtocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "multistep": {
+          "step1": {
+            "observed": {
+              "estimate": 0.033984,
+              "ci95": [
+                0.017188,
+                0.052344
+              ]
+            },
+            "matchedRandom": {
+              "estimate": 0.033594,
+              "ci95": [
+                0.015625,
+                0.054688
+              ]
+            },
+            "observedMinusRandom": {
+              "estimate": 0.000391,
+              "ci95": [
+                -0.010156,
+                0.010156
+              ]
+            }
+          },
+          "step2": {
+            "observed": {
+              "estimate": 0.032031,
+              "ci95": [
+                0.014844,
+                0.053516
+              ]
+            },
+            "matchedRandom": {
+              "estimate": 0.033594,
+              "ci95": [
+                0.012891,
+                0.058594
+              ]
+            },
+            "observedMinusRandom": {
+              "estimate": -0.001562,
+              "ci95": [
+                -0.0254,
+                0.020313
+              ]
+            }
+          },
+          "step3": {
+            "observed": {
+              "estimate": 0.040234,
+              "ci95": [
+                0.017578,
+                0.066807
+              ]
+            },
+            "matchedRandom": {
+              "estimate": 0.032813,
+              "ci95": [
+                0.012109,
+                0.061328
+              ]
+            },
+            "observedMinusRandom": {
+              "estimate": 0.007422,
+              "ci95": [
+                -0.023447,
+                0.035156
+              ]
+            }
+          }
+        },
+        "byRecommenderFamily": {
+          "sasrec": {
+            "unitCount": 64,
+            "selectionDivergence": {
+              "estimate": 0.3125,
+              "ci95": [
+                0.15625,
+                0.46875
+              ]
+            }
+          },
+          "gru4rec": {
+            "unitCount": 64,
+            "selectionDivergence": {
+              "estimate": 0.304688,
+              "ci95": [
+                0.140625,
+                0.492188
+              ]
+            }
+          }
+        }
+      },
+      "gates": {
+        "protocolFailureRateBelow005": true,
+        "selectionDivergenceLowerBoundAboveZero": true,
+        "bothRecommenderPointEstimatesAboveZero": true,
+        "writebackPatternMatchedForRandomBaseline": true
+      }
+    },
+    "mimo": {
+      "unitCount": 128,
+      "estimates": {
+        "selectionDivergence": {
+          "estimate": 0.289062,
+          "ci95": [
+            0.179688,
+            0.414062
+          ]
+        },
+        "matchedSelectionChangeRate": {
+          "estimate": 0.191406,
+          "ci95": [
+            0.128906,
+            0.257812
+          ]
+        },
+        "immediateTaskSuccess": {
+          "estimate": 0.902344,
+          "ci95": [
+            0.84375,
+            0.953125
+          ]
+        },
+        "heldTaskSuccess": {
+          "estimate": 0.925781,
+          "ci95": [
+            0.871094,
+            0.972656
+          ]
+        },
+        "heldMinusImmediateTaskSuccess": {
+          "estimate": 0.023438,
+          "ci95": [
+            -0.015625,
+            0.066406
+          ]
+        },
+        "immediateRegret": {
+          "estimate": 0.066406,
+          "ci95": [
+            0.023438,
+            0.121094
+          ]
+        },
+        "heldRegret": {
+          "estimate": 0.058594,
+          "ci95": [
+            0.023438,
+            0.101562
+          ]
+        },
+        "heldMinusImmediateRegret": {
+          "estimate": -0.007812,
+          "ci95": [
+            -0.042969,
+            0.027344
+          ]
+        },
+        "immediateTaskFailure": {
+          "estimate": 0.097656,
+          "ci95": [
+            0.046875,
+            0.15625
+          ]
+        },
+        "heldTaskFailure": {
+          "estimate": 0.074219,
+          "ci95": [
+            0.027344,
+            0.128906
+          ]
+        },
+        "heldMinusImmediateTaskFailure": {
+          "estimate": -0.023438,
+          "ci95": [
+            -0.066406,
+            0.015625
+          ]
+        },
+        "protocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "heldProtocolFailureRate": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "multistep": {
+          "step1": {
+            "observed": {
+              "estimate": 0.026563,
+              "ci95": [
+                0.014844,
+                0.039844
+              ]
+            },
+            "matchedRandom": {
+              "estimate": 0.030078,
+              "ci95": [
+                0.017578,
+                0.044141
+              ]
+            },
+            "observedMinusRandom": {
+              "estimate": -0.003516,
+              "ci95": [
+                -0.010547,
+                0.003516
+              ]
+            }
+          },
+          "step2": {
+            "observed": {
+              "estimate": 0.025,
+              "ci95": [
+                0.012109,
+                0.039844
+              ]
+            },
+            "matchedRandom": {
+              "estimate": 0.039844,
+              "ci95": [
+                0.019531,
+                0.064062
+              ]
+            },
+            "observedMinusRandom": {
+              "estimate": -0.014844,
+              "ci95": [
+                -0.032422,
+                -0.000781
+              ]
+            }
+          },
+          "step3": {
+            "observed": {
+              "estimate": 0.025391,
+              "ci95": [
+                0.012891,
+                0.040234
+              ]
+            },
+            "matchedRandom": {
+              "estimate": 0.042188,
+              "ci95": [
+                0.022266,
+                0.064453
+              ]
+            },
+            "observedMinusRandom": {
+              "estimate": -0.016797,
+              "ci95": [
+                -0.035937,
+                -0.000781
+              ]
+            }
+          }
+        },
+        "byRecommenderFamily": {
+          "sasrec": {
+            "unitCount": 64,
+            "selectionDivergence": {
+              "estimate": 0.328125,
+              "ci95": [
+                0.15625,
+                0.515625
+              ]
+            }
+          },
+          "gru4rec": {
+            "unitCount": 64,
+            "selectionDivergence": {
+              "estimate": 0.25,
+              "ci95": [
+                0.109375,
+                0.40625
+              ]
+            }
+          }
+        }
+      },
+      "gates": {
+        "protocolFailureRateBelow005": true,
+        "selectionDivergenceLowerBoundAboveZero": true,
+        "bothRecommenderPointEstimatesAboveZero": true,
+        "writebackPatternMatchedForRandomBaseline": true
+      }
+    }
+  },
+  "qualityInterpretation": "Success, failure, and regret are protocol-defined pilot outcomes. Their intervals are descriptive and do not establish equivalence or policy safety.",
+  "multistepInterpretation": "Steps two and three use a fixed top-item continuation policy. They measure recommendation propagation after the initial model selection, not repeated autonomous model behavior.",
+  "claimBoundary": "The study concerns model selections over cleaned Amazon product metadata in a research storefront. Success and regret are protocol-defined against title-token and price constraints, not human utility. The multistep analysis uses a fixed top-item browsing policy after the initial model selection and therefore establishes recommendation propagation, not repeated autonomous-agent behavior."
+}

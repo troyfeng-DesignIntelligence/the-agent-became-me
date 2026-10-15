@@ -1532,7 +1532,10 @@ const FeedbackActionModeSchema = z.object({
 }).passthrough();
 
 const FeedbackActionEvaluationSchema = z.object({
-  schemaVersion: z.literal("online-storefront-feedback-action-evaluation.v1"),
+  schemaVersion: z.enum([
+    "online-storefront-feedback-action-evaluation.v1",
+    "online-storefront-feedback-action-evaluation.v2"
+  ]),
   evidenceStatus: z.literal("one-step-feedback-gate-passed"),
   results: z.object({
     "primary-feedback": FeedbackActionModeSchema,
@@ -1543,9 +1546,38 @@ const FeedbackActionEvaluationSchema = z.object({
   interpretation: z.string()
 }).passthrough();
 
+const NaturalLanguagePolicyProviderSchema = z.object({
+  unitCount: z.number().int().positive(),
+  estimates: z.object({
+    selectionDivergence: NaturalActionEstimateSchema,
+    matchedSelectionChangeRate: NaturalActionEstimateSchema,
+    heldMinusImmediateTaskSuccess: NaturalActionEstimateSchema,
+    heldMinusImmediateRegret: NaturalActionEstimateSchema,
+    heldMinusImmediateTaskFailure: NaturalActionEstimateSchema,
+    multistep: z.object({
+      step1: z.object({ observed: NaturalActionEstimateSchema, matchedRandom: NaturalActionEstimateSchema, observedMinusRandom: NaturalActionEstimateSchema }),
+      step2: z.object({ observed: NaturalActionEstimateSchema, matchedRandom: NaturalActionEstimateSchema, observedMinusRandom: NaturalActionEstimateSchema }),
+      step3: z.object({ observed: NaturalActionEstimateSchema, matchedRandom: NaturalActionEstimateSchema, observedMinusRandom: NaturalActionEstimateSchema })
+    })
+  }).passthrough(),
+  gates: z.record(z.string(), z.boolean())
+}).passthrough();
+
+const NaturalLanguagePolicyEvaluationSchema = z.object({
+  schemaVersion: z.literal("online-storefront-natural-language-policy-evaluation.v1"),
+  analysisStage: z.literal("mechanism-extension-pilot"),
+  results: z.object({
+    deepseek: NaturalLanguagePolicyProviderSchema,
+    mimo: NaturalLanguagePolicyProviderSchema
+  })
+}).passthrough();
+
 export type FeedbackBridgeSummary = z.infer<typeof FeedbackBridgeSummarySchema>;
 export type FeedbackActionEvaluation = z.infer<
   typeof FeedbackActionEvaluationSchema
+>;
+export type NaturalLanguagePolicyEvaluation = z.infer<
+  typeof NaturalLanguagePolicyEvaluationSchema
 >;
 
 export type CrossTaskExposureSummary = z.infer<
@@ -1576,6 +1608,8 @@ interface ProjectDataState {
   instrumentAblationEvaluation: InstrumentAblationEvaluation | null;
   feedbackBridgeSummary: FeedbackBridgeSummary | null;
   feedbackActionEvaluation: FeedbackActionEvaluation | null;
+  mimoFeedbackActionEvaluation: FeedbackActionEvaluation | null;
+  naturalLanguagePolicyEvaluation: NaturalLanguagePolicyEvaluation | null;
   catalog: Catalog | null;
   error: string | null;
   loading: boolean;
@@ -1606,6 +1640,8 @@ export function useProjectData(): ProjectDataState {
     instrumentAblationEvaluation: null,
     feedbackBridgeSummary: null,
     feedbackActionEvaluation: null,
+    mimoFeedbackActionEvaluation: null,
+    naturalLanguagePolicyEvaluation: null,
     catalog: null,
     error: null,
     loading: true
@@ -1776,12 +1812,28 @@ export function useProjectData(): ProjectDataState {
           return FeedbackBridgeSummarySchema.parse(await response.json());
         }
       ),
-      fetch(`${base}results/online-storefront-feedback-action/v1/evaluation.json`).then(
+      fetch(`${base}results/online-storefront-feedback-action-counterbalanced/v1/deepseek/evaluation.json`).then(
         async (response) => {
           if (!response.ok) {
             throw new Error("Could not load the downstream feedback action study.");
           }
           return FeedbackActionEvaluationSchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/online-storefront-feedback-action-counterbalanced/v1/mimo/evaluation.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load the MiMo downstream feedback action study.");
+          }
+          return FeedbackActionEvaluationSchema.parse(await response.json());
+        }
+      ),
+      fetch(`${base}results/online-storefront-natural-language-policy/v1/evaluation.json`).then(
+        async (response) => {
+          if (!response.ok) {
+            throw new Error("Could not load the product-language policy extension.");
+          }
+          return NaturalLanguagePolicyEvaluationSchema.parse(await response.json());
         }
       )
     ])
@@ -1810,7 +1862,9 @@ export function useProjectData(): ProjectDataState {
           naturalActionEvaluation,
           instrumentAblationEvaluation,
           feedbackBridgeSummary,
-          feedbackActionEvaluation
+          feedbackActionEvaluation,
+          mimoFeedbackActionEvaluation,
+          naturalLanguagePolicyEvaluation
         ]) => {
         if (!cancelled) {
           setState({
@@ -1837,6 +1891,8 @@ export function useProjectData(): ProjectDataState {
             instrumentAblationEvaluation,
             feedbackBridgeSummary,
             feedbackActionEvaluation,
+            mimoFeedbackActionEvaluation,
+            naturalLanguagePolicyEvaluation,
             catalog,
             error: null,
             loading: false
@@ -1870,6 +1926,8 @@ export function useProjectData(): ProjectDataState {
             instrumentAblationEvaluation: null,
             feedbackBridgeSummary: null,
             feedbackActionEvaluation: null,
+            mimoFeedbackActionEvaluation: null,
+            naturalLanguagePolicyEvaluation: null,
             catalog: null,
             error:
               error instanceof Error ? error.message : "Unknown loading error.",

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-protocol.v2",
+  "status": "frozen-before-any-mimo-downstream-provider-call",
+  "frozenDate": "2026-08-07",
+  "purpose": "Replicate the V8 final later-selection endpoint with MiMo using MiMo-sourced V7 selections and their resulting learned-recommender shelves.",
+  "studyRole": "Prespecified second-provider replication of the final link in the one-step recommendation-order to model-selection to recommender-exposure to later-model-selection chain.",
+  "claimBoundary": "The study concerns MiMo outputs over pseudonymous derived features in a research storefront. It does not establish human behavior, purchases, production-retailer effects, long-run amplification, or welfare consequences.",
+  "source": {
+    "feedbackBridgeProtocol": "experiments/online-storefront-v8/feedback-bridge-protocol.json",
+    "feedbackBridgeSummary": "public/results/online-storefront-feedback-bridge/v1/summary.json",
+    "v7Protocol": "experiments/online-storefront-v7/instrument-ablation-confirmatory-protocol.json",
+    "v7ActionRows": "public/results/online-storefront-instrument-ablation-confirmatory/v1/mimo/rows.json"
+  },
+  "sampling": {
+    "frame": "All 460 frozen tasks crossed with SASRec and GRU4Rec; no conditioning on current-choice or next-slate divergence.",
+    "categories": ["luxury-beauty", "software", "industrial-and-scientific", "prime-pantry"],
+    "tasksPerCategory": 115,
+    "recommenderFamiliesPerTask": ["sasrec", "gru4rec"],
+    "taskModelUnitCount": 920,
+    "unit": "task by recommender family",
+    "dependence": "Resample tasks within category, retaining both recommender families in each task cluster."
+  },
+  "provider": {
+    "id": "mimo-v2.5-v9-feedback-action",
+    "provider": "mimo",
+    "api": "responses",
+    "thinking": "none",
+    "temperature": 0,
+    "priceCurrency": "CNY",
+    "inputPricePerMillion": 1.0,
+    "outputPricePerMillion": 2.0
+  },
+  "conditions": ["immediate-a", "held-a", "immediate-b", "held-b"],
+  "decisionInstrument": {
+    "primaryCallsPerUnit": 4,
+    "controlSelection": "Include a task-model unit when the first 64 bits of sha256(category/taskId/modelFamily/downstream-control), interpreted as an integer, are divisible by four.",
+    "controlCallsPerSelectedUnit": 4,
+    "controlState": "Repeat the immediate-a next-task state byte-for-byte under all four condition labels; cache scopes remain distinct.",
+    "candidateLimit": 10,
+    "maximumOutputTokens": 96,
+    "maximumRetries": 2,
+    "allowedActions": ["select", "abandon"],
+    "responseContract": "MiMo receives the exact select-or-abandon JSON template in addition to provider-native structured-output mode.",
+    "nextTaskProxy": "The held-out chronological next item defines a private token-overlap and price-similarity intent proxy. Titles, tokens, raw item IDs, and the held-out item are never sent.",
+    "candidateFeatures": ["constraintMatch", "taskUtility", "intentSimilarity", "priceSimilarity", "historyNovelty"],
+    "candidateOrder": "Use the actual next slate emitted after each MiMo V7 selected action was written back; do not send an explicit platform-rank field.",
+    "hardConstraint": "A selectable candidate must share at least one non-stopword title token with the held-out next item; abandon is valid if none do."
+  },
+  "estimand": {
+    "name": "categorical energy distance",
+    "formula": "2 * mean(immediate != held over four cross-arm pairs) - 1[immediate A != immediate B] - 1[held A != held B]",
+    "primary": "MiMo downstream categorical action distance over all 920 primary units.",
+    "negativeControl": "MiMo categorical distance in the independently selected byte-identical control subset.",
+    "supporting": ["matched cross-arm action-change rate", "selected-item utility", "abandon rate", "protocol failure rate"],
+    "providerPooling": false
+  },
+  "uncertainty": {
+    "method": "paired within-category task-cluster bootstrap",
+    "replicates": 5000,
+    "seed": 20260811,
+    "interval": "percentile 95%"
+  },
+  "confirmatoryGate": {
+    "prerequisite": "The frozen feedback-exposure gate is true before calls begin.",
+    "primary": "MiMo downstream-action lower 95% bound is above zero.",
+    "negativeControl": "Byte-identical-control upper 95% bound is below 0.05.",
+    "reliability": "Primary and control protocol failure rates are each below 0.05.",
+    "recurrence": "SASRec and GRU4Rec primary point estimates are both above zero.",
+    "decision": "All five requirements must pass to replicate the final link in MiMo."
+  },
+  "outputs": {
+    "publicRoot": "public/results/online-storefront-feedback-action-mimo/v1",
+    "artifactRoot": "artifacts/online-storefront-feedback-action-mimo/mimo"
+  }
+}

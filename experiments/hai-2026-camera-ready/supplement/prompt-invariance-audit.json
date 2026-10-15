@@ -1,0 +1,34 @@
+{
+  "mode": "offline cached-request audit",
+  "providers": {
+    "deepseek": {
+      "servedUnits": 920,
+      "maskedUnits": 920,
+      "requestsChecked": 7360,
+      "retryPrompts": 0,
+      "orderChangedUnits": 900,
+      "failures": [],
+      "examples": {
+        "served-order": "industrial-and-scientific/03d99ea294e5d4d9/gru4rec"
+      }
+    },
+    "mimo": {
+      "servedUnits": 920,
+      "maskedUnits": 920,
+      "requestsChecked": 7360,
+      "retryPrompts": 0,
+      "orderChangedUnits": 900,
+      "failures": [],
+      "examples": {
+        "served-order": "industrial-and-scientific/03d99ea294e5d4d9/gru4rec"
+      }
+    }
+  },
+  "passed": true,
+  "sourceCodeSha256": {
+    "scripts/run-online-storefront-cross-llm-pilot.py": "0f12e63f731a005d0501a8d3aaa98b27a638f01ae7788eeb6be0a70acb8de4d0",
+    "scripts/run-online-storefront-instrument-ablation.py": "a866532b48d626a38fd3e20bf5b70f1ca265ec805906694e825f0885221ee85c",
+    "scripts/run-online-storefront-feedback-action.py": "fa139e859c3cb9a1305b1f56c58924b5cea4c00381c475a8cbc28d52d7f72926",
+    "scripts/run-online-storefront-natural-language-policy.py": "303bc28ba8f9f080083f4a80d6213c1a597ab1acafb3b83e117624f1e9fad0df"
+  }
+}

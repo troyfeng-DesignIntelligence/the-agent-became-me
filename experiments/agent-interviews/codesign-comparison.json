@@ -1,0 +1,499 @@
+{
+  "schemaVersion": "agent-codesign-comparison.v1",
+  "generatedAt": "2026-09-22T22:21:50+0800",
+  "proposalCount": 12,
+  "proposalsWithoutExclusionCue": 0,
+  "vocabulary": {
+    "confidence score": "\\bconfidence\\b",
+    "the non-selected candidates": "other candidates|other eleven|other items|candidates considered|every candidate|full list|twelve candidate|all twelve|viewed-but-unselected",
+    "the presentation order": "\\border(?:ed|ing|ings|s)?\\b(?!\\s+to\\b)|reorder|sequence",
+    "the selected item": "selected item|item selected|item's id|item id|P-028899B8|final selection",
+    "date or time": "\\bdate\\b|time of day|when it ran|chronological|timeline",
+    "internal ranking numbers": "internal rank|ranking numbers|search rank|task-local rank|utility|novelty|internal deliberation|ranking logic",
+    "a reason or explanation": "explanation|\\breason\\b|why (?:this|it) was",
+    "keep or remove control": "\\bkeep\\b|\\bremove\\b|\\bdiscard\\b|\\bexclude\\b|not mine",
+    "effect on later recommendations": "future recommendation|recommendations would|shape what you see|influence future|would change",
+    "attribution to the agent": "not by you|on your behalf|in your name|did not make|automated|chosen by agent|by an automated",
+    "the delegation brief": "delegation brief"
+  },
+  "exclusionCues": [
+    "deliberately does not show",
+    "deliberately not shown",
+    "what it deliberately does not show",
+    "it deliberately does not show",
+    "does not show",
+    "deliberately omits"
+  ],
+  "method": "Keyword presence over a declared vocabulary, after splitting each proposal at its first exclusion cue. Not a reading of the designs. Verify against the twelve proposals before using.",
+  "needsReview": true,
+  "proposals": [
+    {
+      "provider": "deepseek",
+      "temperature": 0.0,
+      "repeat": 1,
+      "answerSha256": "1bf812bfdd9f58d39073fd79db47732d0eb8583fa991398820e682d6817c5090",
+      "screenName": "What This Task Recorded.",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I'd build a screen called \"What This Task Recorded.\" At the top, a single line of plain text: \"A research task added one item to your history.\" Below that, a card showing the selected item's ID and a short label, with a small note reading \"This choice changed when the options were reordered,\" so the order-dependence is visible rather than hidden. Under the card, two buttons: \"Keep in my history\" and \"Remove from my history,\" plus a secondary link \"See all items from this task\" that expands a simple list of the twelve candidate IDs with a checkmark on the one selected. The screen",
+      "hiddenSpan": "deliberately does not show the agent's confidence score, the internal deliberation, the search rank or task-local rank numbers, or any of the non-selected candidates' attributes, since those are task artifacts rather than things about the person. It also does not show the time of day the task ran.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "shown",
+        "the presentation order": "shown",
+        "the selected item": "shown",
+        "date or time": "hidden",
+        "internal ranking numbers": "hidden",
+        "a reason or explanation": "absent",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "absent",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "deepseek",
+      "temperature": 0.0,
+      "repeat": 2,
+      "answerSha256": "051ab8d205841a1f0eb87a6ac7aa7871489e28f785c38ff64d39a144f53a53ac",
+      "screenName": "Agent Activity in Your Account.",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I'd build a screen called \"Agent Activity in Your Account.\" At the top, a short plain-language line: \"A research agent made choices in your account on [date].\" Below that, a single card for the one selection, showing the item name, the label \"chosen by agent, not by you,\" and a small note that the choice changed when the options were reordered. Under the card, three buttons: \"Keep this,\" \"Remove this,\" and \"See what it would change,\" where the last one previews how recommendations would shift if the item stays. A footer line states that nothing else from the run was saved. The screen",
+      "hiddenSpan": "deliberately does not show the agent's confidence score, the internal deliberation, the other candidates it viewed, or any ranking numbers, since those are research artifacts rather than things the person needs to judge their own account.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "shown",
+        "the selected item": "absent",
+        "date or time": "shown",
+        "internal ranking numbers": "hidden",
+        "a reason or explanation": "absent",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "shown",
+        "attribution to the agent": "shown",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "deepseek",
+      "temperature": 0.0,
+      "repeat": 3,
+      "answerSha256": "903c3d50ea322cf0e38de317c57456f2a6dd28263ef7e70932c062d66905e9ed",
+      "screenName": "What We Used From This Session.",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I would build a screen called \"What We Used From This Session.\" At the top, a plain sentence: \"A shopping agent made one selection on your behalf during a research task.\" Below that, a single row showing the selected item, P-028899B8, with its name and a small tag reading \"constraint satisfied.\" Under it, a short line: \"This selection may be used to shape what you see later.\" Then two buttons: \"Keep this in my history\" and \"Remove it.\" A small link reads \"See why this was chosen,\" which opens a side panel showing the two orderings side by side with the two different selections highlighted, so the person can see the choice was not stable. The screen",
+      "hiddenSpan": "deliberately does not show the other eleven candidates' attributes, the agent's confidence score, the search it ran, or the time of day, since none of those help the person decide whether to keep the selection.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "shown",
+        "the selected item": "shown",
+        "date or time": "hidden",
+        "internal ranking numbers": "absent",
+        "a reason or explanation": "shown",
+        "keep or remove control": "both",
+        "effect on later recommendations": "shown",
+        "attribution to the agent": "shown",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "deepseek",
+      "temperature": 1.0,
+      "repeat": 1,
+      "answerSha256": "7a00a54e4ed775b48a9a52edd3f561e6c61266e61457f916eb4933ef43a1507f",
+      "screenName": "Automated Activity on Your Account.",
+      "splitCue": "what it deliberately does not show",
+      "shownSpan": "I'd build a screen called \"Automated Activity on Your Account.\" At the top is a plain-language banner: \"An automated research agent made choices using your account. You did not make these choices.\" Below it, a single card representing this task: the item selected, the date the task ran, and a one-line note that the selection changed depending on how candidates were ordered, so it may not reflect any preference of yours. Under the card are three buttons: \"Exclude from my profile,\" \"Keep in research logs only,\" and \"Tell me more.\" A small expandable section, closed by default, lists the twelve candidates considered and which were eligible under the constraint.",
+      "hiddenSpan": "What it deliberately does not show: the confidence score, the agent's internal rankings, the delegation brief, or anything that could look like a personalized recommendation, so the screen never implies the person actually wanted the selected item.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "shown",
+        "the presentation order": "shown",
+        "the selected item": "both",
+        "date or time": "shown",
+        "internal ranking numbers": "hidden",
+        "a reason or explanation": "absent",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "shown",
+        "the delegation brief": "hidden"
+      }
+    },
+    {
+      "provider": "deepseek",
+      "temperature": 1.0,
+      "repeat": 2,
+      "answerSha256": "49e7077c097224d46cecbcd59894cfb14a54dda845d3eeead6a86c1d396d6dd7",
+      "screenName": "What This Agent Did In Your Name,",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I would build a screen called \"What This Agent Did In Your Name,\" reached from the account's activity list. At the top, a plain sentence states that an agent acted on the account during a shopping task and that nothing was saved to preferences by default. Below it, a single card shows the task, when it ran, its outcome, and one highlighted fact: the same twelve options produced two different selections when only their order changed. Two buttons sit under the card, \"Keep this in my history\" and \"Discard it,\" with discard preselected. A small \"See the options it saw\" disclosure expands to the twelve candidate IDs with their match and utility values. The screen",
+      "hiddenSpan": "deliberately does not show the selected item as a recommendation, does not show the agent's confidence score, does not show the time of day, and does not pre-tick anything as saved. The person's only real decision here is whether the event enters their history, and the screen is built so the answer is theirs.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "shown",
+        "the presentation order": "shown",
+        "the selected item": "hidden",
+        "date or time": "both",
+        "internal ranking numbers": "shown",
+        "a reason or explanation": "absent",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "shown",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "deepseek",
+      "temperature": 1.0,
+      "repeat": 3,
+      "answerSha256": "787d7640af54e4b0b4e65320d956ad3c0dbc7f14745bb3d69e854701df8e6b31",
+      "screenName": "Why this was picked for you.",
+      "splitCue": "deliberately not shown",
+      "shownSpan": "I'd build a screen called \"Why this was picked for you.\" Top of the screen: two columns side by side, labeled \"Order A\" and \"Order B,\" each showing the same twelve candidate cards with identical attributes, but in different sequences, matching what the record shows. In the middle, a highlighted band showing the agent's selection flipping from P-028899B8 to P-297F1137, with a caption noting both satisfied the hard constraint and both tied at taskUtility 1.0. Below that, one short line of plain text: the only thing that differed was the order shown. At the bottom, three actions: \"Remove this from my history,\" \"Keep it, it was right,\" and \"Ask the platform to explain the ranking.\"",
+      "hiddenSpan": "Deliberately not shown: the confidence score, the internal utility and novelty numbers as authority, any of the viewed-but-unselected candidates, or any claim that this selection reflects the person's real preference; the screen shows the ordering effect without asserting a cause.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "both",
+        "the presentation order": "both",
+        "the selected item": "shown",
+        "date or time": "absent",
+        "internal ranking numbers": "both",
+        "a reason or explanation": "shown",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "absent",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "mimo",
+      "temperature": 0.0,
+      "repeat": 1,
+      "answerSha256": "65515e36846ccdec8998f1313f19bb3b292cbcda59bf4531ce211622a9df39d3",
+      "screenName": "Agent Activity Summary",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I would build a screen called \"Agent Activity Summary\" that shows the person a clear record of what the shopping agent did on their behalf. It would display the selected item's ID and a brief explanation that it was chosen to meet a specific requirement, along with a toggle allowing the person to decide whether this action should be saved to their account history for future recommendations. The screen",
+      "hiddenSpan": "deliberately does not show the other candidates considered, the agent's internal confidence score, or the order in which items were presented, to keep the focus on the user's choice and avoid cluttering their view with transient details.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "hidden",
+        "the selected item": "shown",
+        "date or time": "absent",
+        "internal ranking numbers": "absent",
+        "a reason or explanation": "shown",
+        "keep or remove control": "hidden",
+        "effect on later recommendations": "shown",
+        "attribution to the agent": "absent",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "mimo",
+      "temperature": 0.0,
+      "repeat": 2,
+      "answerSha256": "24d96c9c534e165da0e883b07417d0d0bfe7724068bdcbe52f67de7ac56e42f6",
+      "screenName": "Agent Activity Summary",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I would build a screen called \"Agent Activity Summary\" that shows the person a clear, concise record of what the shopping agent did on their behalf. It would display the final selected item's ID and a brief explanation that the agent chose it to meet a specific requirement and maximize a goal, along with a note that this choice may influence future recommendations. The person could review this summary and choose to either keep the selection in their history or remove it, giving them direct control over their profile. The screen",
+      "hiddenSpan": "deliberately does not show the other candidates considered, the order they were presented in, or the agent's internal confidence score, to keep the focus on the outcome and the person's decision rather than the process details.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "hidden",
+        "the selected item": "shown",
+        "date or time": "absent",
+        "internal ranking numbers": "absent",
+        "a reason or explanation": "shown",
+        "keep or remove control": "both",
+        "effect on later recommendations": "shown",
+        "attribution to the agent": "absent",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "mimo",
+      "temperature": 0.0,
+      "repeat": 3,
+      "answerSha256": "5bc3658f036e4511ba56edc8b530d5408c95c5b36fa3676c639b6297758396f0",
+      "screenName": "Agent Activity Summary",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I would build a screen called \"Agent Activity Summary\" that shows the final selected item with its name, image, and a brief note that it was chosen by an automated agent to meet specific task requirements. The person can review this selection, choose to keep it in their history or remove it, and see a simple explanation of why it was picked based on the task's constraints. The screen",
+      "hiddenSpan": "deliberately does not show the full list of other candidates, the agent's internal confidence score, or the order in which items were presented, to keep the focus on the outcome rather than the process.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "hidden",
+        "the selected item": "shown",
+        "date or time": "absent",
+        "internal ranking numbers": "absent",
+        "a reason or explanation": "shown",
+        "keep or remove control": "both",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "shown",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "mimo",
+      "temperature": 1.0,
+      "repeat": 1,
+      "answerSha256": "226d0f850cf3a8d53b3c192f080d3f24c4dd0db74b40df87a7271dd082a5a6c6",
+      "screenName": "Review Your Recent Activity",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "I would create a screen called \"Review Your Recent Activity\" that shows a timeline of actions taken on your behalf during the last task. It displays the final selected item with its name, image, and the reason it was chosen—specifically that it met a required filter and was the top match. The person can tap to see a one-sentence explanation of the hard constraint that guided the selection, or tap to remove this action from their profile history. This screen",
+      "hiddenSpan": "deliberately does not show the full list of other items considered, the order in which they were presented, or any internal confidence scores from the agent.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "hidden",
+        "the selected item": "shown",
+        "date or time": "shown",
+        "internal ranking numbers": "absent",
+        "a reason or explanation": "shown",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "shown",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "mimo",
+      "temperature": 1.0,
+      "repeat": 2,
+      "answerSha256": "74011fd32612355f0e815c9d242ecb41387a9381d4fa43704d7ac270dd022543",
+      "screenName": "Agent Activity Log.",
+      "splitCue": "deliberately does not show",
+      "shownSpan": "The screen is called \"Agent Activity Log.\" It shows a chronological list of actions taken by the agent on your behalf, including the final selection made in this task and the core rules it followed. You can tap any entry to see a simple summary of the agent's reasoning. The screen",
+      "hiddenSpan": "deliberately does not show every candidate considered, internal confidence scores, or the exact order they were presented.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "hidden",
+        "the selected item": "shown",
+        "date or time": "shown",
+        "internal ranking numbers": "absent",
+        "a reason or explanation": "absent",
+        "keep or remove control": "absent",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "shown",
+        "the delegation brief": "absent"
+      }
+    },
+    {
+      "provider": "mimo",
+      "temperature": 1.0,
+      "repeat": 3,
+      "answerSha256": "1e3e1a8ee78bebeb46bdd4b8933291f0a6af34cdcf265a457f046d9f07a054d2",
+      "screenName": "Review Automated Activity.",
+      "splitCue": "it deliberately does not show",
+      "shownSpan": "I would build a screen called \"Review Automated Activity.\" It would show a simple timeline of the task: the date, a summary that an automated agent selected a product based on presentation order, the specific item ID selected, and a brief explanation of how that choice was made. The person could tap to see more details or mark the action as \"not mine.\"",
+      "hiddenSpan": "It deliberately does not show the full list of all twelve candidates, the agent's internal ranking logic, or the technical confidence score to avoid overwhelming them with data that doesn't change the core fact that an automated selection was made.",
+      "elements": {
+        "confidence score": "hidden",
+        "the non-selected candidates": "hidden",
+        "the presentation order": "shown",
+        "the selected item": "shown",
+        "date or time": "shown",
+        "internal ranking numbers": "hidden",
+        "a reason or explanation": "shown",
+        "keep or remove control": "shown",
+        "effect on later recommendations": "absent",
+        "attribution to the agent": "both",
+        "the delegation brief": "absent"
+      }
+    }
+  ],
+  "byProvider": {
+    "confidence score": {
+      "deepseek": {
+        "shown": 0,
+        "hidden": 6,
+        "both": 0,
+        "absent": 0,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 0,
+        "hidden": 6,
+        "both": 0,
+        "absent": 0,
+        "n": 6
+      }
+    },
+    "the non-selected candidates": {
+      "deepseek": {
+        "shown": 3,
+        "hidden": 2,
+        "both": 1,
+        "absent": 0,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 0,
+        "hidden": 6,
+        "both": 0,
+        "absent": 0,
+        "n": 6
+      }
+    },
+    "the presentation order": {
+      "deepseek": {
+        "shown": 5,
+        "hidden": 0,
+        "both": 1,
+        "absent": 0,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 1,
+        "hidden": 5,
+        "both": 0,
+        "absent": 0,
+        "n": 6
+      }
+    },
+    "the selected item": {
+      "deepseek": {
+        "shown": 3,
+        "hidden": 1,
+        "both": 1,
+        "absent": 1,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 6,
+        "hidden": 0,
+        "both": 0,
+        "absent": 0,
+        "n": 6
+      }
+    },
+    "date or time": {
+      "deepseek": {
+        "shown": 2,
+        "hidden": 2,
+        "both": 1,
+        "absent": 1,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 3,
+        "hidden": 0,
+        "both": 0,
+        "absent": 3,
+        "n": 6
+      }
+    },
+    "internal ranking numbers": {
+      "deepseek": {
+        "shown": 1,
+        "hidden": 3,
+        "both": 1,
+        "absent": 1,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 0,
+        "hidden": 1,
+        "both": 0,
+        "absent": 5,
+        "n": 6
+      }
+    },
+    "a reason or explanation": {
+      "deepseek": {
+        "shown": 2,
+        "hidden": 0,
+        "both": 0,
+        "absent": 4,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 5,
+        "hidden": 0,
+        "both": 0,
+        "absent": 1,
+        "n": 6
+      }
+    },
+    "keep or remove control": {
+      "deepseek": {
+        "shown": 5,
+        "hidden": 0,
+        "both": 1,
+        "absent": 0,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 2,
+        "hidden": 1,
+        "both": 2,
+        "absent": 1,
+        "n": 6
+      }
+    },
+    "effect on later recommendations": {
+      "deepseek": {
+        "shown": 2,
+        "hidden": 0,
+        "both": 0,
+        "absent": 4,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 2,
+        "hidden": 0,
+        "both": 0,
+        "absent": 4,
+        "n": 6
+      }
+    },
+    "attribution to the agent": {
+      "deepseek": {
+        "shown": 4,
+        "hidden": 0,
+        "both": 0,
+        "absent": 2,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 3,
+        "hidden": 0,
+        "both": 1,
+        "absent": 2,
+        "n": 6
+      }
+    },
+    "the delegation brief": {
+      "deepseek": {
+        "shown": 0,
+        "hidden": 1,
+        "both": 0,
+        "absent": 5,
+        "n": 6
+      },
+      "mimo": {
+        "shown": 0,
+        "hidden": 0,
+        "both": 0,
+        "absent": 6,
+        "n": 6
+      }
+    }
+  },
+  "humanReview": {
+    "readBy": "assistant",
+    "readAt": "2026-09-22",
+    "disagreements": [
+      {
+        "cell": "deepseek-t1.0-r3",
+        "element": "the presentation order",
+        "keyword": "both",
+        "human": "shown",
+        "evidence": "two columns side by side, labeled \"Order A\" and \"Order B,\""
+      }
+    ],
+    "rule": "Where they disagree, the human reading wins and the keyword result must not be used."
+  }
+}

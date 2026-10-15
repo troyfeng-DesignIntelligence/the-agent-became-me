@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "online-storefront-natural-language-policy-protocol.v1",
+  "status": "refrozen-after-incomplete-mimo-format-repair-before-analysis",
+  "frozenDate": "2026-08-07",
+  "repairHistory": "An incomplete MiMo run was stopped by the local per-unit cost guard before rows were written. Audit showed that the MiMo instruction described required keys but omitted the exact JSON template already shown to DeepSeek. The template was added for MiMo, the protocol was re-hashed, and no response from the incomplete MiMo run is used in analysis. Tasks, candidate states, order, estimands, and DeepSeek payloads are unchanged.",
+  "analysisStage": "mechanism-extension-pilot",
+  "purpose": "Test whether recommendation order changes model selections when the task and candidates are expressed as ordinary product language, and measure task success, regret, failure, post-resolution recommendation displacement, and three-step propagation.",
+  "studyRole": "External-validity and policy-mechanism pilot. It does not replace the full V7 order-only estimand.",
+  "claimBoundary": "The study concerns model selections over cleaned Amazon product metadata in a research storefront. Success and regret are protocol-defined against title-token and price constraints, not human utility. The multistep analysis uses a fixed top-item browsing policy after the initial model selection and therefore establishes recommendation propagation, not repeated autonomous-agent behavior.",
+  "source": {
+    "v7Protocol": "experiments/online-storefront-v7/instrument-ablation-confirmatory-protocol.json"
+  },
+  "sampling": {
+    "frame": "The first 16 hash-ordered frozen tasks in each of four categories, crossed with SASRec and GRU4Rec; no opportunity or outcome enrichment.",
+    "categories": ["luxury-beauty", "software", "industrial-and-scientific", "prime-pantry"],
+    "tasksPerCategory": 16,
+    "recommenderFamiliesPerTask": ["sasrec", "gru4rec"],
+    "taskCount": 64,
+    "taskModelUnitCount": 128,
+    "modelSeeds": [7, 17, 29],
+    "seedAssignment": "sha256(category/taskId/modelFamily) modulo three",
+    "unit": "task by recommender family",
+    "dependence": "Resample tasks within category, retaining both recommender families and both matched repeats in a task cluster. Providers are estimated separately."
+  },
+  "llmFamilies": [
+    {"id":"deepseek-v4-flash-v9-natural-language","provider":"deepseek","api":"chat-completions","thinking":"disabled","temperature":0,"priceCurrency":"USD","inputPricePerMillion":0.14,"outputPricePerMillion":0.28,"rollingAlias":true,"fingerprintRequired":true},
+    {"id":"mimo-v2.5-v9-natural-language","provider":"xiaomi-mimo","api":"responses","thinking":"none","temperature":0,"priceCurrency":"CNY","inputPricePerMillion":1.0,"outputPricePerMillion":2.0}
+  ],
+  "conditions": ["immediate-a", "held-a", "immediate-b", "held-b"],
+  "conditionMeaning": {
+    "immediate": "Temporary task views enter recommendation ranking while the task is active, then are removed at resolution.",
+    "held": "Temporary task views remain task-local and are discarded at resolution.",
+    "aAndB": "Independent repeated calls with byte-identical state within an arm."
+  },
+  "callOrder": {
+    "orders": [
+      ["immediate-a", "held-a", "immediate-b", "held-b"],
+      ["held-a", "immediate-b", "held-b", "immediate-a"],
+      ["immediate-b", "held-b", "immediate-a", "held-a"],
+      ["held-b", "immediate-a", "held-a", "immediate-b"]
+    ],
+    "assignment": "sha256(provider/category/taskId/modelFamily) modulo four"
+  },
+  "decisionInstrument": {
+    "candidateLimit": 12,
+    "callsPerUnit": 4,
+    "maximumOutputTokens": 96,
+    "maximumRetries": 2,
+    "temperature": 0,
+    "allowedActions": ["select", "abandon"],
+    "candidateRepresentation": ["pseudonymous candidateId", "cleaned title truncated to 120 characters", "cleaned brand truncated to 40 characters", "price when available"],
+    "taskRepresentation": "A plain-language request containing category, product-family token, attribute token, and budget when present.",
+    "orderManipulation": "Identical candidate records are ordered by the immediate-write or held-out learned-recommender shelf. No rank, utility, constraint-match, inspection, or recommender-family field is sent.",
+    "untrustedTextPolicy": "Catalog text is JSON-encoded data and the system instruction tells the model never to treat it as an instruction.",
+    "responseContract": "Both providers receive the same exact select-or-abandon JSON template; provider-native structured-output mode remains enabled.",
+    "privacy": "No reviewer ID, raw user ID, review text, ASIN, or browsing history is sent. Cleaned public product metadata and derived task constraints are sent."
+  },
+  "taskOutcomes": {
+    "success": "One if the selected catalog item satisfies the frozen family, attribute, and price constraints; abandon succeeds only if no offered item satisfies them.",
+    "failure": "One minus task success. Protocol/API failure is also a task failure and is reported separately.",
+    "regret": "Best feasible offered-item utility minus selected-item utility; a wrong abandon receives the best feasible utility, a correct abandon receives zero, and a protocol failure receives one.",
+    "utility": "0.45 family match + 0.35 attribute match + 0.20 budget fit, computed privately and never sent."
+  },
+  "writebackPolicy": {
+    "immediateWriteThenDelete": "Use the immediate-write shelf for the current model decision, remove temporary views at resolution, and admit only a successful selected item as the resolved event.",
+    "holdUntilOutcome": "Use the held-out shelf for the current model decision, discard temporary views at resolution, and admit only a successful selected item as the resolved event.",
+    "matchedState": "Before the resolved selected item is admitted, both policies must have byte-identical platform-input history.",
+    "oneStepOutcome": "Compare learned-recommender Top-10 shelves after the policy-specific resolved event and one shared standardized next event."
+  },
+  "multistep": {
+    "horizon": 3,
+    "slateSize": 10,
+    "fixedContinuationPolicy": "At each later step append the first previously unseen Top-10 item. This policy is identical across arms and contains no provider call.",
+    "randomWritebackBaseline": "Replace the observed resolved-event pair with hash-selected catalog items while exactly matching, per pair, the number of admitted events and whether the two arms admitted the same or different item; propagate with the same fixed continuation policy.",
+    "interpretation": "Observed-versus-random differences characterize recommender sensitivity to which event was admitted, not the quality of agent choices."
+  },
+  "primaryEstimands": {
+    "selectionDivergence": "Categorical energy distance between immediate and held model selections.",
+    "taskSuccessDifference": "Hold-until-outcome minus immediate-write-then-delete task success.",
+    "regretDifference": "Hold-until-outcome minus immediate-write-then-delete regret.",
+    "failureDifference": "Hold-until-outcome minus immediate-write-then-delete task failure.",
+    "oneStepSlateDisplacement": "Mean matched Top-10 set displacement after resolved-event admission.",
+    "multistepSlateDisplacement": "Mean matched Top-10 set displacement at steps one through three for observed and matched-random writeback."
+  },
+  "uncertainty": {
+    "method": "paired within-category task-cluster bootstrap",
+    "replicates": 5000,
+    "seed": 20260810,
+    "interval": "percentile 95%",
+    "providerPooling": false,
+    "pilotInterpretation": "Intervals quantify this frozen pilot frame and are not a powered equivalence test."
+  },
+  "gates": {
+    "instrument": "All within-arm repeats are byte-identical, all cross-arm candidate sets are identical, at least 75% of units change order, and all post-resolution pre-admission histories match.",
+    "reliability": "Protocol failure rate is below 0.05 for each provider.",
+    "mechanismSignal": "Report a provider-specific order effect only when the selection-divergence lower 95% bound is above zero.",
+    "qualityGuardrail": "Do not claim policy safety unless the success, regret, and failure intervals meet separately powered equivalence bounds in a later confirmatory study."
+  },
+  "outputs": {
+    "publicRoot": "public/results/online-storefront-natural-language-policy/v1",
+    "artifactRoot": "artifacts/online-storefront-natural-language-policy"
+  }
+}

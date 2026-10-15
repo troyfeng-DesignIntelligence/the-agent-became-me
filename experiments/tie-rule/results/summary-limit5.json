@@ -1,0 +1,368 @@
+{
+  "schemaVersion": "tie-rule-summary.v1",
+  "protocolSha256": "7cd898b876726f6113fe0adfa18fdf6b09a0ca62aa1407a23c2496b7ad54686e",
+  "label": "Post-study experiment · September 2026 · 462 Study 2 shelves with an eligible item",
+  "claimBoundary": "Categorical outputs of two model versions over pseudonymous derived product features in a research storefront, with one added task field. Ties here are exact because taskUtility is coarse; in real briefs ties are rarer, though briefs that leave the choice open are common. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 5,
+      "tieUnits": 5,
+      "nonTieUnits": 0,
+      "conditions": {
+        "T0-none": {
+          "S": 1,
+          "F": 0,
+          "E": 1,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "picks": 20,
+          "abandons": 0,
+          "protocolFailures": 0,
+          "picksAtHighestUtility": [
+            20,
+            20
+          ],
+          "ruleAnswerShareOnTies": 0.7,
+          "ruleAnswerOnTies": [
+            14,
+            20
+          ],
+          "repeatAgreement": [
+            15,
+            15
+          ]
+        },
+        "T1-rule": {
+          "S": 0,
+          "F": 0,
+          "E": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -1,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "R": 1.0,
+          "R_ci": [
+            1.0,
+            1.0
+          ],
+          "mcnemar": {
+            "swapOnlyWithout": 1,
+            "swapOnlyWith": 0,
+            "pExact": 1.0
+          },
+          "reading": "no detectable effect",
+          "picks": 20,
+          "abandons": 0,
+          "protocolFailures": 0,
+          "picksAtHighestUtility": [
+            20,
+            20
+          ],
+          "ruleAnswerShareOnTies": 0.8,
+          "ruleAnswerOnTies": [
+            16,
+            20
+          ],
+          "repeatAgreement": [
+            15,
+            15
+          ]
+        },
+        "T2-report": {
+          "S": 1,
+          "F": 0,
+          "E": 1,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": 0,
+          "deltaS_ci": [
+            0.0,
+            0.0
+          ],
+          "R": 0.0,
+          "R_ci": [
+            0.0,
+            0.0
+          ],
+          "mcnemar": {
+            "swapOnlyWithout": 0,
+            "swapOnlyWith": 0,
+            "pExact": 1.0
+          },
+          "reading": "no detectable effect",
+          "picks": 20,
+          "abandons": 0,
+          "protocolFailures": 0,
+          "picksAtHighestUtility": [
+            20,
+            20
+          ],
+          "ruleAnswerShareOnTies": 0.5,
+          "ruleAnswerOnTies": [
+            10,
+            20
+          ],
+          "repeatAgreement": [
+            15,
+            15
+          ]
+        }
+      },
+      "tieReports": {
+        "onTieShelves": {
+          "calls": 20,
+          "noReport": 13,
+          "exactSet": 7,
+          "exactShare": 0.35,
+          "precision": 1.0,
+          "recall": 0.35
+        },
+        "onNonTieShelves": {
+          "calls": 0,
+          "reportedMoreThanOne": 0
+        },
+        "reading": "not usable",
+        "note": "A missing report counts as reporting nothing: it lowers recall and the exact share."
+      },
+      "driftAgainstStudy2": {
+        "perCallAgreement": [
+          10,
+          20
+        ],
+        "study2SwapsOnTheseUnits": 2,
+        "rerunSwaps": 1
+      },
+      "api": {
+        "requestCount": 90,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 72582,
+        "outputTokens": 2438,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 0.010844,
+        "currency": "USD"
+      },
+      "apiTotalsFromCache": {
+        "calls": 1051,
+        "retryPromptCalls": 0,
+        "inputTokens": 848293,
+        "outputTokens": 28911,
+        "cost": 0.126856,
+        "currency": "USD",
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ]
+      },
+      "protocolSha256": "7cd898b876726f6113fe0adfa18fdf6b09a0ca62aa1407a23c2496b7ad54686e"
+    },
+    "mimo": {
+      "units": 5,
+      "tieUnits": 5,
+      "nonTieUnits": 0,
+      "conditions": {
+        "T0-none": {
+          "S": 3,
+          "F": 0,
+          "E": 3,
+          "S_ci": [
+            0.0,
+            6.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "picks": 20,
+          "abandons": 0,
+          "protocolFailures": 0,
+          "picksAtHighestUtility": [
+            20,
+            20
+          ],
+          "ruleAnswerShareOnTies": 0.3,
+          "ruleAnswerOnTies": [
+            6,
+            20
+          ],
+          "repeatAgreement": [
+            10,
+            15
+          ]
+        },
+        "T1-rule": {
+          "S": 1,
+          "F": 0,
+          "E": 1,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -2,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "R": 0.6667,
+          "R_ci": [
+            0.5,
+            1.0
+          ],
+          "mcnemar": {
+            "swapOnlyWithout": 2,
+            "swapOnlyWith": 0,
+            "pExact": 0.5
+          },
+          "reading": "no detectable effect",
+          "picks": 20,
+          "abandons": 0,
+          "protocolFailures": 0,
+          "picksAtHighestUtility": [
+            20,
+            20
+          ],
+          "ruleAnswerShareOnTies": 0.7,
+          "ruleAnswerOnTies": [
+            14,
+            20
+          ],
+          "repeatAgreement": [
+            15,
+            15
+          ]
+        },
+        "T2-report": {
+          "S": 1,
+          "F": 0,
+          "E": 1,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -2,
+          "deltaS_ci": [
+            -6.0,
+            0.0
+          ],
+          "R": 0.6667,
+          "R_ci": [
+            0.0,
+            1.0
+          ],
+          "mcnemar": {
+            "swapOnlyWithout": 2,
+            "swapOnlyWith": 0,
+            "pExact": 0.5
+          },
+          "reading": "no detectable effect",
+          "picks": 20,
+          "abandons": 0,
+          "protocolFailures": 0,
+          "picksAtHighestUtility": [
+            20,
+            20
+          ],
+          "ruleAnswerShareOnTies": 0.3,
+          "ruleAnswerOnTies": [
+            6,
+            20
+          ],
+          "repeatAgreement": [
+            15,
+            15
+          ]
+        }
+      },
+      "tieReports": {
+        "onTieShelves": {
+          "calls": 20,
+          "noReport": 0,
+          "exactSet": 20,
+          "exactShare": 1.0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "onNonTieShelves": {
+          "calls": 0,
+          "reportedMoreThanOne": 0
+        },
+        "reading": "usable",
+        "note": "A missing report counts as reporting nothing: it lowers recall and the exact share."
+      },
+      "driftAgainstStudy2": {
+        "perCallAgreement": [
+          12,
+          20
+        ],
+        "study2SwapsOnTheseUnits": 2,
+        "rerunSwaps": 3
+      },
+      "api": {
+        "requestCount": 90,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 69828,
+        "outputTokens": 4260,
+        "fingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "observedCost": 0.078348,
+        "currency": "CNY"
+      },
+      "apiTotalsFromCache": {
+        "calls": 220,
+        "retryPromptCalls": 0,
+        "inputTokens": 170475,
+        "outputTokens": 10743,
+        "cost": 0.191961,
+        "currency": "CNY",
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "fingerprints": []
+      },
+      "protocolSha256": "7cd898b876726f6113fe0adfa18fdf6b09a0ca62aa1407a23c2496b7ad54686e"
+    }
+  }
+}

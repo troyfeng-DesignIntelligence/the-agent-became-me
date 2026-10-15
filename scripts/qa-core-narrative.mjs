@@ -35,29 +35,33 @@ async function checkViewport(browser, viewport, name) {
   });
   page.on("pageerror", (error) => consoleErrors.push(error.message));
   await page.goto(siteUrl, { waitUntil: "networkidle" });
+  await page.addStyleTag({ content: "html { scroll-behavior: auto !important; }" });
 
   const bodyText = await page.locator("body").innerText();
   check(!bodyText.toLowerCase().includes("third-family"), `${name}: third-family language remains on the main page.`);
   check((await page.locator("#lab").count()) === 0, `${name}: the synthetic lab is still in the main narrative.`);
   check((await page.locator(".webarena-replay").count()) === 0, `${name}: WebArena is still in the main narrative.`);
   check((await page.locator(".amazon-field").count()) === 0, `${name}: the Amazon probe is still in the main narrative.`);
-  check((await page.locator(".cross-category-replication").count()) === 1, `${name}: cross-category evidence is missing.`);
-  check((await page.locator(".online-v2-study").count()) === 1, `${name}: the four-contract storefront study is missing.`);
-  check((await page.locator(".llm-feedback-panel").count()) === 1, `${name}: the deterministic LLM pilot is missing.`);
+  check((await page.locator(".project-ownership").count()) === 1, `${name}: project ownership is missing.`);
+  check((await page.locator(".project-decision").count()) === 3, `${name}: the three design decisions are incomplete.`);
+  check((await page.locator(".portfolio-outcome-summary").count()) === 1, `${name}: concise outcome summary is missing.`);
+  check((await page.locator(".cross-category-replication").count()) === 0, `${name}: detailed cross-category evidence remains in the default case.`);
+  check((await page.locator(".online-v2-study").count()) === 0, `${name}: detailed storefront study remains in the default case.`);
+  check((await page.locator(".llm-feedback-panel").count()) === 0, `${name}: detailed LLM history remains in the default case.`);
   check((await page.locator(".cross-task-control-lab").count()) === 1, `${name}: the control prototype is missing.`);
+  check(
+    (await page.locator(".activation-gate-blueprint").count()) === 1,
+    `${name}: the paired activation-gate blueprint is missing.`
+  );
+  check(
+    (await page.locator(".activation-gate-arm").count()) === 2,
+    `${name}: the paired service policies are incomplete.`
+  );
+  check(
+    (await page.locator(".hero-ledger").innerText()).includes("7,360"),
+    `${name}: the hero still reports an obsolete pilot count.`
+  );
   check((await page.locator('.artifact-links a[href*="archive=1"]').count()) === 1, `${name}: the development archive link is missing.`);
-  check(
-    (await page.locator(".llm-feedback-repair").innerText()).includes("7,360"),
-    `${name}: the confirmatory natural-frame action result is missing.`
-  );
-  check(
-    (await page.locator(".llm-feedback-panel").innerText()).includes("ONE-STEP FEEDBACK CHAIN"),
-    `${name}: the V8 feedback-chain result is missing.`
-  );
-  check(
-    (await page.locator(".llm-feedback-panel").innerText()).includes("0.037"),
-    `${name}: the downstream action estimate is missing.`
-  );
 
   const overflow = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,
@@ -88,11 +92,102 @@ async function checkViewport(browser, viewport, name) {
   await page.locator("#evidence").screenshot({
     path: path.join(outputDirectory, `${name}-evidence.png`)
   });
-  await page.locator(".llm-feedback-panel").screenshot({
-    path: path.join(outputDirectory, `${name}-llm-result.png`)
+  await page.locator(".portfolio-outcome-summary").screenshot({
+    path: path.join(outputDirectory, `${name}-portfolio-outcomes.png`)
+  });
+  await page.locator(".project-ownership").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(300);
+  await page.locator(".project-ownership").screenshot({
+    path: path.join(outputDirectory, `${name}-ownership.png`)
+  });
+  const activationGate = page.locator(".cross-task-control-lab");
+  await activationGate.evaluate((element) => {
+    window.scrollTo({
+      top: element.getBoundingClientRect().top + window.scrollY - 70
+    });
+  });
+  await page.waitForTimeout(600);
+  const defaultRankingStates = await page
+    .locator(".activation-gate-state-grid > div:last-child dd")
+    .allTextContents();
+  check(
+    defaultRankingStates.join("|") === "ACTIVE|HELD",
+    `${name}: unresolved ranking states are not ACTIVE versus HELD.`
+  );
+  const mobileSummary = page.locator(".activation-gate-mobile-summary");
+  const expectsCompactMobileGate = viewport.width <= 600;
+  check(
+    (await mobileSummary.isVisible()) === expectsCompactMobileGate,
+    `${name}: the compact gate summary has the wrong responsive visibility.`
+  );
+  if (expectsCompactMobileGate) {
+    check(
+      !(await page.locator(".activation-gate-surface").first().isVisible()),
+      `${name}: full shelves should be collapsed before the visitor asks to inspect them.`
+    );
+    await page.locator(".activation-gate-timeline").screenshot({
+      path: path.join(outputDirectory, `${name}-activation-gate-control.png`)
+    });
+    await mobileSummary.getByRole("button", { name: "Inspect both shelves" }).click();
+    check(
+      await page.locator(".activation-gate-surface").first().isVisible(),
+      `${name}: the shelf comparison did not open from the compact control.`
+    );
+    check(
+      (await mobileSummary.getByRole("button").getAttribute("aria-expanded")) === "true",
+      `${name}: the mobile shelf toggle does not expose its expanded state.`
+    );
+  }
+  await page.screenshot({
+    path: path.join(outputDirectory, `${name}-activation-gate.png`)
+  });
+
+  await page.locator(".activation-gate-timeline input").fill("4");
+  const resolvedRankingStates = await page
+    .locator(".activation-gate-state-grid > div:last-child dd")
+    .allTextContents();
+  check(
+    resolvedRankingStates.join("|") === "REMOVED|DISCARDED",
+    `${name}: abandoned outcome does not resolve to REMOVED versus DISCARDED.`
+  );
+  await page.locator(".activation-gate-readout").evaluate((element) => {
+    window.scrollTo({
+      top: element.getBoundingClientRect().top + window.scrollY - 70
+    });
+  });
+  await page.waitForTimeout(400);
+  await page.screenshot({
+    path: path.join(outputDirectory, `${name}-activation-gate-resolved.png`)
   });
   await context.close();
   return { name, overflow, consoleErrors };
+}
+
+async function checkResearchAppendix(browser) {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  const page = await context.newPage();
+  const consoleErrors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  const researchUrl = new URL(siteUrl);
+  researchUrl.searchParams.set("research", "1");
+  researchUrl.hash = "evidence";
+  await page.goto(researchUrl.href, { waitUntil: "networkidle" });
+  check((await page.locator(".portfolio-outcome-summary").count()) === 0, "research: concise outcome summary should yield to the full evidence stack.");
+  check((await page.locator(".cross-category-replication").count()) === 1, "research: cross-category evidence is missing.");
+  check((await page.locator(".online-v2-study").count()) === 1, "research: storefront study is missing.");
+  check((await page.locator(".llm-feedback-panel").count()) === 1, "research: LLM evidence is missing.");
+  check((await page.locator(".references-block").count()) === 1, "research: reference appendix is missing.");
+  check((await page.locator(".llm-feedback-repair").innerText()).includes("7,360"), "research: confirmatory action result is missing.");
+  check((await page.locator(".llm-feedback-panel").innerText()).includes("ONE-STEP FEEDBACK CHAIN"), "research: feedback-chain result is missing.");
+  check(consoleErrors.length === 0, `research: console errors: ${consoleErrors.join(" | ")}`);
+  await page.locator(".llm-feedback-panel").screenshot({
+    path: path.join(outputDirectory, "research-llm-result.png")
+  });
+  await context.close();
+  return { name: "research", consoleErrors };
 }
 
 await mkdir(outputDirectory, { recursive: true });
@@ -107,7 +202,8 @@ let observations;
 try {
   observations = [
     await checkViewport(browser, { width: 1440, height: 1000 }, "desktop"),
-    await checkViewport(browser, { width: 390, height: 844 }, "mobile")
+    await checkViewport(browser, { width: 390, height: 844 }, "mobile"),
+    await checkResearchAppendix(browser)
   ];
 } finally {
   await browser.close();

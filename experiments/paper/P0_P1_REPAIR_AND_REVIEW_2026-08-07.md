@@ -4,8 +4,8 @@
 
 The complete natural-frame V7 crossed 460 tasks with SASRec and GRU4Rec. With
 explicit `platformRank` and `inspected` fields removed, candidate order alone
-produced a categorical energy-distance estimate of 0.193 [0.155, 0.233] for
-DeepSeek and 0.147 [0.115, 0.183] for MiMo. The masked estimates were 0.004
+produced a categorical energy-distance estimate of 0.193 [0.151, 0.239] for
+DeepSeek and 0.147 [0.110, 0.187] for MiMo. The masked estimates were 0.004
 [-0.003, 0.013] and 0.000 [-0.007, 0.008]. The frozen treatment-meaning gates
 passed. V8 subsequently closed the one-step system-feedback part of P0-B;
 calibrated task value, human consequence, and long-horizon behavior remain open.

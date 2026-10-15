@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-run-summary.v1",
+  "generatedAt": "2026-08-07T12:04:48.309256+00:00",
+  "protocolSha256": "245a37188fe19efe0f865e91f30f62063bce195161d6790d8d2f13c38758ac60",
+  "provider": "mimo",
+  "model": "mimo-v2.5",
+  "taskModelUnitCount": 920,
+  "rowCount": 1146,
+  "api": {
+    "requestCount": 4589,
+    "cacheHitCount": 0,
+    "attemptCount": 4589,
+    "validActionCount": 4584,
+    "invalidOrFailedAttemptCount": 5,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 3251749,
+    "outputTokens": 106762,
+    "currency": "CNY",
+    "observedCostAtPublishedRates": 3.465273,
+    "acceptedCostCap": 7.0,
+    "systemFingerprints": [],
+    "returnedModels": [
+      "mimo-v2.5"
+    ]
+  },
+  "claimBoundary": "The study concerns MiMo outputs over pseudonymous derived features in a research storefront. It does not establish human behavior, purchases, production-retailer effects, long-run amplification, or welfare consequences."
+}

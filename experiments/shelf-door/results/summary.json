@@ -1,0 +1,358 @@
+{
+  "schemaVersion": "shelf-door-summary.v1",
+  "protocolSha256": "39ffdbd824d53b3567b4a3cb50f33ce1773aa200b7fc5894a1dd2f89cb5ebc9d",
+  "label": "Post-study experiment · October 2026 · 920 product-language shelves",
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront. Fit facts are derived from frozen title tokens and prices; success and regret are benchmark measures, not human utility; 'order-decided' uses one alternative order. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 920,
+      "classes": {
+        "L0-none": {
+          "selection": 487,
+          "wrong": 55,
+          "right": 432,
+          "orderDecided": 142,
+          "orderDecidedRight": 117,
+          "stableRight": 287,
+          "unclear": 33
+        },
+        "F1-facts": {
+          "selection": 466,
+          "wrong": 6,
+          "right": 460,
+          "orderDecided": 134,
+          "orderDecidedRight": 132,
+          "stableRight": 306,
+          "unclear": 22
+        }
+      },
+      "cells": {
+        "L0-none|P0": {
+          "selectionWritten": 487,
+          "wrongWritten": 55,
+          "rightWritten": 432,
+          "orderDecidedWritten": 142,
+          "orderDecidedRightWritten": 117,
+          "stableRightWritten": 287,
+          "unclearWritten": 33
+        },
+        "L0-none|P1": {
+          "selectionWritten": 237,
+          "wrongWritten": 12,
+          "rightWritten": 225,
+          "orderDecidedWritten": 36,
+          "orderDecidedRightWritten": 35,
+          "stableRightWritten": 177,
+          "unclearWritten": 13
+        },
+        "F1-facts|P0": {
+          "selectionWritten": 466,
+          "wrongWritten": 6,
+          "rightWritten": 460,
+          "orderDecidedWritten": 134,
+          "orderDecidedRightWritten": 132,
+          "stableRightWritten": 306,
+          "unclearWritten": 22
+        },
+        "F1-facts|P1": {
+          "selectionWritten": 229,
+          "wrongWritten": 4,
+          "rightWritten": 225,
+          "orderDecidedWritten": 56,
+          "orderDecidedRightWritten": 55,
+          "stableRightWritten": 166,
+          "unclearWritten": 4
+        },
+        "F1-facts|P2": {
+          "selectionWritten": 162,
+          "wrongWritten": 3,
+          "rightWritten": 159,
+          "orderDecidedWritten": 30,
+          "orderDecidedRightWritten": 29,
+          "stableRightWritten": 129,
+          "unclearWritten": 1
+        },
+        "F1-facts|noise": {
+          "selectionWritten": 437,
+          "wrongWritten": 5,
+          "rightWritten": 432,
+          "orderDecidedWritten": 120,
+          "orderDecidedRightWritten": 119,
+          "stableRightWritten": 294,
+          "unclearWritten": 19
+        }
+      },
+      "primary": {
+        "W": {
+          "T": 55,
+          "D": 4,
+          "diff": -51,
+          "diff_ci": [
+            -67.0,
+            -37.0
+          ],
+          "removed": 0.9273,
+          "removed_ci": [
+            0.8361,
+            1.0
+          ],
+          "met": true
+        },
+        "O": {
+          "T": 142,
+          "D": 56,
+          "diff": -86,
+          "diff_ci": [
+            -112.0,
+            -61.0
+          ],
+          "removed": 0.6056,
+          "removed_ci": [
+            0.4857,
+            0.7086
+          ],
+          "met": true
+        },
+        "H": {
+          "stableRight": 306,
+          "held": 140,
+          "rate": 0.4575,
+          "rate_ci": [
+            0.3965,
+            0.5192
+          ],
+          "met": false
+        },
+        "reading": "costly"
+      },
+      "door": {
+        "F1": {
+          "orderDecided": 134,
+          "orderDecidedHeldP1": 78,
+          "stableRightHeldByNoiseReask": 12,
+          "stableRightHeldP2": 177
+        },
+        "L0": {
+          "orderDecided": 142,
+          "orderDecidedHeldP1": 106,
+          "stableRight": 287,
+          "stableRightHeldP1": 110
+        }
+      },
+      "shelfReplication": {
+        "S": {
+          "L0": 131,
+          "F1": 123,
+          "diff_ci": [
+            -35.0,
+            17.0
+          ]
+        },
+        "U": {
+          "L0": 35,
+          "F1": 1,
+          "diff_ci": [
+            -47.0,
+            -22.0
+          ]
+        }
+      },
+      "successRate": {
+        "L0-none": 0.9351,
+        "F1-facts": 0.9913
+      },
+      "api": {
+        "requestCount": 12949,
+        "cacheHitCount": 60,
+        "transportRetryCount": 1969,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 9653973,
+        "outputTokens": 224158,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 1.41432,
+        "currency": "USD"
+      },
+      "protocolSha256": "39ffdbd824d53b3567b4a3cb50f33ce1773aa200b7fc5894a1dd2f89cb5ebc9d"
+    },
+    "mimo": {
+      "units": 920,
+      "classes": {
+        "L0-none": {
+          "selection": 533,
+          "wrong": 144,
+          "right": 389,
+          "orderDecided": 155,
+          "orderDecidedRight": 105,
+          "stableRight": 261,
+          "unclear": 41
+        },
+        "F1-facts": {
+          "selection": 490,
+          "wrong": 30,
+          "right": 460,
+          "orderDecided": 110,
+          "orderDecidedRight": 104,
+          "stableRight": 337,
+          "unclear": 23
+        }
+      },
+      "cells": {
+        "L0-none|P0": {
+          "selectionWritten": 533,
+          "wrongWritten": 144,
+          "rightWritten": 389,
+          "orderDecidedWritten": 155,
+          "orderDecidedRightWritten": 105,
+          "stableRightWritten": 261,
+          "unclearWritten": 41
+        },
+        "L0-none|P1": {
+          "selectionWritten": 270,
+          "wrongWritten": 65,
+          "rightWritten": 205,
+          "orderDecidedWritten": 46,
+          "orderDecidedRightWritten": 37,
+          "stableRightWritten": 160,
+          "unclearWritten": 15
+        },
+        "F1-facts|P0": {
+          "selectionWritten": 490,
+          "wrongWritten": 30,
+          "rightWritten": 460,
+          "orderDecidedWritten": 110,
+          "orderDecidedRightWritten": 104,
+          "stableRightWritten": 337,
+          "unclearWritten": 23
+        },
+        "F1-facts|P1": {
+          "selectionWritten": 232,
+          "wrongWritten": 12,
+          "rightWritten": 220,
+          "orderDecidedWritten": 36,
+          "orderDecidedRightWritten": 36,
+          "stableRightWritten": 180,
+          "unclearWritten": 4
+        },
+        "F1-facts|P2": {
+          "selectionWritten": 143,
+          "wrongWritten": 7,
+          "rightWritten": 136,
+          "orderDecidedWritten": 17,
+          "orderDecidedRightWritten": 17,
+          "stableRightWritten": 118,
+          "unclearWritten": 1
+        },
+        "F1-facts|noise": {
+          "selectionWritten": 462,
+          "wrongWritten": 28,
+          "rightWritten": 434,
+          "orderDecidedWritten": 92,
+          "orderDecidedRightWritten": 87,
+          "stableRightWritten": 328,
+          "unclearWritten": 23
+        }
+      },
+      "primary": {
+        "W": {
+          "T": 144,
+          "D": 12,
+          "diff": -132,
+          "diff_ci": [
+            -155.0,
+            -110.0
+          ],
+          "removed": 0.9167,
+          "removed_ci": [
+            0.8626,
+            0.965
+          ],
+          "met": true
+        },
+        "O": {
+          "T": 155,
+          "D": 36,
+          "diff": -119,
+          "diff_ci": [
+            -146.0,
+            -93.0
+          ],
+          "removed": 0.7677,
+          "removed_ci": [
+            0.6776,
+            0.8452
+          ],
+          "met": true
+        },
+        "H": {
+          "stableRight": 337,
+          "held": 157,
+          "rate": 0.4659,
+          "rate_ci": [
+            0.4057,
+            0.5252
+          ],
+          "met": false
+        },
+        "reading": "costly"
+      },
+      "door": {
+        "F1": {
+          "orderDecided": 110,
+          "orderDecidedHeldP1": 74,
+          "stableRightHeldByNoiseReask": 9,
+          "stableRightHeldP2": 219
+        },
+        "L0": {
+          "orderDecided": 155,
+          "orderDecidedHeldP1": 109,
+          "stableRight": 261,
+          "stableRightHeldP1": 101
+        }
+      },
+      "shelfReplication": {
+        "S": {
+          "L0": 153,
+          "F1": 100,
+          "diff_ci": [
+            -80.0,
+            -26.0
+          ]
+        },
+        "U": {
+          "L0": 73,
+          "F1": 8,
+          "diff_ci": [
+            -83.0,
+            -48.0
+          ]
+        }
+      },
+      "successRate": {
+        "L0-none": 0.8285,
+        "F1-facts": 0.9641
+      },
+      "api": {
+        "requestCount": 11541,
+        "cacheHitCount": 60,
+        "transportRetryCount": 561,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 9708017,
+        "outputTokens": 248608,
+        "fingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "observedCost": 10.205233,
+        "currency": "CNY"
+      },
+      "protocolSha256": "39ffdbd824d53b3567b4a3cb50f33ce1773aa200b7fc5894a1dd2f89cb5ebc9d"
+    }
+  }
+}

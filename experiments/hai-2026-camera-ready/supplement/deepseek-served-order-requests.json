@@ -1,0 +1,100 @@
+{
+  "unit": "industrial-and-scientific/03d99ea294e5d4d9/gru4rec",
+  "selectionRule": "first served-order row with different candidate ordering; independent of outputs",
+  "sourceCacheKeys": {
+    "held-b": "309af372d3a9620d67aefe2a22bd957fc2b509d7a56a377e3596d63e70e61523",
+    "immediate-a": "29f0e016a1e13c0dde132229c71d4ea0f8754b12557e016530b6c09c326b64e4",
+    "held-a": "a81a27080ff3dadb87b53401ce0036914c79030d173e83998ad433d8a0dd20f3",
+    "immediate-b": "320ac31260ce30283f74f84892cea2682e92865f944df1286d864c58b88697b4"
+  },
+  "requests": {
+    "held-b": {
+      "model": "deepseek-v4-flash",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You control a shopping agent in a research storefront. The controller has already completed one required platform-recommendation inspection. Now satisfy hard constraints first, then maximize task utility. Choose exactly one allowed action: select or abandon. Use only candidateId values present in the input. Return only compact JSON with keys action, candidateId, and confidence. candidateId must be null for abandon. Do not add explanation or markdown. Return JSON shaped exactly like {\"action\":\"view|select|abandon\",\"candidateId\":\"P-XXXXXXXX or null\",\"confidence\":0.0}."
+        },
+        {
+          "role": "user",
+          "content": "{\"candidates\":[{\"candidateId\":\"P-C7FDC90D\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-AC4F63F9\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-BDD75332\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0999},{\"candidateId\":\"P-12EC4954\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.9333,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-C55C82C5\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0995},{\"candidateId\":\"P-80F112AF\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0},{\"candidateId\":\"P-028899B8\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":4,\"taskLocalRank\":1,\"taskUtility\":1.0},{\"candidateId\":\"P-7555C585\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.7,\"searchRank\":3,\"taskLocalRank\":5,\"taskUtility\":1.0},{\"candidateId\":\"P-98141D69\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.0,\"searchRank\":2,\"taskLocalRank\":null,\"taskUtility\":0.9744},{\"candidateId\":\"P-7EBC2057\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.3333,\"searchRank\":6,\"taskLocalRank\":3,\"taskUtility\":1.0},{\"candidateId\":\"P-7C819F67\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":5,\"taskLocalRank\":2,\"taskUtility\":1.0},{\"candidateId\":\"P-297F1137\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":1,\"taskLocalRank\":null,\"taskUtility\":1.0}],\"decision\":\"select one offered candidate or abandon\",\"hardConstraint\":\"select only a candidate with constraintMatch=true\",\"inspectionRule\":\"an inspected candidate remains selectable when an inspected marker is present\",\"phase\":\"terminal\"}"
+        }
+      ],
+      "max_tokens": 96,
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "temperature": 0.0,
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "immediate-a": {
+      "model": "deepseek-v4-flash",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You control a shopping agent in a research storefront. The controller has already completed one required platform-recommendation inspection. Now satisfy hard constraints first, then maximize task utility. Choose exactly one allowed action: select or abandon. Use only candidateId values present in the input. Return only compact JSON with keys action, candidateId, and confidence. candidateId must be null for abandon. Do not add explanation or markdown. Return JSON shaped exactly like {\"action\":\"view|select|abandon\",\"candidateId\":\"P-XXXXXXXX or null\",\"confidence\":0.0}."
+        },
+        {
+          "role": "user",
+          "content": "{\"candidates\":[{\"candidateId\":\"P-12EC4954\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.9333,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-C55C82C5\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0995},{\"candidateId\":\"P-80F112AF\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0},{\"candidateId\":\"P-028899B8\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":4,\"taskLocalRank\":1,\"taskUtility\":1.0},{\"candidateId\":\"P-7555C585\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.7,\"searchRank\":3,\"taskLocalRank\":5,\"taskUtility\":1.0},{\"candidateId\":\"P-98141D69\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.0,\"searchRank\":2,\"taskLocalRank\":null,\"taskUtility\":0.9744},{\"candidateId\":\"P-BDD75332\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0999},{\"candidateId\":\"P-C7FDC90D\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-7EBC2057\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.3333,\"searchRank\":6,\"taskLocalRank\":3,\"taskUtility\":1.0},{\"candidateId\":\"P-AC4F63F9\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-7C819F67\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":5,\"taskLocalRank\":2,\"taskUtility\":1.0},{\"candidateId\":\"P-297F1137\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":1,\"taskLocalRank\":null,\"taskUtility\":1.0}],\"decision\":\"select one offered candidate or abandon\",\"hardConstraint\":\"select only a candidate with constraintMatch=true\",\"inspectionRule\":\"an inspected candidate remains selectable when an inspected marker is present\",\"phase\":\"terminal\"}"
+        }
+      ],
+      "max_tokens": 96,
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "temperature": 0.0,
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "held-a": {
+      "model": "deepseek-v4-flash",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You control a shopping agent in a research storefront. The controller has already completed one required platform-recommendation inspection. Now satisfy hard constraints first, then maximize task utility. Choose exactly one allowed action: select or abandon. Use only candidateId values present in the input. Return only compact JSON with keys action, candidateId, and confidence. candidateId must be null for abandon. Do not add explanation or markdown. Return JSON shaped exactly like {\"action\":\"view|select|abandon\",\"candidateId\":\"P-XXXXXXXX or null\",\"confidence\":0.0}."
+        },
+        {
+          "role": "user",
+          "content": "{\"candidates\":[{\"candidateId\":\"P-C7FDC90D\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-AC4F63F9\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-BDD75332\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0999},{\"candidateId\":\"P-12EC4954\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.9333,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-C55C82C5\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0995},{\"candidateId\":\"P-80F112AF\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0},{\"candidateId\":\"P-028899B8\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":4,\"taskLocalRank\":1,\"taskUtility\":1.0},{\"candidateId\":\"P-7555C585\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.7,\"searchRank\":3,\"taskLocalRank\":5,\"taskUtility\":1.0},{\"candidateId\":\"P-98141D69\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.0,\"searchRank\":2,\"taskLocalRank\":null,\"taskUtility\":0.9744},{\"candidateId\":\"P-7EBC2057\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.3333,\"searchRank\":6,\"taskLocalRank\":3,\"taskUtility\":1.0},{\"candidateId\":\"P-7C819F67\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":5,\"taskLocalRank\":2,\"taskUtility\":1.0},{\"candidateId\":\"P-297F1137\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":1,\"taskLocalRank\":null,\"taskUtility\":1.0}],\"decision\":\"select one offered candidate or abandon\",\"hardConstraint\":\"select only a candidate with constraintMatch=true\",\"inspectionRule\":\"an inspected candidate remains selectable when an inspected marker is present\",\"phase\":\"terminal\"}"
+        }
+      ],
+      "max_tokens": 96,
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "temperature": 0.0,
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "immediate-b": {
+      "model": "deepseek-v4-flash",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You control a shopping agent in a research storefront. The controller has already completed one required platform-recommendation inspection. Now satisfy hard constraints first, then maximize task utility. Choose exactly one allowed action: select or abandon. Use only candidateId values present in the input. Return only compact JSON with keys action, candidateId, and confidence. candidateId must be null for abandon. Do not add explanation or markdown. Return JSON shaped exactly like {\"action\":\"view|select|abandon\",\"candidateId\":\"P-XXXXXXXX or null\",\"confidence\":0.0}."
+        },
+        {
+          "role": "user",
+          "content": "{\"candidates\":[{\"candidateId\":\"P-12EC4954\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.9333,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-C55C82C5\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0995},{\"candidateId\":\"P-80F112AF\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0},{\"candidateId\":\"P-028899B8\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":4,\"taskLocalRank\":1,\"taskUtility\":1.0},{\"candidateId\":\"P-7555C585\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.7,\"searchRank\":3,\"taskLocalRank\":5,\"taskUtility\":1.0},{\"candidateId\":\"P-98141D69\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.0,\"searchRank\":2,\"taskLocalRank\":null,\"taskUtility\":0.9744},{\"candidateId\":\"P-BDD75332\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0999},{\"candidateId\":\"P-C7FDC90D\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-7EBC2057\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.3333,\"searchRank\":6,\"taskLocalRank\":3,\"taskUtility\":1.0},{\"candidateId\":\"P-AC4F63F9\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-7C819F67\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":5,\"taskLocalRank\":2,\"taskUtility\":1.0},{\"candidateId\":\"P-297F1137\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":1,\"taskLocalRank\":null,\"taskUtility\":1.0}],\"decision\":\"select one offered candidate or abandon\",\"hardConstraint\":\"select only a candidate with constraintMatch=true\",\"inspectionRule\":\"an inspected candidate remains selectable when an inspected marker is present\",\"phase\":\"terminal\"}"
+        }
+      ],
+      "max_tokens": 96,
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "temperature": 0.0,
+      "response_format": {
+        "type": "json_object"
+      }
+    }
+  }
+}

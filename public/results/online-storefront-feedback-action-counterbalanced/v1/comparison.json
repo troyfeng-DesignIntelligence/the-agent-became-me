@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-counterbalance-comparison.v1",
+  "purpose": "Sensitivity audit comparing the superseded fixed-order endpoint with the frozen counterbalanced rerun. The counterbalanced results are the confirmatory results.",
+  "providers": {
+    "deepseek": {
+      "legacy": {
+        "categoricalEnergyDistance": {
+          "estimate": 0.036957,
+          "ci95": [
+            0.019565,
+            0.056522
+          ]
+        },
+        "matchedActionChangeRate": {
+          "estimate": 0.020652,
+          "ci95": [
+            0.011413,
+            0.030978
+          ]
+        },
+        "observedChangeCounts": null
+      },
+      "counterbalanced": {
+        "categoricalEnergyDistance": {
+          "estimate": 0.034783,
+          "ci95": [
+            0.017391,
+            0.054348
+          ]
+        },
+        "matchedActionChangeRate": {
+          "estimate": 0.018478,
+          "ci95": [
+            0.009783,
+            0.028261
+          ]
+        },
+        "observedChangeCounts": {
+          "matchedRepeatPairChangeCount": 34,
+          "matchedRepeatPairComparisonCount": 1840,
+          "unitWithAnyMatchedChangeCount": 18,
+          "unitCount": 920
+        }
+      },
+      "counterbalancedOrderGroups": {
+        "0": {
+          "unitCount": 231,
+          "categoricalEnergyDistance": {
+            "estimate": 0.014717,
+            "ci95": [
+              0.0,
+              0.03905
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 5,
+            "matchedRepeatPairComparisonCount": 462,
+            "unitWithAnyMatchedChangeCount": 3,
+            "unitCount": 231
+          }
+        },
+        "1": {
+          "unitCount": 228,
+          "categoricalEnergyDistance": {
+            "estimate": 0.04,
+            "ci95": [
+              0.01,
+              0.08
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 8,
+            "matchedRepeatPairComparisonCount": 456,
+            "unitWithAnyMatchedChangeCount": 4,
+            "unitCount": 228
+          }
+        },
+        "2": {
+          "unitCount": 231,
+          "categoricalEnergyDistance": {
+            "estimate": 0.040071,
+            "ci95": [
+              0.009434,
+              0.082108
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 9,
+            "matchedRepeatPairComparisonCount": 462,
+            "unitWithAnyMatchedChangeCount": 5,
+            "unitCount": 231
+          }
+        },
+        "3": {
+          "unitCount": 230,
+          "categoricalEnergyDistance": {
+            "estimate": 0.043993,
+            "ci95": [
+              0.009434,
+              0.087986
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 12,
+            "matchedRepeatPairComparisonCount": 460,
+            "unitWithAnyMatchedChangeCount": 6,
+            "unitCount": 230
+          }
+        }
+      },
+      "semanticActionStabilityAcrossRuns": {
+        "primary-feedback": {
+          "conditionActionChangeCount": 20,
+          "conditionActionComparisonCount": 3680,
+          "conditionActionChangeRate": 0.005435,
+          "unitWithAnyConditionActionChangeCount": 7,
+          "unitCount": 920
+        },
+        "identical-control": {
+          "conditionActionChangeCount": 12,
+          "conditionActionComparisonCount": 904,
+          "conditionActionChangeRate": 0.013274,
+          "unitWithAnyConditionActionChangeCount": 3,
+          "unitCount": 226
+        }
+      },
+      "counterbalancedGates": {
+        "feedbackExposurePrerequisitePassed": true,
+        "downstreamActionLowerBoundAboveZero": true,
+        "identicalControlUpperBoundBelow005": true,
+        "primaryFailureRateBelow005": true,
+        "controlFailureRateBelow005": true,
+        "bothRecommenderFamilyPointEstimatesAboveZero": true,
+        "conditionOrderBalancePassed": true,
+        "oneStepAgentRecommenderAgentFeedbackGatePassed": true
+      }
+    },
+    "mimo": {
+      "legacy": {
+        "categoricalEnergyDistance": {
+          "estimate": 0.017391,
+          "ci95": [
+            0.005435,
+            0.031522
+          ]
+        },
+        "matchedActionChangeRate": {
+          "estimate": 0.013043,
+          "ci95": [
+            0.006522,
+            0.020109
+          ]
+        },
+        "observedChangeCounts": null
+      },
+      "counterbalanced": {
+        "categoricalEnergyDistance": {
+          "estimate": 0.017391,
+          "ci95": [
+            0.005435,
+            0.031522
+          ]
+        },
+        "matchedActionChangeRate": {
+          "estimate": 0.013043,
+          "ci95": [
+            0.006522,
+            0.020109
+          ]
+        },
+        "observedChangeCounts": {
+          "matchedRepeatPairChangeCount": 24,
+          "matchedRepeatPairComparisonCount": 1840,
+          "unitWithAnyMatchedChangeCount": 15,
+          "unitCount": 920
+        }
+      },
+      "counterbalancedOrderGroups": {
+        "0": {
+          "unitCount": 231,
+          "categoricalEnergyDistance": {
+            "estimate": 0.028846,
+            "ci95": [
+              -0.00049,
+              0.067308
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 8,
+            "matchedRepeatPairComparisonCount": 462,
+            "unitWithAnyMatchedChangeCount": 4,
+            "unitCount": 231
+          }
+        },
+        "1": {
+          "unitCount": 228,
+          "categoricalEnergyDistance": {
+            "estimate": 0.01,
+            "ci95": [
+              0.0,
+              0.03
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 4,
+            "matchedRepeatPairComparisonCount": 456,
+            "unitWithAnyMatchedChangeCount": 3,
+            "unitCount": 228
+          }
+        },
+        "2": {
+          "unitCount": 231,
+          "categoricalEnergyDistance": {
+            "estimate": 0.019238,
+            "ci95": [
+              0.0,
+              0.04828
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 8,
+            "matchedRepeatPairComparisonCount": 462,
+            "unitWithAnyMatchedChangeCount": 6,
+            "unitCount": 231
+          }
+        },
+        "3": {
+          "unitCount": 230,
+          "categoricalEnergyDistance": {
+            "estimate": 0.009619,
+            "ci95": [
+              -0.009434,
+              0.033574
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 4,
+            "matchedRepeatPairComparisonCount": 460,
+            "unitWithAnyMatchedChangeCount": 2,
+            "unitCount": 230
+          }
+        }
+      },
+      "semanticActionStabilityAcrossRuns": {
+        "primary-feedback": {
+          "conditionActionChangeCount": 0,
+          "conditionActionComparisonCount": 3680,
+          "conditionActionChangeRate": 0.0,
+          "unitWithAnyConditionActionChangeCount": 0,
+          "unitCount": 920
+        },
+        "identical-control": {
+          "conditionActionChangeCount": 0,
+          "conditionActionComparisonCount": 904,
+          "conditionActionChangeRate": 0.0,
+          "unitWithAnyConditionActionChangeCount": 0,
+          "unitCount": 226
+        }
+      },
+      "counterbalancedGates": {
+        "feedbackExposurePrerequisitePassed": true,
+        "downstreamActionLowerBoundAboveZero": true,
+        "identicalControlUpperBoundBelow005": true,
+        "primaryFailureRateBelow005": true,
+        "controlFailureRateBelow005": true,
+        "bothRecommenderFamilyPointEstimatesAboveZero": true,
+        "conditionOrderBalancePassed": true,
+        "oneStepAgentRecommenderAgentFeedbackGatePassed": true
+      }
+    }
+  },
+  "interpretation": "Both counterbalanced provider-level gates passed. Differences between runs are reported as an endpoint stability diagnostic, not pooled with the confirmatory rerun."
+}

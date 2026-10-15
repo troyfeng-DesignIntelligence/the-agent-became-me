@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "agent-codesign-review.v1",
+  "readBy": "assistant",
+  "readAt": "2026-09-22",
+  "scope": "Only the two elements below were read across all twelve proposals.",
+  "note": "A person read each proposal and recorded the verdict with the sentence it rests on. Every evidence string is checked to appear verbatim in its proposal. The author should re-read the twelve proposals before this reaches a page.",
+  "elements": {
+    "the presentation order": {
+      "deepseek-t0.0-r1": {
+        "verdict": "shown",
+        "evidence": "so the order-dependence is visible rather than hidden"
+      },
+      "deepseek-t0.0-r2": {
+        "verdict": "shown",
+        "evidence": "the choice changed when the options were reordered"
+      },
+      "deepseek-t0.0-r3": {
+        "verdict": "shown",
+        "evidence": "showing the two orderings side by side with the two different selections highlighted"
+      },
+      "deepseek-t1.0-r1": {
+        "verdict": "shown",
+        "evidence": "the selection changed depending on how candidates were ordered"
+      },
+      "deepseek-t1.0-r2": {
+        "verdict": "shown",
+        "evidence": "the same twelve options produced two different selections when only their order changed"
+      },
+      "deepseek-t1.0-r3": {
+        "verdict": "shown",
+        "evidence": "two columns side by side, labeled \"Order A\" and \"Order B,\""
+      },
+      "mimo-t0.0-r1": {
+        "verdict": "hidden",
+        "evidence": "does not show the other candidates considered, the agent's internal confidence score, or the order in which items were presented"
+      },
+      "mimo-t0.0-r2": {
+        "verdict": "hidden",
+        "evidence": "does not show the other candidates considered, the order they were presented in"
+      },
+      "mimo-t0.0-r3": {
+        "verdict": "hidden",
+        "evidence": "does not show the full list of other candidates, the agent's internal confidence score, or the order in which items were presented"
+      },
+      "mimo-t1.0-r1": {
+        "verdict": "hidden",
+        "evidence": "does not show the full list of other items considered, the order in which they were presented"
+      },
+      "mimo-t1.0-r2": {
+        "verdict": "hidden",
+        "evidence": "does not show every candidate considered, internal confidence scores, or the exact order they were presented"
+      },
+      "mimo-t1.0-r3": {
+        "verdict": "shown",
+        "evidence": "an automated agent selected a product based on presentation order"
+      }
+    },
+    "confidence score": {
+      "deepseek-t0.0-r1": {
+        "verdict": "hidden",
+        "evidence": "does not show the agent's confidence score"
+      },
+      "deepseek-t0.0-r2": {
+        "verdict": "hidden",
+        "evidence": "does not show the agent's confidence score"
+      },
+      "deepseek-t0.0-r3": {
+        "verdict": "hidden",
+        "evidence": "the agent's confidence score"
+      },
+      "deepseek-t1.0-r1": {
+        "verdict": "hidden",
+        "evidence": "does not show: the confidence score"
+      },
+      "deepseek-t1.0-r2": {
+        "verdict": "hidden",
+        "evidence": "does not show the agent's confidence score"
+      },
+      "deepseek-t1.0-r3": {
+        "verdict": "hidden",
+        "evidence": "Deliberately not shown: the confidence score"
+      },
+      "mimo-t0.0-r1": {
+        "verdict": "hidden",
+        "evidence": "the agent's internal confidence score"
+      },
+      "mimo-t0.0-r2": {
+        "verdict": "hidden",
+        "evidence": "or the agent's internal confidence score"
+      },
+      "mimo-t0.0-r3": {
+        "verdict": "hidden",
+        "evidence": "the agent's internal confidence score"
+      },
+      "mimo-t1.0-r1": {
+        "verdict": "hidden",
+        "evidence": "any internal confidence scores from the agent"
+      },
+      "mimo-t1.0-r2": {
+        "verdict": "hidden",
+        "evidence": "internal confidence scores"
+      },
+      "mimo-t1.0-r3": {
+        "verdict": "hidden",
+        "evidence": "the technical confidence score"
+      }
+    }
+  }
+}

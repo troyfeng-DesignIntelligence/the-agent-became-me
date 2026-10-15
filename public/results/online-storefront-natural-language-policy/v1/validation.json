@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "online-storefront-natural-language-policy-validation.v1",
+  "generatedAt": "2026-08-07T11:33:06.083442+00:00",
+  "protocolSha256": "c6a356e03e44d5baf3e2a4e1717f6e94a163fe05cead43455fff55f8c547178f",
+  "assessment": "ready-to-share-with-pilot-caveats",
+  "checks": {
+    "rowsAudited": 256,
+    "headlineAggregatesRecomputed": 10,
+    "multistepAggregatesRecomputed": 18
+  },
+  "failureCount": 0,
+  "failures": [],
+  "requiredCaveats": [
+    "This is a 64-task mechanism-extension pilot, not a powered policy-equivalence study.",
+    "Task success and regret use protocol-defined title-token and price constraints, not human utility.",
+    "Steps two and three use a fixed continuation policy, not repeated LLM calls.",
+    "The random-writeback comparison tests recommender sensitivity to event identity; it is not a random-agent behavioral baseline."
+  ]
+}

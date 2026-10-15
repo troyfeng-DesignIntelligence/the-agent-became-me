@@ -1,4 +1,4 @@
-"""Evaluate the frozen v7 recommendation-instrument ablation pilot."""
+"""Evaluate a frozen v7 recommendation-instrument ablation study."""
 
 from __future__ import annotations
 
@@ -129,7 +129,11 @@ def mode_metrics(rows: list[dict]) -> dict[str, float | int]:
 def bootstrap(rows: list[dict], protocol: dict) -> dict:
     clusters = defaultdict(list)
     for row in rows:
-        clusters[(row["category"], row["taskId"], row["modelFamily"])].append(row)
+        # The frozen confirmatory protocol defines the sampling unit as a task.
+        # Keep recommender families and instrument modes paired when a task is
+        # resampled; treating task-family cells as independent understates the
+        # dependence induced by crossing each task with both recommenders.
+        clusters[(row["category"], row["taskId"])].append(row)
     keys_by_category = defaultdict(list)
     for key in sorted(clusters):
         keys_by_category[key[0]].append(key)

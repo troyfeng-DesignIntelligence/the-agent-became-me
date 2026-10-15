@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "order-notice-protocol.v1",
+  "status": "frozen before any provider call",
+  "frozenDate": "2026-09-23",
+  "studyRole": "Post-study design experiment. Not part of the HAI 2026 paper; changes no published number.",
+  "question": "When the platform tells an agent how the shelf was ordered, or tells it to disregard the order, do order-driven choice swaps go away?",
+  "units": {
+    "source": "Study 2 served-order shelves, taken byte-for-byte from the private response cache and verified against public/results/online-storefront-instrument-ablation-confirmatory/v1 (layouts, actions, 88/920 and 68/920 swaps, 3/920 and 2/920 masked controls).",
+    "count": 920,
+    "arms": "immediate-arm order vs held-arm order: same twelve candidates, same features, different platform order (order differs in 900 of 920 units)."
+  },
+  "providers": {
+    "deepseek": "deepseek-v4-flash, /chat/completions, thinking disabled, temperature 0, max_tokens 96, JSON mode (recorded request reused unchanged)",
+    "mimo": "mimo-v2.5, /responses, reasoning effort none, temperature 0, max_output_tokens 96, json_object (recorded request reused unchanged)"
+  },
+  "conditions": [
+    {
+      "id": "N0-none",
+      "label": "No notice",
+      "notice": null
+    },
+    {
+      "id": "N1-disclose",
+      "label": "Disclose",
+      "notice": "The platform set this order using its recommender and this account's history. The order is not based on constraintMatch or taskUtility."
+    },
+    {
+      "id": "N2-instruct",
+      "label": "Disclose + instruct",
+      "notice": "The platform set this order using its recommender and this account's history. The order is not based on constraintMatch or taskUtility. Choose as you would if the candidates were in random order."
+    }
+  ],
+  "manipulation": "One shelf field, aboutOrder, added to the shelf JSON. Canonical key order puts it first, before candidates. Nothing else in the request changes; the system message is the agent's own and is not touched.",
+  "slots": {
+    "immediate-a": "immediate-arm shelf",
+    "immediate-b": "immediate-arm shelf, repeat",
+    "held-a": "held-arm shelf",
+    "held-b": "held-arm shelf, repeat",
+    "sham-a": "immediate-arm shelf again (noise floor)",
+    "sham-b": "immediate-arm shelf again (noise floor)"
+  },
+  "outcomes": {
+    "primary": {
+      "orderSwaps": "S = units where immediate-a == immediate-b, held-a == held-b, and immediate-a != held-a (the paper's recomputed consistent cross-arm swap).",
+      "noiseFloor": "F = the same count with sham-a/sham-b in place of held-a/held-b: four calls of one identical shelf.",
+      "excess": "E = S - F, order-driven swaps above the noise floor.",
+      "removedShare": "R_k = 1 - E_k / E_0 for notice k."
+    },
+    "secondary": [
+      "drift: N0 per-call agreement with the Study 2 action recorded for the identical request; N0 S against the published 88/920 and 68/920",
+      "within-shelf repeat agreement (a == b)",
+      "abandon share; selections with constraintMatch=false",
+      "decision quality of the pick (Study 2 candidate_quality formula)",
+      "share of picks that are the first constraintMatch=true candidate on the shelf; mean shelf position of picks",
+      "the published example unit industrial-and-scientific/03d99ea294e5d4d9/gru4rec under each condition"
+    ],
+    "exploratory": [
+      "reorder check, computed offline from Study 2's recorded decisions (served-order vs masked-control shelf), no new calls"
+    ]
+  },
+  "analysis": {
+    "uncertainty": "Cluster bootstrap over tasks, resampled within category, both recommender families kept together (as in Study 2). 4000 replicates, seed 20260923. Percentile 95% intervals.",
+    "pairedTest": "Exact McNemar on per-unit swap indicators, N0 vs each notice, per provider.",
+    "pooling": "None. Each provider is read on its own."
+  },
+  "decisionRule": {
+    "works": "R_k >= 0.5 and the 95% interval of S_k - S_0 lies entirely below 0.",
+    "partial": "The 95% interval of S_k - S_0 lies entirely below 0 but R_k < 0.5.",
+    "noDetectableEffect": "The 95% interval of S_k - S_0 contains 0.",
+    "backfires": "The 95% interval of S_k - S_0 lies entirely above 0."
+  },
+  "readingsWrittenBeforeRunning": {
+    "bothWork": "A shelf can protect the person: the notice becomes a field of the agent-facing shelf. HELD is still needed for the failure modes order does not cover.",
+    "onlyInstructWorks": "Information alone does not move the agent; an instruction does. Design principle: write to agents in imperatives, not disclosures.",
+    "neitherWorks": "You cannot warn an agent about order. With Study A, labels fail at both ends of the loop; admission control (HELD, reorder check) is what remains.",
+    "backfires": "Reported as found. The notice changes behaviour in a way the platform did not intend; it is not a fix."
+  },
+  "execution": {
+    "shuffleSeed": 20260923,
+    "callOrder": "All calls for a provider (3 conditions x 920 units x 6 slots = 16,560) shuffled together, so time drift falls on every condition equally.",
+    "smokeTest": "First 5 units (sorted), all conditions. Kept in the dataset: the full run reuses those cache entries unchanged.",
+    "invalidOutputPolicy": "As Study 2: up to two retries with the note 'Previous output was invalid. Return only the required JSON object.' appended to the shelf; a third failure is recorded as __PROTOCOL_FAILURE__.",
+    "costCap": {
+      "deepseek": 5.0,
+      "mimo": 40.0
+    },
+    "costCurrency": {
+      "deepseek": "USD",
+      "mimo": "CNY"
+    }
+  },
+  "claimBoundary": "Categorical outputs of two model versions over pseudonymous derived product features in a research storefront, with one added shelf field. Says nothing about human users, other models, other wordings, or production retailers."
+}

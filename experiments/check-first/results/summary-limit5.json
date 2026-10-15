@@ -1,0 +1,346 @@
+{
+  "schemaVersion": "check-first-summary.v1",
+  "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4",
+  "label": "Post-study experiment · September 2026 · 920 product-language shelves",
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront, with plain-language requests built from frozen title-token and price constraints. Success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 5,
+      "unitsWithFeasibleItem": 4,
+      "conditions": {
+        "L0-none": {
+          "S": 1,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "successRate": 1.0,
+          "meanRegret": 0.0,
+          "protocolFailures": 0,
+          "abandons": 4
+        },
+        "L1-check": {
+          "S": 0,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -1,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "removedS": 1.0,
+          "mcnemarS": {
+            "onlyWithout": 1,
+            "onlyWith": 0,
+            "pExact": 1.0
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 0,
+          "deltaU_ci": [
+            0.0,
+            0.0
+          ],
+          "removedU": null,
+          "mcnemarU": {
+            "onlyWithout": 0,
+            "onlyWith": 0,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.6,
+          "meanRegret": 0.4,
+          "protocolFailures": 0,
+          "abandons": 12,
+          "fitChecks": {
+            "callsWithoutChecklist": 20,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 0,
+            "accuracy": 0.0,
+            "precisionTrue": 0.0,
+            "recallTrue": 0.0
+          }
+        },
+        "L2-check-cheapest": {
+          "S": 1,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": 0,
+          "deltaS_ci": [
+            -3.0,
+            3.0
+          ],
+          "removedS": 0.0,
+          "mcnemarS": {
+            "onlyWithout": 1,
+            "onlyWith": 1,
+            "pExact": 1.0
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 0,
+          "deltaU_ci": [
+            0.0,
+            0.0
+          ],
+          "removedU": null,
+          "mcnemarU": {
+            "onlyWithout": 0,
+            "onlyWith": 0,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.75,
+          "meanRegret": 0.25,
+          "protocolFailures": 0,
+          "abandons": 8,
+          "fitChecks": {
+            "callsWithoutChecklist": 20,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 0,
+            "accuracy": 0.0,
+            "precisionTrue": 0.0,
+            "recallTrue": 0.0
+          }
+        }
+      },
+      "api": {
+        "requestCount": 90,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 80796,
+        "outputTokens": 1867,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 0.011834,
+        "currency": "USD"
+      },
+      "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4"
+    },
+    "mimo": {
+      "units": 5,
+      "unitsWithFeasibleItem": 4,
+      "conditions": {
+        "L0-none": {
+          "S": 2,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "successRate": 0.8,
+          "meanRegret": 0.2,
+          "protocolFailures": 0,
+          "abandons": 6
+        },
+        "L1-check": {
+          "S": 1,
+          "F": 0,
+          "U": 1,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            3.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -1,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "removedS": 0.5,
+          "mcnemarS": {
+            "onlyWithout": 2,
+            "onlyWith": 1,
+            "pExact": 1.0
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 1,
+          "deltaU_ci": [
+            0.0,
+            3.0
+          ],
+          "removedU": null,
+          "mcnemarU": {
+            "onlyWithout": 0,
+            "onlyWith": 1,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.7,
+          "meanRegret": 0.3,
+          "protocolFailures": 0,
+          "abandons": 10,
+          "fitChecks": {
+            "callsWithoutChecklist": 0,
+            "tp": 46,
+            "fp": 1,
+            "fn": 18,
+            "tn": 175,
+            "accuracy": 0.9208,
+            "precisionTrue": 0.9787,
+            "recallTrue": 0.7188
+          }
+        },
+        "L2-check-cheapest": {
+          "S": 1,
+          "F": 0,
+          "U": 1,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            3.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -1,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "removedS": 0.5,
+          "mcnemarS": {
+            "onlyWithout": 2,
+            "onlyWith": 1,
+            "pExact": 1.0
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 1,
+          "deltaU_ci": [
+            0.0,
+            3.0
+          ],
+          "removedU": null,
+          "mcnemarU": {
+            "onlyWithout": 0,
+            "onlyWith": 1,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.7,
+          "meanRegret": 0.3,
+          "protocolFailures": 0,
+          "abandons": 10,
+          "fitChecks": {
+            "callsWithoutChecklist": 0,
+            "tp": 46,
+            "fp": 0,
+            "fn": 18,
+            "tn": 176,
+            "accuracy": 0.925,
+            "precisionTrue": 1.0,
+            "recallTrue": 0.7188
+          }
+        }
+      },
+      "api": {
+        "requestCount": 90,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 83952,
+        "outputTokens": 13028,
+        "fingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "observedCost": 0.110008,
+        "currency": "CNY"
+      },
+      "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4"
+    }
+  }
+}

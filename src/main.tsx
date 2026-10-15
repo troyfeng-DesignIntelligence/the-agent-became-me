@@ -7,6 +7,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { OnlineStorefront } from "./online-storefront/OnlineStorefront";
 import { ModelStorefrontV2 } from "./online-storefront-v2/ModelStorefrontV2";
+import { ServiceDesignReview } from "./components/ServiceDesignReview";
 import "./styles.css";
 import "./art-direction.css";
 
@@ -23,6 +24,8 @@ createRoot(root).render(
       <OnlineStorefront />
     ) : requestedView === "storefront-v2" ? (
       <ModelStorefrontV2 />
+    ) : requestedView === "service-design" ? (
+      <ServiceDesignReview />
     ) : (
       <App />
     )}

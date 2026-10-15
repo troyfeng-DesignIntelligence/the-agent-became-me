@@ -27,7 +27,8 @@ as a standardized first event for the next task. The same condition-invariant
 mask was applied to all four histories before the assigned frozen recommender
 emitted a new Top-10. The bridge also replayed the V7 masked-control actions.
 
-The downstream action study served the resulting next shelves to DeepSeek. The
+The downstream action studies served the resulting next shelves back to their
+source providers, DeepSeek and MiMo. The
 held-out item defined a private token-overlap and price-similarity proxy for the
 next task. Provider payloads contained only pseudonymous candidate IDs,
 constraint matches, and four derived scalar features. They did not contain
@@ -47,8 +48,9 @@ masked-control upper bound below 0.02, valid ten-item slates, and positive point
 estimates for both recommender families. The downstream study required a
 positive primary lower bound, a byte-identical-control upper bound below 0.05,
 failure rates below 5%, and positive point estimates for both recommender
-families. All conditions were frozen before the corresponding outcomes were
-computed or provider calls began.
+families. The same frozen downstream gates were used for the MiMo replication.
+All conditions were frozen before the corresponding outcomes were computed or
+provider calls began.
 
 ## Results
 
@@ -59,15 +61,21 @@ served-order direction at 0.025 [0.016, 0.035]. SASRec was 0.018 [0.010,
 0.027], and GRU4Rec was 0.052 [0.034, 0.071]. At least one matched next slate
 changed in 7.5% [5.5%, 9.6%] of DeepSeek task-model units.
 
-The downstream action gate also passed. DeepSeek's categorical distance over
-all 920 primary units was 0.037 [0.020, 0.057]. The byte-identical control over
+The counterbalanced downstream action gate passed for both providers. DeepSeek's categorical distance over
+all 920 primary units was 0.035 [0.017, 0.054]. The byte-identical control over
 226 independently selected units was 0.000 [0.000, 0.000]. SASRec was 0.022
-[0.004, 0.043], and GRU4Rec was 0.052 [0.026, 0.083]. The matched later-action
-change rate was 2.1% [1.1%, 3.1%].
+[0.004, 0.035], and GRU4Rec was 0.052 [0.026, 0.083]. The matched later-action
+change rate was 1.8% [1.0%, 2.8%] (34/1,840 comparisons; 18/920 units with any
+change). MiMo's categorical distance was 0.017
+[0.005, 0.032], with matched-change rate 1.3% [0.7%, 2.0%] and a zero
+byte-identical control. Its SASRec-only interval crossed zero, 0.007 [-0.004,
+0.020], while GRU4Rec was 0.028 [0.009, 0.052]. The provider-level recurrence
+claim therefore does not extend to every recommender subgroup.
 
-All 4,584 downstream calls returned valid actions. There were no retries,
-timeouts, or terminal failures. The recorded cost was $0.474 at the prices
-frozen in the protocol.
+DeepSeek returned 4,584 valid actions without retry. MiMo returned 4,584 valid
+actions from 4,589 requests; five invalid attempts were retried successfully,
+with no timeout or terminal failure. Recorded costs were $0.474 and ¥3.465273
+at the prices frozen in the protocols.
 
 ## Interpretation
 
@@ -79,9 +87,8 @@ recommendation exposure -> later agent choice`.
 This result is narrower than a claim of irreversible or self-reinforcing
 personalization. It establishes one later cycle, not repeated amplification.
 The next-task proxy is derived from one held-out interaction rather than a
-natural-language delegated task. The second action endpoint was run with
-DeepSeek only. No human behavior, purchase, decision benefit, welfare effect,
-or production recommender was measured.
+natural-language delegated task. No human behavior, purchase, decision benefit,
+welfare effect, or production recommender was measured.
 
 ## Claim-evidence map
 
@@ -90,7 +97,7 @@ or production recommender was measured.
 | Order-induced choices change later learned-recommender exposure | DeepSeek bridge 0.035 [0.024, 0.047]; masked control near zero | Supported in the research storefront |
 | The bridge is not confined to one action-source provider | MiMo-sourced bridge 0.025 [0.016, 0.035] | Supported |
 | The bridge is not confined to one recommender family | Positive SASRec and GRU4Rec intervals | Supported |
-| Later exposure changes a second categorical DeepSeek action | 0.037 [0.020, 0.057]; identical control exactly zero | Supported |
+| Later exposure changes a second categorical action | Counterbalanced DeepSeek 0.035 [0.017, 0.054], MiMo 0.017 [0.005, 0.032]; both identical controls zero | Supported at provider level; MiMo SASRec subgroup remains uncertain |
 | The loop amplifies over time | One later cycle only | Needs a new experiment |
 | Outcome gating improves decisions | No calibrated downstream value comparison | Needs a new experiment |
 | The effect applies to people or Amazon | No human or production study | Unsupported; do not claim |
@@ -116,12 +123,16 @@ matched later-action rate is small and is reported rather than hidden.
 
 ### Evaluation completeness
 
-Needs a new experiment for long-run or policy claims. A recursive multi-round
-study, a natural-language next-task benchmark, and a calibrated outcome-gating
-comparison are still absent.
+Needs a new experiment for long-run or policy claims. A 64-task product-language
+extension supplies task-quality outcomes and one deterministic random-writeback
+realization matched on write count and paired-write equality. Random-assignment
+uncertainty was not integrated, the pilot is not powered for equivalence, and
+later steps use a fixed policy.
 
 ### Method design soundness
 
-Pass within the stated testbed. The held-out item is only an intent proxy, and
-the stable independent-call assumption behind categorical energy distance
-cannot be proven from temperature-zero diagnostics.
+Pass within the stated testbed. The held-out item is only an intent proxy. The
+final provider endpoint used a frozen four-row cyclic Latin square within
+category, recommender, and mode strata. The stable independent-call assumption
+behind categorical energy distance cannot be proven from
+temperature-zero diagnostics or the byte-identical controls.

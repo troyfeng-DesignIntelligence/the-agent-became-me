@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-evaluation.v2",
+  "generatedAt": "2026-08-07T16:27:51.448656+00:00",
+  "protocolSha256": "79e0333033245e26b69ca8ebcac1d655f4ac895955cc1f7d291e8fb83a407f04",
+  "evidenceStatus": "one-step-feedback-gate-passed",
+  "results": {
+    "primary-feedback": {
+      "unitCount": 920,
+      "observedChangeCounts": {
+        "matchedRepeatPairChangeCount": 34,
+        "matchedRepeatPairComparisonCount": 1840,
+        "unitWithAnyMatchedChangeCount": 18,
+        "unitCount": 920
+      },
+      "categoricalEnergyDistance": {
+        "estimate": 0.034783,
+        "ci95": [
+          0.017391,
+          0.054348
+        ]
+      },
+      "matchedActionChangeRate": {
+        "estimate": 0.018478,
+        "ci95": [
+          0.009783,
+          0.028261
+        ]
+      },
+      "meanDecisionQuality": {
+        "estimate": 0.505437,
+        "ci95": [
+          0.477739,
+          0.532959
+        ]
+      },
+      "abandonRate": {
+        "estimate": 0.28288,
+        "ci95": [
+          0.247276,
+          0.319022
+        ]
+      },
+      "protocolFailureRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "byRecommenderFamily": {
+        "sasrec": {
+          "unitCount": 460,
+          "categoricalEnergyDistance": {
+            "estimate": 0.017391,
+            "ci95": [
+              0.004348,
+              0.034783
+            ]
+          }
+        },
+        "gru4rec": {
+          "unitCount": 460,
+          "categoricalEnergyDistance": {
+            "estimate": 0.052174,
+            "ci95": [
+              0.026087,
+              0.082609
+            ]
+          }
+        }
+      },
+      "byConditionOrder": {
+        "0": {
+          "unitCount": 231,
+          "categoricalEnergyDistance": {
+            "estimate": 0.014717,
+            "ci95": [
+              0.0,
+              0.03905
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 5,
+            "matchedRepeatPairComparisonCount": 462,
+            "unitWithAnyMatchedChangeCount": 3,
+            "unitCount": 231
+          }
+        },
+        "1": {
+          "unitCount": 228,
+          "categoricalEnergyDistance": {
+            "estimate": 0.04,
+            "ci95": [
+              0.01,
+              0.08
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 8,
+            "matchedRepeatPairComparisonCount": 456,
+            "unitWithAnyMatchedChangeCount": 4,
+            "unitCount": 228
+          }
+        },
+        "2": {
+          "unitCount": 231,
+          "categoricalEnergyDistance": {
+            "estimate": 0.040071,
+            "ci95": [
+              0.009434,
+              0.082108
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 9,
+            "matchedRepeatPairComparisonCount": 462,
+            "unitWithAnyMatchedChangeCount": 5,
+            "unitCount": 231
+          }
+        },
+        "3": {
+          "unitCount": 230,
+          "categoricalEnergyDistance": {
+            "estimate": 0.043993,
+            "ci95": [
+              0.009434,
+              0.087986
+            ]
+          },
+          "observedChangeCounts": {
+            "matchedRepeatPairChangeCount": 12,
+            "matchedRepeatPairComparisonCount": 460,
+            "unitWithAnyMatchedChangeCount": 6,
+            "unitCount": 230
+          }
+        }
+      }
+    },
+    "identical-control": {
+      "unitCount": 226,
+      "observedChangeCounts": {
+        "matchedRepeatPairChangeCount": 0,
+        "matchedRepeatPairComparisonCount": 452,
+        "unitWithAnyMatchedChangeCount": 0,
+        "unitCount": 226
+      },
+      "categoricalEnergyDistance": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "matchedActionChangeRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "meanDecisionQuality": {
+        "estimate": 0.476131,
+        "ci95": [
+          0.431017,
+          0.522044
+        ]
+      },
+      "abandonRate": {
+        "estimate": 0.237864,
+        "ci95": [
+          0.180924,
+          0.298505
+        ]
+      },
+      "protocolFailureRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "callPositionDiagnostic": {
+        "available": true,
+        "pairwisePositionChanges": {
+          "position-1-vs-2": {
+            "changeCount": 0,
+            "comparisonCount": 226,
+            "changeRate": 0.0
+          },
+          "position-1-vs-3": {
+            "changeCount": 0,
+            "comparisonCount": 226,
+            "changeRate": 0.0
+          },
+          "position-1-vs-4": {
+            "changeCount": 0,
+            "comparisonCount": 226,
+            "changeRate": 0.0
+          },
+          "position-2-vs-3": {
+            "changeCount": 0,
+            "comparisonCount": 226,
+            "changeRate": 0.0
+          },
+          "position-2-vs-4": {
+            "changeCount": 0,
+            "comparisonCount": 226,
+            "changeRate": 0.0
+          },
+          "position-3-vs-4": {
+            "changeCount": 0,
+            "comparisonCount": 226,
+            "changeRate": 0.0
+          }
+        }
+      }
+    }
+  },
+  "gates": {
+    "feedbackExposurePrerequisitePassed": true,
+    "downstreamActionLowerBoundAboveZero": true,
+    "identicalControlUpperBoundBelow005": true,
+    "primaryFailureRateBelow005": true,
+    "controlFailureRateBelow005": true,
+    "bothRecommenderFamilyPointEstimatesAboveZero": true,
+    "conditionOrderBalancePassed": true,
+    "oneStepAgentRecommenderAgentFeedbackGatePassed": true
+  },
+  "claimBoundary": "The study concerns DeepSeek outputs over pseudonymous derived features in a frozen research storefront. It does not establish human behavior, purchases, production-retailer effects, long-run amplification, policy benefit, or welfare consequences.",
+  "interpretation": "The research storefront exhibits a measurable one-step recommendation-order to model-selection to recommender-exposure to later-model-selection feedback path for this provider."
+}

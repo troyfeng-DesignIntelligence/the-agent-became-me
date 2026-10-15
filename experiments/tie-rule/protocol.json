@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "tie-rule-protocol.v1",
+  "status": "frozen before any provider call",
+  "frozenDate": "2026-09-25",
+  "studyRole": "Post-study design experiment for the portfolio. Not part of the HAI 2026 paper; changes no published number.",
+  "background": "On the 920 Study 2 shelves, 462 offer at least one candidate with constraintMatch=true. On 452 of them two or more such candidates share the highest taskUtility, so the task does not decide the pick. Every published order-driven swap (88/920 DeepSeek, 68/920 MiMo) was between such tied candidates, and every pick had the highest taskUtility among eligible candidates (924/924 for both providers). Computed 2026-09-25 from artifacts/order-notice/units-*.json and the published Study 2 rows.",
+  "question": "If the task itself says how to break a tie, or lets the agent say that a tie exists, does the shelf order stop deciding the pick, and can the agent report what the task left undecided?",
+  "units": {
+    "source": "The 920 verified Study 2 served-order shelves in artifacts/order-notice/units-<provider>.json (byte-for-byte from the private Study 2 cache).",
+    "selection": "Units whose shelf has at least one candidate with constraintMatch=true.",
+    "expectedCount": 462,
+    "expectedTieUnits": 452,
+    "tieDefinition": "Two or more candidates with constraintMatch=true share the highest taskUtility among such candidates. The tie set is those candidates. Attributes are identical across the two arms; only order differs."
+  },
+  "providers": {
+    "deepseek": "deepseek-v4-flash, /chat/completions, thinking disabled, temperature 0, JSON mode; recorded Study 2 request reused unchanged except as stated per condition",
+    "mimo": "mimo-v2.5, /responses, reasoning effort none, temperature 0, json_object; recorded Study 2 request reused unchanged except as stated per condition"
+  },
+  "conditions": [
+    {
+      "id": "T0-none",
+      "label": "Task as recorded",
+      "shelfFields": {},
+      "outputTokenLimit": null
+    },
+    {
+      "id": "T1-rule",
+      "label": "A tie rule in the task",
+      "shelfFields": {
+        "tieRule": "If more than one candidate satisfies the hard constraint with the same highest taskUtility, select the one whose candidateId comes first in alphabetical order."
+      },
+      "outputTokenLimit": null
+    },
+    {
+      "id": "T2-report",
+      "label": "The agent may report a tie",
+      "shelfFields": {
+        "tieReport": "Also return equallyGoodIds: a list of every candidateId that is exactly as good for this task as your pick (constraintMatch=true and the same highest taskUtility), including your pick."
+      },
+      "outputTokenLimit": 320
+    }
+  ],
+  "manipulation": "Task-level fields added to the shelf JSON next to hardConstraint, serialised in the same canonical key order as Study 2. The agent's own system message is not touched. T2 raises the output token limit from 96 to 320 so the list fits; T0 and T1 keep 96.",
+  "slots": {
+    "immediate-a": "immediate-arm shelf",
+    "immediate-b": "immediate-arm shelf, repeat",
+    "held-a": "held-arm shelf",
+    "held-b": "held-arm shelf, repeat",
+    "sham-a": "immediate-arm shelf again (noise floor)",
+    "sham-b": "immediate-arm shelf again (noise floor)"
+  },
+  "outcomes": {
+    "primary": {
+      "orderSwaps": "S = units where immediate-a == immediate-b, held-a == held-b, and immediate-a != held-a (as in Study 2 and the order-notice experiment).",
+      "noiseFloor": "F = the same count with sham-a/sham-b in place of held-a/held-b.",
+      "excess": "E = S - F.",
+      "removedShare": "R_k = 1 - E_k / E_0.",
+      "ruleCompliance": "T1: share of picks on tie shelves equal to the rule's answer (the alphabetically first candidateId in the tie set).",
+      "tieReportAccuracy": "T2, on tie shelves: exact-set share (reported set equals the tie set), micro precision and recall of reported IDs; on the 10 non-tie shelves: share of calls that report more than one ID."
+    },
+    "secondary": [
+      "T0 drift: per-call agreement with the Study 2 action for the identical request; T0 S against Study 2 on the same units",
+      "within-shelf repeat agreement; abandon share; constraint violations",
+      "share of picks at the highest taskUtility among eligible candidates",
+      "protocol failures, invalid-output retries, and T2 reports that are missing or malformed"
+    ]
+  },
+  "analysis": {
+    "uncertainty": "Cluster bootstrap over tasks, resampled within category, both recommender families kept together. 4000 replicates, seed 20260925. Percentile 95% intervals.",
+    "pairedTest": "Exact McNemar on per-unit swap indicators, T0 vs each condition, per provider.",
+    "pooling": "None. Each provider is read on its own."
+  },
+  "decisionRule": {
+    "swaps": {
+      "works": "R_k >= 0.5 and the 95% interval of S_k - S_0 lies entirely below 0.",
+      "partial": "The 95% interval of S_k - S_0 lies entirely below 0 but R_k < 0.5.",
+      "noDetectableEffect": "The 95% interval of S_k - S_0 contains 0.",
+      "backfires": "The 95% interval of S_k - S_0 lies entirely above 0."
+    },
+    "tieReports": {
+      "usable": "Exact-set share >= 0.8 and precision >= 0.9 on tie shelves.",
+      "partlyUsable": "Recall >= 0.8 but the usable bar is not met.",
+      "notUsable": "Recall < 0.8."
+    }
+  },
+  "readingsWrittenBeforeRunning": {
+    "ruleWorks": "The task, written once at the start, can take the pick away from the shelf. The design moves the tie-break from the platform's order into the person's brief.",
+    "ruleNoEffect": "Even an explicit rule in the task does not override position. Keeping order-decided picks out of the record (hold, re-ask) remains necessary.",
+    "reportsUsable": "The agent can say what the task left undecided. The platform can keep tie-breaks out of the record without a second call.",
+    "reportsNotUsable": "The agent cannot reliably say what the task left undecided; the re-ask check stays.",
+    "backfires": "Reported as found; not presented as a fix."
+  },
+  "execution": {
+    "shuffleSeed": 20260925,
+    "callOrder": "All calls for a provider (3 conditions x 462 units x 6 slots = 8,316) shuffled together.",
+    "smokeTest": "First 5 units (sorted), all conditions; kept in the dataset.",
+    "invalidOutputPolicy": "As Study 2: up to two retries with the note 'Previous output was invalid. Return only the required JSON object.' appended to the shelf; a third failure is recorded as __PROTOCOL_FAILURE__. In T2 a missing or malformed equallyGoodIds does not trigger a retry; it is recorded as no report.",
+    "costCap": {
+      "deepseek": 3.0,
+      "mimo": 20.0
+    },
+    "costCurrency": {
+      "deepseek": "USD",
+      "mimo": "CNY"
+    }
+  },
+  "claimBoundary": "Categorical outputs of two model versions over pseudonymous derived product features in a research storefront, with one added task field. Ties here are exact because taskUtility is coarse; in real briefs ties are rarer, though briefs that leave the choice open are common. Says nothing about human users, other models, other wordings, or production retailers."
+}

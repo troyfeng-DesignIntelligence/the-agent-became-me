@@ -1,0 +1,346 @@
+{
+  "schemaVersion": "check-first-summary.v1",
+  "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4",
+  "label": "Post-study experiment · September 2026 · 920 product-language shelves",
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront, with plain-language requests built from frozen title-token and price constraints. Success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 920,
+      "unitsWithFeasibleItem": 462,
+      "conditions": {
+        "L0-none": {
+          "S": 106,
+          "F": 6,
+          "U": 25,
+          "UF": 1,
+          "S_ci": [
+            86.0,
+            127.0
+          ],
+          "F_ci": [
+            2.0,
+            11.0
+          ],
+          "U_ci": [
+            16.0,
+            35.0
+          ],
+          "UF_ci": [
+            0.0,
+            3.0
+          ],
+          "successRate": 0.9364,
+          "meanRegret": 0.0312,
+          "protocolFailures": 0,
+          "abandons": 1741
+        },
+        "L1-check": {
+          "S": 114,
+          "F": 9,
+          "U": 33,
+          "UF": 3,
+          "S_ci": [
+            93.0,
+            136.0
+          ],
+          "F_ci": [
+            4.0,
+            15.0
+          ],
+          "U_ci": [
+            22.0,
+            45.025
+          ],
+          "UF_ci": [
+            0.0,
+            7.0
+          ],
+          "deltaS": 8,
+          "deltaS_ci": [
+            -17.0,
+            32.0
+          ],
+          "removedS": -0.05,
+          "mcnemarS": {
+            "onlyWithout": 66,
+            "onlyWith": 74,
+            "pExact": 0.554269
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 8,
+          "deltaU_ci": [
+            -5.0,
+            21.0
+          ],
+          "removedU": -0.25,
+          "mcnemarU": {
+            "onlyWithout": 20,
+            "onlyWith": 28,
+            "pExact": 0.312327
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.916,
+          "meanRegret": 0.0717,
+          "protocolFailures": 0,
+          "abandons": 1976,
+          "fitChecks": {
+            "callsWithoutChecklist": 3678,
+            "tp": 4,
+            "fp": 0,
+            "fn": 2,
+            "tn": 18,
+            "accuracy": 0.9167,
+            "precisionTrue": 1.0,
+            "recallTrue": 0.6667
+          }
+        },
+        "L2-check-cheapest": {
+          "S": 119,
+          "F": 6,
+          "U": 26,
+          "UF": 1,
+          "S_ci": [
+            98.0,
+            140.0
+          ],
+          "F_ci": [
+            2.0,
+            11.0
+          ],
+          "U_ci": [
+            17.0,
+            37.0
+          ],
+          "UF_ci": [
+            0.0,
+            3.0
+          ],
+          "deltaS": 13,
+          "deltaS_ci": [
+            -12.0,
+            37.0
+          ],
+          "removedS": -0.13,
+          "mcnemarS": {
+            "onlyWithout": 70,
+            "onlyWith": 83,
+            "pExact": 0.331993
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 1,
+          "deltaU_ci": [
+            -11.0,
+            13.0
+          ],
+          "removedU": -0.0417,
+          "mcnemarU": {
+            "onlyWithout": 20,
+            "onlyWith": 21,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.9372,
+          "meanRegret": 0.0405,
+          "protocolFailures": 0,
+          "abandons": 1839,
+          "fitChecks": {
+            "callsWithoutChecklist": 3679,
+            "tp": 4,
+            "fp": 0,
+            "fn": 1,
+            "tn": 7,
+            "accuracy": 0.9167,
+            "precisionTrue": 1.0,
+            "recallTrue": 0.8
+          }
+        }
+      },
+      "api": {
+        "requestCount": 16479,
+        "cacheHitCount": 90,
+        "transportRetryCount": 9,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 12955716,
+        "outputTokens": 335356,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 1.9077,
+        "currency": "USD"
+      },
+      "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4"
+    },
+    "mimo": {
+      "units": 920,
+      "unitsWithFeasibleItem": 462,
+      "conditions": {
+        "L0-none": {
+          "S": 114,
+          "F": 4,
+          "U": 57,
+          "UF": 2,
+          "S_ci": [
+            95.0,
+            135.0
+          ],
+          "F_ci": [
+            1.0,
+            8.0
+          ],
+          "U_ci": [
+            43.0,
+            72.0
+          ],
+          "UF_ci": [
+            0.0,
+            5.0
+          ],
+          "successRate": 0.8815,
+          "meanRegret": 0.0992,
+          "protocolFailures": 0,
+          "abandons": 1815
+        },
+        "L1-check": {
+          "S": 87,
+          "F": 11,
+          "U": 46,
+          "UF": 6,
+          "S_ci": [
+            68.0,
+            107.0
+          ],
+          "F_ci": [
+            5.0,
+            18.0
+          ],
+          "U_ci": [
+            32.0,
+            61.0
+          ],
+          "UF_ci": [
+            2.0,
+            11.0
+          ],
+          "deltaS": -27,
+          "deltaS_ci": [
+            -50.0,
+            -3.0
+          ],
+          "removedS": 0.3091,
+          "mcnemarS": {
+            "onlyWithout": 86,
+            "onlyWith": 59,
+            "pExact": 0.030482
+          },
+          "readingS": "partial",
+          "deltaU": -11,
+          "deltaU_ci": [
+            -28.0,
+            7.0
+          ],
+          "removedU": 0.2727,
+          "mcnemarU": {
+            "onlyWithout": 45,
+            "onlyWith": 34,
+            "pExact": 0.260426
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.8549,
+          "meanRegret": 0.1253,
+          "protocolFailures": 0,
+          "abandons": 2064,
+          "fitChecks": {
+            "callsWithoutChecklist": 170,
+            "tp": 5771,
+            "fp": 861,
+            "fn": 2344,
+            "tn": 33141,
+            "accuracy": 0.9239,
+            "precisionTrue": 0.8702,
+            "recallTrue": 0.7112
+          }
+        },
+        "L2-check-cheapest": {
+          "S": 100,
+          "F": 4,
+          "U": 62,
+          "UF": 4,
+          "S_ci": [
+            81.0,
+            122.0
+          ],
+          "F_ci": [
+            0.0,
+            9.0
+          ],
+          "U_ci": [
+            47.0,
+            79.0
+          ],
+          "UF_ci": [
+            0.0,
+            9.0
+          ],
+          "deltaS": -14,
+          "deltaS_ci": [
+            -38.0,
+            10.0
+          ],
+          "removedS": 0.1273,
+          "mcnemarS": {
+            "onlyWithout": 81,
+            "onlyWith": 67,
+            "pExact": 0.285217
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 5,
+          "deltaU_ci": [
+            -14.0,
+            25.0
+          ],
+          "removedU": -0.0545,
+          "mcnemarU": {
+            "onlyWithout": 44,
+            "onlyWith": 49,
+            "pExact": 0.678532
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.8867,
+          "meanRegret": 0.091,
+          "protocolFailures": 0,
+          "abandons": 2026,
+          "fitChecks": {
+            "callsWithoutChecklist": 125,
+            "tp": 6055,
+            "fp": 992,
+            "fn": 2040,
+            "tn": 33573,
+            "accuracy": 0.9289,
+            "precisionTrue": 0.8592,
+            "recallTrue": 0.748
+          }
+        }
+      },
+      "api": {
+        "requestCount": 98,
+        "cacheHitCount": 16462,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 79064,
+        "outputTokens": 2572,
+        "fingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "observedCost": 0.084208,
+        "currency": "CNY"
+      },
+      "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-validation.v1",
+  "generatedAt": "2026-08-07T12:07:50.778998+00:00",
+  "protocolSha256": "245a37188fe19efe0f865e91f30f62063bce195161d6790d8d2f13c38758ac60",
+  "assessment": "ready-to-share-with-scope-caveats",
+  "checks": {
+    "rowsAudited": 1146,
+    "headlineAggregatesRecomputed": 10,
+    "familyAggregatesRecomputed": 2
+  },
+  "recomputedCost": 3.465273,
+  "failureCount": 0,
+  "failures": [],
+  "requiredCaveats": [
+    "The pooled MiMo endpoint interval excludes zero, but the SASRec-only interval does not.",
+    "The prespecified recurrence gate required positive recommender-family point estimates, not positive family-specific interval bounds.",
+    "The endpoint uses pseudonymous derived candidate features and a held-out-item proxy, not natural product language or human utility.",
+    "This is a one-step model-recommender-model path and does not establish long-run amplification or production effects."
+  ]
+}

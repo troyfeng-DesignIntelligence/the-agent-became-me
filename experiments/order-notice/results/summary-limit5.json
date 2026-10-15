@@ -1,0 +1,454 @@
+{
+  "schemaVersion": "order-notice-summary.v1",
+  "protocolSha256": "df82e8ce97139c05c16cc04bd99676cda476e0bb509858a65a6f6f62a7c8ed56",
+  "label": "Post-study experiment · September 2026 · same 920 Study 2 shelves",
+  "claimBoundary": "Categorical outputs of two model versions over pseudonymous derived product features in a research storefront, with one added shelf field. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 5,
+      "conditions": {
+        "N0-none": {
+          "S": 0,
+          "F": 0,
+          "E": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "E_ci": [
+            0.0,
+            0.0
+          ],
+          "swapFileIndices": [],
+          "shamFileIndices": [],
+          "repeatAgreement": [
+            14,
+            15
+          ],
+          "abandonShare": 0.2,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.7266,
+          "firstEligibleShareOfPicks": 0.5,
+          "meanPickPosition": 7.375,
+          "swapArmsTakingFirstEligible": [
+            0,
+            0
+          ]
+        },
+        "N1-disclose": {
+          "S": 0,
+          "F": 0,
+          "E": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "E_ci": [
+            0.0,
+            0.0
+          ],
+          "swapFileIndices": [],
+          "shamFileIndices": [],
+          "deltaS": 0,
+          "deltaS_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaE": 0,
+          "deltaE_ci": [
+            0.0,
+            0.0
+          ],
+          "R": null,
+          "R_ci": null,
+          "mcnemar": {
+            "swapOnlyWithoutNotice": 0,
+            "swapOnlyWithNotice": 0,
+            "pExact": 1.0
+          },
+          "reading": "no detectable effect",
+          "repeatAgreement": [
+            14,
+            15
+          ],
+          "abandonShare": 0.2,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.715,
+          "firstEligibleShareOfPicks": 0.5625,
+          "meanPickPosition": 7.125,
+          "swapArmsTakingFirstEligible": [
+            0,
+            0
+          ]
+        },
+        "N2-instruct": {
+          "S": 0,
+          "F": 0,
+          "E": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "E_ci": [
+            0.0,
+            0.0
+          ],
+          "swapFileIndices": [],
+          "shamFileIndices": [],
+          "deltaS": 0,
+          "deltaS_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaE": 0,
+          "deltaE_ci": [
+            0.0,
+            0.0
+          ],
+          "R": null,
+          "R_ci": null,
+          "mcnemar": {
+            "swapOnlyWithoutNotice": 0,
+            "swapOnlyWithNotice": 0,
+            "pExact": 1.0
+          },
+          "reading": "no detectable effect",
+          "repeatAgreement": [
+            15,
+            15
+          ],
+          "abandonShare": 0.2,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.72,
+          "firstEligibleShareOfPicks": 0.5,
+          "meanPickPosition": 7.25,
+          "swapArmsTakingFirstEligible": [
+            0,
+            0
+          ]
+        }
+      },
+      "driftAgainstStudy2": {
+        "perCallAgreement": [
+          13,
+          20
+        ],
+        "study2Swaps": 1,
+        "rerunSwaps": 0,
+        "unitTransitions": {
+          "swap->swap": 0,
+          "swap->none": 1,
+          "none->swap": 0,
+          "none->none": 4
+        },
+        "mcnemarPExact": 1.0
+      },
+      "exampleUnit": {
+        "unit": "industrial-and-scientific/03d99ea294e5d4d9/gru4rec",
+        "study2": {
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "held-a": "P-297F1137",
+          "held-b": "P-297F1137"
+        },
+        "N0-none": {
+          "held-a": "P-028899B8",
+          "held-b": "P-028899B8",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        },
+        "N1-disclose": {
+          "held-a": "P-028899B8",
+          "held-b": "P-028899B8",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        },
+        "N2-instruct": {
+          "held-a": "P-028899B8",
+          "held-b": "P-028899B8",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        }
+      },
+      "reorderCheckFromStudy2": {
+        "note": "Exploratory, offline, Study 2 decisions only. Check = re-ask with the masked-control shelf (same candidates, neutral order); hold the choice if the pick differs.",
+        "immediateArmChoicesHeld": [
+          1,
+          5
+        ],
+        "orderSwapUnits": 1,
+        "inSwapUnitsImmediatePickHeld": 0,
+        "inSwapUnitsHeldPickHeld": 1,
+        "noiseFlagsOnIdenticalShelves": [
+          0,
+          15
+        ]
+      },
+      "api": {
+        "requestCount": 90,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 72546,
+        "outputTokens": 1944,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 0.010701,
+        "currency": "USD"
+      },
+      "protocolSha256": "df82e8ce97139c05c16cc04bd99676cda476e0bb509858a65a6f6f62a7c8ed56"
+    },
+    "mimo": {
+      "units": 5,
+      "conditions": {
+        "N0-none": {
+          "S": 2,
+          "F": 0,
+          "E": 2,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "E_ci": [
+            0.0,
+            3.0
+          ],
+          "swapFileIndices": [
+            0,
+            2
+          ],
+          "shamFileIndices": [],
+          "repeatAgreement": [
+            13,
+            15
+          ],
+          "abandonShare": 0.2,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.6982,
+          "firstEligibleShareOfPicks": 0.3125,
+          "meanPickPosition": 8.75,
+          "swapArmsTakingFirstEligible": [
+            2,
+            4
+          ]
+        },
+        "N1-disclose": {
+          "S": 1,
+          "F": 0,
+          "E": 1,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "E_ci": [
+            0.0,
+            3.0
+          ],
+          "swapFileIndices": [
+            0
+          ],
+          "shamFileIndices": [],
+          "deltaS": -1,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "deltaE": -1,
+          "deltaE_ci": [
+            -3.0,
+            0.0
+          ],
+          "R": 0.5,
+          "R_ci": [
+            0.0,
+            1.0
+          ],
+          "mcnemar": {
+            "swapOnlyWithoutNotice": 1,
+            "swapOnlyWithNotice": 0,
+            "pExact": 1.0
+          },
+          "reading": "no detectable effect",
+          "repeatAgreement": [
+            14,
+            15
+          ],
+          "abandonShare": 0.2,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.675,
+          "firstEligibleShareOfPicks": 0.3125,
+          "meanPickPosition": 8.75,
+          "swapArmsTakingFirstEligible": [
+            1,
+            2
+          ]
+        },
+        "N2-instruct": {
+          "S": 2,
+          "F": 0,
+          "E": 2,
+          "S_ci": [
+            0.0,
+            6.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "E_ci": [
+            0.0,
+            6.0
+          ],
+          "swapFileIndices": [
+            0,
+            1
+          ],
+          "shamFileIndices": [],
+          "deltaS": 0,
+          "deltaS_ci": [
+            -3.0,
+            3.0
+          ],
+          "deltaE": 0,
+          "deltaE_ci": [
+            -3.0,
+            3.0
+          ],
+          "R": 0.0,
+          "R_ci": [
+            -1.0,
+            1.0
+          ],
+          "mcnemar": {
+            "swapOnlyWithoutNotice": 1,
+            "swapOnlyWithNotice": 1,
+            "pExact": 1.0
+          },
+          "reading": "no detectable effect",
+          "repeatAgreement": [
+            14,
+            15
+          ],
+          "abandonShare": 0.2,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.68,
+          "firstEligibleShareOfPicks": 0.5,
+          "meanPickPosition": 8.0,
+          "swapArmsTakingFirstEligible": [
+            2,
+            4
+          ]
+        }
+      },
+      "driftAgainstStudy2": {
+        "perCallAgreement": [
+          13,
+          20
+        ],
+        "study2Swaps": 2,
+        "rerunSwaps": 2,
+        "unitTransitions": {
+          "swap->swap": 2,
+          "swap->none": 0,
+          "none->swap": 0,
+          "none->none": 3
+        },
+        "mcnemarPExact": 1.0
+      },
+      "exampleUnit": {
+        "unit": "industrial-and-scientific/03d99ea294e5d4d9/gru4rec",
+        "study2": {
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "held-a": "P-297F1137",
+          "held-b": "P-297F1137"
+        },
+        "N0-none": {
+          "held-a": "P-297F1137",
+          "held-b": "P-297F1137",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        },
+        "N1-disclose": {
+          "held-a": "P-297F1137",
+          "held-b": "P-297F1137",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        },
+        "N2-instruct": {
+          "held-a": "P-297F1137",
+          "held-b": "P-297F1137",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        }
+      },
+      "reorderCheckFromStudy2": {
+        "note": "Exploratory, offline, Study 2 decisions only. Check = re-ask with the masked-control shelf (same candidates, neutral order); hold the choice if the pick differs.",
+        "immediateArmChoicesHeld": [
+          2,
+          5
+        ],
+        "orderSwapUnits": 2,
+        "inSwapUnitsImmediatePickHeld": 1,
+        "inSwapUnitsHeldPickHeld": 1,
+        "noiseFlagsOnIdenticalShelves": [
+          0,
+          15
+        ]
+      },
+      "api": {
+        "requestCount": 90,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 70182,
+        "outputTokens": 2248,
+        "fingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "observedCost": 0.074678,
+        "currency": "CNY"
+      },
+      "protocolSha256": "df82e8ce97139c05c16cc04bd99676cda476e0bb509858a65a6f6f62a7c8ed56"
+    }
+  }
+}

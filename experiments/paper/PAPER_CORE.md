@@ -28,11 +28,12 @@ only the order of the same candidate records changed categorical choices in
 both tested provider models. Candidate-order sensitivity is established in
 prior LLM ranking work; the paper does not claim to discover position bias.
 
-The V8 follow-up traces that difference through one additional cycle. V7
+The feedback follow-up traces that difference through one additional cycle. V7
 choices were written back to the same frozen recommender, which changed later
-Top-10 exposure. Serving those later shelves to DeepSeek changed a second
-categorical choice distribution. This supports a one-step feedback path inside
-the research storefront, not a claim about long-run amplification or people.
+Top-10 exposure. Serving those later shelves to their source providers changed
+a second categorical choice distribution for both DeepSeek and MiMo. This
+supports a one-step feedback path inside the research storefront, not a claim
+about long-run amplification or people.
 
 ## Research questions
 
@@ -61,8 +62,8 @@ and does not define human utility or harmlessness.
 
 The V8 bridge writes each V7 selection into the same frozen SASRec or GRU4Rec
 history, adds one standardized held-out next event, and measures the next
-Top-10. A second confirmatory DeepSeek study serves those next shelves under a
-held-out intent proxy. Both stages retain all 920 task-model units rather than
+Top-10. Two confirmatory provider studies serve those next shelves under a
+held-out intent proxy. Every stage retains all 920 task-model units rather than
 selecting cases that already diverged.
 
 ## Evidence retained in the paper
@@ -75,7 +76,8 @@ selecting cases that already diverged.
 | Natural-frame LLM action study | Complete: 7,360 valid calls | Immediate versus held activation changed categorical output distributions in both tested provider models |
 | V7 confirmatory instrument ablation | Complete: 29,440 valid calls | Order-only exposure changed categorical agent choices; this does not establish decision quality or human effects |
 | V8 deterministic writeback bridge | Complete: 3,680 public rows, no provider calls | Order-induced choices changed a later slate in both learned recommenders and both V7 action-source providers |
-| V8 downstream-agent confirmation | Complete: 4,584 valid calls | The later shelves changed a second DeepSeek choice distribution under a held-out next-task proxy |
+| Downstream-agent confirmation | Complete for DeepSeek and MiMo: 9,168 valid actions | The later shelves changed a second choice distribution for both providers under a held-out next-task proxy |
+| Product-language policy extension | Pilot: 1,024 valid calls | Order sensitivity recurred; quality intervals included zero; selected-writeback point estimates did not consistently exceed one matched random realization, which is not an equivalence test |
 | Control interface | Implemented design response | No usability, trust, comprehension, or preference claim |
 
 ## Completed result: activation changed rankings
@@ -208,9 +210,9 @@ The complete study used all 460 frozen tasks, crossed with SASRec and GRU4Rec,
 for 920 task-model units per provider. It made 29,440 valid calls with no
 failures or timeouts.
 
-DeepSeek's categorical energy distance was 0.193 [0.155, 0.233] for served
+DeepSeek's categorical energy distance was 0.193 [0.151, 0.239] for served
 order and 0.004 [-0.003, 0.013] for the masked control. MiMo's served-order
-estimate was 0.147 [0.115, 0.183], versus 0.000 [-0.007, 0.008] for the masked
+estimate was 0.147 [0.110, 0.187], versus 0.000 [-0.007, 0.008] for the masked
 control. All changes were selected-candidate swaps.
 
 Both frozen DeepSeek gates passed, and MiMo supplied a same-direction robustness
@@ -240,17 +242,20 @@ a served-order estimate of 0.035 [0.024, 0.047], compared with 0.000
 changed in 7.5% [5.5%, 9.6%] of DeepSeek task-model units.
 
 The second stage asks whether the changed shelf alters another agent choice.
-All 920 units were retained. The held-out next item defined private token-overlap
-and price-similarity features; titles, tokens, raw item IDs, and the held-out
-item were not sent. DeepSeek made four calls per unit. A hash-selected set of
-226 units also received four calls over one byte-identical state, yielding
-4,584 valid calls with no failures or timeouts.
+Both provider runs retained all 920 units. The held-out next item defined
+private token-overlap and price-similarity features; titles, tokens, raw item
+IDs, and the held-out item were not sent. In each run, a hash-selected set of
+226 units also received four calls over one byte-identical state. DeepSeek and
+MiMo each produced 4,584 valid actions; MiMo required five successful retries
+and had no terminal failure.
 
-The downstream categorical action distance was 0.037 [0.020, 0.057]. The
-byte-identical control was 0.000 [0.000, 0.000]. Estimates were positive for
-SASRec, 0.022 [0.004, 0.043], and GRU4Rec, 0.052 [0.026, 0.083]. The matched
-later-action change rate was 2.1% [1.1%, 3.1%]. All frozen exposure, action,
-control, reliability, and recommender-recurrence gates passed.
+DeepSeek's counterbalanced downstream categorical action distance was 0.035
+[0.017, 0.054], with matched-change rate 1.8% [1.0%, 2.8%] (34/1,840 matched
+repeat-pair comparisons; 18/920 units with any change). MiMo's was 0.017 [0.005, 0.032],
+with matched-change rate 1.3% [0.7%, 2.0%]. Both byte-identical controls were
+zero. MiMo's provider-level gate passed and both family point estimates were
+positive, but its SASRec-only interval crossed zero: 0.007 [-0.004, 0.020].
+GRU4Rec was 0.028 [0.009, 0.052].
 
 Together, V7 and V8 establish a one-step path in this testbed:
 `learned recommendation order -> provider choice -> recommender writeback ->
@@ -258,6 +263,22 @@ next recommendation exposure -> later provider choice`. The result is a
 measurable model-system feedback path. It is not evidence that the effect grows
 over repeated cycles, changes human preferences, improves or harms decisions,
 or occurs in a production retailer.
+
+## Product-language policy extension
+
+A 64-task extension crossed the same two recommenders with both providers,
+producing 128 task-model units, of which 60 contained a feasible offered item.
+It served ordinary-language requests plus 12 cleaned title, brand, and price
+records. Order-only categorical distances were 0.309 [0.180, 0.453] for
+DeepSeek and 0.289 [0.180, 0.414] for MiMo. Holding-minus-immediate success
+differences were 0.031 [-0.008, 0.078] and 0.023 [-0.016, 0.066]; regret and
+failure intervals also included zero. A fixed three-step continuation showed
+recommender-state differences. Selected-event point estimates did not
+consistently exceed one deterministic random realization matched on write count
+and paired-write equality. Random-baseline assignment uncertainty was not
+integrated, so this pilot supports product-language order sensitivity but
+establishes neither policy equivalence nor the presence or absence of
+selection-specific amplification.
 
 ## State and behavior are different estimands
 
@@ -310,38 +331,40 @@ decisions or that people prefer this control.
   are not records of delegated shopping.
 - Models and candidate construction belong to a research storefront, not a
   retailer's production system.
-- LLMs received pseudonymous derived features, not rendered commerce pages or
-  natural-language product descriptions.
+- The confirmatory LLM studies used pseudonymous derived features, not rendered
+  commerce pages. The extension used cleaned product language but remained a
+  64-task research-storefront pilot.
 - The V8 next task is a proxy derived from one held-out chronological item. It
   is not a natural-language delegated task or verified user intent.
-- V8 traces one later cycle. It does not estimate repeated amplification,
-  equilibrium behavior, accumulated value, or reversibility after several
-  rounds.
-- The downstream action confirmation uses DeepSeek only. MiMo recurs at the
-  writeback-to-slate bridge but not at the second action endpoint.
+- The confirmatory chain traces one later cycle. The extension propagates three
+  recommender steps with a fixed continuation policy, not repeated LLM calls;
+  it does not estimate equilibrium behavior or accumulated value.
+- Both providers recur at the downstream action endpoint, but MiMo's
+  SASRec-only interval crosses zero.
 - The v6 action contrast is the effect of a composite instrument containing
   arm-dependent platform-rank, inspection, and inspection-conditioned novelty.
-  V7 isolated and confirmed an order-only signal. Neither study used a rendered
-  shelf or natural-language product presentation.
+  V7 isolated and confirmed an order-only signal. Neither confirmatory study
+  used a rendered shelf; the small extension used product language.
 - Two repeated calls per arm require stable, mutually independent provider
   draws for the categorical-distance interpretation; call diagnostics cannot
   prove those assumptions.
 - Checkpoint-seed strata are descriptive because tasks were assigned to one of
   three seeds rather than fully crossed with all seeds.
 - The old 32-task LLM pilot is invalidated and supplies no action estimate.
-- The new quality score is a protocol-defined surrogate over offered candidates,
-  not human utility.
+- The quality and product-language token-and-price scores are protocol-defined
+  surrogates, not human utility. The pilot policy intervals cannot establish
+  equivalence or safety.
 - The interface has not been tested for comprehension, trust, control, or use.
 
 ## Claim decision
 
-The DeepSeek interval excluded zero, MiMo produced a same-direction estimate
-whose interval also excluded zero, provider failures were 0%, and both
-worst-case decision-quality intervals remained above -0.05. The study is
-therefore eligible for the bounded model-action claim stated above. It is not
-eligible for claims about people, Amazon, trained-model deletion, irreversible
-platform state, or actor provenance. V7 supports the bounded phrase
-"recommendation-order-induced agent choice divergence" for categorical outputs
-in this research storefront. V8 supports a measurable one-step
-agent-recommender-agent feedback path. Neither study establishes human outcomes,
-long-run amplification, decision benefit or harm, or production-retailer effects.
+Both providers' final provider-level intervals excluded zero, both
+byte-identical controls were zero, and protocol-failure gates passed. The paper
+is eligible for the bounded model-action claim stated above, while preserving
+the MiMo SASRec subgroup caveat. It is not eligible for claims about people,
+Amazon, trained-model deletion, irreversible platform state, or actor
+provenance. V7 supports “recommendation-order-induced agent choice divergence”
+for categorical outputs in this storefront; the follow-up supports a measurable
+one-step agent-recommender-agent feedback path. The product-language pilot does
+not establish policy equivalence, safety, selection-specific amplification,
+human outcomes, or production-retailer effects.

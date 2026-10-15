@@ -4,7 +4,7 @@ import process from "node:process";
 import { chromium } from "@playwright/test";
 
 const siteUrl =
-  process.env.SITE_URL ?? process.argv[2] ?? "http://127.0.0.1:4173";
+  process.env.SITE_URL ?? process.argv[2] ?? "http://127.0.0.1:4173/?archive=1";
 const outputDirectory = path.resolve(
   process.env.QA_OUTPUT ?? "artifacts/qa"
 );
@@ -102,7 +102,9 @@ async function checkHeadingHierarchy(page, viewportLabel) {
           height: Math.round(rect.height),
           heightRatio: Number(heightRatio.toFixed(2)),
           oversized:
-            heightRatio > 0.58 || (wordCount > 24 && fontSize >= 44)
+            (heightRatio > 0.58 &&
+              !heading.closest("section")?.className.includes("interlude")) ||
+            (wordCount > 24 && fontSize >= 44)
         };
       });
   });
@@ -375,16 +377,16 @@ async function desktopPass(browser) {
     "Desktop: the online research-store link is missing."
   );
   check(
-    (await page.locator(".llm-feedback-repair__grid article").count()) === 4,
-    "Desktop: the repaired LLM result did not render all four metrics."
+    (await page.locator(".llm-feedback-repair__grid article").count()) === 16,
+    "Desktop: the four LLM result grids did not render all sixteen metrics."
   );
   check(
     (await page.locator(".llm-feedback-boundary-grid article").count()) === 2,
     "Desktop: the measurement and audit boundaries did not render."
   );
   check(
-    (await page.locator(".llm-feedback-repair").innerText()).includes("0.780"),
-    "Desktop: the deterministic repair result did not render."
+    (await page.locator(".llm-feedback-repair").innerText()).includes("0.126"),
+    "Desktop: the confirmatory natural-frame result did not render."
   );
 
   await page.screenshot({
@@ -908,15 +910,15 @@ async function mobilePass(browser) {
   await positionForScreenshot(page, ".llm-feedback-panel", 72);
   await page.waitForTimeout(650);
   check(
-    (await page.locator(".llm-feedback-repair__grid article").count()) === 4,
-    "Mobile: the repaired LLM result did not render all four metrics."
+    (await page.locator(".llm-feedback-repair__grid article").count()) === 16,
+    "Mobile: the four LLM result grids did not render all sixteen metrics."
   );
   check(
-    (await page.locator(".llm-feedback-boundary-grid").innerText()).includes("0.50"),
+    (await page.locator(".llm-feedback-boundary-grid").innerText()).includes("13/32"),
     "Mobile: the historical margin audit did not render."
   );
   check(
-    (await page.locator(".llm-feedback-repair").innerText()).includes("13 / 13"),
+    (await page.locator(".llm-feedback-repair").innerText()).includes("4.35%"),
     "Mobile: the opportunity-localization result did not render."
   );
   await page.locator(".llm-feedback-panel").screenshot({

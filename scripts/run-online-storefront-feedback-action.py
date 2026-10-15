@@ -1,7 +1,7 @@
-"""Run the frozen V8 downstream-agent feedback experiment.
+"""Run a frozen downstream-agent feedback experiment.
 
-Dry-run is the default. Live execution requires an explicit USD cost cap. Only
-pseudonymous candidate IDs and derived scalar features are sent to DeepSeek.
+Dry-run is the default. Live execution requires an explicit provider-currency
+cost cap. Only pseudonymous candidate IDs and derived scalar features are sent.
 """
 
 from __future__ import annotations
@@ -11,6 +11,7 @@ import hashlib
 import importlib.util
 import json
 import math
+import time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -65,16 +66,101 @@ def load_protocol(path: Path) -> tuple[dict, str]:
 def provider_spec(protocol: dict) -> dict:
     row = protocol["provider"]
     return {
-        "provider": row["provider"],
+        "provider": provider_name(protocol),
         "inputPricePerMillion": float(row["inputPricePerMillion"]),
         "outputPricePerMillion": float(row["outputPricePerMillion"]),
         "priceCurrency": row["priceCurrency"],
     }
 
 
+def provider_name(protocol: dict) -> str:
+    value = protocol["provider"]["provider"]
+    return "mimo" if value == "xiaomi-mimo" else value
+
+
 def control_selected(category: str, task_id: str, family: str) -> bool:
     key = f"{category}/{task_id}/{family}/downstream-control"
     return int(sha256(key.encode("utf-8"))[:16], 16) % 4 == 0
+
+
+def assign_call_orders(units: list[dict], protocol: dict) -> None:
+    """Assign semantic conditions to positions without changing the estimand.
+
+    Legacy protocols retain their historical fixed order. Counterbalanced
+    protocols supply a four-row cyclic Latin square. Within every
+    category-by-recommender-by-mode stratum, units are hash-sorted and assigned
+    round-robin with a deterministic stratum offset, so order counts differ by
+    at most one.
+    """
+    design = protocol["decisionInstrument"].get("conditionOrderDesign")
+    for unit in units:
+        unit["callOrders"] = {}
+        unit["conditionOrderIndices"] = {}
+    if not design:
+        for unit in units:
+            for mode in ["primary-feedback", "identical-control"]:
+                if mode == "primary-feedback" or unit["controlSelected"]:
+                    unit["callOrders"][mode] = list(CONDITIONS)
+                    unit["conditionOrderIndices"][mode] = 0
+        return
+
+    orders = design.get("orders")
+    if not isinstance(orders, list) or len(orders) != len(CONDITIONS):
+        raise RuntimeError("Counterbalanced protocols require four condition orders")
+    if any(sorted(order) != sorted(CONDITIONS) for order in orders):
+        raise RuntimeError("Every condition order must contain each semantic condition exactly once")
+    for position in range(len(CONDITIONS)):
+        if sorted(order[position] for order in orders) != sorted(CONDITIONS):
+            raise RuntimeError("Condition orders are not a Latin square")
+
+    salt = str(design.get("assignmentSalt", "feedback-action-counterbalance-v1"))
+    for mode in ["primary-feedback", "identical-control"]:
+        eligible = [
+            unit for unit in units
+            if mode == "primary-feedback" or unit["controlSelected"]
+        ]
+        strata: dict[tuple[str, str], list[dict]] = defaultdict(list)
+        for unit in eligible:
+            strata[(unit["category"], unit["modelFamily"])].append(unit)
+        for (category, family), rows in strata.items():
+            rows.sort(
+                key=lambda unit: sha256(
+                    f"{salt}/{mode}/{category}/{family}/{unit['taskId']}".encode("utf-8")
+                )
+            )
+            offset = int(
+                sha256(f"{salt}/{mode}/{category}/{family}/offset".encode("utf-8"))[:16],
+                16,
+            ) % len(orders)
+            for index, unit in enumerate(rows):
+                order_index = (index + offset) % len(orders)
+                unit["callOrders"][mode] = list(orders[order_index])
+                unit["conditionOrderIndices"][mode] = order_index
+
+
+def assigned_modes(unit: dict, protocol: dict) -> list[str]:
+    modes = ["primary-feedback"] + (["identical-control"] if unit["controlSelected"] else [])
+    design = protocol["decisionInstrument"].get("conditionOrderDesign")
+    if len(modes) == 2 and design and design.get("counterbalanceModeOrder"):
+        salt = str(design.get("assignmentSalt", "feedback-action-counterbalance-v1"))
+        key = f"{salt}/mode-order/{unit['category']}/{unit['taskId']}/{unit['modelFamily']}"
+        if int(sha256(key.encode("utf-8"))[:16], 16) % 2:
+            modes.reverse()
+    return modes
+
+
+def response_metadata(artifact_root: Path, cache_key: str) -> dict:
+    response_path = artifact_root / "responses" / f"{cache_key}.json"
+    if not response_path.exists():
+        return {"returnedModel": None, "systemFingerprint": None, "attemptCount": 0}
+    payload = json.loads(response_path.read_text(encoding="utf-8"))
+    response = payload.get("response") or {}
+    attempts = list((artifact_root / "attempts").glob(f"{cache_key}-*.json"))
+    return {
+        "returnedModel": response.get("model") if isinstance(response.get("model"), str) else None,
+        "systemFingerprint": legacy.response_fingerprint(response),
+        "attemptCount": len(attempts),
+    }
 
 
 def price_similarity(left: float | None, right: float | None) -> float:
@@ -160,7 +246,10 @@ def next_slates(
 def primary_units(protocol: dict):
     v7_protocol = json.loads((ROOT / protocol["source"]["v7Protocol"]).read_text(encoding="utf-8"))
     candidate_limit = int(v7_protocol["decisionInstrument"]["candidateLimit"])
-    action_payload = json.loads((ROOT / protocol["source"]["v7DeepSeekRows"]).read_text(encoding="utf-8"))
+    action_path = protocol["source"].get("v7ActionRows", protocol["source"].get("v7DeepSeekRows"))
+    if not action_path:
+        raise RuntimeError("Protocol source must define v7ActionRows or v7DeepSeekRows")
+    action_payload = json.loads((ROOT / action_path).read_text(encoding="utf-8"))
     action_rows = {
         (row["category"], row["taskId"], row["modelFamily"]): row
         for row in action_payload["rows"]
@@ -201,29 +290,17 @@ def sent_state(state: dict) -> dict:
 
 
 def payload_for_state(env: dict[str, str], protocol: dict, state: dict) -> dict:
-    instructions = (
-        "You control a shopping agent in a research storefront. "
-        "The user has started a new shopping session represented only by derived candidate features. "
-        "Satisfy hard constraints first, then maximize task utility. "
-        "Choose exactly one allowed action: select or abandon. "
-        "Use only candidateId values present in the input. "
-        "Return only compact JSON with keys action, candidateId, and confidence. "
-        "candidateId must be null for abandon. Do not add explanation or markdown. "
-        'Return JSON shaped exactly like {"action":"select|abandon",'
-        '"candidateId":"P-XXXXXXXX or null","confidence":0.0}.'
-    )
-    return {
-        "model": legacy.model_id(env, "deepseek"),
-        "messages": [
-            {"role": "system", "content": instructions},
-            {"role": "user", "content": json.dumps(sent_state(state), sort_keys=True, separators=(",", ":"))},
-        ],
-        "max_tokens": int(protocol["decisionInstrument"]["maximumOutputTokens"]),
-        "stream": False,
-        "thinking": {"type": "disabled"},
-        "temperature": 0,
-        "response_format": {"type": "json_object"},
-    }
+    provider = provider_name(protocol)
+    payload = legacy.request_payload(env, provider, "forced-inspection", "terminal", sent_state(state))
+    if provider == "mimo":
+        payload["instructions"] += (
+            ' Return JSON shaped exactly like {"action":"select|abandon",'
+            '"candidateId":"P-XXXXXXXX or null","confidence":0.0}.'
+        )
+    token_limit = int(protocol["decisionInstrument"]["maximumOutputTokens"])
+    payload["max_output_tokens" if provider == "mimo" else "max_tokens"] = token_limit
+    payload["temperature"] = 0
+    return payload
 
 
 def action_label(action: dict) -> str:
@@ -260,7 +337,11 @@ def preflight(protocol: dict, protocol_hash: str) -> dict:
     failures = []
     counts = defaultdict(int)
     state_hashes = set()
-    for unit in primary_units(protocol):
+    units = list(primary_units(protocol))
+    assign_call_orders(units, protocol)
+    order_counts: dict[str, int] = defaultdict(int)
+    mode_order_counts: dict[str, int] = defaultdict(int)
+    for unit in units:
         counts["units"] += 1
         counts["controlUnits"] += int(unit["controlSelected"])
         counts["nextSlateChangedUnits"] += int(unit["nextSlateChanged"])
@@ -272,11 +353,34 @@ def preflight(protocol: dict, protocol_hash: str) -> dict:
             if not all(set(row) == {"candidateId", "constraintMatch", "taskUtility", "intentSimilarity", "priceSimilarity", "historyNovelty"} for row in state["candidates"]):
                 failures.append(f"feature-schema:{unit['category']}:{unit['taskId']}:{unit['modelFamily']}:{condition}")
             state_hashes.add(sha256(canonical(state)))
+        modes = assigned_modes(unit, protocol)
+        mode_order_counts["->".join(modes)] += 1
+        for mode, order_index in unit["conditionOrderIndices"].items():
+            key = f"{mode}/{unit['category']}/{unit['modelFamily']}/order-{order_index}"
+            order_counts[key] += 1
     expected = int(protocol["sampling"]["taskModelUnitCount"])
     if counts["units"] != expected:
         failures.append(f"unit-count:{counts['units']}!=expected:{expected}")
     if not bridge_summary.get("gates", {}).get("feedbackExposureGatePassed"):
         failures.append("feedback-exposure-prerequisite-failed")
+    design = protocol["decisionInstrument"].get("conditionOrderDesign")
+    if design:
+        for mode in ["primary-feedback", "identical-control"]:
+            relevant = [unit for unit in units if mode == "primary-feedback" or unit["controlSelected"]]
+            for category in protocol["sampling"]["categories"]:
+                for family in protocol["sampling"]["recommenderFamiliesPerTask"]:
+                    stratum = [
+                        order_counts[f"{mode}/{category}/{family}/order-{index}"]
+                        for index in range(len(CONDITIONS))
+                    ]
+                    expected_units = sum(
+                        unit["category"] == category and unit["modelFamily"] == family
+                        for unit in relevant
+                    )
+                    if sum(stratum) != expected_units or (stratum and max(stratum) - min(stratum) > 1):
+                        failures.append(
+                            f"condition-order-balance:{mode}:{category}:{family}:{stratum}"
+                        )
     counts["primaryCalls"] = counts["units"] * int(protocol["decisionInstrument"]["primaryCallsPerUnit"])
     counts["controlCalls"] = counts["controlUnits"] * int(protocol["decisionInstrument"]["controlCallsPerSelectedUnit"])
     counts["maximumCalls"] = counts["primaryCalls"] + counts["controlCalls"]
@@ -287,6 +391,8 @@ def preflight(protocol: dict, protocol_hash: str) -> dict:
         "passed": not failures,
         "counts": dict(counts),
         "distinctPrimaryStateCount": len(state_hashes),
+        "conditionOrderCounts": dict(sorted(order_counts.items())),
+        "modeOrderCounts": dict(sorted(mode_order_counts.items())),
         "failures": failures,
         "privacy": "Only pseudonymous candidate IDs and derived scalar features enter provider payloads.",
     }
@@ -318,11 +424,12 @@ def dry_run(protocol: dict, env: dict[str, str], preflight_result: dict) -> dict
     input_tokens = math.ceil(len(canonical(payload)) / 3) * requests
     output_tokens = int(protocol["decisionInstrument"]["maximumOutputTokens"]) * requests
     cost = input_tokens / 1_000_000 * spec["inputPricePerMillion"] + output_tokens / 1_000_000 * spec["outputPricePerMillion"]
+    provider = provider_name(protocol)
     return {
         "mode": "dry-run-no-api-call",
-        "provider": "deepseek",
-        "model": legacy.model_id(env, "deepseek"),
-        "apiKeyPresent": bool(legacy.api_key(env, "deepseek")),
+        "provider": provider,
+        "model": legacy.model_id(env, provider),
+        "apiKeyPresent": bool(legacy.api_key(env, provider)),
         "maximumRequestCount": requests,
         "estimatedMaximumInputTokens": input_tokens,
         "estimatedMaximumOutputTokens": output_tokens,
@@ -357,20 +464,24 @@ def main() -> None:
     if preflight_result["protocolSha256"] != protocol_hash or not preflight_result["passed"]:
         raise RuntimeError("A passing preflight for the exact frozen protocol is required")
 
-    env = legacy.provider_env("deepseek")
+    provider = provider_name(protocol)
+    if provider not in {"deepseek", "mimo"}:
+        raise RuntimeError(f"Unsupported provider: {provider}")
+    env = legacy.provider_env(provider)
     estimate = dry_run(protocol, env, preflight_result)
     estimate["protocolSha256"] = protocol_hash
     print(json.dumps(estimate, indent=2), flush=True)
     if not args.execute:
         return
-    if not legacy.api_key(env, "deepseek"):
-        raise RuntimeError("DeepSeek API key is missing")
+    if not legacy.api_key(env, provider):
+        raise RuntimeError(f"{provider} API key is missing")
     if args.accept_cost_cap is None or args.accept_cost_cap <= 0:
         raise RuntimeError("Live calls require a positive --accept-cost-cap")
     if not 1 <= args.workers <= 16:
         raise RuntimeError("--workers must be between 1 and 16")
 
     units = list(primary_units(protocol))
+    assign_call_orders(units, protocol)
     spec = provider_spec(protocol)
     artifact_root = ROOT / protocol["outputs"]["artifactRoot"]
     output = ROOT / protocol["outputs"]["publicRoot"]
@@ -382,7 +493,7 @@ def main() -> None:
     rows = []
 
     def execute_unit(unit: dict):
-        modes = ["primary-feedback"] + (["identical-control"] if unit["controlSelected"] else [])
+        modes = assigned_modes(unit, protocol)
         unit_call_count = len(modes) * len(CONDITIONS)
         local = defaultdict(int)
         local["latencies"] = []
@@ -396,19 +507,26 @@ def main() -> None:
             actions = {}
             hashes = {}
             decision_qualities = {}
-            for condition in CONDITIONS:
+            call_order = unit["callOrders"][mode]
+            call_audit = {}
+            for position, condition in enumerate(call_order, 1):
                 state = states[condition]
                 aliases = {row["candidateId"] for row in state["candidates"]}
                 payload = payload_for_state(env, protocol, state)
+                cache_scope = f"feedback-action/{mode}/{unit['category']}/{unit['taskId']}/{unit['modelFamily']}/{condition}"
+                expected_cache_key = sha256(canonical({"provider": provider, "scope": cache_scope, "payload": payload}))
+                cache_existed_before = (artifact_root / "responses" / f"{expected_cache_key}.json").exists()
+                started_at = datetime.now(timezone.utc).isoformat()
+                started_monotonic = time.monotonic()
                 try:
                     call = legacy.provider_call(
                         env,
-                        "deepseek",
+                        provider,
                         spec,
                         payload,
                         aliases,
                         "terminal",
-                        f"feedback-action/{mode}/{unit['category']}/{unit['taskId']}/{unit['modelFamily']}/{condition}",
+                        cache_scope,
                         local,
                         artifact_root,
                     )
@@ -420,15 +538,28 @@ def main() -> None:
                     actions[condition] = {"action": "failure", "candidateId": None}
                     hashes[condition] = sha256(str(error).encode("utf-8"))
                     local["terminalFailureCount"] += 1
+                completed_at = datetime.now(timezone.utc).isoformat()
+                metadata = response_metadata(artifact_root, hashes[condition])
+                call_audit[condition] = {
+                    "position": position,
+                    "startedAt": started_at,
+                    "completedAt": completed_at,
+                    "elapsedSeconds": round(time.monotonic() - started_monotonic, 6),
+                    "cacheHit": cache_existed_before,
+                    **metadata,
+                }
                 decision_qualities[condition] = action_quality(state, qualities[condition], actions[condition])
             unit_rows.append(
                 {
-                    "provider": "deepseek",
+                    "provider": provider,
                     "category": unit["category"],
                     "taskId": unit["taskId"],
                     "modelFamily": unit["modelFamily"],
                     "modelSeed": unit["modelSeed"],
                     "mode": mode,
+                    "conditionOrderIndex": unit["conditionOrderIndices"][mode],
+                    "callOrder": call_order,
+                    "callAudit": call_audit,
                     "nextSlateChanged": unit["nextSlateChanged"],
                     **contrast(actions),
                     "decisionQualities": decision_qualities,
@@ -458,8 +589,8 @@ def main() -> None:
         "schemaVersion": "online-storefront-feedback-action-run-summary.v1",
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "protocolSha256": protocol_hash,
-        "provider": "deepseek",
-        "model": legacy.model_id(env, "deepseek"),
+        "provider": provider,
+        "model": legacy.model_id(env, provider),
         "taskModelUnitCount": len(units),
         "rowCount": len(rows),
         "api": {

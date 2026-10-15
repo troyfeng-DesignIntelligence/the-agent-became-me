@@ -3,46 +3,27 @@ import type { CrossTaskExposureSummary } from "../data";
 import {
   CROSS_TASK_SCENARIOS,
   simulateCrossTaskExposure,
-  type CrossTaskOutcome
+  type CrossTaskOutcome,
+  type ExposureSnapshot
 } from "../amazon/cross-task-exposure";
-import type { AmazonLifecycleCondition } from "../amazon/field-lifecycle";
 
-const CONTROL_CONDITIONS = [
-  "persist-all",
-  "intent-weighted",
-  "outcome-quarantine",
-  "rollback-on-failure",
-  "scope-gated"
-] as const satisfies readonly AmazonLifecycleCondition[];
+type ServiceArm = "immediate" | "held";
 
-const conditionCopy: Record<
-  (typeof CONTROL_CONDITIONS)[number],
-  { label: string; short: string; description: string }
+const armCopy: Record<
+  ServiceArm,
+  { index: string; label: string; rule: string; condition: "rollback-on-failure" | "outcome-quarantine" }
 > = {
-  "persist-all": {
-    label: "Learn now",
-    short: "NOW",
-    description: "Every exploratory action can immediately shape recommendations."
+  immediate: {
+    index: "A",
+    label: "Write now, remove later",
+    rule: "The action becomes ranking input before the task result is known.",
+    condition: "rollback-on-failure"
   },
-  "intent-weighted": {
-    label: "Reduce exploration",
-    short: "SOFT",
-    description: "Searches and views count less, but can still cross task boundaries."
-  },
-  "outcome-quarantine": {
-    label: "Hold until outcome",
-    short: "HOLD",
-    description: "Evidence stays outside the profile until the task result is known."
-  },
-  "rollback-on-failure": {
-    label: "Undo on failure",
-    short: "UNDO",
-    description: "Evidence applies immediately, then is removed if the task is abandoned."
-  },
-  "scope-gated": {
-    label: "Purchase only",
-    short: "BUY",
-    description: "Only an explicit completed purchase can update the profile."
+  held: {
+    index: "B",
+    label: "Hold before outcome",
+    rule: "The action remains task-local until the task result is known.",
+    condition: "outcome-quarantine"
   }
 };
 
@@ -50,52 +31,143 @@ interface CrossTaskControlLabProps {
   summary: CrossTaskExposureSummary;
 }
 
+function stateForArm(
+  arm: ServiceArm,
+  afterOutcome: boolean,
+  outcome: CrossTaskOutcome
+) {
+  if (!afterOutcome) {
+    return arm === "immediate"
+      ? { label: "ACTIVE", detail: "Eligible for ranking now", tone: "active" }
+      : { label: "HELD", detail: "Not eligible for ranking", tone: "held" };
+  }
+  if (outcome === "completed") {
+    return {
+      label: arm === "immediate" ? "RETAINED" : "COMMITTED",
+      detail: "Eligible for later ranking",
+      tone: "active"
+    };
+  }
+  return arm === "immediate"
+    ? {
+        label: "REMOVED",
+        detail: "Deleted after provisional exposure",
+        tone: "removed"
+      }
+    : {
+        label: "DISCARDED",
+        detail: "Never entered ranking input",
+        tone: "discarded"
+      };
+}
+
+function Surface({
+  arm,
+  snapshot,
+  comparison,
+  temporaryTopic
+}: {
+  arm: ServiceArm;
+  snapshot: ExposureSnapshot;
+  comparison: ExposureSnapshot;
+  temporaryTopic: string;
+}) {
+  return (
+    <div className="activation-gate-surface">
+      <header>
+        <span>AGENT-FACING SHELF</span>
+        <output>
+          {snapshot.temporaryTopicExposure} / 6 task-topic slots
+        </output>
+      </header>
+      <div className="activation-gate-items">
+        {snapshot.recommendations.map((item, index) => {
+          const isTemporary = item.topic === temporaryTopic;
+          const shifted = item.id !== comparison.recommendations[index]?.id;
+          return (
+            <div
+              className={`activation-gate-item ${isTemporary ? "is-task" : "is-other"} ${shifted ? "is-shifted" : ""}`}
+              key={`${arm}-${item.id}`}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{item.label}</strong>
+              <small>{isTemporary ? "task match" : "profile fallback"}{shifted ? " · position changed" : ""}</small>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function CrossTaskControlLab({ summary }: CrossTaskControlLabProps) {
   const [scenarioId, setScenarioId] = useState(CROSS_TASK_SCENARIOS[0].id);
-  const [condition, setCondition] =
-    useState<(typeof CONTROL_CONDITIONS)[number]>("persist-all");
   const [outcome, setOutcome] = useState<CrossTaskOutcome>("abandoned");
   const [timelineIndex, setTimelineIndex] = useState(3);
+  const [showMobileDetails, setShowMobileDetails] = useState(false);
   const scenario =
     CROSS_TASK_SCENARIOS.find((item) => item.id === scenarioId) ??
     CROSS_TASK_SCENARIOS[0];
-  const run = useMemo(
-    () => simulateCrossTaskExposure(scenario, condition, 17, outcome),
-    [condition, outcome, scenario]
-  );
-  const snapshot = run.snapshots[timelineIndex] ?? run.snapshots[0];
-  const aggregate = summary.conditions.find(
-    (row) => row.condition === condition
-  );
-  const isAfterOutcome = snapshot.phase === "follow-up";
-  const temporaryProfile = snapshot.profile[scenario.temporaryTopic];
-  const taskBoundaryIndex = 4;
 
-  const status = (() => {
-    if (!isAfterOutcome && condition === "outcome-quarantine") {
-      return "Evidence held outside profile";
-    }
-    if (!isAfterOutcome) return "Profile may affect this surface";
-    if (outcome === "abandoned" && condition === "rollback-on-failure") {
-      return "Temporary evidence removed";
-    }
-    if (outcome === "abandoned" && condition === "outcome-quarantine") {
-      return "Held evidence discarded";
-    }
-    if (condition === "scope-gated") return "No purchase evidence to retain";
-    return "Temporary evidence remains active";
-  })();
+  const runs = useMemo(
+    () => ({
+      immediate: simulateCrossTaskExposure(
+        scenario,
+        armCopy.immediate.condition,
+        8,
+        outcome
+      ),
+      held: simulateCrossTaskExposure(
+        scenario,
+        armCopy.held.condition,
+        8,
+        outcome
+      )
+    }),
+    [outcome, scenario]
+  );
+
+  const snapshots = {
+    immediate: runs.immediate.snapshots[timelineIndex] ?? runs.immediate.snapshots[0],
+    held: runs.held.snapshots[timelineIndex] ?? runs.held.snapshots[0]
+  };
+  const afterOutcome = snapshots.immediate.phase === "follow-up";
+  const changedPositions = snapshots.immediate.recommendations.filter(
+    (item, index) => item.id !== snapshots.held.recommendations[index]?.id
+  ).length;
+  const immediateState = stateForArm("immediate", afterOutcome, outcome);
+  const heldState = stateForArm("held", afterOutcome, outcome);
+  const immediateAggregate = summary.conditions.find(
+    (row) => row.condition === armCopy.immediate.condition
+  );
+  const heldAggregate = summary.conditions.find(
+    (row) => row.condition === armCopy.held.condition
+  );
+  const stepLabel = afterOutcome
+    ? `Next-task shelf ${snapshots.immediate.round} / 8`
+    : `Delegated-task action ${snapshots.immediate.round} / 4`;
+  const readoutText =
+    afterOutcome && outcome === "abandoned"
+      ? "Both policies now produce the same clean state. Only one had already made the provisional action eligible for ranking."
+      : afterOutcome
+        ? "The completed outcome admits the held action. Both paths now make it eligible for later ranking."
+        : `${changedPositions} of 6 shelf positions differ while the task is still unresolved. The agent action is identical; only eligibility timing changed.`;
 
   return (
-    <div className="cross-task-control-lab">
-      <div className="cross-task-control-bar">
+    <section
+      aria-labelledby="activation-gate-title"
+      className={`cross-task-control-lab activation-gate-lab ${showMobileDetails ? "is-mobile-details-open" : ""}`}
+    >
+      <h3 className="sr-only" id="activation-gate-title">Outcome-gate eligibility replay</h3>
+      <div className="activation-gate-controls">
         <label>
-          <span>TEMPORARY TASK</span>
+          <span>DELEGATED BRIEF</span>
           <select
             aria-label="Temporary delegated task"
             onChange={(event) => {
               setScenarioId(event.target.value);
               setTimelineIndex(3);
+              setShowMobileDetails(false);
             }}
             value={scenario.id}
           >
@@ -106,8 +178,8 @@ export function CrossTaskControlLab({ summary }: CrossTaskControlLabProps) {
             ))}
           </select>
         </label>
-        <div aria-label="Task outcome" className="cross-task-outcome" role="group">
-          <span>OUTCOME</span>
+        <div aria-label="Outcome to replay" className="activation-gate-outcome" role="group">
+          <span>OUTCOME TO REPLAY</span>
           {(["abandoned", "completed"] as const).map((value) => (
             <button
               aria-pressed={outcome === value}
@@ -121,136 +193,163 @@ export function CrossTaskControlLab({ summary }: CrossTaskControlLabProps) {
         </div>
       </div>
 
-      <div className="cross-task-contracts" aria-label="Profile lifecycle rule">
-        {CONTROL_CONDITIONS.map((id) => (
-          <button
-            aria-pressed={condition === id}
-            className={condition === id ? "is-active" : ""}
-            key={id}
-            onClick={() => setCondition(id)}
-            type="button"
-          >
-            <span>{conditionCopy[id].short}</span>
-            <strong>{conditionCopy[id].label}</strong>
-            <small>{conditionCopy[id].description}</small>
-          </button>
-        ))}
+      <div className="activation-gate-authority" aria-label="Proposed outcome resolution authority">
+        <span className="mono-label">PROPOSED SERVICE AUTHORITY</span>
+        <dl>
+          <div><dt>REPORTER</dt><dd>Agent submits an outcome claim</dd></div>
+          <div><dt>RESOLVER</dt><dd>Principal confirms or overrides</dd></div>
+          <div><dt>NO RESPONSE</dt><dd>Contract discards at deadline</dd></div>
+          <div><dt>RECOVERY</dt><dd>Service ops issue a source-linked receipt</dd></div>
+        </dl>
       </div>
 
-      <div className="cross-task-stage">
-        <article className="cross-task-brief">
-          <span className="mono-label">
-            {isAfterOutcome ? "NEXT / PERSONAL TASK" : "TEMPORARY / DELEGATED TASK"}
-          </span>
-          <h4>{isAfterOutcome ? scenario.followUpBrief : scenario.temporaryBrief}</h4>
-          <p>{conditionCopy[condition].description}</p>
-          <div className="cross-task-status">
-            <i className={isAfterOutcome ? "is-after" : ""} />
-            <span>{status}</span>
-          </div>
-        </article>
-
-        <article className="cross-task-shelf">
-          <header>
-            <span className="mono-label">RECOMMENDATION SURFACE</span>
-            <output>
-              {snapshot.temporaryTopicExposure} / 6 temporary-topic slots
-            </output>
-          </header>
-          <div className="cross-task-items">
-            {snapshot.recommendations.map((item, index) => {
-              const isTemporary = item.topic === scenario.temporaryTopic;
-              const isCurrent = item.topic === "everyday-home";
-              return (
-                <div
-                  className={`cross-task-item ${
-                    isTemporary ? "is-temporary" : isCurrent ? "is-current" : ""
-                  }`}
-                  key={item.id}
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{item.label}</strong>
-                  <small>
-                    {isTemporary
-                      ? isAfterOutcome
-                        ? "from previous task"
-                        : "temporary task"
-                      : isCurrent
-                        ? "serves current task"
-                        : "other topic"}
-                  </small>
-                </div>
-              );
-            })}
-          </div>
-        </article>
-
-        <aside className="cross-task-meter">
-          <span className="mono-label">TEMPORARY TOPIC IN PROFILE</span>
-          <strong>{temporaryProfile.toFixed(2)}</strong>
-          <div>
-            <i style={{ transform: `scaleX(${Math.min(1, temporaryProfile / 1.2)})` }} />
-          </div>
-          <dl>
-            <div>
-              <dt>Mean later slots</dt>
-              <dd>{aggregate?.meanPostTaskExposureCount.toFixed(2) ?? "-"}</dd>
-            </div>
-            <div>
-              <dt>Mean first clean round</dt>
-              <dd>{aggregate?.meanFirstCleanRound.toFixed(2) ?? "-"}</dd>
-            </div>
-            <div>
-              <dt>Current-task share</dt>
-              <dd>
-                {aggregate
-                  ? `${(aggregate.meanCurrentTaskRecommendationShare * 100).toFixed(1)}%`
-                  : "-"}
-              </dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-
-      <div className="cross-task-timeline">
+      <div className="activation-gate-trace">
         <div>
-          <span>
-            {snapshot.phase === "provisional"
-              ? `Temporary action ${snapshot.round} / 4`
-              : `Personal follow-up ${snapshot.round} / 8`}
-          </span>
-          <span>Task outcome resolved after step {taskBoundaryIndex}</span>
+          <span className="mono-label">SHARED INPUT / SAME AGENT TRACE</span>
+          <strong>{scenario.temporaryBrief}</strong>
+        </div>
+        <ol aria-label="Service timeline">
+          {["SEARCH", "VIEW", "VIEW", "ADD TO CART"].map((label, index) => (
+            <li
+              aria-current={timelineIndex === index ? "step" : undefined}
+              className={timelineIndex === index ? "is-current" : ""}
+              key={`${label}-${index}`}
+            >
+              <span>A{index + 1}</span>
+              <small>{label}</small>
+            </li>
+          ))}
+          <li
+            aria-current={timelineIndex === 4 ? "step" : undefined}
+            className={`is-gate ${timelineIndex === 4 ? "is-current" : ""}`}
+          >
+            <span>T2</span>
+            <small>OUTCOME GATE</small>
+          </li>
+          <li
+            aria-current={timelineIndex > 4 ? "step" : undefined}
+            className={timelineIndex > 4 ? "is-current" : ""}
+          >
+            <span>T3</span>
+            <small>NEXT TASK</small>
+          </li>
+        </ol>
+      </div>
+
+      <div className="activation-gate-timeline">
+        <div>
+          <span>{stepLabel}</span>
+          <span>Drag across T2 to compare the same action before and after resolution</span>
         </div>
         <input
           aria-label="Cross-task timeline"
-          aria-valuetext={
-            snapshot.phase === "provisional"
-              ? `Temporary task action ${snapshot.round} of 4`
-              : `Personal follow-up recommendation round ${snapshot.round} of 8`
-          }
-          max={run.snapshots.length - 1}
+          aria-valuetext={stepLabel}
+          max={runs.immediate.snapshots.length - 1}
           min={0}
           onChange={(event) => setTimelineIndex(Number(event.target.value))}
           style={
             {
               "--cross-task-progress": `${
-                (timelineIndex / Math.max(1, run.snapshots.length - 1)) * 100
+                (timelineIndex / Math.max(1, runs.immediate.snapshots.length - 1)) * 100
               }%`,
               "--cross-task-boundary": `${
-                ((taskBoundaryIndex - 0.5) / (run.snapshots.length - 1)) * 100
+                ((4 - 0.5) / (runs.immediate.snapshots.length - 1)) * 100
               }%`
             } as React.CSSProperties
           }
           type="range"
           value={timelineIndex}
         />
+        <div className="activation-gate-ticks" aria-hidden="true">
+          <span>A1</span><span>A2</span><span>A3</span><span>A4</span><span>T2</span><span>T3 × 8</span>
+        </div>
+        <div className="activation-gate-mobile-summary">
+          <div><span>A / WRITE NOW</span><strong>{immediateState.label}</strong><small>{snapshots.immediate.temporaryTopicExposure}/6 task slots</small></div>
+          <div><span>B / HOLD</span><strong>{heldState.label}</strong><small>{snapshots.held.temporaryTopicExposure}/6 task slots</small></div>
+          <p>{changedPositions}/6 shelf positions differ</p>
+          <button
+            aria-expanded={showMobileDetails}
+            onClick={() => setShowMobileDetails((current) => !current)}
+            type="button"
+          >
+            {showMobileDetails ? "Hide full shelves" : "Inspect both shelves"}
+          </button>
+        </div>
+      </div>
+
+      <div className="activation-gate-blueprint" aria-label="Paired service blueprint">
+        {(["immediate", "held"] as const).map((arm) => {
+          const copy = armCopy[arm];
+          const state = arm === "immediate" ? immediateState : heldState;
+          const snapshot = snapshots[arm];
+          const profileMass = snapshot.profile[scenario.temporaryTopic];
+          return (
+            <article className={`activation-gate-arm is-${arm}`} key={arm}>
+              <header>
+                <span>{copy.index} / SERVICE POLICY</span>
+                <h4>{copy.label}</h4>
+                <p>{copy.rule}</p>
+              </header>
+              <dl className="activation-gate-state-grid">
+                <div>
+                  <dt>TASK MEMORY</dt>
+                  <dd>{afterOutcome ? "CLOSED" : "IN USE"}</dd>
+                  <small>Agent can finish the current task</small>
+                </div>
+                <div>
+                  <dt>AUDIT LOG</dt>
+                  <dd>RECORDED</dd>
+                  <small>Action remains reviewable</small>
+                </div>
+                <div className={`is-${state.tone}`}>
+                  <dt>RANKING INPUT</dt>
+                  <dd>{state.label}</dd>
+                  <small>{state.detail}</small>
+                </div>
+              </dl>
+              <Surface
+                arm={arm}
+                snapshot={snapshot}
+                comparison={snapshots[arm === "immediate" ? "held" : "immediate"]}
+                temporaryTopic={scenario.temporaryTopic}
+              />
+              <footer>
+                <div>
+                  <span>PROFILE MASS</span>
+                  <strong>{profileMass.toFixed(2)}</strong>
+                </div>
+                <div>
+                  <span>RANKING STATE</span>
+                  <strong>{state.label}</strong>
+                </div>
+              </footer>
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="activation-gate-readout">
+        <span className="sr-only" role="status">{readoutText}</span>
+        <span className="mono-label">WHAT CHANGED AT THIS CHECKPOINT</span>
+        <p>{readoutText}</p>
+        <div>
+          <span>FROZEN AGGREGATE / {immediateAggregate?.runCount ?? 200} RUNS PER POLICY</span>
+          <strong>
+            +{summary.observedComparisons.rollbackVsQuarantineProvisionalExposureDifference.toFixed(2)}
+          </strong>
+          <small>mean provisional excess slots for write-now versus hold</small>
+          <em>
+            Later slots after abandonment: {immediateAggregate?.meanPostTaskExposureCount.toFixed(0) ?? "0"} / {heldAggregate?.meanPostTaskExposureCount.toFixed(0) ?? "0"}
+          </em>
+        </div>
       </div>
 
       <p className="cross-task-prototype-boundary">
-        Instrument, not usability evidence: these controls manipulate the executable
-        recommender model. No participant has evaluated whether the labels are
-        understandable, desirable, or sufficient.
+        Executable design prototype, not participant evidence. The paired replay uses
+        the same frozen scenario, catalog seed, agent actions, and outcome; only the
+        event-eligibility rule changes. Aggregate values come from the controlled
+        synthetic experiment.
       </p>
-    </div>
+    </section>
   );
 }

@@ -1,0 +1,378 @@
+{
+  "schemaVersion": "vote-facts-summary.v1",
+  "protocolSha256": "751710d53f249c2b954827256e63b286c0c35f0f8af96f085c81eebf0028256f",
+  "label": "Post-study experiments · October 2026 · 920 product-language shelves",
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront. Fit facts are derived from frozen title tokens and prices; success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 5,
+      "vote": {
+        "P0-admitAll": {
+          "selections": 4,
+          "wrongSelections": 0,
+          "rightSelections": 4,
+          "wrongWritten": 0,
+          "heldShare": 0.0
+        },
+        "P1-oneReask": {
+          "randomOrders": {
+            "held": 2,
+            "caught": 0,
+            "falseHeld": 2,
+            "catchRate": 0.0,
+            "catchRate_ci": null,
+            "falseHoldRate": 0.5,
+            "falseHoldRate_ci": [
+              0.0,
+              1.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "identicalShelfNoise": {
+            "held": 0,
+            "caught": 0,
+            "falseHeld": 0,
+            "catchRate": 0.0,
+            "catchRate_ci": null,
+            "falseHoldRate": 0.0,
+            "falseHoldRate_ci": [
+              0.0,
+              0.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "reading": "weak"
+        },
+        "P2-twoReasks": {
+          "randomOrders": {
+            "held": 2,
+            "caught": 0,
+            "falseHeld": 2,
+            "catchRate": 0.0,
+            "catchRate_ci": null,
+            "falseHoldRate": 0.5,
+            "falseHoldRate_ci": [
+              0.0,
+              1.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "identicalShelfNoise": {
+            "held": 0,
+            "caught": 0,
+            "falseHeld": 0,
+            "catchRate": 0.0,
+            "catchRate_ci": null,
+            "falseHoldRate": 0.0,
+            "falseHoldRate_ci": [
+              0.0,
+              0.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "reading": "weak"
+        },
+        "orderCausedWrongServedPicks": {
+          "units": 0,
+          "heldByOneReask": 0
+        }
+      },
+      "facts": {
+        "L0-none": {
+          "S": 2,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "successRate": 1.0,
+          "meanRegret": 0.0,
+          "abandons": 4,
+          "protocolFailures": 0
+        },
+        "F1-facts": {
+          "S": 0,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -2,
+          "deltaS_ci": [
+            -3.0,
+            0.0
+          ],
+          "removedS": 1.0,
+          "mcnemarS": {
+            "onlyWithout": 2,
+            "onlyWith": 0,
+            "pExact": 0.5
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 0,
+          "deltaU_ci": [
+            0.0,
+            0.0
+          ],
+          "removedU": null,
+          "mcnemarU": {
+            "onlyWithout": 0,
+            "onlyWith": 0,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 1.0,
+          "meanRegret": 0.0,
+          "abandons": 4,
+          "protocolFailures": 0
+        }
+      },
+      "driftAgainstCheckFirstL0": {
+        "perCallAgreement": [
+          28,
+          30
+        ]
+      },
+      "api": {
+        "requestCount": 80,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 75494,
+        "outputTokens": 1730,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 0.011054,
+        "currency": "USD"
+      },
+      "protocolSha256": "751710d53f249c2b954827256e63b286c0c35f0f8af96f085c81eebf0028256f"
+    },
+    "mimo": {
+      "units": 5,
+      "vote": {
+        "P0-admitAll": {
+          "selections": 4,
+          "wrongSelections": 1,
+          "rightSelections": 3,
+          "wrongWritten": 1,
+          "heldShare": 0.0
+        },
+        "P1-oneReask": {
+          "randomOrders": {
+            "held": 1,
+            "caught": 1,
+            "falseHeld": 0,
+            "catchRate": 1.0,
+            "catchRate_ci": [
+              1.0,
+              1.0
+            ],
+            "falseHoldRate": 0.0,
+            "falseHoldRate_ci": [
+              0.0,
+              0.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "identicalShelfNoise": {
+            "held": 1,
+            "caught": 1,
+            "falseHeld": 0,
+            "catchRate": 1.0,
+            "catchRate_ci": [
+              1.0,
+              1.0
+            ],
+            "falseHoldRate": 0.0,
+            "falseHoldRate_ci": [
+              0.0,
+              0.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "reading": "usable"
+        },
+        "P2-twoReasks": {
+          "randomOrders": {
+            "held": 1,
+            "caught": 1,
+            "falseHeld": 0,
+            "catchRate": 1.0,
+            "catchRate_ci": [
+              1.0,
+              1.0
+            ],
+            "falseHoldRate": 0.0,
+            "falseHoldRate_ci": [
+              0.0,
+              0.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "identicalShelfNoise": {
+            "held": 1,
+            "caught": 1,
+            "falseHeld": 0,
+            "catchRate": 1.0,
+            "catchRate_ci": [
+              1.0,
+              1.0
+            ],
+            "falseHoldRate": 0.0,
+            "falseHoldRate_ci": [
+              0.0,
+              0.0
+            ],
+            "wrongWritten": 0,
+            "recordPrecision": 1.0
+          },
+          "reading": "usable"
+        },
+        "orderCausedWrongServedPicks": {
+          "units": 0,
+          "heldByOneReask": 0
+        }
+      },
+      "facts": {
+        "L0-none": {
+          "S": 0,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            0.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "successRate": 0.8,
+          "meanRegret": 0.2,
+          "abandons": 6,
+          "protocolFailures": 0
+        },
+        "F1-facts": {
+          "S": 1,
+          "F": 0,
+          "U": 0,
+          "UF": 0,
+          "S_ci": [
+            0.0,
+            3.0
+          ],
+          "F_ci": [
+            0.0,
+            0.0
+          ],
+          "U_ci": [
+            0.0,
+            0.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": 1,
+          "deltaS_ci": [
+            0.0,
+            3.0
+          ],
+          "removedS": null,
+          "mcnemarS": {
+            "onlyWithout": 0,
+            "onlyWith": 1,
+            "pExact": 1.0
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 0,
+          "deltaU_ci": [
+            0.0,
+            0.0
+          ],
+          "removedU": null,
+          "mcnemarU": {
+            "onlyWithout": 0,
+            "onlyWith": 0,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 1.0,
+          "meanRegret": 0.0,
+          "abandons": 4,
+          "protocolFailures": 0
+        }
+      },
+      "driftAgainstCheckFirstL0": {
+        "perCallAgreement": [
+          14,
+          30
+        ]
+      },
+      "api": {
+        "requestCount": 80,
+        "cacheHitCount": 0,
+        "transportRetryCount": 0,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 77860,
+        "outputTokens": 1935,
+        "fingerprints": [],
+        "returnedModels": [
+          "mimo-v2.5"
+        ],
+        "observedCost": 0.08173,
+        "currency": "CNY"
+      },
+      "protocolSha256": "751710d53f249c2b954827256e63b286c0c35f0f8af96f085c81eebf0028256f"
+    }
+  }
+}

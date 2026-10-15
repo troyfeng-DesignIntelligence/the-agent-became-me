@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "vote-facts-summary.v1",
+  "protocolSha256": "751710d53f249c2b954827256e63b286c0c35f0f8af96f085c81eebf0028256f",
+  "label": "Post-study experiments · October 2026 · 920 product-language shelves",
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront. Fit facts are derived from frozen title tokens and prices; success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 920,
+      "vote": {
+        "P0-admitAll": {
+          "selections": 486,
+          "wrongSelections": 52,
+          "rightSelections": 434,
+          "wrongWritten": 52,
+          "heldShare": 0.0
+        },
+        "P1-oneReask": {
+          "randomOrders": {
+            "held": 257,
+            "caught": 39,
+            "falseHeld": 218,
+            "catchRate": 0.75,
+            "catchRate_ci": [
+              0.619,
+              0.8657
+            ],
+            "falseHoldRate": 0.5023,
+            "falseHoldRate_ci": [
+              0.4513,
+              0.5545
+            ],
+            "wrongWritten": 13,
+            "recordPrecision": 0.9432
+          },
+          "identicalShelfNoise": {
+            "held": 27,
+            "caught": 4,
+            "falseHeld": 23,
+            "catchRate": 0.0769,
+            "catchRate_ci": [
+              0.0172,
+              0.1579
+            ],
+            "falseHoldRate": 0.053,
+            "falseHoldRate_ci": [
+              0.0331,
+              0.0743
+            ],
+            "wrongWritten": 48,
+            "recordPrecision": 0.8954
+          },
+          "reading": "costly"
+        },
+        "P2-twoReasks": {
+          "randomOrders": {
+            "held": 320,
+            "caught": 45,
+            "falseHeld": 275,
+            "catchRate": 0.8654,
+            "catchRate_ci": [
+              0.7631,
+              0.9524
+            ],
+            "falseHoldRate": 0.6336,
+            "falseHoldRate_ci": [
+              0.5784,
+              0.6875
+            ],
+            "wrongWritten": 7,
+            "recordPrecision": 0.9578
+          },
+          "identicalShelfNoise": {
+            "held": 32,
+            "caught": 4,
+            "falseHeld": 28,
+            "catchRate": 0.0769,
+            "catchRate_ci": [
+              0.0172,
+              0.1579
+            ],
+            "falseHoldRate": 0.0645,
+            "falseHoldRate_ci": [
+              0.043,
+              0.0882
+            ],
+            "wrongWritten": 48,
+            "recordPrecision": 0.8943
+          },
+          "reading": "costly"
+        },
+        "orderCausedWrongServedPicks": {
+          "units": 17,
+          "heldByOneReask": 15
+        }
+      },
+      "facts": {
+        "L0-none": {
+          "S": 143,
+          "F": 2,
+          "U": 41,
+          "UF": 1,
+          "S_ci": [
+            119.0,
+            168.0
+          ],
+          "F_ci": [
+            0.0,
+            5.0
+          ],
+          "U_ci": [
+            29.0,
+            54.025
+          ],
+          "UF_ci": [
+            0.0,
+            3.0
+          ],
+          "successRate": 0.9364,
+          "meanRegret": 0.0326,
+          "abandons": 1741,
+          "protocolFailures": 0
+        },
+        "F1-facts": {
+          "S": 98,
+          "F": 4,
+          "U": 2,
+          "UF": 0,
+          "S_ci": [
+            78.975,
+            119.0
+          ],
+          "F_ci": [
+            1.0,
+            9.0
+          ],
+          "U_ci": [
+            0.0,
+            5.0
+          ],
+          "UF_ci": [
+            0.0,
+            0.0
+          ],
+          "deltaS": -45,
+          "deltaS_ci": [
+            -69.0,
+            -20.0
+          ],
+          "removedS": 0.3333,
+          "mcnemarS": {
+            "onlyWithout": 101,
+            "onlyWith": 56,
+            "pExact": 0.00041
+          },
+          "readingS": "partial",
+          "deltaU": -39,
+          "deltaU_ci": [
+            -53.0,
+            -26.0
+          ],
+          "removedU": 0.95,
+          "mcnemarU": {
+            "onlyWithout": 41,
+            "onlyWith": 2,
+            "pExact": 0.0
+          },
+          "readingU": "works",
+          "successRate": 0.991,
+          "meanRegret": 0.0019,
+          "abandons": 1811,
+          "protocolFailures": 0
+        }
+      },
+      "driftAgainstCheckFirstL0": {
+        "perCallAgreement": [
+          5269,
+          5520
+        ]
+      },
+      "api": {
+        "requestCount": 16302,
+        "cacheHitCount": 678,
+        "transportRetryCount": 2260,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 11696267,
+        "outputTokens": 286667,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 1.717744,
+        "currency": "USD"
+      },
+      "protocolSha256": "751710d53f249c2b954827256e63b286c0c35f0f8af96f085c81eebf0028256f"
+    }
+  }
+}

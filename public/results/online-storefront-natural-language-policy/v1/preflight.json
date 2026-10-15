@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "online-storefront-natural-language-policy-preflight.v1",
+  "generatedAt": "2026-08-07T11:26:30.590609+00:00",
+  "protocolSha256": "c6a356e03e44d5baf3e2a4e1717f6e94a163fe05cead43455fff55f8c547178f",
+  "passed": true,
+  "counts": {
+    "units": 128,
+    "candidateSetMatched": 128,
+    "withinArmRepeatedStateMatched": 128,
+    "orderChanged": 126,
+    "postResolutionInputMatched": 128,
+    "unitsWithFeasibleCandidate": 60
+  },
+  "orderChangeRate": 0.984375,
+  "maximumSentTitleLength": 120,
+  "failureCount": 0,
+  "failures": [],
+  "externalDataDisclosure": "Provider payloads contain cleaned Amazon product titles, brands, prices, and derived plain-language constraints; no user identifiers, ASINs, review text, or histories are sent."
+}

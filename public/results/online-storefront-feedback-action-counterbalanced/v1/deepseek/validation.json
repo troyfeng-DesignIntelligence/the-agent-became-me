@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-validation.v1",
+  "generatedAt": "2026-08-07T16:40:08.270924+00:00",
+  "protocolSha256": "79e0333033245e26b69ca8ebcac1d655f4ac895955cc1f7d291e8fb83a407f04",
+  "assessment": "ready-to-share-with-scope-caveats",
+  "checks": {
+    "orderStrataAudited": 16,
+    "rowsAudited": 1146,
+    "observedChangeCountFieldsRecomputed": 8,
+    "headlineAggregatesRecomputed": 10,
+    "familyAggregatesRecomputed": 2
+  },
+  "recomputedCost": 0.475017,
+  "failureCount": 0,
+  "failures": [],
+  "requiredCaveats": [
+    "The prespecified recurrence gate required positive recommender-family point estimates, not positive family-specific interval bounds.",
+    "The endpoint uses pseudonymous derived candidate features and a held-out-item proxy, not natural product language or human utility.",
+    "This is a one-step model-recommender-model path and does not establish long-run amplification or production effects."
+  ]
+}

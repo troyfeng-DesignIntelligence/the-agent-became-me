@@ -67,9 +67,10 @@ function useScrollProgress() {
 
 const chapters = [
   { id: "top", label: "Opening", index: "00" },
-  { id: "question", label: "Question", index: "01" },
-  { id: "evidence", label: "Evidence", index: "02" },
-  { id: "methods", label: "Methods", index: "03" }
+  { id: "question", label: "Context", index: "01" },
+  { id: "evidence", label: "Prototype", index: "02" },
+  { id: "outcomes", label: "Outcomes", index: "03" },
+  { id: "methods", label: "Source", index: "04" }
 ] as const;
 
 const archiveChapters = [
@@ -77,7 +78,8 @@ const archiveChapters = [
   { id: "question", label: "Question", index: "01" },
   { id: "lab", label: "Trace archive", index: "02" },
   { id: "evidence", label: "Evidence", index: "03" },
-  { id: "methods", label: "Methods", index: "04" }
+  { id: "outcomes", label: "Outcomes", index: "04" },
+  { id: "methods", label: "Methods", index: "05" }
 ] as const;
 
 function useActiveChapter(includeArchive: boolean) {
@@ -118,6 +120,7 @@ function useEditorialScroll(dataReady: boolean) {
     const root = document.documentElement;
     const revealGroups = [
       ".question-copy > *, .margin-note, .question-specimen",
+      ".project-ownership > *, .project-decision-intro > *, .project-decision",
       ".gap-section .section-header > *, .provocation",
       ".trace-field-copy > *, .trace-field-key > *",
       ".lab-header > *, .interface-lab",
@@ -125,7 +128,8 @@ function useEditorialScroll(dataReady: boolean) {
       ".study-archive, .study-block",
       ".webarena-replay .section-header > *, .webarena-lead, .webarena-stat, .webarena-loop-keys > *, .webarena-contract",
       ".amazon-field .section-header > *, .amazon-field-lead > *, .amazon-condition, .amazon-lifecycle-row, .amazon-claim-boundary > *",
-      ".cross-task-section .section-header > *, .cross-task-result, .cross-task-control-lab > *",
+      ".cross-task-section .section-header > *, .cross-task-evidence-heading > *, .cross-task-result, .cross-task-control-lab, .cross-task-prototype-boundary",
+      ".portfolio-outcome-summary > *, .portfolio-outcome-grid > *",
       ".learned-commerce",
       ".activation-study",
       ".online-v2-study",
@@ -299,7 +303,7 @@ function Hero() {
             <a className="button button-primary" href="#evidence">
               {hero.primaryAction}
             </a>
-            <a className="button button-secondary" href="#methods">
+            <a className="button button-secondary" href="#ownership">
               {hero.secondaryAction}
             </a>
           </div>
@@ -314,16 +318,16 @@ function Hero() {
       </div>
       <div className="hero-ledger" aria-label="Representative trace summary">
         <span>
-          <strong>32</strong>
-          LLM pilot tasks
+          <strong>460</strong>
+          frozen tasks
         </span>
         <span>
-          <strong>64</strong>
-          paired contrasts
+          <strong>920</strong>
+          paired units / provider
         </span>
         <span>
-          <strong>09</strong>
-          diverged traces
+          <strong>7,360</strong>
+          valid confirmatory calls
         </span>
       </div>
       <a className="scroll-cue" href="#question">
@@ -375,9 +379,128 @@ function LoadingState() {
   );
 }
 
+const portfolioDecisions = [
+  {
+    index: "01",
+    title: "Separate recording from activation.",
+    before: "One profile indicator implied that a recorded action was already shaping ranking.",
+    evidence: "No-state and inert logging produced the same shelves and traces.",
+    decision: "Expose task memory, audit state, and ranking eligibility as three different service states."
+  },
+  {
+    index: "02",
+    title: "Move the control before exposure.",
+    before: "The first control removed temporary evidence only after an abandoned task.",
+    evidence: "Removal and holding ended identically, but removal allowed provisional shelf exposure.",
+    decision: "Hold task evidence outside ranking until an outcome is resolved."
+  },
+  {
+    index: "03",
+    title: "Measure the decision, not trace motion.",
+    before: "The pilot treated a changed browsing trace as a changed agent decision.",
+    evidence: "A required product view moved the trace without changing selected item or abandon.",
+    decision: "Freeze the selectable actions and compare the resolved categorical output."
+  }
+] as const;
+
+const portfolioOutcomes = [
+  {
+    value: "0.765",
+    label: "in-task shelf displacement",
+    evidence: "95% interval [0.745, 0.785] across 460 frozen tasks.",
+    consequence: "Ranking eligibility—not event recording—became the control surface."
+  },
+  {
+    value: "0.126 / 0.111",
+    label: "resolved-action contrast",
+    evidence: "DeepSeek / MiMo; both task-clustered intervals excluded zero.",
+    consequence: "The evaluation endpoint moved from trace differences to selected item or abandon."
+  },
+  {
+    value: "≈ 0",
+    label: "held-minus-immediate task-quality change",
+    evidence: "Frozen offered-candidate surrogate stayed near zero in both providers.",
+    consequence: "Task-local help remains on while platform learning waits."
+  }
+] as const;
+
+function ProjectOwnership() {
+  return (
+    <section className="project-ownership section-shell" id="ownership" aria-labelledby="ownership-title">
+      <div className="project-ownership__intro">
+        <span className="mono-label">PROJECT OWNERSHIP</span>
+        <h2 id="ownership-title">An independent interaction-design research project.</h2>
+      </div>
+      <dl className="project-ownership__grid">
+        <div><dt>ROLE</dt><dd>Interaction designer + researcher</dd></div>
+        <div><dt>TEAM</dt><dd>Solo-directed · AI-assisted execution</dd></div>
+        <div><dt>OWNED</dt><dd>Framing · protocol · service logic · interface · frontend</dd></div>
+        <div><dt>OUTPUT</dt><dd>HAI poster submission · executable prototype · reproducible artifact</dd></div>
+      </dl>
+      <p className="project-ownership__boundary">
+        Project direction, claims, design decisions, and final review remain the
+        applicant’s responsibility. AI assisted coding, analysis, visual exploration,
+        and QA. Identity is withheld here while the associated submission is under
+        blind review.
+      </p>
+    </section>
+  );
+}
+
+function ProjectDecisions() {
+  return (
+    <section className="project-decisions section-shell" aria-labelledby="decisions-title">
+      <header className="project-decision-intro">
+        <span className="section-kicker">Three decisions I made</span>
+        <h2 id="decisions-title">The project changed when the evidence contradicted the interface.</h2>
+      </header>
+      <div className="project-decision-grid">
+        {portfolioDecisions.map((item) => (
+          <article className="project-decision" key={item.index}>
+            <span>{item.index}</span>
+            <h3>{item.title}</h3>
+            <dl>
+              <div><dt>EARLIER VERSION</dt><dd>{item.before}</dd></div>
+              <div><dt>WHAT CHANGED IT</dt><dd>{item.evidence}</dd></div>
+              <div><dt>DESIGN DECISION</dt><dd>{item.decision}</dd></div>
+            </dl>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PortfolioOutcomeSummary() {
+  return (
+    <section className="portfolio-outcome-summary" id="outcomes" aria-labelledby="portfolio-outcome-title">
+      <header>
+        <span className="mono-label">THREE RESULTS / DEFAULT READING PATH</span>
+        <h3 id="portfolio-outcome-title">Enough evidence to change the design.</h3>
+        <p>Three estimates carry the portfolio argument. The complete experiment history remains available separately.</p>
+      </header>
+      <div className="portfolio-outcome-grid">
+        {portfolioOutcomes.map((item) => (
+          <article key={item.label}>
+            <strong>{item.value}</strong>
+            <h4>{item.label}</h4>
+            <p>{item.evidence}</p>
+            <small><b>DESIGN CONSEQUENCE</b>{item.consequence}</small>
+          </article>
+        ))}
+      </div>
+      <a className="portfolio-research-link" href="?research=1#evidence">
+        Open complete Research Appendix <span>↗</span>
+      </a>
+    </section>
+  );
+}
+
 export function App() {
   const scrollProgress = useScrollProgress();
-  const showArchive = new URLSearchParams(window.location.search).get("archive") === "1";
+  const searchParams = new URLSearchParams(window.location.search);
+  const showArchive = searchParams.get("archive") === "1";
+  const showResearch = showArchive || searchParams.get("research") === "1";
   const visibleChapters = showArchive ? archiveChapters : chapters;
   const {
     summary,
@@ -403,6 +526,8 @@ export function App() {
     instrumentAblationEvaluation,
     feedbackBridgeSummary,
     feedbackActionEvaluation,
+    mimoFeedbackActionEvaluation,
+    naturalLanguagePolicyEvaluation,
     catalog,
     error,
     loading
@@ -466,7 +591,7 @@ export function App() {
             className={activeChapter === "question" ? "is-active" : ""}
             href="#question"
           >
-            Question
+            Context
           </a>
           {showArchive && (
             <a
@@ -482,14 +607,21 @@ export function App() {
             className={activeChapter === "evidence" ? "is-active" : ""}
             href="#evidence"
           >
-            Evidence
+            Prototype
+          </a>
+          <a
+            aria-current={activeChapter === "outcomes" ? "location" : undefined}
+            className={activeChapter === "outcomes" ? "is-active" : ""}
+            href="#outcomes"
+          >
+            Outcomes
           </a>
           <a
             aria-current={activeChapter === "methods" ? "location" : undefined}
             className={activeChapter === "methods" ? "is-active" : ""}
             href="#methods"
           >
-            Methods
+            Source
           </a>
         </div>
         <span className="nav-status">
@@ -521,6 +653,8 @@ export function App() {
 
       <main id="main">
         <Hero />
+
+        <ProjectOwnership />
 
         <section className="question-section section-shell" id="question">
           <div className="section-number">01</div>
@@ -576,6 +710,8 @@ export function App() {
             </p>
           </div>
         </section>
+
+        <ProjectDecisions />
 
         {showArchive && <TraceFieldInterlude />}
 
@@ -1325,11 +1461,35 @@ export function App() {
                 </h2>
               </div>
               <p>
-                The evidence moves in three steps: learned rankings first, agent
-                trajectories second, and resolved LLM actions last. Each step has
-                its own control and its own stopping point.
+                Start with the service boundary, then test its consequence at
+                three levels: learned rankings, agent trajectories, and resolved
+                LLM actions.
               </p>
             </header>
+
+            <div className="cross-task-instrument-heading">
+              <span className="mono-label">INTERACTIVE SERVICE BLUEPRINT</span>
+              <h3>Deletion and prevention can end alike while taking different paths.</h3>
+              <p>
+                Scrub one shared agent trace across the outcome gate. The two
+                service policies differ only in when an action becomes eligible
+                for platform ranking.
+              </p>
+            </div>
+            <CrossTaskControlLab summary={crossTaskExposure} />
+
+            {showResearch ? (
+            <div className="cross-task-evidence-heading" id="research-evidence-stack">
+              <span className="mono-label">EMPIRICAL CHECK / THREE LAYERS</span>
+              <h3>Does that eligibility boundary change what the agent later sees and does?</h3>
+              <p>
+                The sections below move from recommender displacement to free-running
+                trajectories and finally to resolved model actions.
+              </p>
+            </div>
+            ) : (
+              <PortfolioOutcomeSummary />
+            )}
 
             {showArchive && (
             <div className="cross-task-results">
@@ -1381,7 +1541,7 @@ export function App() {
               <LearnedCommercePanel summary={amazonSasrec} />
             )}
 
-            {amazonCrossCategory && (
+            {showResearch && amazonCrossCategory && (
               <CrossCategoryReplicationPanel summary={amazonCrossCategory} />
             )}
 
@@ -1389,17 +1549,20 @@ export function App() {
               <DelegatedActivationPanel summary={delegatedActivation} />
             )}
 
-            {onlineStorefrontV2 && (
+            {showResearch && onlineStorefrontV2 && (
               <OnlineStorefrontV2Panel summary={onlineStorefrontV2} />
             )}
 
-            {forcedInspection &&
+            {showResearch &&
+              forcedInspection &&
               candidateMargin &&
               deterministicRepairPilot &&
               naturalActionEvaluation &&
               instrumentAblationEvaluation &&
               feedbackBridgeSummary &&
-              feedbackActionEvaluation && (
+              feedbackActionEvaluation &&
+              mimoFeedbackActionEvaluation &&
+              naturalLanguagePolicyEvaluation && (
               <LLMBehaviorFeedbackPanel
                 forced={forcedInspection}
                 repair={deterministicRepairPilot}
@@ -1408,26 +1571,19 @@ export function App() {
                 ablation={instrumentAblationEvaluation}
                 feedbackBridge={feedbackBridgeSummary}
                 feedbackAction={feedbackActionEvaluation}
+                mimoFeedbackAction={mimoFeedbackActionEvaluation}
+                naturalLanguagePolicy={naturalLanguagePolicyEvaluation}
               />
             )}
 
             {showArchive && crossTaskSensitivity && (
               <PollutionPhaseMap summary={crossTaskSensitivity} />
             )}
-
-            <div className="cross-task-instrument-heading">
-              <span className="mono-label">INTERACTION PROTOTYPE</span>
-              <h3>Choose when temporary task evidence can affect the platform shelf.</h3>
-              <p>
-                Change the task, lifecycle rule, outcome, and checkpoint. The
-                prototype keeps task-local help separate from platform activation.
-              </p>
-            </div>
-            <CrossTaskControlLab summary={crossTaskExposure} />
           </section>
         )}
 
-        <section className="findings-section section-shell">
+        {showResearch && (
+        <section className="findings-section section-shell" id="outcomes">
           <div className="section-number">04</div>
           <header className="section-header">
             <div>
@@ -1460,6 +1616,7 @@ export function App() {
             ))}
           </div>
         </section>
+        )}
 
         <section className="reliquary-interlude">
           <figure className="section-shell">
@@ -1501,7 +1658,7 @@ export function App() {
           <header className="section-header">
             <div>
               <span className="section-kicker">Methods, limits & source</span>
-              <h2>Every chart can be traced to generated rows.</h2>
+              <h2>{showResearch ? "Every chart can be traced to generated rows." : "The evidence remains inspectable."}</h2>
             </div>
             <p>
               This site is the reading layer. The repository contains the
@@ -1594,6 +1751,18 @@ export function App() {
                 <a href={`${base}results/online-storefront-deterministic-repair-pilot/v1/evaluation/summary.json`} download>
                   LLM pilot summary <span>JSON ↓</span>
                 </a>
+                <a href="?view=service-design">
+                  Open service-design appendix <span>↗</span>
+                </a>
+                {showResearch ? (
+                  <a href="./#evidence">
+                    Return to portfolio case <span>↗</span>
+                  </a>
+                ) : (
+                  <a href="?research=1#evidence">
+                    Open Research Appendix <span>↗</span>
+                  </a>
+                )}
                 <a href="?archive=1#lab">
                   Open development archive <span>↗</span>
                 </a>
@@ -1604,13 +1773,14 @@ export function App() {
               <span className="mono-label">LIMITATIONS</span>
               <h3>What this project cannot tell us.</h3>
               <ol className="limitations-list">
-                {limitations.map((item) => (
+                {(showResearch ? limitations : limitations.slice(0, 4)).map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ol>
             </article>
           </div>
 
+          {showResearch && (
           <div className="references-block">
             <header>
               <span className="mono-label">COLLISION & REUSE MAP</span>
@@ -1648,6 +1818,7 @@ export function App() {
               ))}
             </div>
           </div>
+          )}
         </section>
       </main>
 

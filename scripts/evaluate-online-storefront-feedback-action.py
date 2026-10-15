@@ -1,9 +1,10 @@
-"""Evaluate the frozen V8 downstream-agent feedback experiment."""
+"""Evaluate a frozen downstream-agent feedback experiment."""
 
 from __future__ import annotations
 
 import hashlib
 import json
+import argparse
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -51,8 +52,45 @@ def bootstrap(rows: list[dict], field: str, replicates: int, seed: int) -> dict:
     return {"estimate": round(estimate, 6), "ci95": [round(float(np.quantile(draws, 0.025)), 6), round(float(np.quantile(draws, 0.975)), 6)]}
 
 
+def observed_change_counts(rows: list[dict]) -> dict:
+    raw_changes = sum(int(row["matchedCrossArmActionChangeCount"]) for row in rows)
+    return {
+        "matchedRepeatPairChangeCount": raw_changes,
+        "matchedRepeatPairComparisonCount": 2 * len(rows),
+        "unitWithAnyMatchedChangeCount": sum(
+            int(row["matchedCrossArmActionChangeCount"]) > 0 for row in rows
+        ),
+        "unitCount": len(rows),
+    }
+
+
+def identical_control_position_diagnostic(rows: list[dict]) -> dict:
+    if not rows or not all("callOrder" in row for row in rows):
+        return {"available": False}
+    pair_counts = {}
+    for left in range(4):
+        for right in range(left + 1, 4):
+            changes = 0
+            for row in rows:
+                left_action = row["actions"][row["callOrder"][left]]
+                right_action = row["actions"][row["callOrder"][right]]
+                changes += int(left_action != right_action)
+            pair_counts[f"position-{left + 1}-vs-{right + 1}"] = {
+                "changeCount": changes,
+                "comparisonCount": len(rows),
+                "changeRate": round(changes / len(rows), 6),
+            }
+    return {"available": True, "pairwisePositionChanges": pair_counts}
+
+
 def main() -> None:
-    text = PROTOCOL_PATH.read_text(encoding="utf-8").replace("\r\n", "\n")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--protocol", default=str(PROTOCOL_PATH.relative_to(ROOT)))
+    args = parser.parse_args()
+    protocol_path = (ROOT / args.protocol).resolve()
+    if ROOT not in protocol_path.parents:
+        raise RuntimeError("Protocol path must remain inside the repository")
+    text = protocol_path.read_text(encoding="utf-8").replace("\r\n", "\n")
     protocol = json.loads(text)
     protocol_hash = sha256(text.encode("utf-8"))
     output = ROOT / protocol["outputs"]["publicRoot"]
@@ -74,6 +112,7 @@ def main() -> None:
         subset = [row for row in rows if row["mode"] == mode]
         results[mode] = {
             "unitCount": len(subset),
+            "observedChangeCounts": observed_change_counts(subset),
             "categoricalEnergyDistance": bootstrap(subset, "actionDistributionDistance", replicates, seed),
             "matchedActionChangeRate": bootstrap(subset, "matchedActionChangeRate", replicates, seed + 1),
             "meanDecisionQuality": bootstrap(subset, "meanDecisionQuality", replicates, seed + 2),
@@ -88,9 +127,30 @@ def main() -> None:
         }
         for family in protocol["sampling"]["recommenderFamiliesPerTask"]
     }
+    if primary and all("conditionOrderIndex" in row for row in primary):
+        results["primary-feedback"]["byConditionOrder"] = {
+            str(order_index): {
+                "unitCount": len(order_rows := [
+                    row for row in primary if int(row["conditionOrderIndex"]) == order_index
+                ]),
+                "categoricalEnergyDistance": bootstrap(
+                    order_rows,
+                    "actionDistributionDistance",
+                    replicates,
+                    seed + 101 + order_index,
+                ),
+                "observedChangeCounts": observed_change_counts(order_rows),
+            }
+            for order_index in range(4)
+        }
+    results["identical-control"]["callPositionDiagnostic"] = identical_control_position_diagnostic(
+        [row for row in rows if row["mode"] == "identical-control"]
+    )
     p = results["primary-feedback"]
     c = results["identical-control"]
     bridge_summary = json.loads((ROOT / protocol["source"]["feedbackBridgeSummary"]).read_text(encoding="utf-8"))
+    preflight = json.loads((output / "preflight.json").read_text(encoding="utf-8"))
+    counterbalanced = bool(protocol["decisionInstrument"].get("conditionOrderDesign"))
     gates = {
         "feedbackExposurePrerequisitePassed": bool(bridge_summary["gates"]["feedbackExposureGatePassed"]),
         "downstreamActionLowerBoundAboveZero": p["categoricalEnergyDistance"]["ci95"][0] > 0,
@@ -102,9 +162,15 @@ def main() -> None:
             for family in protocol["sampling"]["recommenderFamiliesPerTask"]
         ),
     }
+    if counterbalanced:
+        gates["conditionOrderBalancePassed"] = bool(
+            preflight.get("passed")
+            and preflight.get("protocolSha256") == protocol_hash
+            and preflight.get("conditionOrderCounts")
+        )
     gates["oneStepAgentRecommenderAgentFeedbackGatePassed"] = all(gates.values())
     summary = {
-        "schemaVersion": "online-storefront-feedback-action-evaluation.v1",
+        "schemaVersion": "online-storefront-feedback-action-evaluation.v2",
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "protocolSha256": protocol_hash,
         "evidenceStatus": "one-step-feedback-gate-passed" if gates["oneStepAgentRecommenderAgentFeedbackGatePassed"] else "one-step-feedback-gate-failed",
@@ -112,7 +178,7 @@ def main() -> None:
         "gates": gates,
         "claimBoundary": protocol["claimBoundary"],
         "interpretation": (
-            "The research storefront exhibits a measurable one-step recommendation-order to agent-choice to recommender-exposure to later-agent-choice feedback path."
+            "The research storefront exhibits a measurable one-step recommendation-order to model-selection to recommender-exposure to later-model-selection feedback path for this provider."
             if gates["oneStepAgentRecommenderAgentFeedbackGatePassed"]
             else "The complete one-step behavioral propagation claim is not supported; retain only the links whose frozen gates passed."
         ),

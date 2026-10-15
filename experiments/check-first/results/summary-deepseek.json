@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "check-first-summary.v1",
+  "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4",
+  "label": "Post-study experiment · September 2026 · 920 product-language shelves",
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront, with plain-language requests built from frozen title-token and price constraints. Success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 920,
+      "unitsWithFeasibleItem": 462,
+      "conditions": {
+        "L0-none": {
+          "S": 106,
+          "F": 6,
+          "U": 25,
+          "UF": 1,
+          "S_ci": [
+            86.0,
+            127.0
+          ],
+          "F_ci": [
+            2.0,
+            11.0
+          ],
+          "U_ci": [
+            16.0,
+            35.0
+          ],
+          "UF_ci": [
+            0.0,
+            3.0
+          ],
+          "successRate": 0.9364,
+          "meanRegret": 0.0312,
+          "protocolFailures": 0,
+          "abandons": 1741
+        },
+        "L1-check": {
+          "S": 114,
+          "F": 9,
+          "U": 33,
+          "UF": 3,
+          "S_ci": [
+            93.0,
+            136.0
+          ],
+          "F_ci": [
+            4.0,
+            15.0
+          ],
+          "U_ci": [
+            22.0,
+            45.025
+          ],
+          "UF_ci": [
+            0.0,
+            7.0
+          ],
+          "deltaS": 8,
+          "deltaS_ci": [
+            -17.0,
+            32.0
+          ],
+          "removedS": -0.05,
+          "mcnemarS": {
+            "onlyWithout": 66,
+            "onlyWith": 74,
+            "pExact": 0.554269
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 8,
+          "deltaU_ci": [
+            -5.0,
+            21.0
+          ],
+          "removedU": -0.25,
+          "mcnemarU": {
+            "onlyWithout": 20,
+            "onlyWith": 28,
+            "pExact": 0.312327
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.916,
+          "meanRegret": 0.0717,
+          "protocolFailures": 0,
+          "abandons": 1976,
+          "fitChecks": {
+            "callsWithoutChecklist": 3678,
+            "tp": 4,
+            "fp": 0,
+            "fn": 2,
+            "tn": 18,
+            "accuracy": 0.9167,
+            "precisionTrue": 1.0,
+            "recallTrue": 0.6667
+          }
+        },
+        "L2-check-cheapest": {
+          "S": 119,
+          "F": 6,
+          "U": 26,
+          "UF": 1,
+          "S_ci": [
+            98.0,
+            140.0
+          ],
+          "F_ci": [
+            2.0,
+            11.0
+          ],
+          "U_ci": [
+            17.0,
+            37.0
+          ],
+          "UF_ci": [
+            0.0,
+            3.0
+          ],
+          "deltaS": 13,
+          "deltaS_ci": [
+            -12.0,
+            37.0
+          ],
+          "removedS": -0.13,
+          "mcnemarS": {
+            "onlyWithout": 70,
+            "onlyWith": 83,
+            "pExact": 0.331993
+          },
+          "readingS": "no detectable effect",
+          "deltaU": 1,
+          "deltaU_ci": [
+            -11.0,
+            13.0
+          ],
+          "removedU": -0.0417,
+          "mcnemarU": {
+            "onlyWithout": 20,
+            "onlyWith": 21,
+            "pExact": 1.0
+          },
+          "readingU": "no detectable effect",
+          "successRate": 0.9372,
+          "meanRegret": 0.0405,
+          "protocolFailures": 0,
+          "abandons": 1839,
+          "fitChecks": {
+            "callsWithoutChecklist": 3679,
+            "tp": 4,
+            "fp": 0,
+            "fn": 1,
+            "tn": 7,
+            "accuracy": 0.9167,
+            "precisionTrue": 1.0,
+            "recallTrue": 0.8
+          }
+        }
+      },
+      "api": {
+        "requestCount": 16479,
+        "cacheHitCount": 90,
+        "transportRetryCount": 9,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 12955716,
+        "outputTokens": 335356,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 1.9077,
+        "currency": "USD"
+      },
+      "protocolSha256": "2be8e6e6f5e1cce956a65802984567be7739d0e8949f9d79e0e1abe760d1e9c4"
+    }
+  }
+}

@@ -10,3 +10,12 @@ __pycache__/
 .env.deepseek
 .DS_Store
 *.log
+# local working material, not part of the public artifact
+portfolio/
+HANDOFF-*/
+output/
+reference/
+.claude/
+SETUP-NEW-DEVICE.md
+manifest.json
+tmp/

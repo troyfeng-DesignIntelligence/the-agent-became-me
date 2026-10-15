@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "online-storefront-feedback-action-evaluation.v2",
+  "generatedAt": "2026-08-07T12:06:11.122735+00:00",
+  "protocolSha256": "245a37188fe19efe0f865e91f30f62063bce195161d6790d8d2f13c38758ac60",
+  "evidenceStatus": "one-step-feedback-gate-passed",
+  "results": {
+    "primary-feedback": {
+      "unitCount": 920,
+      "categoricalEnergyDistance": {
+        "estimate": 0.017391,
+        "ci95": [
+          0.005435,
+          0.031522
+        ]
+      },
+      "matchedActionChangeRate": {
+        "estimate": 0.013043,
+        "ci95": [
+          0.006522,
+          0.020109
+        ]
+      },
+      "meanDecisionQuality": {
+        "estimate": 0.508313,
+        "ci95": [
+          0.481122,
+          0.536948
+        ]
+      },
+      "abandonRate": {
+        "estimate": 0.285598,
+        "ci95": [
+          0.249185,
+          0.322554
+        ]
+      },
+      "protocolFailureRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "byRecommenderFamily": {
+        "sasrec": {
+          "unitCount": 460,
+          "categoricalEnergyDistance": {
+            "estimate": 0.006522,
+            "ci95": [
+              -0.004348,
+              0.021739
+            ]
+          }
+        },
+        "gru4rec": {
+          "unitCount": 460,
+          "categoricalEnergyDistance": {
+            "estimate": 0.028261,
+            "ci95": [
+              0.006522,
+              0.052174
+            ]
+          }
+        }
+      }
+    },
+    "identical-control": {
+      "unitCount": 226,
+      "categoricalEnergyDistance": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "matchedActionChangeRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "meanDecisionQuality": {
+        "estimate": 0.478852,
+        "ci95": [
+          0.435907,
+          0.524293
+        ]
+      },
+      "abandonRate": {
+        "estimate": 0.240222,
+        "ci95": [
+          0.183766,
+          0.298815
+        ]
+      },
+      "protocolFailureRate": {
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "gates": {
+    "feedbackExposurePrerequisitePassed": true,
+    "downstreamActionLowerBoundAboveZero": true,
+    "identicalControlUpperBoundBelow005": true,
+    "primaryFailureRateBelow005": true,
+    "controlFailureRateBelow005": true,
+    "bothRecommenderFamilyPointEstimatesAboveZero": true,
+    "oneStepAgentRecommenderAgentFeedbackGatePassed": true
+  },
+  "claimBoundary": "The study concerns MiMo outputs over pseudonymous derived features in a research storefront. It does not establish human behavior, purchases, production-retailer effects, long-run amplification, or welfare consequences.",
+  "interpretation": "The research storefront exhibits a measurable one-step recommendation-order to model-selection to recommender-exposure to later-model-selection feedback path for this provider."
+}

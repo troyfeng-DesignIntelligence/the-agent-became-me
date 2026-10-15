@@ -31,8 +31,8 @@ export const hero = {
     "4 Amazon-derived categories · 2 learned recommenders · 460 tasks · 2 provider models · 7,360 valid confirmatory calls",
   disclosure:
     "Shopping tasks are generated over public, pseudonymized review histories. Public artifacts exclude original user IDs, item IDs, titles, reviews, and raw model responses.",
-  primaryAction: "Inspect the evidence",
-  secondaryAction: "Read the protocol"
+  primaryAction: "Try the outcome gate",
+  secondaryAction: "See my role"
 } as const;
 
 export const researchQuestion = {
@@ -235,7 +235,7 @@ export const limitations = [
   "The shopping tasks and agent outcomes were generated over public, pseudonymized review histories. They are not records of delegated shopping.",
   "The 32-task LLM pilot is invalidated by an action-set confound and selection-confounded mechanism analysis; its event counts are not paper results.",
   "The storefront uses research-owned SASRec and GRU models. It does not reproduce a production retailer's recommender.",
-  "The categorical-output contrast recurred in MiMo and DeepSeek, but both models acted on pseudonymous derived features rather than rendered product pages or natural-language product descriptions.",
+  "The confirmatory categorical-output studies used pseudonymous derived features rather than rendered product pages. A 64-task extension used cleaned product language, but its benchmark score is not human utility and its later steps use a fixed policy.",
   "The first LLM runner had dropout active during recommendation inference. Those historical comparisons remain in the audit trail and are not combined with the repaired pilot.",
   "The control interface is implemented but has not been evaluated with users.",
   "The literature review was scoped rather than systematic."

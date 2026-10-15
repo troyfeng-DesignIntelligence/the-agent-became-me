@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "online-storefront-natural-language-policy-run-summary.v1",
+  "generatedAt": "2026-08-07T11:28:24.343366+00:00",
+  "protocolSha256": "c6a356e03e44d5baf3e2a4e1717f6e94a163fe05cead43455fff55f8c547178f",
+  "provider": "mimo",
+  "model": "mimo-v2.5",
+  "taskModelUnitCount": 128,
+  "rowCount": 128,
+  "api": {
+    "requestCount": 512,
+    "cacheHitCount": 0,
+    "attemptCount": 512,
+    "validActionCount": 512,
+    "invalidOrFailedAttemptCount": 0,
+    "timeoutCount": 0,
+    "terminalFailureCount": 0,
+    "inputTokens": 394156,
+    "outputTokens": 11225,
+    "currency": "CNY",
+    "observedCostAtPublishedRates": 0.416606,
+    "acceptedCostCap": 1.2,
+    "systemFingerprints": [],
+    "returnedModels": [
+      "mimo-v2.5"
+    ]
+  },
+  "claimBoundary": "The study concerns model selections over cleaned Amazon product metadata in a research storefront. Success and regret are protocol-defined against title-token and price constraints, not human utility. The multistep analysis uses a fixed top-item browsing policy after the initial model selection and therefore establishes recommendation propagation, not repeated autonomous-agent behavior."
+}

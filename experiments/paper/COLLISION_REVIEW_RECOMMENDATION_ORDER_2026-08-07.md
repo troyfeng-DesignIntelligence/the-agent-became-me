@@ -42,7 +42,7 @@ review of all recommender feedback-loop literature.
 ## What V7 adds—and what it does not
 
 Observed: in a 460-task frame crossed with SASRec and GRU4Rec, order-only
-exposure produced DeepSeek distance 0.193 [0.155, 0.233] against a masked
+exposure produced DeepSeek distance 0.193 [0.151, 0.239] against a masked
 control of 0.004 [-0.003, 0.013]. MiMo reproduced the direction. This removes
 explicit rank and inspection metadata as necessary explanations.
 
@@ -52,7 +52,7 @@ or selections; repeated permutations can diagnose or mitigate the bias.
 Added by V8: a prospectively gated bridge from V7 selections through the same
 learned recommender to later exposure, followed by a second categorical
 DeepSeek action. The downstream exposure estimate was 0.035 [0.024, 0.047],
-and the later-action estimate was 0.037 [0.020, 0.057]. This is one cycle, not
+and the counterbalanced later-action estimate was 0.035 [0.017, 0.054]. This is one cycle, not
 a general feedback-loop or long-horizon claim.
 
 Still potentially new if completed: an outcome-gated intervention that

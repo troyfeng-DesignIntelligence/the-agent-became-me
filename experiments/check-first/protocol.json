@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "check-first-protocol.v1",
+  "status": "frozen before any provider call",
+  "frozenDate": "2026-09-27",
+  "studyRole": "Post-study design experiment for the portfolio. Not part of the HAI 2026 paper; changes no published number.",
+  "background": "In the V9 product-language pilot (128 units), shelf order changed the agent's pick in about one in five units, and in 5 of 20 (DeepSeek) and 7 of 17 (MiMo) of those swaps one order led to a pick that met the request and the other to one that did not. With product text the agent has to judge fit itself, so order can make it get the task wrong, not only break ties.",
+  "question": "Does asking the agent to check every product against the request before choosing reduce order-driven swaps and order-driven errors, and does adding a person's tie rule (cheapest) reduce swaps further?",
+  "units": {
+    "source": "The V9 natural-language pipeline (scripts/run-online-storefront-natural-language-policy.py), widened from 16 to all 115 frozen tasks per category, crossed with SASRec and GRU4Rec. Rebuilt 2026-09-27 from the Amazon Reviews 2018 files whose SHA-256 values match docs/DATA_AND_REUSE.md; all 1,376 cached V9 requests reproduced byte for byte (11 after removing V9's retry note).",
+    "expectedCount": 920,
+    "expectedOrderChanged": 900,
+    "expectedWithFeasibleItem": 462,
+    "arms": "immediate-arm order vs held-arm order: same twelve product records (cleaned title, brand, price), different learned-recommender order."
+  },
+  "providers": {
+    "deepseek": "deepseek-v4-flash, /chat/completions, thinking disabled, temperature 0, JSON mode; V9 system instruction verbatim",
+    "mimo": "mimo-v2.5, /responses, reasoning effort none, temperature 0, json_object; V9 instruction verbatim"
+  },
+  "conditions": [
+    {
+      "id": "L0-none",
+      "label": "Request as in V9",
+      "stateFields": {},
+      "outputTokenLimit": null
+    },
+    {
+      "id": "L1-check",
+      "label": "Check every product first",
+      "stateFields": {
+        "checkFirst": "Before choosing, add fits to your JSON: an object mapping every candidateId to true if that product satisfies every constraint in the shopping request, otherwise false. Then choose among the products marked true."
+      },
+      "outputTokenLimit": 400
+    },
+    {
+      "id": "L2-check-cheapest",
+      "label": "Check first, and take the cheapest when several fit",
+      "stateFields": {
+        "checkFirst": "Before choosing, add fits to your JSON: an object mapping every candidateId to true if that product satisfies every constraint in the shopping request, otherwise false. Then choose among the products marked true.",
+        "tieRule": "If more than one product fits equally well, choose the one with the lowest priceUSD."
+      },
+      "outputTokenLimit": 400
+    }
+  ],
+  "manipulation": "Task-level fields added to the state JSON next to shoppingRequest, serialised as V9 does (sorted keys, compact, UTF-8). The system instruction is V9's, unchanged. L1 and L2 raise the output token limit from 96 to 400 so the checklist fits.",
+  "slots": {
+    "immediate-a": "immediate-arm shelf",
+    "immediate-b": "immediate-arm shelf, repeat",
+    "held-a": "held-arm shelf",
+    "held-b": "held-arm shelf, repeat",
+    "sham-a": "immediate-arm shelf again (noise floor)",
+    "sham-b": "immediate-arm shelf again (noise floor)"
+  },
+  "outcomes": {
+    "primary": {
+      "orderSwaps": "S = units where immediate-a == immediate-b, held-a == held-b, and immediate-a != held-a.",
+      "orderErrors": "U = units where immediate-a == immediate-b, held-a == held-b, and the two picks differ in task success (V9 outcome rule: a selection succeeds iff it satisfies every constraint; an abandon succeeds iff nothing does).",
+      "noiseFloors": "F and UF = the same counts with sham-a/sham-b in place of held-a/held-b.",
+      "removedShare": "R = 1 - (count_k - noise_k) / (count_0 - noise_0), for S and for U."
+    },
+    "secondary": [
+      "task success rate and mean regret over the four main slots (V9 outcome rule, unchanged)",
+      "L1/L2 checklist accuracy against the frozen constraint evaluation: accuracy, precision and recall of 'fits: true'",
+      "protocol failures, abandons, calls without a checklist"
+    ]
+  },
+  "analysis": {
+    "uncertainty": "Cluster bootstrap over tasks, resampled within category, both recommender families kept together. 4000 replicates, seed 20260927. Percentile 95% intervals.",
+    "seed": 20260927,
+    "pairedTest": "Exact McNemar on per-unit indicators, L0 vs each condition, per provider, for S and for U.",
+    "pooling": "None. Each provider is read on its own."
+  },
+  "decisionRule": {
+    "works": "R >= 0.5 and the 95% interval of the change against L0 lies entirely below 0.",
+    "partial": "The 95% interval lies entirely below 0 but R < 0.5.",
+    "noDetectableEffect": "The 95% interval contains 0.",
+    "backfires": "The 95% interval lies entirely above 0.",
+    "appliesTo": "S and U separately, per provider and condition."
+  },
+  "readingsWrittenBeforeRunning": {
+    "checkReducesErrors": "Order makes the agent get the task wrong partly because it reads the shelf top-down; making it check every product first is an interface change for the agent that removes those errors.",
+    "checkNoEffect": "A checklist does not stop order from steering the pick; errors that order causes must be caught after the fact (re-ask) rather than prevented.",
+    "cheapestReducesSwaps": "A person's own tie rule, written once, removes order from choices the request leaves open.",
+    "backfires": "Reported as found; not presented as a fix."
+  },
+  "execution": {
+    "shuffleSeed": 20260927,
+    "callOrder": "All calls for a provider (3 conditions x 920 units x 6 slots = 16,560) shuffled together.",
+    "smokeTest": "First 5 units (sorted), all conditions; kept in the dataset.",
+    "invalidOutputPolicy": "As Study 2 and V9: up to two retries with the note 'Previous output was invalid. Return only the required JSON object.' appended; a third failure is recorded as __PROTOCOL_FAILURE__ (scored as a failed task). A missing or malformed fits object does not trigger a retry.",
+    "costCap": {
+      "deepseek": 6.0,
+      "mimo": 40.0
+    },
+    "costCurrency": {
+      "deepseek": "USD",
+      "mimo": "CNY"
+    }
+  },
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront, with plain-language requests built from frozen title-token and price constraints. Success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers."
+}

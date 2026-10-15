@@ -1,0 +1,378 @@
+{
+  "schemaVersion": "order-notice-summary.v1",
+  "protocolSha256": "df82e8ce97139c05c16cc04bd99676cda476e0bb509858a65a6f6f62a7c8ed56",
+  "label": "Post-study experiment · September 2026 · same 920 Study 2 shelves",
+  "claimBoundary": "Categorical outputs of two model versions over pseudonymous derived product features in a research storefront, with one added shelf field. Says nothing about human users, other models, other wordings, or production retailers.",
+  "providers": {
+    "deepseek": {
+      "units": 920,
+      "conditions": {
+        "N0-none": {
+          "S": 45,
+          "F": 5,
+          "E": 40,
+          "S_ci": [
+            31.0,
+            60.0
+          ],
+          "F_ci": [
+            1.0,
+            10.0
+          ],
+          "E_ci": [
+            26.0,
+            54.0
+          ],
+          "swapFileIndices": [
+            29,
+            73,
+            90,
+            106,
+            107,
+            138,
+            149,
+            196,
+            197,
+            211,
+            218,
+            219,
+            227,
+            247,
+            250,
+            271,
+            295,
+            306,
+            313,
+            339,
+            347,
+            353,
+            377,
+            390,
+            403,
+            459,
+            460,
+            472,
+            487,
+            508,
+            510,
+            541,
+            548,
+            639,
+            642,
+            704,
+            720,
+            735,
+            805,
+            829,
+            840,
+            841,
+            843,
+            846,
+            847
+          ],
+          "shamFileIndices": [
+            218,
+            353,
+            403,
+            415,
+            598
+          ],
+          "repeatAgreement": [
+            2679,
+            2760
+          ],
+          "abandonShare": 0.4978,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.8433,
+          "firstEligibleShareOfPicks": 0.4729,
+          "meanPickPosition": 7.572,
+          "swapArmsTakingFirstEligible": [
+            38,
+            90
+          ]
+        },
+        "N1-disclose": {
+          "S": 32,
+          "F": 1,
+          "E": 31,
+          "S_ci": [
+            22.0,
+            44.0
+          ],
+          "F_ci": [
+            0.0,
+            3.0
+          ],
+          "E_ci": [
+            20.0,
+            43.0
+          ],
+          "swapFileIndices": [
+            19,
+            90,
+            106,
+            149,
+            197,
+            210,
+            211,
+            227,
+            247,
+            251,
+            271,
+            312,
+            391,
+            392,
+            417,
+            440,
+            441,
+            462,
+            504,
+            508,
+            530,
+            541,
+            547,
+            584,
+            617,
+            626,
+            639,
+            642,
+            653,
+            686,
+            688,
+            894
+          ],
+          "shamFileIndices": [
+            289
+          ],
+          "deltaS": -13,
+          "deltaS_ci": [
+            -28.0,
+            1.0
+          ],
+          "deltaE": -9,
+          "deltaE_ci": [
+            -23.0,
+            5.0
+          ],
+          "R": 0.225,
+          "R_ci": [
+            -0.16,
+            0.4858
+          ],
+          "mcnemar": {
+            "swapOnlyWithoutNotice": 33,
+            "swapOnlyWithNotice": 20,
+            "pExact": 0.098371
+          },
+          "reading": "no detectable effect",
+          "repeatAgreement": [
+            2686,
+            2760
+          ],
+          "abandonShare": 0.4978,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.8425,
+          "firstEligibleShareOfPicks": 0.4464,
+          "meanPickPosition": 7.665,
+          "swapArmsTakingFirstEligible": [
+            26,
+            64
+          ]
+        },
+        "N2-instruct": {
+          "S": 57,
+          "F": 1,
+          "E": 56,
+          "S_ci": [
+            42.0,
+            72.0
+          ],
+          "F_ci": [
+            0.0,
+            3.0
+          ],
+          "E_ci": [
+            41.0,
+            71.0
+          ],
+          "swapFileIndices": [
+            19,
+            49,
+            73,
+            82,
+            106,
+            107,
+            138,
+            143,
+            150,
+            153,
+            197,
+            205,
+            210,
+            222,
+            227,
+            258,
+            272,
+            273,
+            295,
+            306,
+            312,
+            319,
+            336,
+            337,
+            339,
+            383,
+            390,
+            392,
+            428,
+            440,
+            459,
+            466,
+            467,
+            472,
+            504,
+            508,
+            546,
+            547,
+            553,
+            562,
+            564,
+            608,
+            616,
+            639,
+            642,
+            652,
+            686,
+            701,
+            716,
+            747,
+            777,
+            804,
+            812,
+            828,
+            841,
+            847,
+            895
+          ],
+          "shamFileIndices": [
+            652
+          ],
+          "deltaS": 12,
+          "deltaS_ci": [
+            -4.0,
+            29.0
+          ],
+          "deltaE": 16,
+          "deltaE_ci": [
+            1.0,
+            33.0
+          ],
+          "R": -0.4,
+          "R_ci": [
+            -1.0645,
+            -0.0185
+          ],
+          "mcnemar": {
+            "swapOnlyWithoutNotice": 28,
+            "swapOnlyWithNotice": 40,
+            "pExact": 0.18181
+          },
+          "reading": "no detectable effect",
+          "repeatAgreement": [
+            2661,
+            2760
+          ],
+          "abandonShare": 0.4978,
+          "constraintViolations": 0,
+          "meanDecisionQuality": 0.8374,
+          "firstEligibleShareOfPicks": 0.5,
+          "meanPickPosition": 7.454,
+          "swapArmsTakingFirstEligible": [
+            51,
+            114
+          ]
+        }
+      },
+      "driftAgainstStudy2": {
+        "perCallAgreement": [
+          2908,
+          3680
+        ],
+        "study2Swaps": 88,
+        "rerunSwaps": 45,
+        "unitTransitions": {
+          "swap->swap": 13,
+          "swap->none": 75,
+          "none->swap": 32,
+          "none->none": 800
+        },
+        "mcnemarPExact": 3.9e-05
+      },
+      "exampleUnit": {
+        "unit": "industrial-and-scientific/03d99ea294e5d4d9/gru4rec",
+        "study2": {
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "held-a": "P-297F1137",
+          "held-b": "P-297F1137"
+        },
+        "N0-none": {
+          "held-a": "P-028899B8",
+          "held-b": "P-028899B8",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        },
+        "N1-disclose": {
+          "held-a": "P-028899B8",
+          "held-b": "P-028899B8",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        },
+        "N2-instruct": {
+          "held-a": "P-028899B8",
+          "held-b": "P-028899B8",
+          "immediate-a": "P-028899B8",
+          "immediate-b": "P-028899B8",
+          "sham-a": "P-028899B8",
+          "sham-b": "P-028899B8"
+        }
+      },
+      "reorderCheckFromStudy2": {
+        "note": "Exploratory, offline, Study 2 decisions only. Check = re-ask with the masked-control shelf (same candidates, neutral order); hold the choice if the pick differs.",
+        "immediateArmChoicesHeld": [
+          102,
+          920
+        ],
+        "orderSwapUnits": 88,
+        "inSwapUnitsImmediatePickHeld": 45,
+        "inSwapUnitsHeldPickHeld": 52,
+        "noiseFlagsOnIdenticalShelves": [
+          39,
+          2760
+        ]
+      },
+      "api": {
+        "requestCount": 19347,
+        "cacheHitCount": 90,
+        "transportRetryCount": 2877,
+        "invalidOutputRetryCount": 0,
+        "protocolFailureCount": 0,
+        "inputTokens": 13326246,
+        "outputTokens": 335329,
+        "fingerprints": [
+          "aeb56401ca74e127821c4f9126dcb669"
+        ],
+        "returnedModels": [
+          "deepseek-flash"
+        ],
+        "observedCost": 1.959567,
+        "currency": "USD"
+      },
+      "protocolSha256": "df82e8ce97139c05c16cc04bd99676cda476e0bb509858a65a6f6f62a7c8ed56"
+    }
+  }
+}

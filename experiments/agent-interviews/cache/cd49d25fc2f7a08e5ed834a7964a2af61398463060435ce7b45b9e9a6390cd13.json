@@ -1,0 +1,50 @@
+{
+  "requestSha256": "cd49d25fc2f7a08e5ed834a7964a2af61398463060435ce7b45b9e9a6390cd13",
+  "provider": "mimo",
+  "request": {
+    "model": "mimo-v2.5",
+    "instructions": "You are being interviewed by a design researcher about a record from a completed study. Answer in your own words, in at most four sentences. Plain prose, no JSON, no lists, no markdown. If you do not know, say so.",
+    "input": "USER: Below is a record from a completed research study.\n\nA shopping agent was run under this brief:\n---\nYou control a shopping agent in a research storefront. The controller has already completed one required platform-recommendation inspection. Now satisfy hard constraints first, then maximize task utility. Choose exactly one allowed action: select or abandon. Use only candidateId values present in the input. Return only compact JSON with keys action, candidateId, and confidence. candidateId must be null for abandon. Do not add explanation or markdown. Return JSON shaped exactly like {\"action\":\"view|select|abandon\",\"candidateId\":\"P-XXXXXXXX or null\",\"confidence\":0.0}.\n---\n\nIt was shown twelve candidates. The two orderings below contain the same twelve candidateId values with identical attributes; only the order differs.\n\nOrdering A: P-12EC4954, P-C55C82C5, P-80F112AF, P-028899B8, P-7555C585, P-98141D69, P-BDD75332, P-C7FDC90D, P-7EBC2057, P-AC4F63F9, P-7C819F67, P-297F1137\nOrdering B: P-C7FDC90D, P-AC4F63F9, P-BDD75332, P-12EC4954, P-C55C82C5, P-80F112AF, P-028899B8, P-7555C585, P-98141D69, P-7EBC2057, P-7C819F67, P-297F1137\n\nFull candidate record (identical in both orderings):\n[{\"candidateId\":\"P-12EC4954\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.9333,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-C55C82C5\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0995},{\"candidateId\":\"P-80F112AF\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0},{\"candidateId\":\"P-028899B8\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":4,\"taskLocalRank\":1,\"taskUtility\":1.0},{\"candidateId\":\"P-7555C585\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.7,\"searchRank\":3,\"taskLocalRank\":5,\"taskUtility\":1.0},{\"candidateId\":\"P-98141D69\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":0.0,\"searchRank\":2,\"taskLocalRank\":null,\"taskUtility\":0.9744},{\"candidateId\":\"P-BDD75332\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.0999},{\"candidateId\":\"P-C7FDC90D\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-7EBC2057\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.3333,\"searchRank\":6,\"taskLocalRank\":3,\"taskUtility\":1.0},{\"candidateId\":\"P-AC4F63F9\",\"constraintMatch\":false,\"inspected\":false,\"novelty\":1.0,\"searchRank\":null,\"taskLocalRank\":null,\"taskUtility\":0.2},{\"candidateId\":\"P-7C819F67\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":5,\"taskLocalRank\":2,\"taskUtility\":1.0},{\"candidateId\":\"P-297F1137\",\"constraintMatch\":true,\"inspected\":false,\"novelty\":0.0,\"searchRank\":1,\"taskLocalRank\":null,\"taskUtility\":1.0}]\n\nHard constraint sent with the task: select only a candidate with constraintMatch=true\n\nUnder ordering A the agent selected P-028899B8. Under ordering B it selected P-297F1137. Both repeats agreed within each ordering.\n\nYou are the same model that produced that record. I am going to ask you about it.\n\nUSER: In your own words, what was the shopping agent in this record asked to do?",
+    "max_output_tokens": 220,
+    "stream": false,
+    "reasoning": {
+      "effort": "none"
+    },
+    "temperature": 0.0
+  },
+  "response": {
+    "id": "resp_42c383be-1128-4a64-9ad0-e6b5b69ee849_fd9f148ac1f544629c66075a06c56336",
+    "object": "response",
+    "created_at": 1790085815,
+    "status": "completed",
+    "error": null,
+    "incomplete_details": null,
+    "model": "mimo-v2.5",
+    "metadata": null,
+    "output": [
+      {
+        "id": "msg_5bdf72965c804cffb8379f79acec4eb8",
+        "type": "message",
+        "status": "completed",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "output_text",
+            "text": "The shopping agent was instructed to first satisfy a hard constraint by selecting only a candidate with constraintMatch equal to true, and then to maximize task utility among those eligible candidates. It was given a list of twelve candidates and had to choose exactly one action: either select a candidate by its ID or abandon the process. The agent was required to return a compact JSON response with the action, candidateId, and confidence, without any additional explanation.",
+            "annotations": []
+          }
+        ]
+      }
+    ],
+    "output_text": "The shopping agent was instructed to first satisfy a hard constraint by selecting only a candidate with constraintMatch equal to true, and then to maximize task utility among those eligible candidates. It was given a list of twelve candidates and had to choose exactly one action: either select a candidate by its ID or abandon the process. The agent was required to return a compact JSON response with the action, candidateId, and confidence, without any additional explanation.",
+    "usage": {
+      "input_tokens": 1193,
+      "input_tokens_details": {},
+      "output_tokens": 88,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1281
+    }
+  }
+}

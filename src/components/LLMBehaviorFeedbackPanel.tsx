@@ -5,7 +5,8 @@ import type {
   FeedbackBridgeSummary,
   ForcedInspectionSummary,
   InstrumentAblationEvaluation,
-  NaturalActionEvaluation
+  NaturalActionEvaluation,
+  NaturalLanguagePolicyEvaluation
 } from "../data";
 
 function interval(value: { estimate: number; ci95: [number, number] }) {
@@ -19,7 +20,9 @@ export function LLMBehaviorFeedbackPanel({
   natural,
   ablation,
   feedbackBridge,
-  feedbackAction
+  feedbackAction,
+  mimoFeedbackAction,
+  naturalLanguagePolicy
 }: {
   repair: DeterministicRepairSummary;
   forced: ForcedInspectionSummary;
@@ -28,6 +31,8 @@ export function LLMBehaviorFeedbackPanel({
   ablation: InstrumentAblationEvaluation;
   feedbackBridge: FeedbackBridgeSummary;
   feedbackAction: FeedbackActionEvaluation;
+  mimoFeedbackAction: FeedbackActionEvaluation;
+  naturalLanguagePolicy: NaturalLanguagePolicyEvaluation;
 }) {
   const mimo = natural.providers.mimo;
   const deepseek = natural.providers.deepseek;
@@ -38,8 +43,13 @@ export function LLMBehaviorFeedbackPanel({
   const v7DeepSeek = ablation.providers.deepseek.estimates;
   const v7MiMo = ablation.providers.mimo.estimates;
   const bridgeDeepSeek = feedbackBridge.groups.deepseek;
-  const downstream = feedbackAction.results["primary-feedback"];
-  const downstreamControl = feedbackAction.results["identical-control"];
+  const bridgeMiMo = feedbackBridge.groups.mimo;
+  const deepseekDownstream = feedbackAction.results["primary-feedback"];
+  const deepseekDownstreamControl = feedbackAction.results["identical-control"];
+  const mimoDownstream = mimoFeedbackAction.results["primary-feedback"];
+  const mimoDownstreamControl = mimoFeedbackAction.results["identical-control"];
+  const productDeepSeek = naturalLanguagePolicy.results.deepseek.estimates;
+  const productMiMo = naturalLanguagePolicy.results.mimo.estimates;
 
   return (
     <section className="llm-feedback-panel" aria-labelledby="llm-feedback-title">
@@ -141,40 +151,87 @@ export function LLMBehaviorFeedbackPanel({
 
       <div className="llm-feedback-ablation">
         <header>
-          <span className="mono-label">CONFIRMATORY V8 / ONE-STEP FEEDBACK CHAIN</span>
+          <span className="mono-label">CONFIRMATORY / ONE-STEP FEEDBACK CHAIN</span>
           <h4>The choice changed the next shelf—and sometimes the next choice.</h4>
           <p>
             Each V7 selection was written back to the same frozen recommender.
             The held-out chronological next event then opened a second task.
-            No task was selected because it had already diverged.
+            No task was selected because it had already diverged. A frozen
+            four-row cyclic Latin square counterbalanced the four downstream
+            calls within category, recommender, and mode strata.
           </p>
         </header>
 
         <div className="llm-feedback-repair__grid">
           <article>
-            <span>Next-shelf distance</span>
-            <strong>{bridgeDeepSeek["served-order"].slateEnergyDistance.estimate.toFixed(3)}</strong>
-            <p>95% CI {bridgeDeepSeek["served-order"].slateEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+            <span>DeepSeek / later choice</span>
+            <strong>{deepseekDownstream.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {deepseekDownstream.categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
           </article>
           <article>
-            <span>Later-choice distance</span>
-            <strong>{downstream.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
-            <p>95% CI {downstream.categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+            <span>MiMo / later choice</span>
+            <strong>{mimoDownstream.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>95% CI {mimoDownstream.categoricalEnergyDistance.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
           </article>
           <article>
-            <span>Byte-identical control</span>
-            <strong>{downstreamControl.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
-            <p>226 independently selected task-model units</p>
+            <span>Byte-identical controls</span>
+            <strong>{deepseekDownstreamControl.categoricalEnergyDistance.estimate.toFixed(3)} / {mimoDownstreamControl.categoricalEnergyDistance.estimate.toFixed(3)}</strong>
+            <p>226 units per provider; every call-position comparison was zero</p>
           </article>
           <article>
             <span>Feedback decision</span>
             <strong>Passed</strong>
-            <p>exposure, action, control, and reliability gates</p>
+            <p>exposure, action, order-balance, control, and reliability gates</p>
           </article>
         </div>
 
         <p className="llm-feedback-repair__note">
-          Served-order choices changed at least one matched next slate in {(bridgeDeepSeek["served-order"].anyMatchedSlateChangeRate.estimate * 100).toFixed(1)}% of task-model units. The later matched action-change rate was {(downstream.matchedActionChangeRate.estimate * 100).toFixed(1)}%. This is a one-step model-system feedback result, not evidence of long-run amplification or human consequences.
+          DeepSeek- and MiMo-sourced choices produced next-shelf distances of {bridgeDeepSeek["served-order"].slateEnergyDistance.estimate.toFixed(3)} and {bridgeMiMo["served-order"].slateEnergyDistance.estimate.toFixed(3)}. Later matched action-change rates were {(deepseekDownstream.matchedActionChangeRate.estimate * 100).toFixed(1)}% and {(mimoDownstream.matchedActionChangeRate.estimate * 100).toFixed(1)}%. MiMo's provider-level interval excluded zero, but its SASRec-only interval did not. This is a one-step model-system result, not evidence of long-run amplification or human consequences.
+        </p>
+      </div>
+
+      <div className="llm-feedback-ablation">
+        <header>
+          <span className="mono-label">PRODUCT-LANGUAGE EXTENSION / 64 FROZEN TASKS</span>
+          <h4>Order sensitivity survived ordinary shopping language; amplification remains unresolved.</h4>
+          <p>
+            Both providers received the same cleaned titles, brands, and prices
+            in arm-specific order. Private benchmark scores compared immediate
+            write-then-delete with holding until outcome, and a three-step replay
+            compared selected events with one deterministic matched-random
+            realization. Of 128 task-model units, 60 contained a feasible item.
+          </p>
+        </header>
+
+        <div className="llm-feedback-repair__grid">
+          <article>
+            <span>DeepSeek / order distance</span>
+            <strong>{productDeepSeek.selectionDivergence.estimate.toFixed(3)}</strong>
+            <p>95% CI {productDeepSeek.selectionDivergence.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+          </article>
+          <article>
+            <span>MiMo / order distance</span>
+            <strong>{productMiMo.selectionDivergence.estimate.toFixed(3)}</strong>
+            <p>95% CI {productMiMo.selectionDivergence.ci95.map((value) => value.toFixed(3)).join(" to ")}</p>
+          </article>
+          <article>
+            <span>Holding / success Δ</span>
+            <strong>+{productDeepSeek.heldMinusImmediateTaskSuccess.estimate.toFixed(3)} / +{productMiMo.heldMinusImmediateTaskSuccess.estimate.toFixed(3)}</strong>
+            <p>both intervals include zero</p>
+          </article>
+          <article>
+            <span>Step 3 vs random</span>
+            <strong>{productDeepSeek.multistep.step3.observedMinusRandom.estimate.toFixed(3)} / {productMiMo.multistep.step3.observedMinusRandom.estimate.toFixed(3)}</strong>
+            <p>one matched random realization</p>
+          </article>
+        </div>
+
+        <p className="llm-feedback-repair__note">
+          Selected-event point estimates did not consistently exceed this
+          random realization, but assignment uncertainty was not integrated.
+          The result establishes neither equivalence nor absence of
+          amplification. Later steps use a fixed policy, and the benchmark
+          score is not human utility.
         </p>
       </div>
 
@@ -234,8 +291,9 @@ export function LLMBehaviorFeedbackPanel({
         <p>
           Every observed cross-arm transition in V6 and V7 was a
           selected-candidate swap; none changed between selection and abandonment.
-          V8 used a held-out next-item intent proxy and derived features rather
-          than a rendered commerce shelf.
+          The confirmatory feedback endpoint used a held-out next-item proxy and
+          derived features. The product-language extension used cleaned metadata
+          but remained a small benchmark without human participants.
         </p>
         <p>
           Raw prompts, responses, item titles, reviews, and original identifiers

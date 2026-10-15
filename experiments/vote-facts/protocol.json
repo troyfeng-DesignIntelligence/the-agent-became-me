@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "vote-facts-protocol.v1",
+  "status": "frozen before any provider call",
+  "frozenDate": "2026-10-05",
+  "studyRole": "Post-study design experiments for the portfolio, run as one shuffled batch. Not part of the HAI 2026 paper.",
+  "background": "Three earlier tests changed what the agent was told or asked to do (a notice, a tie rule, a checklist); none removed the errors the shelf order caused, and DeepSeek mostly ignored added fields. On the 920 product-language shelves the order decided task success on 25 (DeepSeek) and 57 (MiMo) units. The redesign moves away from instructing the agent: (A) the platform re-asks in its own random orders before admitting a pick; (B) the shelf states each product's fit facts instead of prose only.",
+  "questions": {
+    "A-vote": "If the platform admits the served pick to the person's record only when picks in other, random orders agree, how many wrong picks does it keep out, and how many right picks does it hold?",
+    "B-facts": "If the shelf states, for each product, whether it is the requested type, has the requested attribute, and is within budget, do order-driven errors and swaps fall?"
+  },
+  "units": {
+    "source": "artifacts/check-first/units.json (920 V9 product-language shelves, rebuilt and verified 2026-09-27), re-verified against a fresh V9 rebuild on 2026-10-05.",
+    "facts": "Per product: isRequestedType = the request's product-type token is in the title tokens; hasRequestedAttribute = the attribute token is; withinBudget = no budget or price <= budget. The conjunction equals the frozen constraintMatch for every product (checked in prepare).",
+    "randomOrders": "random1, random2 = permutations of the served candidates seeded by sha256('vote-facts/<unit>/<which>'), never equal to the served order; independent of the recommender and of the person's history.",
+    "expectedCount": 920
+  },
+  "providers": {
+    "deepseek": "deepseek-v4-flash, /chat/completions, thinking disabled, temperature 0, JSON mode, max 96 output tokens; V9 system instruction verbatim",
+    "mimo": "mimo-v2.5, /responses, reasoning effort none, temperature 0, json_object, max 96 output tokens; V9 instruction verbatim"
+  },
+  "conditions": [
+    {
+      "id": "L0-none",
+      "label": "Request as in V9 (fresh baseline, plus random-order re-asks for A)",
+      "slots": ["immediate-a", "immediate-b", "held-a", "held-b", "sham-a", "sham-b", "random1-a", "random1-b", "random2-a", "random2-b"]
+    },
+    {
+      "id": "F1-facts",
+      "label": "Each product carries isRequestedType, hasRequestedAttribute, withinBudget; nothing else changes, no instruction added",
+      "slots": ["immediate-a", "immediate-b", "held-a", "held-b", "sham-a", "sham-b"]
+    }
+  ],
+  "outcomes": {
+    "A-vote": {
+      "servedPick": "immediate-a under L0 (the order the platform actually served).",
+      "policies": {
+        "P0-admitAll": "every selection is written to the record at once",
+        "P1-oneReask": "admit the served selection iff random1-a picks the same product",
+        "P2-twoReasks": "admit iff random1-a and random2-a both pick the same product"
+      },
+      "wrongPick": "a selection whose product does not satisfy every constraint (frozen V9 evaluation)",
+      "primary": "catch rate = wrong selections held / wrong selections; false-hold rate = right selections held / right selections; wrong selections written to the record.",
+      "noise": "hold rate when the re-ask is the identical served shelf (immediate-b, sham-a) instead of a random order.",
+      "abandons": "An abandon writes nothing; policies apply to selections only."
+    },
+    "B-facts": {
+      "orderSwaps": "S, with noise floor F (sham), as in check-first.",
+      "orderErrors": "U, with noise floor UF, as in check-first: the two orders' consistent picks differ in task success.",
+      "secondary": ["task success rate and mean regret (V9 rule)", "abandons, protocol failures", "drift: fresh L0 against the 2026-09-27 check-first L0 on identical requests"]
+    }
+  },
+  "analysis": {
+    "uncertainty": "Cluster bootstrap over tasks, resampled within category, both recommender families kept together. 4000 replicates, seed 20261005. Percentile 95% intervals, for counts and for rates.",
+    "seed": 20261005,
+    "pairedTest": "Exact McNemar for S and U, L0 vs F1, per provider.",
+    "pooling": "None. Each provider is read on its own."
+  },
+  "decisionRule": {
+    "A-vote": {
+      "usable": "catch rate >= 0.5 and false-hold rate <= 0.2",
+      "costly": "catch rate >= 0.5 and false-hold rate > 0.2",
+      "weak": "catch rate < 0.5"
+    },
+    "B-facts": {
+      "works": "R >= 0.5 and the 95% interval of the change against L0 lies entirely below 0",
+      "partial": "the interval lies entirely below 0 but R < 0.5",
+      "noDetectableEffect": "the interval contains 0",
+      "backfires": "the interval lies entirely above 0",
+      "appliesTo": "S and U separately, per provider"
+    }
+  },
+  "readingsWrittenBeforeRunning": {
+    "voteUsable": "The door works without the agent's cooperation: re-asking in the platform's own orders keeps most order-caused wrong picks out of the record at an acceptable cost.",
+    "voteWeak": "Most wrong picks are not order-driven; they repeat in every order, so re-asking cannot catch them. The door needs the outcome (HELD) rather than agreement.",
+    "factsWork": "The agent errs on prose, not on facts: a shelf that states what the platform already knows removes the errors order causes. Remaining swaps are ties, for the door.",
+    "factsNoEffect": "Even stated facts do not stop order from steering the pick; prevention at the shelf fails and the door carries the design.",
+    "backfires": "Reported as found; not presented as a fix."
+  },
+  "execution": {
+    "shuffleSeed": 20261005,
+    "callOrder": "All calls for a provider (920 x (10 + 6) = 14,720) shuffled together.",
+    "smokeTest": "First 5 units (sorted), both conditions; kept in the dataset.",
+    "invalidOutputPolicy": "As before: up to two retries with the retry note; a third failure is __PROTOCOL_FAILURE__.",
+    "costCap": {
+      "deepseek": 4.0,
+      "mimo": 30.0
+    },
+    "costCurrency": {
+      "deepseek": "USD",
+      "mimo": "CNY"
+    }
+  },
+  "claimBoundary": "Categorical outputs of two model versions over cleaned Amazon product titles, brands and prices in a research storefront. Fit facts are derived from frozen title tokens and prices; success and regret are benchmark measures, not human utility. Says nothing about human users, other models, other wordings, or production retailers."
+}
