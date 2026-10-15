@@ -435,13 +435,13 @@ function ProjectOwnership() {
         <div><dt>ROLE</dt><dd>Interaction designer + researcher</dd></div>
         <div><dt>TEAM</dt><dd>Solo-directed · AI-assisted execution</dd></div>
         <div><dt>OWNED</dt><dd>Framing · protocol · service logic · interface · frontend</dd></div>
-        <div><dt>OUTPUT</dt><dd>HAI poster submission · executable prototype · reproducible artifact</dd></div>
+        <div><dt>OUTPUT</dt><dd>HAI ’26 poster, accepted · executable prototype · reproducible artifact</dd></div>
       </dl>
       <p className="project-ownership__boundary">
         Project direction, claims, design decisions, and final review remain the
         applicant’s responsibility. AI assisted coding, analysis, visual exploration,
-        and QA. Identity is withheld here while the associated submission is under
-        blind review.
+        and QA. The research was published as a sole-authored poster at HAI ’26
+        (Kaiqi Feng, Tongji University).
       </p>
     </section>
   );
